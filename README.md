@@ -12,6 +12,7 @@ contain a selected software architecture or production implementation.
 - [Documentation](#documentation)
 - [Verification inventory](#verification-inventory)
 - [Development constraints](#development-constraints)
+- [Contribution workflow](#contribution-workflow)
 - [License](#license)
 
 ## Documentation
@@ -22,6 +23,7 @@ contain a selected software architecture or production implementation.
 - [NFR interview inputs](docs/requirements/training-simulation-nfr-inputs.md)
 - [Research guidance](docs/research/initial-goals-requirements-and-constraints-guidance.md)
 - [Conventional Commit Profile](docs/standards/conventional-commits.md)
+- [Git Flow](docs/standards/git-flow.md)
 
 ## Verification inventory
 
@@ -40,6 +42,13 @@ Production code targets standard C++20. First-party Python is reserved for
 repository automation, build, content-pipeline, verification, and maintenance
 scripts. The canonical constraints and acceptance gates are defined in the
 initial requirements.
+
+## Contribution workflow
+
+The repository uses Git Flow with `main` as the release branch and `develop`
+as the integration branch. All commit messages follow the repository's
+Conventional Commit profile and all integrated commits must be signed. See
+[Git Flow](docs/standards/git-flow.md) for branch and integration rules.
 
 ## License
 

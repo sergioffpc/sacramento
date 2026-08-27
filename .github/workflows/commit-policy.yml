@@ -1,0 +1,42 @@
+name: Commit policy
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  conventional-commits:
+    name: Conventional commits
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out pull-request head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Validate pull-request title
+        env:
+          COMMIT_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          message_file="$(mktemp)"
+          trap 'rm -f "$message_file"' EXIT
+          printf '%s\n' "$COMMIT_TITLE" > "$message_file"
+          python3 scripts/validate_commit_message.py "$message_file"
+
+      - name: Validate every commit
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          message_file="$(mktemp)"
+          trap 'rm -f "$message_file"' EXIT
+          for commit in $(git rev-list "$BASE_SHA..$HEAD_SHA"); do
+            git log -1 --format=%B "$commit" > "$message_file"
+            python3 scripts/validate_commit_message.py "$message_file"
+          done

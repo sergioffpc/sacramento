@@ -25,6 +25,7 @@ Source baseline: [Conventional Commits 1.0.0](https://www.conventionalcommits.or
 - [Body and footers](#body-and-footers)
 - [Breaking changes](#breaking-changes)
 - [Integration](#integration)
+- [Git Flow compatibility](#git-flow-compatibility)
 - [Examples](#examples)
 - [Definition of done](#definition-of-done)
 
@@ -91,6 +92,13 @@ must use uppercase `BREAKING CHANGE` and a non-empty description.
 - Bypassing a local hook does not bypass the remote gate.
 - Integration must not create an automatic non-conforming merge message.
 - Squash and rebase results use a conforming final message.
+
+## Git Flow compatibility
+
+The branch lifecycle is defined by [Git Flow](git-flow.md). Pull-request titles
+must pass the same header validation as commits. This ensures that squash
+integration creates a conforming commit. Generated merge messages are not an
+exception to this profile.
 
 ## Examples
 
