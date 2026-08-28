@@ -1,6 +1,8 @@
 # Training Simulation Verification Plan
 
-Status: Authentication and Authorization Delta Reviewed; Approval Ready
+Status: Approved
+
+Approval: Project owner, 2026-08-28
 
 Canonical language: English
 
@@ -695,4 +697,4 @@ The same inventory is the identifier-level Representative Evaluation applicabili
 
 This plan is complete when every normative identifier in the initial requirements baseline has an explicit ambiguity-review disposition, primary verification method, required evidence, evidence owner, and final approver; every accepted ambiguity correction is reflected in the canonical requirement; conflicts and unverifiable obligations are resolved or explicitly deferred; and no assignment makes the separate NFR inputs normative.
 
-Current completion state: all conditions are satisfied for the complete functional baseline, including the independently reviewed Authentication and authorization delta. Every identifier is incorporated into the generated inventory, and the plan is ready for project-owner approval.
+Current completion state: all conditions are satisfied for the complete functional baseline, including the independently reviewed Authentication and authorization delta. Every identifier is incorporated into the generated inventory, and the project owner approved this verification plan on 2026-08-28.
