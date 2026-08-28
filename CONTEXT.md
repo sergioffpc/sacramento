@@ -65,7 +65,7 @@ A versioned record of represented behavior or data whose scope, reference condit
 _Avoid_: Tuning preset, provisional values, undocumented configuration
 
 **AUTH Attempt**:
-One finite initial-admission or continuity attempt whose stable identity, exact nested AUTH Operations, validator roles, start, terminal result, cancellation propagation, and supersession behavior are declared by the AUTH Operation Inventory.
+One finite runtime initial-admission, continuity, lifecycle, or audit-recovery attempt with one unique instance identifier and one stable class key whose exact nested AUTH Operations, validator roles, start, terminal result, cancellation propagation, and supersession behavior are declared by the AUTH Operation Inventory.
 _Avoid_: Network connection, retry, individual proof check, unbounded login process
 
 **AUTH Audit Checkpoint**:
@@ -93,7 +93,7 @@ One ordered retained continuity epoch within a host's closed chain of current an
 _Avoid_: Unordered log files, mutable event list, gameplay timeline
 
 **AUTH Data Inventory**:
-The approved, versioned, and closed classification of every internally produced AUTH field by purpose, producer, consumer, persistence, lifetime, cleanup event, and governing requirement.
+The approved, versioned, and closed classification of every externally provisioned AUTH package payload and internally produced AUTH field by purpose, source or producer, permitted host-role recipient, consumer, persistence, lifetime, cleanup event, and governing requirement.
 _Avoid_: Evidence-format catalogue, runtime schema, undeclared telemetry, open metadata bag
 
 **AUTH Denial Category**:
@@ -101,11 +101,11 @@ One of the closed generic outcomes disclosed to a requesting client when AUTH ca
 _Avoid_: Exact rejection reason, diagnostic trace, silent disconnect
 
 **AUTH Operation**:
-One independently resolved authentication, authorization, admission, claim-validation, device-continuity-validation, lifecycle, or audit-recovery action nested in exactly one AUTH Attempt or declared as a standalone recovery action.
+One independently resolved runtime authentication, authorization, admission, claim-validation, device-continuity-validation, lifecycle, or audit-recovery action with one unique instance identifier and one stable class key, nested in exactly one AUTH Attempt.
 _Avoid_: Entire network connection, implicit validation step, gameplay action
 
 **AUTH Operation Inventory**:
-The approved, versioned, and closed inventory of AUTH Attempt classes and AUTH Operations, including stable keys, nesting, validators, purposes, start and terminal events, supersession, cancellation propagation, required audit classes, and permitted effects.
+The approved, versioned, and closed inventory of AUTH Attempt and AUTH Operation classes, including stable class keys, nesting, validators, purposes, start and terminal events, supersession, cancellation propagation, audit classification, required audit classes for audited rows, and permitted effects.
 _Avoid_: Runtime call graph, protocol specification, incomplete list of authentication steps
 
 **AUTH Permission**:
@@ -173,7 +173,7 @@ The identity of the computer operating a Trainee client, distinct from the ident
 _Avoid_: Trainee Identity, connection, network address, Session Continuity Claim
 
 **Continuity Validation Outcome Catalogue**:
-The approved, versioned, and closed table assigning one exact terminal result and lifecycle disposition to every combination of Session Continuity Claim, Device Continuity Proof, audit commit, cancellation, connection, supersession, and deadline outcomes.
+The approved, versioned, and closed shared Identity Validation Package artifact assigning one exact terminal result and lifecycle disposition to every combination of Session Continuity Claim, Device Continuity Proof, protected-exchange integrity and binding, audit commit, cancellation, connection, supersession, and deadline outcomes.
 _Avoid_: Claim-only acceptance, implicit retry behavior, partial reconnection success
 
 **Conventional Commit Profile**:
@@ -241,7 +241,7 @@ The approved, versioned, and closed inventory of supported identity classes, evi
 _Avoid_: Dynamic format discovery, open evidence parser, implementation behavior as specification
 
 **Identity Validation Package**:
-The externally provisioned, versioned release containing one closed Trainee Client manifest and one closed Session Authority manifest, with shared approved artifact versions and only the role-applicable non-secret dependencies required on each host.
+The externally provisioned, versioned release defining one closed Trainee Client manifest and one closed Session Authority manifest plus shared approved non-sensitive artifacts, from which each host receives and retains only its applicable role manifest and those shared artifacts.
 _Avoid_: Server-downloaded trust data, dynamic validation dependency, local identity database
 
 **Initial Start Condition Set**:

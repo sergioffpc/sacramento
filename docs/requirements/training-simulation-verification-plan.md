@@ -1,12 +1,12 @@
 # Training Simulation Verification Plan
 
-Status: Authentication and Authorization Delta Pending Review
+Status: Authentication and Authorization Delta Reviewed; Approval Ready
 
 Canonical language: English
 
 Canonical information owner: Project owner
 
-Review coverage: Accepted verification decisions through Q308. The previously reviewed baseline remains preserved; requirements added or changed by the Authentication and authorization interview beginning at AUTH-Q1 require delta review.
+Review coverage: Accepted verification decisions through Q308 plus the complete independently reviewed Authentication and authorization delta beginning at AUTH-Q1. No verification-assignment frontier remains open.
 
 Purpose: Define how the accepted initial requirements are reviewed for ambiguity and assigned finite verification procedures, evidence, and responsibilities.
 
@@ -261,7 +261,7 @@ For the current baseline, each assignment-table method cell is the reviewed accu
 | `ASSUMPTION-AUTH-AUDIT-CHECKPOINT-001`, `ASSUMPTION-AUTH-DEVICE-CONTROL-001`, `ASSUMPTION-AUTH-HUMAN-CONTINUITY-001`, `ASSUMPTION-AUTH-IDENTITY-AUTHORITY-001` | Inspection | None | Assumption wording, exact audit-checkpoint, external-authority, human-continuity and reconnection trust boundaries, accepted threat limitations, and traceability to governing identity, audit, Admission, claim and Device Continuity Proof requirements without treating an assumption as a guaranteed security outcome | Implementation team | Project owner |
 | `REQ-TEAM-001` through `REQ-SESSION-COUNTDOWN-004` | Automated Test, Inspection | Demonstration for complete preparation/start flows | Obligation-level positive, negative, boundary and concurrency cases covering Teams, positions, Loadouts, Spawn Transforms, readiness, authoritative timing, cancellation and start; exact Scenario configuration and canonical transition traces | Implementation team | Project owner |
 | `REQ-SESSION-CONNECTION-001` through `REQ-SESSION-RESUME-READY-LOSS-001` | Automated Test, Inspection | Demonstration | Connection, admission, claim, Technical Pause, recovery, restoration, deadline, cleanup and sequential-recovery matrices with exact canonical states, identities and Operational Clock boundaries | Implementation team | Project owner |
-| `REQ-AUTH-SUBJECT-001` through `SCOPE-AUTH-CREDENTIAL-RECOVERY-001` | Automated Test, Analysis, Inspection | Demonstration | Exact Identity Validation Package, catalogue, Identity Authority, issuer, evidence, profile, permission, assertion, revocation, trusted-time, rule-set and audit-policy versions; mutual proof and protected-exchange transcripts; positive, missing, malformed, mismatched, expired, revoked, replayed, copied, concurrent, cancelled, duplicate and cross-binding cases; admission atomicity and lifecycle traces; generic-denial leakage comparisons; claim and transient-data handling; complete audit records, sequences, checkpoints, retention, write-failure and recovery results; and confirmation that NFR measurements and external operational assumptions are not silently treated as functional evidence | Implementation team and Qualified Specialists for identity-security evidence | Project owner |
+| `REQ-AUTH-SUBJECT-001` through `SCOPE-AUTH-CREDENTIAL-RECOVERY-001` | Automated Test, Analysis, Inspection | Demonstration | Exact role-specific Identity Validation Package, Identity Evidence and Continuity Validation Outcome catalogue, Identity Authority, issuer, evidence, profile, permission, assertion, revocation, trusted-time, rule-set and audit-policy versions; attempt and operation class-key plus unique-instance traces; mutual proof and protected-exchange transcripts; positive, missing, malformed, mismatched, expired, revoked, replayed, copied, concurrent, cancelled, duplicate, exchange-invalidated and cross-binding cases; Admission atomicity and lifecycle traces; terminal disclosure-disposition coverage; locally known and authority-only claim invalidation handling; transient-data handling; complete audit records, incomplete-commit metadata, sequences, checkpoints, retention, write-failure and recovery results; and confirmation that NFR measurements and external operational assumptions are not silently treated as functional evidence | Implementation team and Qualified Specialists for identity-security evidence | Project owner |
 | `REQ-VOLUNTARY-LEAVE-001` through `REQ-SCENARIO-RECONFIGURE-001` | Automated Test, Inspection | Demonstration for complete session flows | Voluntary and normal termination, repetition, fresh-state, Scenario/Map relationship, objective, duration, single-session hosting, selection and local-reconfiguration cases with configured inputs and canonical outcomes | Implementation team | Project owner |
 | `REQ-BRIEFING-001` through `REQ-STATE-CONSISTENCY-001` | Automated Test, Inspection | Demonstration where a complete operational or access-mode flow applies | Briefing, navigation, identification, Diegetic Presentation, Desktop/VR input, action resource/concurrency and authority-state cases, including prohibited information and non-authoritative client outcomes | Implementation team | Project owner |
 | `REQ-VOICE-CHANNEL-001` through `REQ-POST-INCAPACITY-VOICE-001` | Automated Test, Analysis, Inspection | Demonstration for end-to-end communication flows | Channel, radio possession/capture, push-to-talk, simultaneous reception, propagation, obstruction, damage, energy, Hand Signal and post-incapacity communication cases; approved profiles, controlled geometry, canonical media state and leakage checks | Implementation team | Project owner |
@@ -281,7 +281,7 @@ For the current baseline, each assignment-table method cell is the reviewed accu
 | `NON-GOAL-ACCOUNT-001` through `NON-GOAL-ACCESSORY-THERMAL-HANDLING-001` | Inspection | None | Baseline scope inspection confirming that no non-goal is required, claimed as accepted, or used as an unstated prerequisite | Implementation team | Project owner |
 | `DEFERRED-INSTRUCTOR-001` through `DEFERRED-MELEE-RESTRAINT-001` | Inspection | None | Baseline scope inspection confirming that each deferred capability remains outside acceptance except for explicitly stated current-scope boundaries such as possession-based continuity | Implementation team | Project owner |
 | `PROCESS-VERIFICATION-METHOD-001` through `PROCESS-BASELINE-SCOPE-001` | Inspection, Analysis | None | Clause-level process records, decision tables and mutation cases establishing method accumulation, evidence schema, obligation dispositions, dependency/change handling, evaluator controls, ambiguity coverage and baseline gates | Implementation team and Representative Evaluators where the process assigns them | Project owner |
-| `AMBIGUITY-RECONNECT-IDENTITY-001` through `AMBIGUITY-AUTH-PACKAGE-ROLE-CONTENT-001` | Inspection | None | Finding-by-finding disposition, exact canonical correction trace, independent-review result, and confirmation that no `Resolved` finding retains an unresolved blocker | Implementation team | Project owner |
+| `AMBIGUITY-RECONNECT-IDENTITY-001` through `AMBIGUITY-AUTH-DENIAL-UNDELIVERABLE-001` | Inspection | None | Finding-by-finding disposition, exact canonical correction trace, independent-review result, and confirmation that no `Resolved` finding retains an unresolved blocker | Implementation team | Project owner |
 | `PROCESS-ASSIGNMENT-RANGE-001` through `PROCESS-ASSIGNMENT-RANGE-004` | Automated Test, Inspection | None | Exact source versions and ordered range expansions; accumulated methods/evidence/owners/approvers for overlapping broad, narrow and default assignments; insertion/removal/reordering impact cases; and rejection of silent override without a valid Verification Method Exception | Implementation team | Project owner |
 | `PROCESS-TRACEABILITY-001`, `PROCESS-TRACEABILITY-INVENTORY-001` through `PROCESS-TRACEABILITY-INVENTORY-003` | Inspection, Analysis | None | Versioned Baseline Artifact Inventory reconciled against complete authoritative architecture, design, implementation and verification repositories or registries; artifact metadata; stable-ID, non-applicability or deferral traces; missing/stale/unclassified negative cases; and exact-version project-owner approval | Implementation team | Project owner |
 | `CONSTRAINT-ACTION-SCOPE-001` | Inspection, Analysis, Representative Evaluation | None | Complete exposed-action inventory reconciliation; stable action metadata and requirement traces; approved pre-admission Training Need Records with activity, outcome, scope and rationale; structured findings that each admitted action has a valid military training purpose; and rejection of missing, unapproved, untraced or entertainment-only actions | Implementation team and Representative Evaluators | Project owner |
@@ -611,58 +611,88 @@ The same inventory is the identifier-level Representative Evaluation applicabili
 
 **AMBIGUITY-NON-GOAL-ENVIRONMENT-THROW-001** — `Resolved; independent review passed`. Deliberate environment-object Throw is disabled in every row; ordinary release/drop adds no commanded impulse and retains only velocity produced within admitted manipulation bounds or by external forces.
 
-**AMBIGUITY-AUTH-CONTINUITY-ATOMICITY-001** — `Resolved; independent re-review pending`. A closed composite outcome catalogue makes claim, proof, audit, cancellation, connection, supersession and deadline combinations finite; no lifecycle effect or claim rotation occurs before complete success.
+**AMBIGUITY-AUTH-CONTINUITY-ATOMICITY-001** — `Resolved; independent re-review passed`. A closed composite outcome catalogue makes claim, proof, audit, cancellation, connection, supersession and deadline combinations finite; no lifecycle effect or claim rotation occurs before complete success.
 
-**AMBIGUITY-AUTH-ADMISSION-RECONNECTION-BINDING-001** — `Resolved; independent re-review pending`. Composite success atomically rebinds the same stable Admission to one recovered connection, preserves identity bindings, and invalidates the preceding connection binding.
+**AMBIGUITY-AUTH-ADMISSION-RECONNECTION-BINDING-001** — `Resolved; independent re-review passed`. Composite success atomically rebinds the same stable Admission to one recovered connection, preserves identity bindings, and invalidates the preceding connection binding.
 
-**AMBIGUITY-AUTH-DEVICE-CONTINUITY-RESTART-001** — `Resolved; independent re-review pending`. The same admitted computer must recover both the claim and all protected state required for Device Continuity Proof after a client-process restart during the window.
+**AMBIGUITY-AUTH-DEVICE-CONTINUITY-RESTART-001** — `Resolved; independent re-review passed`. The same admitted computer must recover both the claim and all protected state required for Device Continuity Proof after a client-process restart during the window.
 
-**AMBIGUITY-AUTH-ADMISSION-TERMINATION-001** — `Resolved; independent re-review pending`. Recovery termination retains connected Admissions and atomically ends every disconnected or suspended Admission.
+**AMBIGUITY-AUTH-ADMISSION-TERMINATION-001** — `Resolved; independent re-review passed`. Recovery termination retains connected Admissions and atomically ends every disconnected or suspended Admission.
 
-**AMBIGUITY-AUTH-ATTEMPT-OPERATION-DOMAIN-001** — `Resolved; independent re-review pending`. AUTH Attempt and AUTH Operation have closed identities, nesting, lifecycle, supersession, cancellation, audit and effect rules in an approved inventory.
+**AMBIGUITY-AUTH-ATTEMPT-OPERATION-DOMAIN-001** — `Resolved; independent re-review passed`. Initial-admission, continuity, lifecycle and audit-recovery AUTH Attempt classes and their nested operations have closed identities, lifecycle, supersession, cancellation, audit and effect rules in an approved inventory.
 
-**AMBIGUITY-AUTH-IDENTITY-EQUALITY-001** — `Resolved; independent re-review pending`. Every successful validation emits one Canonical Identity Key under catalogue-defined normalization and all equality, binding and uniqueness decisions use it.
+**AMBIGUITY-AUTH-IDENTITY-EQUALITY-001** — `Resolved; independent re-review passed`. Every successful validation emits one Canonical Identity Key under catalogue-defined normalization and all equality, binding and uniqueness decisions use it.
 
-**AMBIGUITY-AUTH-PACKAGE-ADMISSION-001** — `Resolved; independent re-review pending`. Candidate packages have exhaustive component, role, dependency, requirement and retained-history reconciliation, exact approval, atomic activation and retained version history.
+**AMBIGUITY-AUTH-PACKAGE-ADMISSION-001** — `Resolved; independent re-review passed`. Candidate packages have exhaustive component, role, dependency, requirement and retained-history reconciliation, exact approval, atomic activation and retained version history.
 
-**AMBIGUITY-AUTH-AUTHORIZATION-RULE-APPLICABILITY-001** — `Resolved; independent re-review pending`. Rule-set rows now declare client or authority validator applicability while the Session Authority remains sole final Admission decision authority.
+**AMBIGUITY-AUTH-AUTHORIZATION-RULE-APPLICABILITY-001** — `Resolved; independent re-review passed`. Rule-set rows now declare client or authority validator applicability while the Session Authority remains sole final Admission decision authority.
 
-**AMBIGUITY-AUTH-AUDIT-ATOMIC-COMMIT-001** — `Resolved; independent re-review pending`. One atomic Audit Commit Unit contains the settled final record and required integrity references before an AUTH effect; incomplete commits have explicit failure and recovery treatment.
+**AMBIGUITY-AUTH-AUDIT-ATOMIC-COMMIT-001** — `Resolved; independent re-review passed`. One atomic Audit Commit Unit contains the settled final record and required integrity references before any granting AUTH effect; incomplete commits have explicit fail-closed, cleanup and recovery treatment.
 
-**AMBIGUITY-AUTH-AUDIT-RETENTION-INTEGRITY-001** — `Resolved; independent re-review pending`. The approved integrity profile distinguishes authorized expiry and rollover from unauthorized mutation and preserves verifiable boundaries.
+**AMBIGUITY-AUTH-AUDIT-RETENTION-INTEGRITY-001** — `Resolved; independent re-review passed`. The approved integrity profile distinguishes authorized expiry and rollover from unauthorized mutation and preserves verifiable boundaries.
 
-**AMBIGUITY-AUTH-AUDIT-DEPENDENCY-RETENTION-001** — `Resolved; independent re-review pending`. Every non-secret dependency needed to interpret retained records or validate checkpoints remains versioned and available through its governed expiry.
+**AMBIGUITY-AUTH-AUDIT-DEPENDENCY-RETENTION-001** — `Resolved; independent re-review passed`. Every non-secret dependency needed to interpret retained records or validate checkpoints remains versioned and available through its governed expiry.
 
-**AMBIGUITY-AUTH-DENIAL-PRECEDENCE-001** — `Resolved; independent re-review pending`. An ordered exhaustive mapping gives pre-processing audit unavailability precedence and assigns every terminal outcome exactly one generic category.
+**AMBIGUITY-AUTH-DENIAL-PRECEDENCE-001** — `Resolved; independent re-review passed`. An ordered exhaustive mapping assigns every terminal outcome exactly one generic category or the closed `No Denial Disclosure` disposition, including audit unavailability and unavailable response channels.
 
-**AMBIGUITY-AUTH-TRANSIENT-CLEANUP-TIMING-001** — `Resolved; independent re-review pending`. Success, failure, cancellation and audit-commit failure now have separate exact cleanup gates and a closed retained-field population.
+**AMBIGUITY-AUTH-TRANSIENT-CLEANUP-TIMING-001** — `Resolved; independent re-review passed`. Success, failure, cancellation and audit-commit failure now have separate exact cleanup gates and a closed retained-field population.
 
-**AMBIGUITY-AUTH-AUDIT-MECHANISM-001** — `Resolved; independent re-review pending`. Audit grouping, checkpoint granularity, continuity and integrity mechanisms move into an approved outcome profile; requirements state detection and evidence outcomes rather than a storage or cryptographic design.
+**AMBIGUITY-AUTH-AUDIT-MECHANISM-001** — `Resolved; independent re-review passed`. Audit grouping, checkpoint granularity, continuity and integrity mechanisms move into an approved outcome profile; requirements state detection and evidence outcomes rather than a storage or cryptographic design.
 
-**AMBIGUITY-AUTH-AUDIT-RETENTION-BOUNDARY-001** — `Resolved; independent re-review pending`. Retention is strictly positive and policy rows define logical and physical expiry, restart, unavailable-time, uncertainty and catch-up behavior without early or indefinite silent disposition.
+**AMBIGUITY-AUTH-AUDIT-RETENTION-BOUNDARY-001** — `Resolved; independent re-review passed`. Retention is strictly positive and policy rows define logical and physical expiry, restart, unavailable-time, uncertainty and catch-up behavior without early or indefinite silent disposition.
 
-**AMBIGUITY-AUTH-CLAIM-OFFLINE-CLEANUP-001** — `Resolved; independent re-review pending`. Authority invalidation is immediate; an offline client must erase or disable its local claim at first execution or observation and before any later use.
+**AMBIGUITY-AUTH-CLAIM-OFFLINE-CLEANUP-001** — `Resolved; independent re-review passed`. Authority invalidation is immediate; locally knowable invalidation prevents presentation, while an unknowable authority-side invalidation permits only one ordinary attempt followed by conservative cleanup on terminal non-success.
 
-**AMBIGUITY-AUTH-AUDIT-LIFECYCLE-COVERAGE-001** — `Resolved; independent re-review pending`. The closed operation inventory classifies every Admission and claim lifecycle transition as Audited or explicitly Not Audited with approved rationale.
+**AMBIGUITY-AUTH-AUDIT-LIFECYCLE-COVERAGE-001** — `Resolved; independent re-review passed`. The closed operation inventory classifies every Admission and claim lifecycle transition as Audited or explicitly Not Audited with approved rationale.
 
-**AMBIGUITY-AUTH-REVOCATION-STATUS-PRECEDENCE-001** — `Resolved; independent re-review pending`. Exactly one temporally applicable status is permitted per bound item; missing, overlapping or conflicting statuses reject the item.
+**AMBIGUITY-AUTH-REVOCATION-STATUS-PRECEDENCE-001** — `Resolved; independent re-review passed`. Exactly one temporally applicable status is permitted per bound item; missing, overlapping or conflicting statuses reject the item.
 
-**AMBIGUITY-AUTH-PACKAGE-TRUST-BOOTSTRAP-001** — `Resolved; independent re-review pending`. Each host receives an independently provisioned, baseline-bound Package Trust Reference and cannot use package contents to validate their own trust root.
+**AMBIGUITY-AUTH-PACKAGE-TRUST-BOOTSTRAP-001** — `Resolved; independent re-review passed`. Each host receives an independently provisioned, baseline-bound Package Trust Reference and cannot use package contents to validate their own trust root.
 
-**AMBIGUITY-AUTH-DATA-MINIMIZATION-SCOPE-001** — `Resolved; independent re-review pending`. External evidence fields remain catalogue-limited while a closed AUTH Data Inventory governs every internal field's purpose, producer, consumer and lifetime.
+**AMBIGUITY-AUTH-DATA-MINIMIZATION-SCOPE-001** — `Resolved; independent re-review passed`. External evidence fields remain catalogue-limited while a closed AUTH Data Inventory governs every externally provisioned package payload and internal field by purpose, role applicability, source or producer, consumer and lifetime.
 
-**AMBIGUITY-AUTH-AUDIT-SCHEMA-APPLICABILITY-001** — `Resolved; independent re-review pending`. A per-record-class schema assigns every candidate field Required Current Input, Required Retained Reference, or Not Applicable without triggering forbidden revalidation.
+**AMBIGUITY-AUTH-AUDIT-SCHEMA-APPLICABILITY-001** — `Resolved; independent re-review passed`. A per-record-class schema assigns every candidate field Required Current Input, Required Retained Reference, or Not Applicable without triggering forbidden revalidation.
 
-**AMBIGUITY-AUTH-AUDIT-SEQUENCE-ROLLOVER-001** — `Resolved; independent re-review pending`. Each host has one current append target and a closed ordered chain of retained epochs with explicit rollover, discontinuity, expiry and checkpoint boundaries.
+**AMBIGUITY-AUTH-AUDIT-SEQUENCE-ROLLOVER-001** — `Resolved; independent re-review passed`. Each host has one current append target and a closed ordered chain of retained epochs with explicit rollover, discontinuity, expiry and checkpoint boundaries.
 
-**AMBIGUITY-AUTH-PACKAGE-ROLE-CONTENT-001** — `Resolved; independent re-review pending`. One release contains exact role-specific manifests sharing all governing artifact versions while each retains only its role-applicable inputs and fields.
+**AMBIGUITY-AUTH-PACKAGE-ROLE-CONTENT-001** — `Resolved; independent re-review passed`. One release contains exact role-specific manifests sharing all governing artifact versions while each retains only its role-applicable inputs and fields.
+
+**AMBIGUITY-AUTH-DENIAL-TERMINAL-DOMAIN-001** — `Resolved; independent re-review passed`. Every initial-admission, continuity, lifecycle and audit-recovery terminal AUTH Attempt and refusal receives exactly one disclosure disposition; success, requester cancellation without an independent failure and non-client lifecycle outcomes produce `No Denial Disclosure` unless a higher-precedence audit condition applies.
+
+**AMBIGUITY-AUTH-CONTINUITY-EXCHANGE-COVERAGE-001** — `Resolved; independent re-review passed`. Exchange protection remains mandatory through composite continuity commit, and every exchange-binding or integrity invalidator is a closed catalogue dimension producing no continuity effect.
+
+**AMBIGUITY-AUTH-RECONNECT-EXPIRY-GATE-001** — `Resolved; independent re-review passed`. Reconnection-window expiry tests composite continuity success rather than individual claim and proof validation.
+
+**AMBIGUITY-AUTH-AUDIT-FAILURE-EFFECT-001** — `Resolved; independent re-review passed`. Audit-commit failure blocks granting effects while still requiring terminal failure or cancellation, invalidation, cleanup, generic denial when deliverable, and profile-governed incomplete-commit recovery metadata.
+
+**AMBIGUITY-AUTH-CLAIM-OFFLINE-DISCOVERY-001** — `Resolved; independent re-review passed`. Locally knowable invalidation causes pre-presentation cleanup; after presenting a claim whose authority-only invalidation could not be known locally, any generic terminal non-success causes conservative local cleanup without a reason-specific response.
+
+**AMBIGUITY-AUTH-CONTINUITY-CATALOGUE-LIFECYCLE-001** — `Resolved; independent re-review passed`. The Continuity Validation Outcome Catalogue is a shared package artifact bound to each Admission, reconciled with governing requirements, changed only through package replacement, and retained with its dependencies while referenced.
+
+**AMBIGUITY-AUTH-PACKAGE-ROLE-RETENTION-001** — `Resolved; independent re-review passed`. Each host receives and retains only its role manifest plus explicitly shared non-sensitive artifacts, and the AUTH Data Inventory governs externally provisioned payloads by host role and finite lifetime.
+
+**AMBIGUITY-AUTH-ATTEMPT-INSTANCE-IDENTITY-001** — `Resolved; independent re-review passed`. Inventory class keys are distinct from unique runtime attempt and operation instance identifiers, and every challenge, proof, decision, effect and retained audit reference binds both without unsafe identifier reuse.
+
+**AMBIGUITY-AUTH-OPERATION-AUDIT-CLASSIFICATION-001** — `Resolved; independent re-review passed`. Every operation-inventory row has an audit classification, while only an `Audited` row identifies a record class and producer and a `Not Audited` row produces no record.
+
+**AMBIGUITY-AUTH-TRANSIENT-CONTINUITY-CLEANUP-001** — `Resolved; independent re-review passed`. Successful initial Admission, continuity, lifecycle and audit-recovery attempts plus failed, cancelled and failed-audit-commit outcomes each have one exact inventory-assigned cleanup boundary, including explicit no-transient-data rows.
+
+**AMBIGUITY-AUTH-ADMISSION-KEY-001** — `Resolved; independent re-review passed`. Each Admission receives an identifier unique within its Session Authority Identity domain that cannot be reused while any bound live or retained artifact exists.
+
+**AMBIGUITY-AUTH-CHALLENGE-TERMINAL-SCOPE-001** — `Resolved; independent re-review passed`. A challenge becomes invalid at the terminal event of its exact owning AUTH Operation, with enclosing-attempt cancellation and supersession propagated separately.
+
+**AMBIGUITY-AUTH-PACKAGE-HISTORY-RETENTION-001** — `Resolved; independent re-review passed`. Package approval and activation history is project verification evidence rather than a runtime AUTH field; runtime package and catalogue dependencies retain exact event-bounded lifetimes through their last Admission and audit dependencies.
+
+**AMBIGUITY-AUTH-CLAIM-STATUS-DENIAL-LEAKAGE-001** — `Resolved; independent re-review passed`. The client receives no claim-specific status oracle; an ordinary generic terminal failure after claim presentation causes local cleanup without disclosing whether the claim was current.
+
+**AMBIGUITY-AUTH-DENIAL-UNDELIVERABLE-001** — `Resolved; independent re-review passed`. A terminal outcome with no remaining protected response channel has `No Denial Disclosure`, retains its local audit disposition, and never queues a reason-bearing response into another attempt.
 
 ## Open review questions
 
-- Complete ambiguity review and verification assignment for the Authentication and authorization delta after its interview frontier closes.
+- None.
 
 ## Definition of done
 
 This plan is complete when every normative identifier in the initial requirements baseline has an explicit ambiguity-review disposition, primary verification method, required evidence, evidence owner, and final approver; every accepted ambiguity correction is reflected in the canonical requirement; conflicts and unverifiable obligations are resolved or explicitly deferred; and no assignment makes the separate NFR inputs normative.
 
-Current completion state: all conditions remain satisfied for the previously reviewed baseline. The plan cannot return to approval readiness until the open Authentication and authorization delta is complete, reviewed, assigned, and incorporated into the generated inventory.
+Current completion state: all conditions are satisfied for the complete functional baseline, including the independently reviewed Authentication and authorization delta. Every identifier is incorporated into the generated inventory, and the plan is ready for project-owner approval.
