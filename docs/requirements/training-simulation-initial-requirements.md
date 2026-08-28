@@ -1,6 +1,8 @@
 # Training Simulation Initial Requirements
 
-Status: Authentication and Authorization Review Complete; Functional Baseline Approval Ready
+Status: Approved Functional Baseline
+
+Approval: Project owner, 2026-08-28
 
 Canonical language: English
 
@@ -2121,4 +2123,4 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 
 This draft is ready for approval only when the functional interview frontier is empty, every open functional question is resolved or explicitly deferred, every critical requirement passes independent ambiguity review, and the user confirms shared understanding.
 
-Current completion state: the functional interview frontier is empty, including Authentication and authorization; every identified ambiguity has a resolved disposition, the complete AUTH delta passed independent review, and every identifier has a verification assignment. The draft is ready for the project owner's final functional-baseline approval.
+Current completion state: the functional interview frontier is empty, including Authentication and authorization; every identified ambiguity has a resolved disposition, the complete AUTH delta passed independent review, every identifier has a verification assignment, and the project owner approved this functional baseline on 2026-08-28.
