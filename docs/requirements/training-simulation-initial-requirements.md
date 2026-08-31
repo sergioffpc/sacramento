@@ -4,6 +4,8 @@ Status: Approved Functional Baseline
 
 Approval: Project owner, 2026-08-28
 
+Latest approved amendment: C++23 target, project owner, 2026-08-31
+
 Canonical language: English
 
 Canonical information owner: Project owner
@@ -2024,7 +2026,7 @@ The accepted team-size and maintainability target is preserved only as a non-nor
 
 **CONSTRAINT-LANGUAGE-001** — English MUST be canonical for persistent requirements, design, architecture, ADRs, glossary terms, code identifiers, and code comments.
 
-**CONSTRAINT-CPP-VERSION-001** — All first-party production Training Simulation and Simulation Engine source code and libraries MUST target standard C++20 and MUST NOT require a later language version or non-standard compiler extension; repository automation, build, content-pipeline, verification, and maintenance scripts MAY use another language.
+**CONSTRAINT-CPP-VERSION-001** — All first-party production Training Simulation and Simulation Engine source code and libraries MUST target standard C++23 and MUST NOT require a later language version or non-standard compiler extension; repository automation, build, content-pipeline, verification, and maintenance scripts MAY use another language.
 
 **CONSTRAINT-CPP-STYLE-001** — Before first-party C++ source is admitted, the project owner MUST approve one exact Project C++ Style Profile based substantially on the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) and maintained as a self-contained repository artifact; it MUST enumerate every adopted rule, explicit deviation, applicability boundary, automatic check, and non-automatable review obligation without requiring the live external document to determine compliance.
 

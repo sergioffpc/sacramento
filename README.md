@@ -38,7 +38,7 @@ Do not edit the generated CSV manually.
 
 ## Development constraints
 
-Production code targets standard C++20. First-party Python is reserved for
+Production code targets standard C++23. First-party Python is reserved for
 repository automation, build, content-pipeline, verification, and maintenance
 scripts. The canonical constraints and acceptance gates are defined in the
 initial requirements.
