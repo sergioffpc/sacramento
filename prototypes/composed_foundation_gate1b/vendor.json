@@ -15,7 +15,7 @@
     "cuda": false,
     "nvapi": false,
     "optix": false,
-    "python": false,
+    "python": true,
     "vulkan": true
   },
   "packman": {

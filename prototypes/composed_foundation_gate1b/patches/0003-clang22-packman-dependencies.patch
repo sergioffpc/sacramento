@@ -1,0 +1,26 @@
+diff --git a/chk/falcor_dependencies/f80dd590-windows-x86_64/include/boost/mpl/aux_/integral_wrapper.hpp b/chk/falcor_dependencies/f80dd590-windows-x86_64/include/boost/mpl/aux_/integral_wrapper.hpp
+--- a/chk/falcor_dependencies/f80dd590-windows-x86_64/include/boost/mpl/aux_/integral_wrapper.hpp
++++ b/chk/falcor_dependencies/f80dd590-windows-x86_64/include/boost/mpl/aux_/integral_wrapper.hpp
+@@ -55,1 +55,4 @@
+-#if BOOST_WORKAROUND(__EDG_VERSION__, <= 243)
++#if defined(__clang__) && defined(_MSC_VER)
++    // Clang rejects out-of-range enum values as constant template arguments.
++    // These navigation aliases are not needed by Falcor/OpenVDB.
++#elif BOOST_WORKAROUND(__EDG_VERSION__, <= 243)
+diff --git a/chk/falcor_dependencies/f80dd590-windows-x86_64/include/tbb/task.h b/chk/falcor_dependencies/f80dd590-windows-x86_64/include/tbb/task.h
+--- a/chk/falcor_dependencies/f80dd590-windows-x86_64/include/tbb/task.h
++++ b/chk/falcor_dependencies/f80dd590-windows-x86_64/include/tbb/task.h
+@@ -378,2 +378,5 @@
+         isolated,
+-        bound
++        bound,
++        binding_completed_kind,
++        detached_kind,
++        dying_kind
+@@ -590,3 +593,3 @@
+-    static const kind_type binding_completed = kind_type(bound+1);
+-    static const kind_type detached = kind_type(binding_completed+1);
+-    static const kind_type dying = kind_type(detached+1);
++    static const kind_type binding_completed = binding_completed_kind;
++    static const kind_type detached = detached_kind;
++    static const kind_type dying = dying_kind;

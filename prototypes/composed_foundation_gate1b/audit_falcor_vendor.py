@@ -50,9 +50,11 @@ def main() -> int:
         },
         "d3d12_forced_for_windows": (
             "set(FALCOR_HAS_D3D12 ${FALCOR_WINDOWS})" in root_cmake
+            and "CACHE BOOL" not in root_cmake
         ),
         "python": {
             "core_links_embedded_python": "fmt pybind11::embed" in falcor_cmake,
+            "cross_host_target_split": "Python_ARTIFACTS_PREFIX" in root_cmake,
             "pybind11_core_file_count": len(pybind_files),
             "script_bindings_core_file_count": len(script_binding_files),
         },

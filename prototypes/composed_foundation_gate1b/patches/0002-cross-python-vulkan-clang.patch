@@ -1,0 +1,86 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 95e293d..a44671a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -6,0 +7,3 @@ cmake_policy(SET CMP0057 NEW)
++if(POLICY CMP0190)
++    cmake_policy(SET CMP0190 NEW)
++endif()
+@@ -59,3 +62,9 @@ message(STATUS "Platform: ${FALCOR_PLATFORM}")
+-# Check if D3D12/Vulkan are available.
+-set(FALCOR_HAS_D3D12 ${FALCOR_WINDOWS})
+-set(FALCOR_HAS_VULKAN ON)
++# Select available rendering backends.
++set(FALCOR_HAS_D3D12 ${FALCOR_WINDOWS} CACHE BOOL "Enable D3D12 backend")
++set(FALCOR_HAS_VULKAN ON CACHE BOOL "Enable Vulkan backend")
++if(FALCOR_HAS_D3D12 AND NOT FALCOR_WINDOWS)
++    message(FATAL_ERROR "The D3D12 backend requires a Windows target.")
++endif()
++if(NOT FALCOR_HAS_D3D12 AND NOT FALCOR_HAS_VULKAN)
++    message(FATAL_ERROR "At least one rendering backend must be enabled.")
++endif()
+@@ -148 +161,12 @@ endif()
+-if(FALCOR_USE_SYSTEM_PYTHON)
++if(CMAKE_CROSSCOMPILING)
++    if(FALCOR_USE_SYSTEM_PYTHON)
++        message(FATAL_ERROR "System target Python is not supported when cross-compiling Falcor.")
++    endif()
++    set(Python_ROOT_DIR ${CMAKE_SOURCE_DIR}/external/packman/python)
++    find_package(Python 3.10 EXACT COMPONENTS Development REQUIRED)
++    set(Python_ARTIFACTS_PREFIX "_HOST")
++    find_package(Python COMPONENTS Interpreter REQUIRED)
++    set(TOOLS_PYTHON ${Python_HOST_EXECUTABLE})
++    set(Python_EXECUTABLE ${Python_HOST_EXECUTABLE})
++    unset(Python_ARTIFACTS_PREFIX)
++elseif(FALCOR_USE_SYSTEM_PYTHON)
+@@ -155 +179,3 @@ endif()
+-if(FALCOR_WINDOWS)
++if(CMAKE_CROSSCOMPILING)
++    # TOOLS_PYTHON was selected from the build host above.
++elseif(FALCOR_WINDOWS)
+@@ -350 +376,5 @@ file(TO_NATIVE_PATH ${output_dir} output_dir)
+-if(FALCOR_WINDOWS)
++if(CMAKE_CROSSCOMPILING)
++    # Sacramento assembles the target SDK after compilation. Host scripts must
++    # not attempt to execute target-platform deployment scripts.
++    add_custom_target(deploy_dependencies ALL)
++elseif(FALCOR_WINDOWS)
+diff --git a/Source/Falcor/CMakeLists.txt b/Source/Falcor/CMakeLists.txt
+index 55c098a..43b8b8c 100644
+--- a/Source/Falcor/CMakeLists.txt
++++ b/Source/Falcor/CMakeLists.txt
+@@ -941 +941 @@ target_compile_definitions(Falcor
+-        $<$<CXX_COMPILER_ID:MSVC>:_USE_MATH_DEFINES>
++        $<$<PLATFORM_ID:Windows>:_USE_MATH_DEFINES>
+@@ -1042 +1042 @@ if(FALCOR_WINDOWS)
+-        COMMAND ${FALCOR_OUTPUT_DIRECTORY}/setpath.bat & ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/build_scripts/generate_stubs.py ${FALCOR_OUTPUT_DIRECTORY}/python || (exit 0)
++        COMMAND ${FALCOR_OUTPUT_DIRECTORY}/setpath.bat & ${TOOLS_PYTHON} ${CMAKE_SOURCE_DIR}/build_scripts/generate_stubs.py ${FALCOR_OUTPUT_DIRECTORY}/python || (exit 0)
+@@ -1049 +1049 @@ if(FALCOR_LINUX)
+-        COMMAND ${CMAKE_SOURCE_DIR}/build_scripts/wrap_setpath.sh ${Python_EXECUTABLE} ${CMAKE_SOURCE_DIR}/build_scripts/generate_stubs.py ${FALCOR_OUTPUT_DIRECTORY}/python || (exit 0)
++        COMMAND ${CMAKE_SOURCE_DIR}/build_scripts/wrap_setpath.sh ${TOOLS_PYTHON} ${CMAKE_SOURCE_DIR}/build_scripts/generate_stubs.py ${FALCOR_OUTPUT_DIRECTORY}/python || (exit 0)
+diff --git a/Source/Falcor/Utils/Math/VectorTypes.h b/Source/Falcor/Utils/Math/VectorTypes.h
+index bce12df..d579fc4 100644
+--- a/Source/Falcor/Utils/Math/VectorTypes.h
++++ b/Source/Falcor/Utils/Math/VectorTypes.h
+@@ -70,0 +71,2 @@ struct vector<T, 1>
++    /// Copy assignment.
++    constexpr vector& operator=(const vector<T, 1>& other) noexcept = default;
+@@ -112,0 +115,2 @@ struct vector<T, 2>
++    /// Copy assignment.
++    constexpr vector& operator=(const vector<T, 2>& other) noexcept = default;
+@@ -161,0 +166,2 @@ struct vector<T, 3>
++    /// Copy assignment.
++    constexpr vector& operator=(const vector<T, 3>& other) noexcept = default;
+@@ -214,0 +221,2 @@ struct vector<T, 4>
++    /// Copy assignment.
++    constexpr vector& operator=(const vector<T, 4>& other) noexcept = default;
+diff --git a/external/CMakeLists.txt b/external/CMakeLists.txt
+index 96ebc6a..183b88c 100644
+--- a/external/CMakeLists.txt
++++ b/external/CMakeLists.txt
+@@ -387 +387 @@ set(PIX_DIR ${PACKMAN_DIR}/pix)
+-if(EXISTS ${PIX_DIR}/Include/WinPixEventRuntime/pix3.h)
++if(FALCOR_HAS_D3D12 AND EXISTS ${PIX_DIR}/Include/WinPixEventRuntime/pix3.h)
+@@ -521 +521 @@ set(D3D12_AGILITY_SDK_DIR ${PACKMAN_DIR}/agility-sdk)
+-if(EXISTS ${D3D12_AGILITY_SDK_DIR}/build/native/include/d3d12.h)
++if(FALCOR_HAS_D3D12 AND EXISTS ${D3D12_AGILITY_SDK_DIR}/build/native/include/d3d12.h)

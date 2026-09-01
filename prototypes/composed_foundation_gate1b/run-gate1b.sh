@@ -5,25 +5,29 @@ repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 prototype_root="${repo_root}/prototypes/composed_foundation_gate1b"
 toolchain_root="${SACRAMENTO_CPP_TOOLCHAIN_ROOT:-/var/tmp/sacramento-cpp-toolchain}"
 gate_root="${SACRAMENTO_GATE1B_ROOT:-/tmp/sacramento-composed-foundation-gate1b}"
-packman_cache="${SACRAMENTO_GATE1B_PACKMAN_CACHE:-${gate_root}/packman-cache}"
+packman_cache="${gate_root}/vendor/packman-cache"
 rootfs="${toolchain_root}/ubuntu-26.04"
 falcor_source="${gate_root}/vendor/falcor"
 falcor_build="${gate_root}/build"
 evidence_root="${gate_root}/evidence"
 falcor_repository="https://github.com/NVIDIAGameWorks/Falcor.git"
 falcor_commit="9dc819c162b2070335c65060436041690b7937f8"
-patch_file="${prototype_root}/patches/0001-select-packman-by-build-host.patch"
+source_patches=(
+  "${prototype_root}/patches/0001-select-packman-by-build-host.patch"
+  "${prototype_root}/patches/0002-cross-python-vulkan-clang.patch"
+)
+dependency_patch="${prototype_root}/patches/0003-clang22-packman-dependencies.patch"
 aftermath_url="https://developer.nvidia.com/downloads/assets/tools/secure/nsight-aftermath-sdk/2026_3_0/windows_x64/NVIDIA_Nsight_Aftermath_SDK_2026.3.0.26197-windows_x64.zip"
 aftermath_sha256="e38136a60110199559b7365d3ea4ec0cb5588dc2b0f593877d864e0299659a3f"
-aftermath_archive="${gate_root}/downloads/aftermath-windows-x64.zip"
-aftermath_root="${gate_root}/inputs/aftermath"
+aftermath_archive="${gate_root}/vendor/downloads/aftermath-windows-x64.zip"
+aftermath_root="${gate_root}/vendor/inputs/aftermath"
 
 if [[ "${gate_root}" == "${repo_root}" || "${gate_root}" == "${repo_root}/"* ]]; then
   echo "SACRAMENTO_GATE1B_ROOT must be outside the Git worktree" >&2
   exit 2
 fi
 
-for command in bwrap curl file git ln python3 readlink sha256sum tee; do
+for command in bwrap curl file git ln patch python3 readlink sha256sum tee; do
   if ! command -v "${command}" >/dev/null; then
     echo "missing host command: ${command}" >&2
     exit 2
@@ -35,8 +39,8 @@ SACRAMENTO_CPP_TOOLCHAIN_ROOT="${toolchain_root}" \
 
 mkdir -p \
   "${gate_root}/vendor" \
-  "${gate_root}/downloads" \
-  "${gate_root}/inputs" \
+  "${gate_root}/vendor/downloads" \
+  "${gate_root}/vendor/inputs" \
   "${packman_cache}" \
   "${evidence_root}" \
   "${gate_root}/home"
@@ -59,13 +63,15 @@ fi
 
 git -C "${falcor_source}" submodule update --init --recursive
 
-if git -C "${falcor_source}" apply --unidiff-zero --reverse --check \
-  "${patch_file}" 2>/dev/null; then
-  echo "Packman host-selection patch already applied"
-else
-  git -C "${falcor_source}" apply --unidiff-zero --check "${patch_file}"
-  git -C "${falcor_source}" apply --unidiff-zero "${patch_file}"
-fi
+for patch_file in "${source_patches[@]}"; do
+  if git -C "${falcor_source}" apply --unidiff-zero --reverse --check \
+    "${patch_file}" 2>/dev/null; then
+    echo "Source patch already applied: $(basename "${patch_file}")"
+  else
+    git -C "${falcor_source}" apply --unidiff-zero --check "${patch_file}"
+    git -C "${falcor_source}" apply --unidiff-zero "${patch_file}"
+  fi
+done
 git -C "${falcor_source}" diff --check
 
 if [[ ! -f "${aftermath_archive}" ]]; then
@@ -111,9 +117,9 @@ done
 
 aftermath_link="${falcor_source}/external/packman/aftermath"
 if [[ ! -e "${aftermath_link}" && ! -L "${aftermath_link}" ]]; then
-  ln -s ../../../../inputs/aftermath "${aftermath_link}"
+  ln -s ../../../inputs/aftermath "${aftermath_link}"
 fi
-if [[ "$(readlink "${aftermath_link}")" != "../../../../inputs/aftermath" ]]; then
+if [[ "$(readlink "${aftermath_link}")" != "../../../inputs/aftermath" ]]; then
   echo "Falcor Aftermath link does not point at the fixed vendor input" >&2
   exit 1
 fi
@@ -151,7 +157,6 @@ run_in_rootfs() {
     --bind "${toolchain_root}" /opt/sacramento-state \
     --ro-bind "${repo_root}" /opt/sacramento-repo \
     --bind "${gate_root}" /srv \
-    --bind "${packman_cache}" /srv/packman-cache \
     /usr/bin/env -i \
       HOME=/srv/home \
       TMPDIR=/srv/home \
@@ -163,7 +168,7 @@ run_in_rootfs() {
       SACRAMENTO_LLVM_ROOT=/usr/lib/llvm-22 \
       SACRAMENTO_VCTOOLS_DIR=/opt/sacramento-state/sysroot-v18-ms/crt \
       SACRAMENTO_WINSDK_DIR=/opt/sacramento-state/sysroot-v18-ms/sdk \
-      PM_PACKAGES_ROOT=/srv/packman-cache \
+      PM_PACKAGES_ROOT=/srv/vendor/packman-cache \
       "$@"
 }
 
@@ -181,10 +186,22 @@ if [[ "${deps_link}" != */falcor_dependencies/f80dd590-windows-x86_64 ||
   exit 1
 fi
 
+if run_in_rootfs /bin/bash -c \
+  'patch --silent --batch --dry-run --reverse --directory /srv/vendor/packman-cache -p1 < /opt/sacramento-repo/prototypes/composed_foundation_gate1b/patches/0003-clang22-packman-dependencies.patch'; then
+  echo "Packman dependency patch already applied"
+else
+  run_in_rootfs /bin/bash -c \
+    'patch --silent --batch --dry-run --forward --directory /srv/vendor/packman-cache -p1 < /opt/sacramento-repo/prototypes/composed_foundation_gate1b/patches/0003-clang22-packman-dependencies.patch'
+  run_in_rootfs /bin/bash -c \
+    'patch --batch --forward --directory /srv/vendor/packman-cache -p1 < /opt/sacramento-repo/prototypes/composed_foundation_gate1b/patches/0003-clang22-packman-dependencies.patch'
+fi
+
 {
   printf 'falcor_commit=%s\n' "${actual_commit}"
-  printf 'patch_sha256='
-  sha256sum "${patch_file}" | cut -d ' ' -f 1
+  for patch_file in "${source_patches[@]}" "${dependency_patch}"; do
+    printf 'patch_sha256[%s]=' "$(basename "${patch_file}")"
+    sha256sum "${patch_file}" | cut -d ' ' -f 1
+  done
   printf 'dependencies_sha256='
   sha256sum "${falcor_source}/dependencies.xml" | cut -d ' ' -f 1
   printf 'packman_launcher='
@@ -199,7 +216,6 @@ fi
   git -C "${falcor_source}" submodule status
 } | tee "${evidence_root}/vendor-identity.log"
 
-set +e
 run_in_rootfs \
   /usr/bin/cmake \
   -S /srv/vendor/falcor \
@@ -208,12 +224,12 @@ run_in_rootfs \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja \
   -DCMAKE_TOOLCHAIN_FILE=/opt/sacramento-repo/cmake/toolchains/windows-cross-clang.cmake \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   -DFALCOR_ENABLE_USD=OFF \
-  -DFALCOR_USE_SYSTEM_PYTHON=ON \
+  -DFALCOR_USE_SYSTEM_PYTHON=OFF \
   -DFALCOR_HAS_D3D12=OFF \
+  -DFALCOR_HAS_VULKAN=ON \
   2>&1 | tee "${evidence_root}/falcor-configure.log"
-configure_status=${PIPESTATUS[0]}
-set -e
 
 if grep -Fq "packman.cmd" "${evidence_root}/falcor-configure.log" || \
   grep -Fq "Permission denied" "${evidence_root}/falcor-configure.log"; then
@@ -227,16 +243,32 @@ if ! grep -Fq -- "-- Updating packman dependencies ..." \
   exit 1
 fi
 
-if [[ ${configure_status} -eq 0 ]]; then
-  echo "Gate 1B verdict: PASS (Linux Packman and Falcor configure succeeded)"
-  exit 0
+for expected_flag in \
+  "FALCOR_HAS_D3D12: OFF" \
+  "FALCOR_HAS_VULKAN: ON" \
+  "FALCOR_HAS_AFTERMATH: ON" \
+  "FALCOR_HAS_NVAPI: OFF" \
+  "FALCOR_HAS_CUDA: OFF" \
+  "FALCOR_HAS_OPTIX: OFF"; do
+  if ! grep -Fq -- "-- ${expected_flag}" "${evidence_root}/falcor-configure.log"; then
+    echo "Gate 1B verdict: FAIL (unexpected feature flag: ${expected_flag})" >&2
+    exit 1
+  fi
+done
+
+run_in_rootfs \
+  /usr/bin/cmake --build /srv/build --target Falcor --parallel \
+  2>&1 | tee "${evidence_root}/falcor-build.log"
+
+falcor_dll="${falcor_build}/bin/Falcor.dll"
+if [[ ! -f "${falcor_dll}" ]]; then
+  echo "Gate 1B verdict: FAIL (Falcor.dll was not produced)" >&2
+  exit 1
 fi
 
-if grep -Fq "Could NOT find Python" "${evidence_root}/falcor-configure.log"; then
-  echo "Gate 1B verdict: PASS (Linux Packman supplied Windows dependencies)"
-  echo "Next blocker: Falcor needs separate host and target Python inputs"
-  exit 0
-fi
+{
+  file "${falcor_dll}"
+  sha256sum "${falcor_dll}"
+} | tee "${evidence_root}/falcor-artifact.log"
 
-echo "Gate 1B verdict: FAIL (unexpected failure after Linux Packman)" >&2
-exit 1
+echo "Gate 1B verdict: PASS (Falcor Vulkan/Slang/Aftermath built on Linux)"

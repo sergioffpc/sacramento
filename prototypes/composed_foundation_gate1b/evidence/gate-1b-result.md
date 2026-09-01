@@ -4,14 +4,11 @@ Date: 2026-09-01
 
 ## Verdict
 
-**PASS for the question under test.** A Linux-hosted Packman launcher can pull
-and link Falcor 8.0's `windows-x86_64` dependency set while Falcor is configured
-as a Windows target from Sacramento's sealed Ubuntu build root.
-
-This is not a pass for the complete Falcor build. Configure advanced beyond the
-former `packman.cmd: Permission denied` boundary and then stopped at Falcor's
-Python discovery, which does not separate build-host Python from Windows-target
-Python.
+**PASS.** A Linux-hosted Packman launcher pulled Falcor 8.0's
+`windows-x86_64` dependencies and Sacramento's sealed Ubuntu toolchain produced
+a Windows x64 `Falcor.dll` (10,142,208 bytes, SHA-256
+`bb24ee40043525f5f27698c8ffc9b1092b7493616bb699848c0e1476476b2ccd`). The
+verified configuration was Vulkan-only with Slang and Aftermath enabled.
 
 ## Fixed inputs
 
@@ -23,7 +20,7 @@ Python.
 | Packman package target | `windows-x86_64` |
 | Nsight Aftermath | `2026.3.0.26197`, official Windows x64 archive |
 | Aftermath SHA-256 | `e38136a60110199559b7365d3ea4ec0cb5588dc2b0f593877d864e0299659a3f` |
-| Patch SHA-256 | `b535e154422780e643ac3500d25a48cbd0ac4c79de01df9d86c590bb3c7c3acf` |
+| Patches | Three versioned patches under `patches/`; the runner records each SHA-256. |
 | Falcor dependency manifest SHA-256 | `cb8600eb1287ad912628d29f69ef889acaf7f65e87ade72cfccf5ad04007364f` |
 | Compiler | Ubuntu-hosted Clang/clang-cl `22.1.2`, MSVC-like command line |
 
@@ -39,8 +36,10 @@ Python.
 | Former permission boundary | Pass | Falcor printed `Updating packman dependencies` without invoking `packman.cmd` or reporting `Permission denied`. |
 | Windows cross compiler | Pass | C and C++ compiler identification completed with clang-cl `22.1.2`. |
 | Aftermath vendor input | Pass | The official archive hash, Windows x64 import library, DLL, and headers were verified and staged at `external/packman/aftermath`. |
-| Complete Falcor configure | Blocked | `FindPython` could not provide the interpreter and development inputs required for the Windows target from the Linux host. |
-| Vulkan-only policy | Not retested | Falcor still forces D3D12 on Windows; this experiment intentionally changed only Packman launcher selection. |
+| Host/target Python split | Pass | Host Python ran build tools; Packman's Windows Python supplied target headers and import library. |
+| Vulkan-only policy | Pass | `FALCOR_HAS_VULKAN=ON`; D3D12, PIX, Agility SDK, and NVAPI were off. |
+| Aftermath | Pass | `FALCOR_HAS_AFTERMATH=ON` compiled into the target. |
+| Falcor build | Pass | The Linux host linked a PE32+ x86-64 `Falcor.dll` of 10,142,208 bytes. |
 
 ## Patch behavior
 
@@ -69,22 +68,14 @@ No Windows runner or Wine was required.
   approved exception. Sacramento product builds would still consume only the
   resulting immutable SDK through vcpkg.
 
-## Python exclusion result
+## Python boundary
 
-The project owner confirmed that Sacramento does not need Python in Falcor.
-Falcor 8 does not offer that feature boundary: the main `Falcor` library links
-`pybind11::embed`, 87 files in `Source/Falcor` reference pybind11, and 73 core
-files reference `ScriptBindings`. Disabling only the `FalcorPython` extension
-does not remove the embedded interpreter from the core.
-
-A no-Python Falcor 8 therefore requires a broad source fork or a materially
-smaller extraction of Falcor, not a small packaging patch. The prototype does
-not claim that maintenance burden has been accepted.
+Python is accepted as an internal Falcor dependency. The patch separates the
+host interpreter from the Windows target development package. Sacramento does
+not expose Python through its rendering interface.
 
 ## Next boundary
 
-The owner must decide whether to accept a broad no-Python Falcor fork or retain
-Python as an internal Falcor implementation dependency that Sacramento does not
-expose. Aftermath is selected and its input is staged, but compilation cannot
-confirm `FALCOR_HAS_AFTERMATH=ON` until that Python boundary is resolved. The
-independent Vulkan-only patch also remains required.
+Package the built headers, import libraries, DLLs, Slang runtime, and Aftermath
+runtime as one immutable Falcor SDK, inventory every Packman input by hash, then
+exercise a minimal Vulkan device and shader smoke test on Windows/NVIDIA.
