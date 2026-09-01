@@ -1,0 +1,24 @@
+{
+  "manifestVersion": "1.1",
+  "info": {
+    "id": "VisualStudio.17.Release/17.14.39+37614.0.-august.2026-",
+    "buildBranch": "d17.14",
+    "buildVersion": "17.14.37614.0",
+    "productLineVersion": "2022"
+  },
+  "channelItems": [
+    {
+      "id": "Microsoft.VisualStudio.Manifests.VisualStudio",
+      "version": "17.14.37614.0",
+      "type": "Manifest",
+      "payloads": [
+        {
+          "fileName": "VisualStudio.vsman",
+          "sha256": "bd98dd01efa4195cb1c11030da63b9e4a3bcec7bc406799a9db80339d6dabd79",
+          "size": 30444084,
+          "url": "https://download.visualstudio.microsoft.com/download/pr/fa619120-9c0e-47e6-bfe0-3ee96fb671b2/bd98dd01efa4195cb1c11030da63b9e4a3bcec7bc406799a9db80339d6dabd79/VisualStudio.vsman"
+        }
+      ]
+    }
+  ]
+}

@@ -8,8 +8,8 @@ Decision disposition: the proven build-host topology was admitted by
 `CPP-ENGINEERING-BASELINE-002` and ADR-0002. Baseline 002 also admits the exact
 dependency and Windows sysroot identities proved here.
 
-Verdict: **Cross-compilation proven; baseline correction required before
-operational approval.**
+Verdict: **Windows cross-compilation and hermetic bootstrap proven; Debian and
+formal release gates remain.**
 
 ## Results
 
@@ -23,11 +23,13 @@ operational approval.**
 ## Retained result identities
 
 - CMake/vcpkg application SHA-256:
-  `99efadd2991c980dc3488b212b9b87a6e1e8e4b53035d81861a6362af0b873c0`.
+  `e7392752cdd64c09587d1ce62a62571b372f8e90c2e7e48b35dfa29b72473cd9`.
 - CMake/vcpkg application PDB SHA-256:
-  `a9d97c006ad455655a92eadf1abdd9ece7992c7813c639ff501c7a72d2fca09c`.
+  `9cf94477027ed049120bdebc6414baefb1cc71b60d26ac2a6b1d930483f5bfbf`.
 - CMake/vcpkg GoogleTest executable SHA-256:
-  `9acaf6886f20c21b18d1f68f4ba19366d5c80f4051fb92f81f04570d174b69f1`.
+  `0d5d41749a389c86061617e677940f7b4428bfbfe39b08bf7d1976a4ce4039ac`.
+- Deterministically sealed Ubuntu rootfs SHA-256:
+  `133bc81769f824392d4bc7b4ed79c232635b0afa1cafcf5b4fa4e7981336246e`.
 - ASan negative probe: `heap-buffer-overflow`, with a non-zero Windows exit.
 
 ## What the experiment established
@@ -61,10 +63,7 @@ Windows ASan dynamic runtime.
 
 ## Remaining readiness blockers
 
-1. The Ubuntu rootfs started from a hash-pinned Canonical OCI archive, but its
-   APT packages came from live Resolute repositories. An immutable APT snapshot or
-   a final derived OCI digest is still required.
-2. This focused experiment does not re-prove the Debian target, release signing,
+1. This focused experiment does not re-prove the Debian target, release signing,
    native Windows performance, or formal acceptance.
 
 ## Decision disposition
@@ -81,5 +80,5 @@ in `BUILD_PROFILE_PROPOSAL.md` and:
 - require a separate proof of the Debian product target from the same checked-in
   build definitions.
 
-The architectural correction is approved. Production C++ remains inadmissible
-until the unresolved identities and all other readiness gates pass.
+The architectural correction and reproducible bootstrap are approved.
+Production C++ remains inadmissible until the remaining readiness gates pass.

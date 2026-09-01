@@ -15,10 +15,15 @@
       ],
       "source": "Ubuntu 26.04 resolute/universe"
     },
-    "cmake": {
-      "version": "4.2.3-2ubuntu2",
-      "source": "Ubuntu 26.04 resolute/main"
-    },
+        "cmake": {
+            "version": "4.2.3-2ubuntu2",
+            "source": "Ubuntu 26.04 resolute/main"
+        },
+        "vcpkg_auxiliary_cmake": {
+            "version": "4.4.0",
+            "source": "vcpkg tools registry at the pinned registry commit",
+            "archive_sha512": "3df4aaa128a438ed48dcac7065fd355ff538eed8f394491298d0db63a891d671da247c8fa262e4fa6bf99429d630abab317d5a0248168fe203d1ca4978dab4da"
+        },
     "ninja": {
       "version": "1.13.2-1",
       "source": "Ubuntu 26.04 resolute/universe"

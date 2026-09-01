@@ -6,7 +6,7 @@ Question: Can an Ubuntu LTS build environment running under WSL2 use only
 Linux-hosted Clang processes to produce and test hardened Windows binaries for
 Sacramento?
 
-The answer is **yes, with baseline corrections required**. See
+The answer is **yes**. See
 [`PROOF_REPORT.md`](PROOF_REPORT.md) for the evidence and blockers. This is not
 production engine code. Its build-host decision was subsequently admitted by
 [`CPP-ENGINEERING-BASELINE-002`](../../docs/standards/cpp-engineering.md) and
@@ -34,8 +34,23 @@ libstdc++ is a platform-library input to a Linux Clang build.
 ## Replay
 
 The proof intentionally keeps multi-gigabyte licensed/downloaded inputs outside
-Git. With the materialized state described in `config/toolchains.json` at
-`/tmp/sacramento-cross-proof`, run:
+Git. Materialize and verify the hash-locked state at
+`/tmp/sacramento-cross-proof` with:
+
+```bash
+./scripts/bootstrap.sh install
+./scripts/bootstrap.sh verify
+```
+
+The install command uses the immutable Ubuntu APT snapshot declared in
+`config/bootstrap-lock.json`. It fails closed if a download, package version,
+manifest, tool, or registry identity differs. To generate a deterministic
+rootfs archive and its derived SHA-256, run `./scripts/bootstrap.sh seal`.
+Networks that intercept TLS may set `SACRAMENTO_BOOTSTRAP_CA_BUNDLE` to an
+explicit host CA bundle. This changes transport trust only; hashes, APT
+signatures, the snapshot, and admitted versions still decide input identity.
+
+Then run the operational proof:
 
 ```bash
 ./scripts/proof.sh all
@@ -59,5 +74,6 @@ Future automation must retain an explicit license-acceptance step.
   platform for Windows artefacts.
 - Debian remains a product target. This prototype does not replace its target
   profile or re-prove the Debian artefact.
-- The live APT archive and live Visual Studio channel manifests used during
-  exploration are not yet release-grade immutable inputs.
+- APT is restricted to the locked Ubuntu snapshot. Minimal checked-in Visual
+  Studio channel locks point to content-addressed Microsoft product manifests,
+  so mutable channel aliases are not build inputs.

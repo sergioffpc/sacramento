@@ -27,7 +27,7 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 # search paths discovered by clang-cl must also be supplied to CMake's linker
 # rule. The xwin splats deliberately remain separate and auditable.
 set(_sacramento_linker_flags
-  "/LIBPATH:$ENV{SACRAMENTO_VCTOOLS_DIR}/lib/x64 /LIBPATH:$ENV{SACRAMENTO_WINSDK_DIR}/lib/ucrt/x64 /LIBPATH:$ENV{SACRAMENTO_WINSDK_DIR}/lib/um/x64")
+  "/LIBPATH:$ENV{SACRAMENTO_VCTOOLS_DIR}/lib/x86_64 /LIBPATH:$ENV{SACRAMENTO_WINSDK_DIR}/lib/ucrt/x86_64 /LIBPATH:$ENV{SACRAMENTO_WINSDK_DIR}/lib/um/x86_64")
 set(CMAKE_EXE_LINKER_FLAGS_INIT "${_sacramento_linker_flags}")
 set(CMAKE_SHARED_LINKER_FLAGS_INIT "${_sacramento_linker_flags}")
 set(CMAKE_MODULE_LINKER_FLAGS_INIT "${_sacramento_linker_flags}")

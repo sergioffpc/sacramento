@@ -9,8 +9,10 @@
     "os": "Ubuntu 26.04.1 LTS",
     "source": "https://partner-images.canonical.com/oci/resolute/current/ubuntu-resolute-oci-amd64-root.tar.gz",
     "source_sha256": "ff0ec2f35ec4f89be3b535ce94629098c035701cd09100a50cd081c3f497e0dc",
+    "apt_snapshot": "20260901T000000Z",
+    "derived_rootfs_sha256": "133bc81769f824392d4bc7b4ed79c232635b0afa1cafcf5b4fa4e7981336246e",
     "isolation": "bubblewrap rootfs",
-    "immutable_snapshot_complete": false,
+    "immutable_snapshot_complete": true,
     "packages": {
       "binutils": "2.46-3ubuntu2",
       "ca-certificates": "20260601~26.04.1",
@@ -19,6 +21,7 @@
       "clang-tidy-22": "1:22.1.2-1ubuntu1",
       "clang-tools-22": "1:22.1.2-1ubuntu1",
       "cmake": "4.2.3-2ubuntu2",
+      "curl": "8.18.0-1ubuntu2.4",
       "git": "1:2.53.0-1ubuntu1",
       "libc6-dev": "2.43-2ubuntu2.3",
       "libclang-rt-22-dev": "1:22.1.2-1ubuntu1",
@@ -32,9 +35,12 @@
       "ninja-build": "1.13.2-1",
       "patch": "2.8-2build1",
       "pkg-config": "2.5.1-4",
-      "sccache": "0.13.0+ds-3build1",
       "unzip": "6.0-29ubuntu1",
       "zip": "3.0-15ubuntu3"
+    },
+    "external_tools": {
+      "sccache": "0.16.0",
+      "vcpkg_auxiliary_cmake": "4.4.0"
     }
   },
   "runtime_host": {

@@ -53,7 +53,8 @@ run_in_build_root() {
   mkdir -p \
     "${output_dir}" \
     "${state_root}/build/container-tmp" \
-    "${state_root}/cache/sccache"
+    "${state_root}/cache/sccache" \
+    "${vcpkg_root}/bincache"
   mkdir -p \
     "${rootfs}/cache/sccache" \
     "${rootfs}/opt/sysroot-v18-ms" \
@@ -202,9 +203,9 @@ compile_asan_probe() {
       -imsvc/opt/sysroot-v17-ms/sdk/include/cppwinrt \
       -fuse-ld=lld \
       -fsanitize=address \
-      -Xlinker /LIBPATH:/opt/sysroot-v18-ms/crt/lib/x64 \
-      -Xlinker /LIBPATH:/opt/sysroot-v17-ms/sdk/lib/ucrt/x64 \
-      -Xlinker /LIBPATH:/opt/sysroot-v17-ms/sdk/lib/um/x64 \
+      -Xlinker /LIBPATH:/opt/sysroot-v18-ms/crt/lib/x86_64 \
+      -Xlinker /LIBPATH:/opt/sysroot-v17-ms/sdk/lib/ucrt/x86_64 \
+      -Xlinker /LIBPATH:/opt/sysroot-v17-ms/sdk/lib/um/x86_64 \
       -Xlinker /LIBPATH:/opt/msvc-asan/lib/x64 \
       /std:c++23preview \
       /EHsc \
