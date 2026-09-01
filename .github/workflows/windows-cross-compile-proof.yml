@@ -33,6 +33,7 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 30
     env:
+      SACRAMENTO_BOOTSTRAP_CA_BUNDLE: /etc/ssl/certs/ca-certificates.crt
       SACRAMENTO_CROSS_PROOF_ROOT: /tmp/sacramento-cross-proof
       XWIN_ACCEPT_LICENSE: "1"
     steps:

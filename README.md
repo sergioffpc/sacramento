@@ -66,6 +66,11 @@ scripts/cpp-toolchain-bootstrap.sh install
 scripts/cpp-toolchain-bootstrap.sh verify
 ```
 
+`verify` is deliberately read-only. If it reports an incompatible state from an
+older baseline, select a new empty directory through
+`SACRAMENTO_CROSS_PROOF_ROOT` and run `install`; do not reuse or mutate the old
+rootfs.
+
 Inspect the available profiles with:
 
 ```sh

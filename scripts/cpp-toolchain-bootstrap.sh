@@ -338,7 +338,12 @@ for name, (version, _, digest) in sorted(packages.items()):
 verify_packages() {
   while IFS=$'\t' read -r name expected; do
     local actual
-    actual="$(run_in_rootfs /usr/bin/dpkg-query -W -f='${Version}' "${name}")"
+    if ! actual="$(run_in_rootfs \
+        /usr/bin/dpkg-query -W -f='${Version}' "${name}" 2>/dev/null)"; then
+      echo "bootstrap state is incompatible: missing Ubuntu package ${name}" >&2
+      echo "materialize a fresh state with a new SACRAMENTO_CROSS_PROOF_ROOT" >&2
+      exit 1
+    fi
     if [[ "${actual}" != "${expected}" ]]; then
       echo "package mismatch: ${name} expected ${expected}, found ${actual}" >&2
       exit 1
