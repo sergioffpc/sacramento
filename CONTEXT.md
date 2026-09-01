@@ -1,6 +1,10 @@
 # Training Simulation
 
-Status: Under Review
+Status: Approved
+
+Approval: Project owner, 2026-09-01
+
+Baseline: Initial Domain Context
 
 Purpose: Define the canonical domain language for the Training Simulation.
 
@@ -176,6 +180,10 @@ _Avoid_: Trainee Identity, connection, network address, Session Continuity Claim
 The approved, versioned, and closed shared Identity Validation Package artifact assigning one exact terminal result and lifecycle disposition to every combination of Session Continuity Claim, Device Continuity Proof, protected-exchange integrity and binding, audit commit, cancellation, connection, supersession, and deadline outcomes.
 _Avoid_: Claim-only acceptance, implicit retry behavior, partial reconnection success
 
+**Controlled LAN**:
+The private, dedicated wired local network whose participants, local services, permitted traffic, and measurement conditions are closed by an exact deployment profile, with no route to an external network during a Training Session.
+_Avoid_: Wide-area network, shared office network, unspecified LAN
+
 **Conventional Commit Profile**:
 The repository-owned, versioned commit-message grammar, admitted types and scopes, breaking-change notation, validation rules, and integration policy based on one exact Conventional Commits specification version.
 _Avoid_: Free-form commit title, implicit type list, unvalidated merge message
@@ -308,6 +316,10 @@ _Avoid_: Cached admission decision, local account, unverifiable identity claim
 The Session Authority's monotonic time source for Training Session lifecycle deadlines and countdowns, which advances independently from simulated time, including during Technical Pause.
 _Avoid_: Simulated time, Scenario timer, client clock, calendar clock
 
+**Observability Contract**:
+The approved, versioned definition of core metric and event identifiers, fields, units, timestamp semantics, correlation semantics, and availability needed to verify automated quality requirements and operational targets consistently in test and production builds.
+_Avoid_: Implementation-specific logging library, unrestricted diagnostic dump, AUTH Audit Record
+
 **Package Trust Reference**:
 The externally provisioned, project-owner-approved bootstrap reference by which a host verifies the identity, version, role, and integrity of the current Identity Validation Package manifest without trusting that package to validate itself.
 _Avoid_: Self-declared package integrity, Session Authority download, live identity lookup
@@ -371,6 +383,10 @@ _Avoid_: Flag, hostage, objective item
 **Reference Hardware Profile**:
 A versioned acceptance configuration that fixes the hardware, drivers, display conditions, and relevant settings used to verify one product role or access mode.
 _Avoid_: Minimum requirements, recommended PC, hardware class
+
+**Reference Workload Profile**:
+A versioned acceptance definition that fixes one reproducible `Typical`, `Stress`, or `Rejection Boundary` load used to verify applicable Training Simulation quality requirements.
+_Avoid_: Ad hoc benchmark, unspecified worst case, duplicated per-requirement workload
 
 **Representative Evaluator**:
 An armed-forces member with recent experience of the environments, equipment, and decisions represented by the Scenario who evaluates whether the Training Simulation preserves relevant training perception and outcomes.
