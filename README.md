@@ -26,6 +26,8 @@ contain a selected software architecture or production implementation.
 - [Engagement Target performance profile](docs/requirements/training-simulation-performance-profile-engagement-target-001.md)
 - [Verification plan](docs/requirements/training-simulation-verification-plan.md)
 - [Research guidance](docs/research/initial-goals-requirements-and-constraints-guidance.md)
+- [C++ engineering research](docs/research/cpp-engineering-toolchain-and-quality-guidance.md)
+- [C++ Engineering Baseline](docs/standards/cpp-engineering.md)
 - [Conventional Commit Profile](docs/standards/conventional-commits.md)
 - [Git Flow](docs/standards/git-flow.md)
 
