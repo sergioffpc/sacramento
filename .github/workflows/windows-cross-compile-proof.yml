@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-26.04
     timeout-minutes: 30
     env:
-      SACRAMENTO_CROSS_PROOF_ROOT: ${{ runner.temp }}/sacramento-cross-proof
+      SACRAMENTO_CROSS_PROOF_ROOT: /tmp/sacramento-cross-proof
       XWIN_ACCEPT_LICENSE: "1"
     steps:
       - name: Check out the proof revision
