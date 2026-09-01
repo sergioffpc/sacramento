@@ -61,8 +61,8 @@ A Trainee client whose current connection or permitted reconnection continuity i
 _Avoid_: Connected socket, authenticated identity, roster entry, Ready Trainee
 
 **After-Action Review (AAR)**:
-A structured examination of a completed training session used to understand events, decisions, and outcomes.
-_Avoid_: ARR, debrief
+A structured reconstruction and examination of a completed Training Session used to understand its event sequence, decisions, and outcomes. Session performance metrics, Formal Assessment, and Leaderboards are not by themselves an AAR.
+_Avoid_: ARR, debrief, performance summary, Leaderboard
 
 **Approved Profile**:
 A versioned record of represented behavior or data whose scope, reference conditions, evidence, tolerances, specialist validation, and project-owner approval satisfy the profile-admission requirements.
@@ -455,6 +455,22 @@ _Avoid_: Timeout, tactical pause, game pause
 **Trainee**:
 An armed-forces participant who takes part in a Training Session as a member of a Team.
 _Avoid_: Player, participant, user
+
+**Trainee Performance Assessment**:
+A structured set of evidence-derived results about one Trainee's performance under defined Training Session, task, role, and profile conditions, with separate outputs for Training Feedback, Formal Assessment, and Leaderboard.
+_Avoid_: Gameplay telemetry, universal score, personnel record
+
+**Training Feedback**:
+Detailed, session-scoped information returned to a Trainee or instructor to support learning and improvement; it is not a formal competence decision.
+_Avoid_: Formal Assessment, ranking, raw telemetry
+
+**Formal Assessment**:
+An evidence-based evaluation of a Trainee against fixed, pre-approved performance criteria under defined conditions, independent of relative position among other Trainees.
+_Avoid_: Leaderboard position, popularity score, informal feedback
+
+**Leaderboard**:
+A relative ordering of eligible Trainees within one explicitly defined scope, period, role, and comparison population; it is not by itself a Formal Assessment.
+_Avoid_: Competence decision, universal ranking, hidden score
 
 **Trainee Authentication Act**:
 A deliberate act performed by the human Trainee to authenticate that Trainee Identity for one initial admission attempt, without prescribing the authentication mechanism.
