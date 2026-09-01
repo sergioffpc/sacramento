@@ -48,6 +48,15 @@ python3 "${prototype_root}/package_falcor_sdk.py" \
   --archive "${sdk_archive}" \
   | tee "${gate_root}/sdk-result.json"
 
+for shader in \
+  "${sdk_root}/bin/shaders/Core/API/BlitReduction.3d.slang" \
+  "${sdk_root}/bin/shaders/Utils/Math/MathHelpers.slang"; do
+  if [[ ! -f "${shader}" ]]; then
+    echo "missing packaged Falcor runtime shader: ${shader}" >&2
+    exit 2
+  fi
+done
+
 rootfs="${toolchain_root}/ubuntu-26.04"
 bwrap \
   --unshare-user --uid 0 --gid 0 \
@@ -97,4 +106,12 @@ file "${smoke_build}/falcor_vulkan_smoke.exe" \
   | tee "${gate_root}/smoke-artifact.txt"
 sha256sum "${smoke_build}/falcor_vulkan_smoke.exe" \
   | tee -a "${gate_root}/smoke-artifact.txt"
+for shader in \
+  "${smoke_build}/shaders/Core/API/BlitReduction.3d.slang" \
+  "${smoke_build}/shaders/gate1c.slang"; do
+  if [[ ! -f "${shader}" ]]; then
+    echo "missing smoke runtime shader: ${shader}" >&2
+    exit 2
+  fi
+done
 echo "Gate 1C build verdict: PASS; native Windows/NVIDIA execution pending"

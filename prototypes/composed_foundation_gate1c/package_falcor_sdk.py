@@ -114,6 +114,7 @@ def main() -> int:
 
     copy_file(args.build / "Source/Falcor/Falcor.lib", output / "lib/Falcor.lib")
     copy_file(args.build / "bin/Falcor.dll", output / "bin/Falcor.dll")
+    copy_tree_files(args.build / "bin/shaders", output / "bin/shaders")
 
     runtime_roots = [
         packages["deps"] / "bin",

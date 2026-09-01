@@ -31,7 +31,7 @@ add_custom_command(TARGET falcor_vulkan_smoke POST_BUILD
         "${FALCOR_SDK}/bin" "$<TARGET_FILE_DIR:falcor_vulkan_smoke>"
     COMMAND ${CMAKE_COMMAND} -E copy
         "${CMAKE_CURRENT_SOURCE_DIR}/gate1c.slang"
-        "$<TARGET_FILE_DIR:falcor_vulkan_smoke>/gate1c.slang"
+        "$<TARGET_FILE_DIR:falcor_vulkan_smoke>/shaders/gate1c.slang"
     COMMAND ${CMAKE_COMMAND} -E copy
         "${CMAKE_CURRENT_SOURCE_DIR}/run-smoke.ps1"
         "$<TARGET_FILE_DIR:falcor_vulkan_smoke>/run-smoke.ps1"
