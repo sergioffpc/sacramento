@@ -89,7 +89,7 @@ def main() -> None:
     content: dict[pathlib.Path, str] = {}
     source_hash: dict[pathlib.Path, str] = {}
     index: dict[str, int] = {}
-    definition_source: dict[str, Path] = {}
+    definition_source: dict[str, pathlib.Path] = {}
     identifiers: list[str] = []
 
     for source in SOURCES:
