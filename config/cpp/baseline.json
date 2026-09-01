@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "baseline": "CPP-ENGINEERING-BASELINE-002",
+  "status": "promoted-root-configuration",
+  "build_root": {
+    "os": "Ubuntu 26.04.1 LTS",
+    "snapshot": "20260901T000000Z",
+    "derived_rootfs_sha256": "8859d6259f7f8a419eac79cbe66d3b70e13005dd66a0edfac7f052b30ae627fe",
+    "lock": "config/cpp/bootstrap-lock.json"
+  },
+  "tools": {
+    "llvm": "22.1.2",
+    "cmake": "4.2.3",
+    "ninja": "1.13.2",
+    "sccache": "0.16.0",
+    "vcpkg_registry_commit": "9e593bb18ea69cc5095e012465dcd675a822ed0d"
+  },
+  "targets": {
+    "windows": {
+      "triple": "x86_64-pc-windows-msvc",
+      "crt": "14.50.35735",
+      "sdk": "10.0.26100.15",
+      "lock": "config/cpp/bootstrap-lock.json"
+    },
+    "debian": {
+      "triple": "x86_64-linux-gnu",
+      "release": "13.6",
+      "snapshot": "20260901T000000Z",
+      "derived_sysroot_sha256": "7d79897091617e12dc653d019b29d638cb41d983d9e60838576e77e2a10448af",
+      "lock": "config/cpp/debian-sysroot-lock.json"
+    }
+  }
+}

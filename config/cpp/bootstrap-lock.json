@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "ubuntu": {
+        "release": "26.04 LTS",
+        "snapshot": "20260901T000000Z",
+    "derived_rootfs_sha256": "8859d6259f7f8a419eac79cbe66d3b70e13005dd66a0edfac7f052b30ae627fe",
+    "rootfs": {
+      "url": "https://partner-images.canonical.com/oci/resolute/current/ubuntu-resolute-oci-amd64-root.tar.gz",
+      "sha256": "ff0ec2f35ec4f89be3b535ce94629098c035701cd09100a50cd081c3f497e0dc"
+    },
+    "ca_seed": {
+      "url": "https://snapshot.ubuntu.com/ubuntu/20260901T000000Z/pool/main/c/ca-certificates/ca-certificates_20260601~26.04.1_all.deb",
+      "sha256": "6077d27c6b6f8b23590cb01ff877ed8c804a67a5442cc32b5a33da10d2bd0e90"
+    },
+    "packages": {
+      "binutils": "2.46-3ubuntu2",
+      "ca-certificates": "20260601~26.04.1",
+      "clang-22": "1:22.1.2-1ubuntu1",
+      "clang-format-22": "1:22.1.2-1ubuntu1",
+      "clang-tidy-22": "1:22.1.2-1ubuntu1",
+      "clang-tools-22": "1:22.1.2-1ubuntu1",
+            "cmake": "4.2.3-2ubuntu2",
+            "curl": "8.18.0-1ubuntu2.4",
+            "git": "1:2.53.0-1ubuntu1",
+      "libc6-dev": "2.43-2ubuntu2.3",
+      "libclang-rt-22-dev": "1:22.1.2-1ubuntu1",
+      "libcurl4t64": "8.18.0-1ubuntu2.4",
+      "libgcc-15-dev": "15.2.0-16ubuntu1",
+      "libstdc++-15-dev": "15.2.0-16ubuntu1",
+      "libxml2-16": "2.15.2+dfsg-0.1ubuntu0.1",
+      "lld-22": "1:22.1.2-1ubuntu1",
+      "llvm-22": "1:22.1.2-1ubuntu1",
+      "llvm-22-tools": "1:22.1.2-1ubuntu1",
+      "ninja-build": "1.13.2-1",
+      "patch": "2.8-2build1",
+      "pkg-config": "2.5.1-4",
+      "unzip": "6.0-29ubuntu1",
+      "zip": "3.0-15ubuntu3"
+    }
+  },
+  "tools": {
+    "sccache": {
+      "version": "0.16.0",
+      "url": "https://github.com/mozilla/sccache/releases/download/v0.16.0/sccache-v0.16.0-x86_64-unknown-linux-musl.tar.gz",
+      "archive_sha256": "aec995a83ad3dff3d14b6314e08858b7b73d35ca85a5bcf3d3a9ec07dee35588",
+      "binary_sha256": "91544c5e9e3440aa0b75e0299cd3e880ac0be91ac537333adee69b507b3495c6"
+    },
+    "xwin": {
+      "version": "0.10.0",
+      "url": "https://github.com/Jake-Shadle/xwin/releases/download/0.10.0/xwin-0.10.0-x86_64-unknown-linux-musl.tar.gz",
+      "archive_sha256": "d870eb4b2f390878af6da1ccd3cf321d22fcb72720984853b4be732ae597fc88",
+      "binary_sha256": "0cb5d482ccf9364d0e8f3349c96ec9d781a15cfd8b0c100f364c796599190415"
+    },
+    "vcpkg": {
+      "repository": "https://github.com/microsoft/vcpkg.git",
+      "commit": "9e593bb18ea69cc5095e012465dcd675a822ed0d",
+      "binary_sha256": "7e97ef6bcd58f74d079f40d086b801a0222c5d15e4ea0d8d507a538033493d04"
+    }
+  },
+  "windows": {
+        "vs18_manifest": {
+            "path": "config/cpp/vs18-channel.lock.json",
+            "sha256": "8816cd65238378facced13678b7eb659b24fb0defc25a1dc1adfdb7ca589f24e",
+            "upstream_manifest_sha256": "d3aa7336680097d007876ffb85c9d2b5c32c21796e0125407c4e3b88ebe4fc31",
+      "crt_selector": "14.50.18.0",
+      "sdk_selector": "10.0.28000"
+    },
+        "vs17_manifest": {
+            "path": "config/cpp/vs17-channel.lock.json",
+            "sha256": "bbc35d59aef70c4337f534ec9313ec36e603bed7b0ff0217f121009614bb30e9",
+            "upstream_manifest_sha256": "4c81e902fb7fe2acea779b828e6dc548fe0bbb693df50eda0224263c16686bdd",
+      "crt_selector": "14.44.17.14",
+      "sdk_selector": "10.0.26100"
+    },
+    "asan": {
+      "url": "https://download.visualstudio.microsoft.com/download/pr/5c9f5a93-cd44-4f8e-90f7-4f6fe07bd944/ee0e17c4a2730ae9ddb567b06953537ddecd2db4097763d0a66f57ae85283908/Microsoft.VC.14.50.18.0.ASAN.X64.base.vsix",
+      "sha256": "ee0e17c4a2730ae9ddb567b06953537ddecd2db4097763d0a66f57ae85283908"
+    },
+    "redist": {
+      "url": "https://download.visualstudio.microsoft.com/download/pr/a424e95b-20f6-4af6-844f-9d9a806080a7/a4ab48822362df6e478eb4ed33bf825a07a6faacd6879c1e3d59929cd38b984b/Microsoft.VC.14.50.18.0.CRT.Redist.X64.base.vsix",
+      "sha256": "a4ab48822362df6e478eb4ed33bf825a07a6faacd6879c1e3d59929cd38b984b"
+    }
+  }
+}

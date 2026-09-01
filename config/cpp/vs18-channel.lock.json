@@ -1,0 +1,24 @@
+{
+  "manifestVersion": "1.1",
+  "info": {
+    "id": "VisualStudio.18.Release/18.9.2+12120.119",
+    "buildBranch": "stable",
+    "buildVersion": "18.9.12120.119",
+    "productLineVersion": "18"
+  },
+  "channelItems": [
+    {
+      "id": "Microsoft.VisualStudio.Manifests.VisualStudio",
+      "version": "18.9.12120.119",
+      "type": "Manifest",
+      "payloads": [
+        {
+          "fileName": "VisualStudio.vsman",
+          "sha256": "29d05070615bd4bbe095bee9716d248be7661e516424fb9d06597ce4f3ab99ca",
+          "size": 31171830,
+          "url": "https://download.visualstudio.microsoft.com/download/pr/fe4fb3e6-ea32-4ae3-b154-72821a274f0d/29d05070615bd4bbe095bee9716d248be7661e516424fb9d06597ce4f3ab99ca/VisualStudio.vsman"
+        }
+      ]
+    }
+  ]
+}
