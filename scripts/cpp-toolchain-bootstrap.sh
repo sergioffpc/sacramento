@@ -4,7 +4,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 lock_file="${repo_root}/config/cpp/bootstrap-lock.json"
 debian_lock_file="${repo_root}/config/cpp/debian-sysroot-lock.json"
-state_root="${SACRAMENTO_CPP_TOOLCHAIN_ROOT:-/var/tmp/sacramento-cpp-baseline-002}"
+state_root="${SACRAMENTO_CPP_TOOLCHAIN_ROOT:-/var/tmp/sacramento-cpp-toolchain}"
 downloads="${state_root}/downloads"
 rootfs="${state_root}/ubuntu-26.04"
 debian_sysroot="${state_root}/debian-13.6-sysroot"
