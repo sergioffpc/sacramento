@@ -1,4 +1,4 @@
-# Windows and Debian cross-compilation proof report
+# Windows and Debian cross-target toolchain evidence
 
 Date: 2026-09-01
 
@@ -76,8 +76,8 @@ Windows ASan dynamic runtime.
 
 ## Decision disposition
 
-`CPP-ENGINEERING-BASELINE-002` and ADR-0002 adopt the candidate build topology
-in `BUILD_PROFILE_PROPOSAL.md` and:
+`CPP-ENGINEERING-BASELINE-002` and ADR-0002 adopt the validated build topology
+and:
 
 - allows Ubuntu-LTS-hosted Windows cross-compilation with `lld-link`;
 - retains native Windows runtime/performance/acceptance gates;
@@ -93,21 +93,22 @@ Production C++ remains inadmissible until the remaining readiness gates pass.
 
 ## CI gate boundary
 
-`.github/workflows/windows-cross-compile-proof.yml` operationalizes the proven
+`../../.github/workflows/windows-cross-compile-proof.yml` operationalizes the proven
 boundary. An explicit Ubuntu 26.04 hosted job materializes the locked toolchain,
 builds and inspects PE/PDB and ELF/debug output, executes Debian tests and
 ASan+UBSan gates, and publishes hash manifests. A controlled Windows 11 runner
 verifies every hash, runs the application and GoogleTests, runs the clean ASan
 probe, and requires the negative probe to fail with `heap-buffer-overflow`.
 The PowerShell runtime gate was also replayed successfully from NTFS during the
-prototype; execution directly from the WSL UNC share is deliberately unsupported.
+experiment; execution directly from the WSL UNC share is deliberately unsupported.
 
 ## Promoted root definitions
 
 The approved `.clang-format`, `.clang-tidy`, CMake project and target policy,
 canonical presets, vcpkg manifests, project triplets, cross-toolchains,
 machine-readable locks, and bootstrap now live at the repository root. The
-proof entry points delegate to those root definitions. CI validates every
+The permanent suite under `../../tests/toolchain` delegates to those root
+definitions. CI validates every
 preset, resolves both vcpkg target graphs in dry-run mode, and configures the
 root project with Debian Clang and Windows clang-cl before exercising the binary
 gates.

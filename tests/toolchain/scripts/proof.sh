@@ -16,7 +16,7 @@ debian_sysroot="${state_root}/debian-13.6-sysroot"
 
 require_path() {
   if [[ ! -e "$1" ]]; then
-    echo "missing prototype input: $1" >&2
+    echo "missing toolchain-gate input: $1" >&2
     exit 2
   fi
 }
@@ -148,9 +148,10 @@ build() {
       -DCMAKE_C_COMPILER_LAUNCHER=/opt/sccache/sccache \
       -DCMAKE_CXX_COMPILER_LAUNCHER=/opt/sccache/sccache \
       -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake \
-      -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/src/cmake/toolchains/windows-cross-clang.cmake \
+      -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/repo/cmake/toolchains/windows-cross-clang.cmake \
+      -DVCPKG_MANIFEST_DIR=/repo \
       -DVCPKG_TARGET_TRIPLET=x64-windows-cross-clang \
-      -DVCPKG_OVERLAY_TRIPLETS=/src/triplets
+      -DVCPKG_OVERLAY_TRIPLETS=/repo/triplets
   run_in_build_root "${build_dir}" \
     /usr/bin/cmake --build /out --verbose
   local first_app_hash
@@ -366,9 +367,10 @@ build_debian() {
       -DCMAKE_C_COMPILER_LAUNCHER=/opt/sccache/sccache \
       -DCMAKE_CXX_COMPILER_LAUNCHER=/opt/sccache/sccache \
       -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake \
-      -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/src/cmake/toolchains/debian-cross-clang.cmake \
+      -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/repo/cmake/toolchains/debian-cross-clang.cmake \
+      -DVCPKG_MANIFEST_DIR=/repo \
       -DVCPKG_TARGET_TRIPLET=x64-debian-cross-clang \
-      -DVCPKG_OVERLAY_TRIPLETS=/src/triplets
+      -DVCPKG_OVERLAY_TRIPLETS=/repo/triplets
   run_in_build_root "${build_dir}" /usr/bin/cmake --build /out --verbose
   postprocess_debian_symbols "${build_dir}"
   local first_app_hash

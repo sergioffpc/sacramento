@@ -29,7 +29,7 @@ Prerequisites: [Training Simulation context](../../CONTEXT.md),
 [C++ engineering research](../research/cpp-engineering-toolchain-and-quality-guidance.md),
 [Clang-only ADR](../adr/0001-use-clang-only-for-cpp.md),
 [Ubuntu Windows cross-compilation ADR](../adr/0002-cross-compile-windows-from-ubuntu-with-clang.md),
-and [Windows cross-compilation proof](../../prototypes/windows_cross_compile_proof/PROOF_REPORT.md).
+and [cross-target toolchain evidence](../evidence/cpp-toolchain-proof.md).
 
 Canonical information owner and approver: Project owner.
 

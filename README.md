@@ -116,16 +116,16 @@ definitions:
 
 ```sh
 cmake --list-presets
-prototypes/windows_cross_compile_proof/scripts/proof.sh root-config
+tests/toolchain/scripts/proof.sh root-config
 ```
 
 Build, inspect and package the Windows target without executing it:
 
 ```sh
-prototypes/windows_cross_compile_proof/scripts/proof.sh build
-prototypes/windows_cross_compile_proof/scripts/proof.sh inspect
-prototypes/windows_cross_compile_proof/scripts/proof.sh build-asan
-prototypes/windows_cross_compile_proof/scripts/proof.sh package-windows
+tests/toolchain/scripts/proof.sh build
+tests/toolchain/scripts/proof.sh inspect
+tests/toolchain/scripts/proof.sh build-asan
+tests/toolchain/scripts/proof.sh package-windows
 ```
 
 Windows artefacts and their `SHA256SUMS` file are written below
@@ -134,7 +134,7 @@ Windows artefacts and their `SHA256SUMS` file are written below
 Build, inspect, test and package the Debian 13.6 target:
 
 ```sh
-prototypes/windows_cross_compile_proof/scripts/proof.sh debian
+tests/toolchain/scripts/proof.sh debian
 ```
 
 Debian artefacts are written below
@@ -146,7 +146,7 @@ From WSL2, build and run the complete Windows proof, native GoogleTests, and
 positive and negative ASan probes on Windows:
 
 ```sh
-prototypes/windows_cross_compile_proof/scripts/proof.sh all
+tests/toolchain/scripts/proof.sh all
 ```
 
 This command requires WSL interop, `wslpath`, `/mnt/c`, and
@@ -158,16 +158,16 @@ To replay a packaged Windows artefact from PowerShell on a controlled Windows
 runner or machine:
 
 ```powershell
-prototypes/windows_cross_compile_proof/scripts/run-windows.ps1 `
+tests/toolchain/scripts/run-windows.ps1 `
   -ArtifactDirectory C:\path\to\windows-cross-proof
 ```
 
 The `debian` build command already executes the application, GoogleTests and
 sanitizer probes inside the pinned Debian target userspace.
 
-The proof and CI consume these root definitions, so a change cannot bypass the
-Windows and Debian gates. The throwaway proof targets remain under `prototypes/`
-and are not production engine code.
+The permanent conformance suite and CI consume these root definitions, so a
+change cannot bypass the Windows and Debian gates. `tests/toolchain` contains
+engineering gate fixtures and probes, not production engine code.
 
 ## Contribution workflow
 

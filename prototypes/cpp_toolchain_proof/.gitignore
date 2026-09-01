@@ -1,5 +1,0 @@
-/build/
-/evidence/*
-!/evidence/.gitkeep
-/.cache/
-**/__pycache__/

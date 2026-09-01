@@ -5,20 +5,17 @@
     {
       "name": "std::expected",
       "macro": "__cpp_lib_expected",
-      "minimum": 202202,
-      "proof": "prototypes/windows_cross_compile_proof/probes/expected.cc"
+      "minimum": 202202
     },
     {
       "name": "std::byteswap",
       "macro": "__cpp_lib_byteswap",
-      "minimum": 202110,
-      "proof": "prototypes/cpp_toolchain_proof/probes/cpp23_features.cc"
+      "minimum": 202110
     },
     {
       "name": "std::span",
       "macro": "__cpp_lib_span",
-      "minimum": 202002,
-      "proof": "prototypes/cpp_toolchain_proof/probes/cpp23_features.cc"
+      "minimum": 202002
     }
   ]
 }

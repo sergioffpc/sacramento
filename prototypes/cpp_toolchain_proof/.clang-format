@@ -1,7 +1,0 @@
----
-BasedOnStyle: Google
-ColumnLimit: 80
-DerivePointerAlignment: false
-PointerAlignment: Left
-SortIncludes: CaseSensitive
-...

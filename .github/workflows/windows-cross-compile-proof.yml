@@ -1,4 +1,4 @@
-name: Windows cross-compile proof
+name: C++ cross-target gates
 
 on:
   pull_request:
@@ -10,21 +10,18 @@ on:
       - "CMakePresets.json"
       - "cmake/**"
       - "config/cpp/**"
-      - "prototypes/windows_cross_compile_proof/**"
+      - "tests/toolchain/**"
       - "scripts/cpp-toolchain-bootstrap.sh"
       - "triplets/**"
       - "vcpkg-configuration.json"
       - "vcpkg.json"
-  push:
-    branches:
-      - prototype/windows-cross-compile-proof
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: windows-cross-proof-${{ github.ref }}
+  group: cpp-cross-target-gates-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,7 +34,7 @@ jobs:
       SACRAMENTO_CROSS_PROOF_ROOT: /tmp/sacramento-cross-proof
       XWIN_ACCEPT_LICENSE: "1"
     steps:
-      - name: Check out the proof revision
+      - name: Check out the gate revision
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: Ensure the rootfs isolator is available
@@ -56,7 +53,7 @@ jobs:
           scripts/cpp-toolchain-bootstrap.sh verify
 
       - name: Build and inspect Windows targets with Clang
-        working-directory: prototypes/windows_cross_compile_proof
+        working-directory: tests/toolchain
         run: |
           ./scripts/proof.sh build
           ./scripts/proof.sh inspect
@@ -64,11 +61,11 @@ jobs:
           ./scripts/proof.sh package-windows
 
       - name: Validate promoted root definitions
-        working-directory: prototypes/windows_cross_compile_proof
+        working-directory: tests/toolchain
         run: ./scripts/proof.sh root-config
 
       - name: Build, inspect, and test the Debian target with Clang
-        working-directory: prototypes/windows_cross_compile_proof
+        working-directory: tests/toolchain
         run: ./scripts/proof.sh debian
 
       - name: Retain Windows build artefacts
@@ -93,7 +90,7 @@ jobs:
     runs-on: [self-hosted, sacramento, windows-11-25h2, cpp-proof]
     timeout-minutes: 15
     steps:
-      - name: Check out the proof revision
+      - name: Check out the gate revision
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
 
       - name: Download the Windows package
@@ -104,7 +101,7 @@ jobs:
 
       - name: Run tests and ASan natively
         shell: pwsh
-        working-directory: prototypes/windows_cross_compile_proof
+        working-directory: tests/toolchain
         run: ./scripts/run-windows.ps1 -ArtifactDirectory '${{ runner.temp }}\windows-cross-proof'
 
       - name: Retain native Windows evidence

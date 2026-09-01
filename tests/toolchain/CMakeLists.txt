@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 4.2.3)
 
-project(sacramento_cross_proof LANGUAGES CXX)
+project(sacramento_toolchain_gates LANGUAGES CXX)
 
 include(CTest)
 
