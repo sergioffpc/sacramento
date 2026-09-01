@@ -4,8 +4,8 @@ Sacramento is a multiplayer armed-forces training simulation focused on
 realistic team exercises, authoritative simulation, and desktop-first access
 with optional virtual reality.
 
-The repository is currently in requirements definition. It does not yet
-contain a selected software architecture or production implementation.
+The repository contains an approved requirements baseline and an initial
+architectural direction. It does not yet contain a production implementation.
 
 ## Table of contents
 
@@ -19,6 +19,7 @@ contain a selected software architecture or production implementation.
 ## Documentation
 
 - [Domain language](CONTEXT.md)
+- [NVIDIA-oriented Sacramento foundation](docs/adr/0003-adopt-nvidia-oriented-foundation.md)
 - [Initial requirements](docs/requirements/training-simulation-initial-requirements.md)
 - [Non-functional requirements](docs/requirements/training-simulation-non-functional-requirements.md)
 - [Reference hardware profiles](docs/requirements/training-simulation-reference-hardware-profiles.md)
