@@ -75,7 +75,7 @@ toolchains outside the Git worktree avoids multi-gigabyte generated content in
 the repository:
 
 ```sh
-export SACRAMENTO_CPP_TOOLCHAIN_ROOT=/var/tmp/sacramento-cpp-baseline-002
+export SACRAMENTO_CPP_TOOLCHAIN_ROOT=/var/tmp/sacramento-cpp-toolchain
 ```
 
 The bootstrap requires at least 12 GiB free. Avoid `/tmp` on WSL installations

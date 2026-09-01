@@ -6,9 +6,9 @@ Approval: Project owner, 2026-09-01
 
 Review: Completed and confirmed by the project owner, 2026-09-01
 
-Baseline identifier: `CPP-ENGINEERING-BASELINE-002`
+Baseline identifier: `CPP-ENGINEERING-BASELINE-003`
 
-Supersedes: `CPP-ENGINEERING-BASELINE-001`
+Supersedes: `CPP-ENGINEERING-BASELINE-002`
 
 Purpose: Define the complete first-party C++ engineering rules, toolchain,
 build, dependency, verification, hardening, and release-quality baseline for
@@ -34,8 +34,8 @@ Canonical information owner and approver: Project owner.
 
 Normative effect: This document is the Project C++ Style Profile, C++ toolchain
 profile, build policy, and automatic-quality-gate policy required by the initial
-requirements. Its approval records engineering decisions. Operational readiness
-additionally requires the executable configurations and proof described in
+requirements. Its approval records engineering decisions. Toolchain readiness
+and the admission gates for real product targets are described in
 [Readiness and change control](#readiness-and-change-control).
 
 ## Table of contents
@@ -187,14 +187,17 @@ their public first-party interfaces MUST use standard types or project types.
 ### C++23 feature allowlist
 
 The language mode does not imply that every C++23 feature is admitted. A
-versioned allowlist MUST identify each used language or standard-library feature,
-its feature-test macro where one exists, and a compile-and-run probe. A feature
-MUST pass both real product profiles:
+versioned allowlist MUST identify each used language or standard-library feature
+and its feature-test macro where one exists. A feature MUST be available in both
+sealed target profiles:
 
 - Linux-hosted clang-cl 22.1.2 with the pinned MSVC STL/CRT and Windows SDK;
 - Clang 22.1.2 with the pinned Debian 13.6 target sysroot.
 
-Code MUST NOT depend on a feature absent from the current allowlist. Updating the
+The locked compiler and standard-library identities establish availability; no
+standalone feature-probe target is retained. Use of an admitted feature is
+validated by compiling and testing the real product targets that use it. Code
+MUST NOT depend on a feature absent from the current allowlist. Updating the
 allowlist changes this baseline and requires the normal approval process.
 
 ### Determinism and representation
@@ -378,8 +381,8 @@ their dedicated sections rather than by C++ naming rules.
   concepts over macros.
 - A necessary macro is project-prefixed, has the smallest scope, does not depend
   on argument side effects, and is undefined after temporary local use.
-- Conditional compilation is confined to platform adapters, feature probes, or
-  generated configuration. It MUST NOT create unverified product behavior.
+- Conditional compilation is confined to platform adapters or generated
+  configuration. It MUST NOT create unverified product behavior.
 - Template and concept diagnostics SHOULD expose the failed domain constraint,
   not only an implementation detail.
 - C++ modules are prohibited in this baseline.
@@ -418,7 +421,7 @@ answered or marked not applicable; omission is not an answer.
 | Numeric conversions and format safety | Pinned compiler warnings and clang-tidy | Units, tolerance, and intentional conversion |
 | Errors, exceptions, and assertions | Compiler, clang-tidy, tests, and exception validator | Correct failure boundary and disclosure |
 | Concurrency | Thread Safety Analysis, TSan, and tests | Lock order, blocking, and happens-before argument |
-| Portability and C++23 | Strict modes and feature probes on both platforms | Platform-adapter boundary |
+| Portability and C++23 | Strict modes and real target builds on both platforms | Platform-adapter boundary |
 | Determinism and serialization | Repeated/differential tests and schema checks | Canonical ordering, quantization, and version behavior |
 | Performance and allocations | Instrumentation, benchmarks, and NFR gates | Workload validity and trade-off with correctness |
 | Third-party/generated classification | Inventory and generated-file checks | Provenance and exclusion scope |
@@ -442,9 +445,9 @@ semantics.
   production behavior are prohibited.
 - `compile_commands.json` is generated for Clang tools and clangd.
 - CMake developer warnings and invalid presets fail configuration.
-- Repository CMake files are first-party code. Stable pinned format/lint tooling
-  MAY be added only after the proof demonstrates it; configure/build tests remain
-  mandatory regardless.
+- Repository CMake files are first-party code. Format/lint tooling MUST use the
+  pinned versions admitted by this baseline; configure/build tests remain
+  mandatory for every real target.
 - Handwritten Ninja files and maintained Visual Studio project files are
   prohibited.
 
@@ -724,9 +727,9 @@ release mismatch is an exception even if its tool uses different terminology.
 
 ## Readiness and change control
 
-This baseline is approved because its engineering decisions are closed. It is
-operationally ready to admit first-party production C++ only when all of the
-following exist and pass:
+This baseline is approved because its engineering decisions are closed. The
+toolchain is operationally ready to admit first-party production C++ when all of
+the following exist and pass:
 
 1. machine-readable toolchain, installer, package, and hash inventories;
 2. pinned `.clang-format`, `.clang-tidy`, warning, hardening, and exception
@@ -734,20 +737,22 @@ following exist and pass:
 3. CMake project and every canonical preset;
 4. vcpkg manifest, configuration, and both project triplets;
 5. bootstrap verification of the Ubuntu build root and both immutable target
-   sysroots;
-6. a proof containing a shared production library, Linux-hosted clang-cl Windows
-   executable, Clang Debian executable, GoogleTest test, representative
-   dependency, and C++23 feature probes, with each executable run natively;
-7. local and CI gates producing the same disposition from the same inputs; and
-8. documented outstanding exceptions, if any.
+   sysroots; and
+6. documented outstanding exceptions, if any.
 
-The proof follows approval and is verification, not an approval prerequisite. A
-proof failure MUST trigger a formal baseline correction; it MUST NOT be ignored or
-silently change a pinned input. No first-party production C++ is admitted until
-operational readiness passes.
+The sealed toolchain establishes the identity, integrity, and admitted
+capabilities of the build environment. Standalone prototype, proof, or fixture
+targets MUST NOT be retained as readiness evidence.
+
+Each real production target MUST introduce its applicable build, test, analysis,
+sanitizer, hardening, reproducibility, and native-runtime gates in the same change
+that introduces the target. Those gates validate product code; the toolchain seal
+does not waive them. A gate that requires a product artefact becomes blocking
+when the first relevant artefact exists, rather than requiring artificial code
+before product development begins.
 
 Toolchains and dependencies never update automatically. They are reviewed at
 least quarterly and in response to critical security issues. An update occurs in
-an isolated pull request, runs the complete applicable proof and gates, and
-creates a newly identified baseline version. Dependency bots MAY propose but
-MUST NOT merge changes.
+an isolated pull request, verifies the complete bootstrap and all gates
+applicable to existing real product targets, and creates a newly identified
+baseline version. Dependency bots MAY propose but MUST NOT merge changes.

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "baseline": "CPP-ENGINEERING-BASELINE-002",
-  "status": "promoted-root-configuration",
+  "baseline": "CPP-ENGINEERING-BASELINE-003",
+  "status": "sealed-toolchain",
   "build_root": {
     "os": "Ubuntu 26.04.1 LTS",
     "snapshot": "20260901T000000Z",
