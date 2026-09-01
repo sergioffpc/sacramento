@@ -10,7 +10,7 @@
     "source": "https://partner-images.canonical.com/oci/resolute/current/ubuntu-resolute-oci-amd64-root.tar.gz",
     "source_sha256": "ff0ec2f35ec4f89be3b535ce94629098c035701cd09100a50cd081c3f497e0dc",
     "apt_snapshot": "20260901T000000Z",
-    "derived_rootfs_sha256": "133bc81769f824392d4bc7b4ed79c232635b0afa1cafcf5b4fa4e7981336246e",
+    "derived_rootfs_sha256": "7484abfdefe111dfb3d016d12b4bde24210a952ed56ec434d080e28fd6ae2be8",
     "isolation": "bubblewrap rootfs",
     "immutable_snapshot_complete": true,
     "packages": {
@@ -48,8 +48,18 @@
     "build": "10.0.26200.9168",
     "role": "Windows execution through WSL interop"
   },
+  "debian_target": {
+    "os": "Debian 13.6 (trixie)",
+    "architecture": "amd64",
+    "snapshot": "20260901T000000Z",
+    "inrelease_sha256": "98b25b5cd185c59d34aa6e4c3e9b5b8f01bbe9d104fe2dcfbcd30dc0a14a59ed",
+    "packages_index_sha256": "3ab4e811cf4f3e5a335d382c58cc19d85f1abe7a4ef4689160ca1f637fa0e9b3",
+    "derived_sysroot_sha256": "7d79897091617e12dc653d019b29d638cb41d983d9e60838576e77e2a10448af",
+    "cxx_runtime": "libstdc++ 14.2.0-19",
+    "binutils": "2.44-3"
+  },
   "targets": [
     "x86_64-pc-windows-msvc",
-    "Debian product target retained but not exercised by this prototype"
+    "x86_64-linux-gnu (Debian 13.6)"
   ]
 }

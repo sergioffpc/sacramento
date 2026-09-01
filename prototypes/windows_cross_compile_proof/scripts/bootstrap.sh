@@ -3,9 +3,11 @@ set -euo pipefail
 
 proof_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 lock_file="${proof_dir}/config/bootstrap-lock.json"
+debian_lock_file="${proof_dir}/config/debian-sysroot-lock.json"
 state_root="${SACRAMENTO_CROSS_PROOF_ROOT:-/tmp/sacramento-cross-proof}"
 downloads="${state_root}/downloads"
 rootfs="${state_root}/ubuntu-26.04"
+debian_sysroot="${state_root}/debian-13.6-sysroot"
 transport_ca_bundle="${SACRAMENTO_BOOTSTRAP_CA_BUNDLE:-}"
 
 json_value() {
@@ -18,6 +20,18 @@ for component in sys.argv[2].split("."):
     value = value[component]
 print(value)
 ' "${lock_file}" "$1"
+}
+
+debian_json_value() {
+  python3 -c '
+import json
+import sys
+
+value = json.load(open(sys.argv[1], encoding="utf-8"))
+for component in sys.argv[2].split("."):
+    value = value[component]
+print(value)
+' "${debian_lock_file}" "$1"
 }
 
 require_command() {
@@ -241,6 +255,86 @@ install_vcpkg() {
   run_in_rootfs "${rootfs_vcpkg}/bootstrap-vcpkg.sh" -disableMetrics
 }
 
+install_debian_inputs() {
+  local repository
+  local inrelease
+  local packages_index
+  repository="$(debian_json_value repository)"
+  inrelease="$(download_locked \
+    debian-13.6-InRelease \
+    "${repository}/dists/trixie/InRelease" \
+    "$(debian_json_value inrelease_sha256)")"
+  packages_index="$(download_locked \
+    debian-13.6-Packages.xz \
+    "${repository}/dists/trixie/main/binary-amd64/Packages.xz" \
+    "$(debian_json_value packages_index_sha256)")"
+  mkdir -p \
+    "${debian_sysroot}" \
+    "${debian_sysroot}/dev" \
+    "${debian_sysroot}/proc" \
+    "${debian_sysroot}/tmp"
+  while IFS=$'\t' read -r name version path expected; do
+    local archive
+    archive="$(download_locked \
+      "debian-${name}.deb" \
+      "${repository}/${path}" \
+      "${expected}")"
+    if [[ "$(dpkg-deb --field "${archive}" Package)" != "${name}" ]] ||
+        [[ "$(dpkg-deb --field "${archive}" Version)" != "${version}" ]]; then
+      echo "Debian package metadata mismatch: ${name}" >&2
+      exit 1
+    fi
+    dpkg-deb -x "${archive}" "${debian_sysroot}"
+  done < <(python3 -c '
+import json
+import sys
+
+packages = json.load(open(sys.argv[1], encoding="utf-8"))["packages"]
+for name, (version, path, digest) in sorted(packages.items()):
+    print(f"{name}\t{version}\t{path}\t{digest}")
+' "${debian_lock_file}")
+  if [[ ! -e "${debian_sysroot}/lib" ]]; then
+    ln -s usr/lib "${debian_sysroot}/lib"
+  fi
+  if [[ ! -e "${debian_sysroot}/lib64" ]]; then
+    ln -s usr/lib64 "${debian_sysroot}/lib64"
+  fi
+  gpgv \
+    --keyring "${debian_sysroot}/usr/share/keyrings/debian-archive-keyring.gpg" \
+    "${inrelease}"
+  verify_sha256 "${packages_index}" \
+    "$(debian_json_value packages_index_sha256)"
+}
+
+verify_debian_inputs() {
+  test -e "${debian_sysroot}/lib64/ld-linux-x86-64.so.2"
+  test -e "${debian_sysroot}/usr/include/c++/14/version"
+  test -e "${debian_sysroot}/usr/lib/x86_64-linux-gnu/libstdc++.so.6"
+  test -x "${debian_sysroot}/usr/bin/x86_64-linux-gnu-ld.bfd"
+  verify_sha256 "${downloads}/debian-13.6-InRelease" \
+    "$(debian_json_value inrelease_sha256)"
+  verify_sha256 "${downloads}/debian-13.6-Packages.xz" \
+    "$(debian_json_value packages_index_sha256)"
+  while IFS=$'\t' read -r name version expected; do
+    local archive="${downloads}/debian-${name}.deb"
+    verify_sha256 "${archive}" "${expected}"
+    if [[ "$(dpkg-deb --field "${archive}" Version)" != "${version}" ]]; then
+      echo "Debian package version mismatch: ${name}" >&2
+      exit 1
+    fi
+  done < <(python3 -c '
+import json
+import sys
+
+packages = json.load(open(sys.argv[1], encoding="utf-8"))["packages"]
+for name, (version, _, digest) in sorted(packages.items()):
+    print(f"{name}\t{version}\t{digest}")
+' "${debian_lock_file}")
+  gpgv \
+    --keyring "${debian_sysroot}/usr/share/keyrings/debian-archive-keyring.gpg" \
+    "${downloads}/debian-13.6-InRelease" >/dev/null
+}
+
 verify_packages() {
   while IFS=$'\t' read -r name expected; do
     local actual
@@ -268,6 +362,7 @@ verify() {
   test -d "${state_root}/sysroot-v17-ms/sdk/include"
   test -x "${state_root}/vcpkg/vcpkg"
   verify_packages
+  verify_debian_inputs
   verify_sha256 \
     "${vs18_manifest}" "$(json_value windows.vs18_manifest.sha256)"
   verify_sha256 \
@@ -316,6 +411,20 @@ seal() {
   expected="$(json_value ubuntu.derived_rootfs_sha256)"
   verify_sha256 "${sealed_archive}" "${expected}"
   sha256sum "${sealed_archive}"
+
+  tar \
+    --sort=name \
+    --mtime='UTC 1970-01-01' \
+    --owner=0 \
+    --group=0 \
+    --numeric-owner \
+    --exclude='./tmp/*' \
+    -C "${debian_sysroot}" \
+    -cf "${state_root}/sealed/debian-13.6-sysroot.tar" .
+  sealed_archive="${state_root}/sealed/debian-13.6-sysroot.tar"
+  expected="$(debian_json_value derived_sysroot_sha256)"
+  verify_sha256 "${sealed_archive}" "${expected}"
+  sha256sum "${sealed_archive}"
 }
 
 case "${1:-verify}" in
@@ -324,6 +433,7 @@ case "${1:-verify}" in
     require_command curl
     require_command dpkg-deb
     require_command git
+    require_command gpgv
     require_command python3
     require_command sha256sum
     require_command tar
@@ -331,16 +441,21 @@ case "${1:-verify}" in
     install_tool_archives
     install_windows_inputs
     install_vcpkg
+    install_debian_inputs
     verify
     ;;
   verify)
     require_command bwrap
+    require_command dpkg-deb
+    require_command gpgv
     require_command python3
     require_command sha256sum
     verify
     ;;
   seal)
     require_command bwrap
+    require_command dpkg-deb
+    require_command gpgv
     require_command python3
     require_command sha256sum
     require_command tar

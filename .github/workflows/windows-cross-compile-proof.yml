@@ -53,11 +53,23 @@ jobs:
           ./scripts/proof.sh build-asan
           ./scripts/proof.sh package-windows
 
+      - name: Build, inspect, and test the Debian target with Clang
+        working-directory: prototypes/windows_cross_compile_proof
+        run: ./scripts/proof.sh debian
+
       - name: Retain Windows build artefacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: windows-cross-proof-${{ github.sha }}
           path: ${{ runner.temp }}/sacramento-cross-proof/artifacts/windows
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Retain Debian build artefacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: debian-cross-proof-${{ github.sha }}
+          path: ${{ runner.temp }}/sacramento-cross-proof/artifacts/debian
           if-no-files-found: error
           retention-days: 7
 

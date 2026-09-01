@@ -3,7 +3,7 @@
   "ubuntu": {
         "release": "26.04 LTS",
         "snapshot": "20260901T000000Z",
-        "derived_rootfs_sha256": "133bc81769f824392d4bc7b4ed79c232635b0afa1cafcf5b4fa4e7981336246e",
+    "derived_rootfs_sha256": "7484abfdefe111dfb3d016d12b4bde24210a952ed56ec434d080e28fd6ae2be8",
     "rootfs": {
       "url": "https://partner-images.canonical.com/oci/resolute/current/ubuntu-resolute-oci-amd64-root.tar.gz",
       "sha256": "ff0ec2f35ec4f89be3b535ce94629098c035701cd09100a50cd081c3f497e0dc"

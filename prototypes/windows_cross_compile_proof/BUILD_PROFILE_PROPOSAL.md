@@ -13,7 +13,7 @@ Status: Prototype proposal; not normative
 | Target processes | Ubuntu LLVM 22.1.2 only: `clang-cl`, `clang-scan-deps`, `llvm-lib`, `lld-link`, LLVM inspection tools |
 | Compiler cache | Official hash-pinned sccache 0.16.0, local storage only |
 | Windows execution | Copy the PE and app-local runtimes to an NTFS path, then execute via WSL interop |
-| Debian target | Retained as a separate product target/profile; not replaced by Ubuntu |
+| Debian target | Debian 13.6 sysroot derived from the signed 20260901T000000Z snapshot; separately sealed and not replaced by Ubuntu |
 | Acceptance | Native on the exact Windows and Debian acceptance environments |
 | GitHub-hosted jobs | Explicit `ubuntu-26.04`; never the moving `ubuntu-latest` alias |
 

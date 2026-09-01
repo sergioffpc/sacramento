@@ -1,4 +1,4 @@
-# Windows cross-compilation proof report
+# Windows and Debian cross-compilation proof report
 
 Date: 2026-09-01
 
@@ -8,7 +8,7 @@ Decision disposition: the proven build-host topology was admitted by
 `CPP-ENGINEERING-BASELINE-002` and ADR-0002. Baseline 002 also admits the exact
 dependency and Windows sysroot identities proved here.
 
-Verdict: **Windows cross-compilation and hermetic bootstrap proven; Debian and
+Verdict: **Windows and Debian cross-compilation plus hermetic bootstrap proven;
 formal release gates remain.**
 
 ## Results
@@ -19,6 +19,8 @@ formal release gates remain.**
 | Can vcpkg build `fmt` and GoogleTest for Windows from a Linux host? | Pass | `fmt` 12.2.0#1 and `gtest` 1.17.0#3 were built as static Windows libraries by the pinned vcpkg registry; two GoogleTests passed on Windows. Baseline 002 admits the resolved versions. |
 | Can Linux-hosted LLVM link a PE and execute it through WSL2 interop? | Pass | Linux `lld-link` produced PE32+ x86-64 executables. After app-local CRT deployment, the application and tests executed from `C:\Temp` with exit 0. |
 | Do PDB, CFG, ASan, reproducibility, and local caching work? | Pass | Full PDB generated; `llvm-readobj` reported CFG instrumentation/table plus ASLR/NX/high-entropy VA; clean ASan run passed; deliberate heap overflow produced a failing diagnostic; the clean replay produced identical EXE/PDB hashes; sccache 0.16.0 produced three cache hits. |
+| Can the same Ubuntu build root produce and test the Debian 13.6 target? | Pass | Clang/LLD produced PIE ELF binaries against the signed, hash-locked Debian sysroot; application and two GoogleTests passed inside the target userspace; ASan and UBSan negative probes failed with the expected diagnostics. |
+| Are Debian output and debug symbols reproducible and hardened? | Pass | A clean cache-backed replay reproduced the ELF and detached debug hashes; inspection proved PIE, GNU_RELRO, BIND_NOW, non-executable stack, build ID, and the admitted libstdc++ dependency. |
 
 ## Retained result identities
 
@@ -29,7 +31,13 @@ formal release gates remain.**
 - CMake/vcpkg GoogleTest executable SHA-256:
   `0d5d41749a389c86061617e677940f7b4428bfbfe39b08bf7d1976a4ce4039ac`.
 - Deterministically sealed Ubuntu rootfs SHA-256:
-  `133bc81769f824392d4bc7b4ed79c232635b0afa1cafcf5b4fa4e7981336246e`.
+  `7484abfdefe111dfb3d016d12b4bde24210a952ed56ec434d080e28fd6ae2be8`.
+- Deterministically sealed Debian 13.6 sysroot SHA-256:
+  `7d79897091617e12dc653d019b29d638cb41d983d9e60838576e77e2a10448af`.
+- Debian application SHA-256:
+  `478ae44d4af1501ab5cbe0abce7e1c1903c319ad2e6cde579af6c1da995b7e74`.
+- Debian detached application debug SHA-256:
+  `9e0500a44538abfee74527468351a3eff19db0c15a806c6fbaa48bea5668e2a3`.
 - ASan negative probe: `heap-buffer-overflow`, with a non-zero Windows exit.
 
 ## What the experiment established
@@ -63,8 +71,8 @@ Windows ASan dynamic runtime.
 
 ## Remaining readiness blockers
 
-1. This focused experiment does not re-prove the Debian target, release signing,
-   native Windows performance, or formal acceptance.
+1. This focused experiment does not prove release signing, native Windows and
+   Debian performance, or formal acceptance.
 
 ## Decision disposition
 
@@ -77,8 +85,8 @@ in `BUILD_PROFILE_PROPOSAL.md` and:
 - require the Ubuntu image, APT snapshot, Visual Studio manifests, Microsoft
   packages, LLVM Linux tools, LLVM Windows runtimes, and app-local CRT files to
   be pinned; and
-- require a separate proof of the Debian product target from the same checked-in
-  build definitions.
+- require the Debian product target to use the separately pinned and sealed
+  sysroot proved by the same checked-in build definitions.
 
 The architectural correction and reproducible bootstrap are approved.
 Production C++ remains inadmissible until the remaining readiness gates pass.
@@ -87,8 +95,8 @@ Production C++ remains inadmissible until the remaining readiness gates pass.
 
 `.github/workflows/windows-cross-compile-proof.yml` operationalizes the proven
 boundary. An explicit Ubuntu 26.04 hosted job materializes the locked toolchain,
-builds and inspects PE/PDB output, compiles both ASan probes, and publishes a
-hash manifest with the native-runtime package. A controlled Windows 11 runner
+builds and inspects PE/PDB and ELF/debug output, executes Debian tests and
+ASan+UBSan gates, and publishes hash manifests. A controlled Windows 11 runner
 verifies every hash, runs the application and GoogleTests, runs the clean ASan
 probe, and requires the negative probe to fail with `heap-buffer-overflow`.
 The PowerShell runtime gate was also replayed successfully from NTFS during the

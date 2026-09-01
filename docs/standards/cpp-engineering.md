@@ -120,7 +120,7 @@ for an installation identity to be completed before operational readiness.
 | Windows SDK | Family 10.0.26100; xwin VS17 package version 10.0.26100.15 |
 | MSVC platform components | CRT selector 14.50.18.0 and package 14.50.35735 from xwin VS18; ASan package 14.50.35734 with content 14.50.35717; CRT redistributable package 14.50.35719 with content 14.50.35710 |
 | Windows acceptance OS | Windows 11 Pro 25H2 and exact build/driver state in `RHP-DESKTOP-001` |
-| Debian | Debian 13.6 `trixie`; exact APT snapshot and OCI digest MUST be recorded before operational readiness |
+| Debian | Debian 13.6 `trixie`; exact APT snapshot, signed repository metadata, package hashes, and derived sysroot digest MUST be recorded before operational readiness |
 | Debian C++ library | libstdc++ 14.2.0-19 |
 | Debian assembler/linker | binutils 2.44-3 |
 | vcpkg registry | Release `2026.07.29`, commit `9e593bb18ea69cc5095e012465dcd675a822ed0d` |
