@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: windows-cross-proof-${{ github.sha }}
-          path: ${{ runner.temp }}/sacramento-cross-proof/artifacts/windows
+          path: /tmp/sacramento-cross-proof/artifacts/windows
           if-no-files-found: error
           retention-days: 7
 
@@ -83,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: debian-cross-proof-${{ github.sha }}
-          path: ${{ runner.temp }}/sacramento-cross-proof/artifacts/debian
+          path: /tmp/sacramento-cross-proof/artifacts/debian
           if-no-files-found: error
           retention-days: 7
 
