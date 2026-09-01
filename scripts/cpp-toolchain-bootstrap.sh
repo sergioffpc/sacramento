@@ -4,7 +4,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 lock_file="${repo_root}/config/cpp/bootstrap-lock.json"
 debian_lock_file="${repo_root}/config/cpp/debian-sysroot-lock.json"
-state_root="${SACRAMENTO_CROSS_PROOF_ROOT:-/tmp/sacramento-cross-proof}"
+state_root="${SACRAMENTO_CROSS_PROOF_ROOT:-/tmp/sacramento-cpp-baseline-002}"
 downloads="${state_root}/downloads"
 rootfs="${state_root}/ubuntu-26.04"
 debian_sysroot="${state_root}/debian-13.6-sysroot"
@@ -361,6 +361,11 @@ for name, version in sorted(packages.items()):
 verify() {
   local vs18_manifest="${repo_root}/$(json_value windows.vs18_manifest.path)"
   local vs17_manifest="${repo_root}/$(json_value windows.vs17_manifest.path)"
+  if [[ ! -x "${rootfs}/usr/lib/llvm-22/bin/clang-cl" ]]; then
+    echo "bootstrap state is not materialized at ${state_root}" >&2
+    echo "run scripts/cpp-toolchain-bootstrap.sh install first" >&2
+    exit 1
+  fi
   test -x "${rootfs}/usr/lib/llvm-22/bin/clang-cl"
   test -x "${rootfs}/usr/lib/llvm-22/bin/lld-link"
   test -d "${state_root}/sysroot-v18-ms/crt/include"

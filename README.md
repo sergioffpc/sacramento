@@ -58,24 +58,112 @@ targets; `.clang-format`, `.clang-tidy`, the CMake target policy, vcpkg
 manifests, project triplets, and cross-toolchain files are shared by all future
 production modules.
 
-The toolchains execute inside the pinned Ubuntu 26.04 build root materialized by
-the canonical bootstrap. Materialize or read-only verify it with:
+### Environment setup
+
+The supported developer environment is WSL2 with Ubuntu 26.04 LTS. A native
+Ubuntu 26.04 host can build both targets, but Windows executables must still be
+copied to and executed on Windows. Install the small set of host commands used
+to materialize the isolated build root:
+
+```sh
+sudo apt-get update
+sudo apt-get install --yes bubblewrap coreutils curl dpkg git gpgv python3 tar
+```
+
+From the repository root, select a new state directory. Keeping downloaded
+toolchains outside the Git worktree avoids multi-gigabyte generated content in
+the repository:
+
+```sh
+export SACRAMENTO_CROSS_PROOF_ROOT=/tmp/sacramento-cpp-baseline-002
+```
+
+If HTTPS is intercepted by the local network, identify the host CA bundle used
+only for download transport:
+
+```sh
+export SACRAMENTO_BOOTSTRAP_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+```
+
+Materialize and verify the complete Ubuntu build root, Windows sysroot, Debian
+sysroot, LLVM tools, vcpkg registry, and local compiler cache:
 
 ```sh
 scripts/cpp-toolchain-bootstrap.sh install
 scripts/cpp-toolchain-bootstrap.sh verify
 ```
 
+The install command invokes xwin with explicit Microsoft license acceptance.
+Run it only after accepting the applicable Microsoft licensing terms. Every
+download, repository manifest, package and derived sysroot remains verified by
+the checked-in signatures and cryptographic hashes.
+
 `verify` is deliberately read-only. If it reports an incompatible state from an
 older baseline, select a new empty directory through
 `SACRAMENTO_CROSS_PROOF_ROOT` and run `install`; do not reuse or mutate the old
 rootfs.
 
-Inspect the available profiles with:
+Optionally verify the deterministic Ubuntu and Debian archives:
+
+```sh
+scripts/cpp-toolchain-bootstrap.sh seal
+```
+
+### Build
+
+Inspect the canonical CMake profiles and validate both root toolchain
+definitions:
 
 ```sh
 cmake --list-presets
+prototypes/windows_cross_compile_proof/scripts/proof.sh root-config
 ```
+
+Build, inspect and package the Windows target without executing it:
+
+```sh
+prototypes/windows_cross_compile_proof/scripts/proof.sh build
+prototypes/windows_cross_compile_proof/scripts/proof.sh inspect
+prototypes/windows_cross_compile_proof/scripts/proof.sh build-asan
+prototypes/windows_cross_compile_proof/scripts/proof.sh package-windows
+```
+
+Windows artefacts and their `SHA256SUMS` file are written below
+`$SACRAMENTO_CROSS_PROOF_ROOT/artifacts/windows`.
+
+Build, inspect, test and package the Debian 13.6 target:
+
+```sh
+prototypes/windows_cross_compile_proof/scripts/proof.sh debian
+```
+
+Debian artefacts are written below
+`$SACRAMENTO_CROSS_PROOF_ROOT/artifacts/debian`.
+
+### Run
+
+From WSL2, build and run the complete Windows proof, native GoogleTests, and
+positive and negative ASan probes on Windows:
+
+```sh
+prototypes/windows_cross_compile_proof/scripts/proof.sh all
+```
+
+This command requires WSL interop, `wslpath`, `/mnt/c`, and
+`C:\Windows\System32\cmd.exe`. It copies runtime files to
+`C:\Temp\sacramento-cross-proof-replay`; direct execution from a WSL UNC path is
+unsupported.
+
+To replay a packaged Windows artefact from PowerShell on a controlled Windows
+runner or machine:
+
+```powershell
+prototypes/windows_cross_compile_proof/scripts/run-windows.ps1 `
+  -ArtifactDirectory C:\path\to\windows-cross-proof
+```
+
+The `debian` build command already executes the application, GoogleTests and
+sanitizer probes inside the pinned Debian target userspace.
 
 The proof and CI consume these root definitions, so a change cannot bypass the
 Windows and Debian gates. The throwaway proof targets remain under `prototypes/`

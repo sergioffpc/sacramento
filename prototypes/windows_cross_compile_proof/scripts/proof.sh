@@ -3,7 +3,7 @@ set -euo pipefail
 
 proof_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 repo_root="$(cd "${proof_dir}/../.." && pwd)"
-state_root="${SACRAMENTO_CROSS_PROOF_ROOT:-/tmp/sacramento-cross-proof}"
+state_root="${SACRAMENTO_CROSS_PROOF_ROOT:-/tmp/sacramento-cpp-baseline-002}"
 rootfs="${state_root}/ubuntu-26.04"
 llvm_root="${rootfs}/usr/lib/llvm-22"
 vctools="${state_root}/sysroot-v18-ms/crt"
