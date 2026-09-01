@@ -1,0 +1,49 @@
+{
+  "status": "prototype-candidate",
+  "orchestrator": {
+    "os": "Ubuntu 26.04.1 LTS",
+    "kernel": "6.18.33.2-microsoft-standard-WSL2",
+    "role": "WSL2 orchestration"
+  },
+  "build_root": {
+    "os": "Ubuntu 26.04.1 LTS",
+    "source": "https://partner-images.canonical.com/oci/resolute/current/ubuntu-resolute-oci-amd64-root.tar.gz",
+    "source_sha256": "ff0ec2f35ec4f89be3b535ce94629098c035701cd09100a50cd081c3f497e0dc",
+    "isolation": "bubblewrap rootfs",
+    "immutable_snapshot_complete": false,
+    "packages": {
+      "binutils": "2.46-3ubuntu2",
+      "ca-certificates": "20260601~26.04.1",
+      "clang-22": "1:22.1.2-1ubuntu1",
+      "clang-format-22": "1:22.1.2-1ubuntu1",
+      "clang-tidy-22": "1:22.1.2-1ubuntu1",
+      "clang-tools-22": "1:22.1.2-1ubuntu1",
+      "cmake": "4.2.3-2ubuntu2",
+      "git": "1:2.53.0-1ubuntu1",
+      "libc6-dev": "2.43-2ubuntu2.3",
+      "libclang-rt-22-dev": "1:22.1.2-1ubuntu1",
+      "libcurl4t64": "8.18.0-1ubuntu2.4",
+      "libgcc-15-dev": "15.2.0-16ubuntu1",
+      "libstdc++-15-dev": "15.2.0-16ubuntu1",
+      "libxml2-16": "2.15.2+dfsg-0.1ubuntu0.1",
+      "lld-22": "1:22.1.2-1ubuntu1",
+      "llvm-22": "1:22.1.2-1ubuntu1",
+      "llvm-22-tools": "1:22.1.2-1ubuntu1",
+      "ninja-build": "1.13.2-1",
+      "patch": "2.8-2build1",
+      "pkg-config": "2.5.1-4",
+      "sccache": "0.13.0+ds-3build1",
+      "unzip": "6.0-29ubuntu1",
+      "zip": "3.0-15ubuntu3"
+    }
+  },
+  "runtime_host": {
+    "os": "Microsoft Windows",
+    "build": "10.0.26200.9168",
+    "role": "Windows execution through WSL interop"
+  },
+  "targets": [
+    "x86_64-pc-windows-msvc",
+    "Debian product target retained but not exercised by this prototype"
+  ]
+}
