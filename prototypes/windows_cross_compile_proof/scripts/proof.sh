@@ -2,6 +2,7 @@
 set -euo pipefail
 
 proof_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+repo_root="$(cd "${proof_dir}/../.." && pwd)"
 state_root="${SACRAMENTO_CROSS_PROOF_ROOT:-/tmp/sacramento-cross-proof}"
 rootfs="${state_root}/ubuntu-26.04"
 llvm_root="${rootfs}/usr/lib/llvm-22"
@@ -65,6 +66,7 @@ run_in_build_root() {
     "${rootfs}/opt/sccache" \
     "${rootfs}/opt/msvc-asan" \
     "${rootfs}/opt/debian-13.6" \
+    "${rootfs}/repo" \
     "${rootfs}/usr/lib/llvm-22/lib/clang/22/lib/x86_64-pc-windows-msvc" \
     "${rootfs}/src" \
     "${rootfs}/out"
@@ -83,6 +85,7 @@ run_in_build_root() {
     --ro-bind "${debian_sysroot}" /opt/debian-13.6 \
     --ro-bind "${compiler_rt_windows_overlay}" /usr/lib/llvm-22/lib/clang/22/lib/x86_64-pc-windows-msvc \
     --ro-bind "${proof_dir}" /src \
+    --ro-bind "${repo_root}" /repo \
     --bind "${output_dir}" /out \
     /usr/bin/env -i \
       HOME=/tmp \
@@ -95,6 +98,39 @@ run_in_build_root() {
       VCPKG_ROOT=/opt/vcpkg \
       VCPKG_DEFAULT_BINARY_CACHE=/opt/vcpkg/bincache \
       "$@"
+}
+
+validate_root_definitions() {
+  run_in_build_root "${state_root}/root-config/debian" \
+    /usr/bin/cmake --list-presets -S /repo
+  for triplet in x64-debian-cross-clang x64-windows-cross-clang; do
+    run_in_build_root "${state_root}/root-config/debian" \
+      /usr/bin/cmake -E chdir /repo \
+        /opt/vcpkg/vcpkg install \
+          --dry-run \
+          --x-install-root=/out/vcpkg_installed \
+          "--triplet=${triplet}" \
+          --overlay-triplets=/repo/triplets
+  done
+  run_in_build_root "${state_root}/root-config/debian" \
+    /usr/bin/cmake \
+      --fresh \
+      -S /repo \
+      -B /out \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja \
+      -DCMAKE_TOOLCHAIN_FILE=/repo/cmake/toolchains/debian-cross-clang.cmake
+  run_in_build_root "${state_root}/root-config/windows" \
+    /usr/bin/cmake \
+      --fresh \
+      -S /repo \
+      -B /out \
+      -G Ninja \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_MAKE_PROGRAM=/usr/bin/ninja \
+      -DCMAKE_TOOLCHAIN_FILE=/repo/cmake/toolchains/windows-cross-clang.cmake
+  echo "root C++ definitions: PASS"
 }
 
 build() {
@@ -524,6 +560,10 @@ case "${1:-all}" in
     preflight
     stage_windows_artifacts
     ;;
+  root-config)
+    preflight
+    validate_root_definitions
+    ;;
   debian)
     preflight
     debian
@@ -536,7 +576,7 @@ case "${1:-all}" in
     asan
     ;;
   *)
-    echo "usage: $0 {preflight|build|inspect|run-windows|build-asan|package-windows|asan|debian|all}" >&2
+    echo "usage: $0 {preflight|root-config|build|inspect|run-windows|build-asan|package-windows|asan|debian|all}" >&2
     exit 2
     ;;
 esac

@@ -45,8 +45,9 @@ Git. Materialize and verify the hash-locked state at
 ./scripts/bootstrap.sh verify
 ```
 
-The install command uses the immutable Ubuntu APT snapshot declared in
-`config/bootstrap-lock.json`. It fails closed if a download, package version,
+The install command delegates to the promoted root bootstrap and uses the
+immutable Ubuntu APT snapshot declared in `../../config/cpp/bootstrap-lock.json`.
+It fails closed if a download, package version,
 manifest, tool, or registry identity differs. To generate a deterministic
 Ubuntu rootfs and Debian sysroot archives and their derived SHA-256 values, run
 `./scripts/bootstrap.sh seal`.

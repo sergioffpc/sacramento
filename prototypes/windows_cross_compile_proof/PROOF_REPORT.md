@@ -31,7 +31,7 @@ formal release gates remain.**
 - CMake/vcpkg GoogleTest executable SHA-256:
   `0d5d41749a389c86061617e677940f7b4428bfbfe39b08bf7d1976a4ce4039ac`.
 - Deterministically sealed Ubuntu rootfs SHA-256:
-  `7484abfdefe111dfb3d016d12b4bde24210a952ed56ec434d080e28fd6ae2be8`.
+  `8859d6259f7f8a419eac79cbe66d3b70e13005dd66a0edfac7f052b30ae627fe`.
 - Deterministically sealed Debian 13.6 sysroot SHA-256:
   `7d79897091617e12dc653d019b29d638cb41d983d9e60838576e77e2a10448af`.
 - Debian application SHA-256:
@@ -101,3 +101,13 @@ verifies every hash, runs the application and GoogleTests, runs the clean ASan
 probe, and requires the negative probe to fail with `heap-buffer-overflow`.
 The PowerShell runtime gate was also replayed successfully from NTFS during the
 prototype; execution directly from the WSL UNC share is deliberately unsupported.
+
+## Promoted root definitions
+
+The approved `.clang-format`, `.clang-tidy`, CMake project and target policy,
+canonical presets, vcpkg manifests, project triplets, cross-toolchains,
+machine-readable locks, and bootstrap now live at the repository root. The
+proof entry points delegate to those root definitions. CI validates every
+preset, resolves both vcpkg target graphs in dry-run mode, and configures the
+root project with Debian Clang and Windows clang-cl before exercising the binary
+gates.

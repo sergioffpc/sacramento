@@ -1,0 +1,185 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 4,
+    "minor": 2,
+    "patch": 3
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "BUILD_TESTING": "ON",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_CXX_COMPILER_LAUNCHER": "/opt/sccache/sccache",
+        "CMAKE_MAKE_PROGRAM": "/usr/bin/ninja",
+        "CMAKE_TOOLCHAIN_FILE": "/opt/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/triplets"
+      },
+      "environment": {
+        "SCCACHE_DIR": "/cache/sccache",
+        "VCPKG_BINARY_SOURCES": "clear;files,/cache/vcpkg,readwrite",
+        "VCPKG_ROOT": "/opt/vcpkg"
+      }
+    },
+    {
+      "name": "debian",
+      "hidden": true,
+      "inherits": "base",
+      "cacheVariables": {
+        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/debian-cross-clang.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-debian-cross-clang"
+      }
+    },
+    {
+      "name": "windows",
+      "hidden": true,
+      "inherits": "base",
+      "cacheVariables": {
+        "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchains/windows-cross-clang.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-windows-cross-clang"
+      }
+    },
+    {
+      "name": "dev-debian",
+      "inherits": "debian",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
+    },
+    {
+      "name": "debug-debian",
+      "inherits": "debian",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "release-debian",
+      "inherits": "debian",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "SACRAMENTO_HARDENING": "ON"
+      }
+    },
+    {
+      "name": "asan-ubsan-debian",
+      "inherits": "debian",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SACRAMENTO_SANITIZER": "asan-ubsan"
+      }
+    },
+    {
+      "name": "tsan-debian",
+      "inherits": "debian",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SACRAMENTO_SANITIZER": "tsan"
+      }
+    },
+    {
+      "name": "coverage-debian",
+      "inherits": "debian",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "SACRAMENTO_COVERAGE": "ON"
+      }
+    },
+    {
+      "name": "fuzz-debian",
+      "inherits": "debian",
+      "cacheVariables": {
+        "BUILD_TESTING": "OFF",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SACRAMENTO_FUZZING": "ON"
+      }
+    },
+    {
+      "name": "acceptance-debian",
+      "inherits": "release-debian",
+      "cacheVariables": { "SACRAMENTO_ACCEPTANCE": "ON" }
+    },
+    {
+      "name": "reproducible-debian",
+      "inherits": "release-debian",
+      "cacheVariables": { "SACRAMENTO_REPRODUCIBLE": "ON" },
+      "environment": {
+        "SCCACHE_DISABLE": "1",
+        "VCPKG_BINARY_SOURCES": "clear"
+      }
+    },
+    {
+      "name": "dev-windows",
+      "inherits": "windows",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
+    },
+    {
+      "name": "debug-windows",
+      "inherits": "windows",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "release-windows",
+      "inherits": "windows",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "SACRAMENTO_HARDENING": "ON"
+      }
+    },
+    {
+      "name": "asan-windows",
+      "inherits": "windows",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SACRAMENTO_SANITIZER": "asan"
+      }
+    },
+    {
+      "name": "acceptance-windows",
+      "inherits": "release-windows",
+      "cacheVariables": { "SACRAMENTO_ACCEPTANCE": "ON" }
+    },
+    {
+      "name": "reproducible-windows",
+      "inherits": "release-windows",
+      "cacheVariables": { "SACRAMENTO_REPRODUCIBLE": "ON" },
+      "environment": {
+        "SCCACHE_DISABLE": "1",
+        "VCPKG_BINARY_SOURCES": "clear"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "dev-debian", "configurePreset": "dev-debian" },
+    { "name": "debug-debian", "configurePreset": "debug-debian" },
+    { "name": "release-debian", "configurePreset": "release-debian" },
+    { "name": "asan-ubsan-debian", "configurePreset": "asan-ubsan-debian" },
+    { "name": "tsan-debian", "configurePreset": "tsan-debian" },
+    { "name": "coverage-debian", "configurePreset": "coverage-debian" },
+    { "name": "fuzz-debian", "configurePreset": "fuzz-debian" },
+    { "name": "acceptance-debian", "configurePreset": "acceptance-debian" },
+    { "name": "reproducible-debian", "configurePreset": "reproducible-debian" },
+    { "name": "dev-windows", "configurePreset": "dev-windows" },
+    { "name": "debug-windows", "configurePreset": "debug-windows" },
+    { "name": "release-windows", "configurePreset": "release-windows" },
+    { "name": "asan-windows", "configurePreset": "asan-windows" },
+    { "name": "acceptance-windows", "configurePreset": "acceptance-windows" },
+    { "name": "reproducible-windows", "configurePreset": "reproducible-windows" }
+  ],
+  "testPresets": [
+    { "name": "dev-debian", "configurePreset": "dev-debian", "output": { "outputOnFailure": true } },
+    { "name": "debug-debian", "configurePreset": "debug-debian", "output": { "outputOnFailure": true } },
+    { "name": "release-debian", "configurePreset": "release-debian", "output": { "outputOnFailure": true } },
+    { "name": "asan-ubsan-debian", "configurePreset": "asan-ubsan-debian", "output": { "outputOnFailure": true } },
+    { "name": "tsan-debian", "configurePreset": "tsan-debian", "output": { "outputOnFailure": true } },
+    { "name": "coverage-debian", "configurePreset": "coverage-debian", "output": { "outputOnFailure": true } },
+    { "name": "acceptance-debian", "configurePreset": "acceptance-debian", "output": { "outputOnFailure": true } },
+    { "name": "reproducible-debian", "configurePreset": "reproducible-debian", "output": { "outputOnFailure": true } },
+    { "name": "dev-windows", "configurePreset": "dev-windows", "output": { "outputOnFailure": true } },
+    { "name": "debug-windows", "configurePreset": "debug-windows", "output": { "outputOnFailure": true } },
+    { "name": "release-windows", "configurePreset": "release-windows", "output": { "outputOnFailure": true } },
+    { "name": "asan-windows", "configurePreset": "asan-windows", "output": { "outputOnFailure": true } },
+    { "name": "acceptance-windows", "configurePreset": "acceptance-windows", "output": { "outputOnFailure": true } },
+    { "name": "reproducible-windows", "configurePreset": "reproducible-windows", "output": { "outputOnFailure": true } }
+  ]
+}

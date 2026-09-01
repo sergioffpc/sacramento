@@ -3,7 +3,7 @@
   "ubuntu": {
         "release": "26.04 LTS",
         "snapshot": "20260901T000000Z",
-    "derived_rootfs_sha256": "7484abfdefe111dfb3d016d12b4bde24210a952ed56ec434d080e28fd6ae2be8",
+    "derived_rootfs_sha256": "8859d6259f7f8a419eac79cbe66d3b70e13005dd66a0edfac7f052b30ae627fe",
     "rootfs": {
       "url": "https://partner-images.canonical.com/oci/resolute/current/ubuntu-resolute-oci-amd64-root.tar.gz",
       "sha256": "ff0ec2f35ec4f89be3b535ce94629098c035701cd09100a50cd081c3f497e0dc"
@@ -59,14 +59,14 @@
   },
   "windows": {
         "vs18_manifest": {
-            "path": "config/vs18-channel.lock.json",
+            "path": "config/cpp/vs18-channel.lock.json",
             "sha256": "8816cd65238378facced13678b7eb659b24fb0defc25a1dc1adfdb7ca589f24e",
             "upstream_manifest_sha256": "d3aa7336680097d007876ffb85c9d2b5c32c21796e0125407c4e3b88ebe4fc31",
       "crt_selector": "14.50.18.0",
       "sdk_selector": "10.0.28000"
     },
         "vs17_manifest": {
-            "path": "config/vs17-channel.lock.json",
+            "path": "config/cpp/vs17-channel.lock.json",
             "sha256": "bbc35d59aef70c4337f534ec9313ec36e603bed7b0ff0217f121009614bb30e9",
             "upstream_manifest_sha256": "4c81e902fb7fe2acea779b828e6dc548fe0bbb693df50eda0224263c16686bdd",
       "crt_selector": "14.44.17.14",

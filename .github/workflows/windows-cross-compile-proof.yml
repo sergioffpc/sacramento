@@ -4,7 +4,17 @@ on:
   pull_request:
     paths:
       - ".github/workflows/windows-cross-compile-proof.yml"
+      - ".clang-format"
+      - ".clang-tidy"
+      - "CMakeLists.txt"
+      - "CMakePresets.json"
+      - "cmake/**"
+      - "config/cpp/**"
       - "prototypes/windows_cross_compile_proof/**"
+      - "scripts/cpp-toolchain-bootstrap.sh"
+      - "triplets/**"
+      - "vcpkg-configuration.json"
+      - "vcpkg.json"
   push:
     branches:
       - prototype/windows-cross-compile-proof
@@ -40,10 +50,9 @@ jobs:
         run: test "$XWIN_ACCEPT_LICENSE" = "1"
 
       - name: Materialize and verify the locked toolchain
-        working-directory: prototypes/windows_cross_compile_proof
         run: |
-          ./scripts/bootstrap.sh install
-          ./scripts/bootstrap.sh verify
+          scripts/cpp-toolchain-bootstrap.sh install
+          scripts/cpp-toolchain-bootstrap.sh verify
 
       - name: Build and inspect Windows targets with Clang
         working-directory: prototypes/windows_cross_compile_proof
@@ -52,6 +61,10 @@ jobs:
           ./scripts/proof.sh inspect
           ./scripts/proof.sh build-asan
           ./scripts/proof.sh package-windows
+
+      - name: Validate promoted root definitions
+        working-directory: prototypes/windows_cross_compile_proof
+        run: ./scripts/proof.sh root-config
 
       - name: Build, inspect, and test the Debian target with Clang
         working-directory: prototypes/windows_cross_compile_proof

@@ -10,7 +10,7 @@
     "source": "https://partner-images.canonical.com/oci/resolute/current/ubuntu-resolute-oci-amd64-root.tar.gz",
     "source_sha256": "ff0ec2f35ec4f89be3b535ce94629098c035701cd09100a50cd081c3f497e0dc",
     "apt_snapshot": "20260901T000000Z",
-    "derived_rootfs_sha256": "7484abfdefe111dfb3d016d12b4bde24210a952ed56ec434d080e28fd6ae2be8",
+    "derived_rootfs_sha256": "8859d6259f7f8a419eac79cbe66d3b70e13005dd66a0edfac7f052b30ae627fe",
     "isolation": "bubblewrap rootfs",
     "immutable_snapshot_complete": true,
     "packages": {
