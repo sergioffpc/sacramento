@@ -111,63 +111,17 @@ scripts/cpp-toolchain-bootstrap.sh seal
 
 ### Build
 
-Inspect the canonical CMake profiles and validate both root toolchain
-definitions:
-
-```sh
-cmake --list-presets
-tests/toolchain/scripts/proof.sh root-config
-```
-
-Build, inspect and package the Windows target without executing it:
-
-```sh
-tests/toolchain/scripts/proof.sh build
-tests/toolchain/scripts/proof.sh inspect
-tests/toolchain/scripts/proof.sh build-asan
-tests/toolchain/scripts/proof.sh package-windows
-```
-
-Windows artefacts and their `SHA256SUMS` file are written below
-`$SACRAMENTO_CROSS_PROOF_ROOT/artifacts/windows`.
-
-Build, inspect, test and package the Debian 13.6 target:
-
-```sh
-tests/toolchain/scripts/proof.sh debian
-```
-
-Debian artefacts are written below
-`$SACRAMENTO_CROSS_PROOF_ROOT/artifacts/debian`.
+The repository does not yet contain production engine targets. Build commands
+will be added here when the first approved engine module is introduced. The
+checked-in `CMakePresets.json`, toolchain files and dependency manifest already
+define the future Debian and Windows build profiles.
 
 ### Run
 
-From WSL2, build and run the complete Windows proof, native GoogleTests, and
-positive and negative ASan probes on Windows:
-
-```sh
-tests/toolchain/scripts/proof.sh all
-```
-
-This command requires WSL interop, `wslpath`, `/mnt/c`, and
-`C:\Windows\System32\cmd.exe`. It copies runtime files to
-`C:\Temp\sacramento-cross-proof-replay`; direct execution from a WSL UNC path is
-unsupported.
-
-To replay a packaged Windows artefact from PowerShell on a controlled Windows
-runner or machine:
-
-```powershell
-tests/toolchain/scripts/run-windows.ps1 `
-  -ArtifactDirectory C:\path\to\windows-cross-proof
-```
-
-The `debian` build command already executes the application, GoogleTests and
-sanitizer probes inside the pinned Debian target userspace.
-
-The permanent conformance suite and CI consume these root definitions, so a
-change cannot bypass the Windows and Debian gates. `tests/toolchain` contains
-engineering gate fixtures and probes, not production engine code.
+There is currently no engine executable to run. Runtime instructions for the
+Debian target and for Windows execution from WSL2 will be added with the first
+production executable. Exploratory prototype binaries are intentionally not
+retained in the repository.
 
 ## Contribution workflow
 

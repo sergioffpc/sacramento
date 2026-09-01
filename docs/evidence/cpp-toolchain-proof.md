@@ -16,7 +16,7 @@ formal release gates remain.**
 | Question | Result | Evidence |
 | --- | --- | --- |
 | Does C++23 `std::expected` work with the MSVC STL sysroot? | Pass | Ubuntu `clang-cl` 22.1.2 compiled `/std:c++23preview`; the PE printed `expected=42` on Windows and returned 0. |
-| Can vcpkg build `fmt` and GoogleTest for Windows from a Linux host? | Pass | `fmt` 12.2.0#1 and `gtest` 1.17.0#3 were built as static Windows libraries by the pinned vcpkg registry; two GoogleTests passed on Windows. Baseline 002 admits the resolved versions. |
+| Can vcpkg build dependencies for Windows from a Linux host? | Pass | The experiment built `fmt` 12.2.0#1 and `gtest` 1.17.0#3 as static Windows libraries and ran two GoogleTests on Windows. `fmt` was subsequently removed from the approved manifest because the project will use the standard library instead. |
 | Can Linux-hosted LLVM link a PE and execute it through WSL2 interop? | Pass | Linux `lld-link` produced PE32+ x86-64 executables. After app-local CRT deployment, the application and tests executed from `C:\Temp` with exit 0. |
 | Do PDB, CFG, ASan, reproducibility, and local caching work? | Pass | Full PDB generated; `llvm-readobj` reported CFG instrumentation/table plus ASLR/NX/high-entropy VA; clean ASan run passed; deliberate heap overflow produced a failing diagnostic; the clean replay produced identical EXE/PDB hashes; sccache 0.16.0 produced three cache hits. |
 | Can the same Ubuntu build root produce and test the Debian 13.6 target? | Pass | Clang/LLD produced PIE ELF binaries against the signed, hash-locked Debian sysroot; application and two GoogleTests passed inside the target userspace; ASan and UBSan negative probes failed with the expected diagnostics. |
@@ -91,24 +91,18 @@ and:
 The architectural correction and reproducible bootstrap are approved.
 Production C++ remains inadmissible until the remaining readiness gates pass.
 
-## CI gate boundary
+## Disposition of experimental assets
 
-`../../.github/workflows/windows-cross-compile-proof.yml` operationalizes the proven
-boundary. An explicit Ubuntu 26.04 hosted job materializes the locked toolchain,
-builds and inspects PE/PDB and ELF/debug output, executes Debian tests and
-ASan+UBSan gates, and publishes hash manifests. A controlled Windows 11 runner
-verifies every hash, runs the application and GoogleTests, runs the clean ASan
-probe, and requires the negative probe to fail with `heap-buffer-overflow`.
-The PowerShell runtime gate was also replayed successfully from NTFS during the
-experiment; execution directly from the WSL UNC share is deliberately unsupported.
+The experiment established the viability of the selected topology. Its
+fixtures, scripts and dedicated CI workflow were discarded after qualification;
+they are not part of the maintained product. Operational gates will be attached
+to real engine targets when those targets are introduced. This document retains
+only the decision evidence and recorded results.
 
 ## Promoted root definitions
 
 The approved `.clang-format`, `.clang-tidy`, CMake project and target policy,
 canonical presets, vcpkg manifests, project triplets, cross-toolchains,
-machine-readable locks, and bootstrap now live at the repository root. The
-The permanent suite under `../../tests/toolchain` delegates to those root
-definitions. CI validates every
-preset, resolves both vcpkg target graphs in dry-run mode, and configures the
-root project with Debian Clang and Windows clang-cl before exercising the binary
-gates.
+machine-readable locks, and bootstrap now live at the repository root. These
+definitions remain the maintained result of the experiment; prototype targets
+and duplicated configuration do not.
