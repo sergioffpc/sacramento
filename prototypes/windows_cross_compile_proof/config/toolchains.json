@@ -1,5 +1,5 @@
 {
-  "status": "prototype-inventory",
+  "status": "baseline-002-resolved-inputs",
   "tools": {
     "ubuntu_llvm": {
       "version": "1:22.1.2-1ubuntu1",
@@ -46,20 +46,28 @@
     "target": "x86_64-pc-windows-msvc",
     "crt_selector": "14.50.18.0",
     "crt_package_version": "14.50.35735",
+    "crt_manifest_identity": "VisualStudio.18.Release/18.9.2+12120.119",
     "crt_manifest_version": 18,
     "crt_manifest_sha256": "d3aa7336680097d007876ffb85c9d2b5c32c21796e0125407c4e3b88ebe4fc31",
     "crt_package_manifest_sha256": "c0b069003b64604d6d74632f10fa192e75ec5f1a37f5bed58de2bac49d263505",
     "sdk_selector": "10.0.26100",
     "sdk_package_version": "10.0.26100.15",
+    "sdk_manifest_identity": "VisualStudio.17.Release/17.14.39+37614.0.-august.2026-",
     "sdk_manifest_version": 17,
     "sdk_manifest_sha256": "4c81e902fb7fe2acea779b828e6dc548fe0bbb693df50eda0224263c16686bdd",
     "sdk_package_manifest_sha256": "3891c3018a07338b3880cbb28088bb22ef7762eb9206523655b2e3972b9d527e",
+    "msvc_asan_package_id": "Microsoft.VC.14.50.18.0.ASAN.X64.base",
+    "msvc_asan_package_version": "14.50.35734",
+    "msvc_asan_content_version": "14.50.35717",
     "msvc_asan_x64_sha256": "ee0e17c4a2730ae9ddb567b06953537ddecd2db4097763d0a66f57ae85283908",
+    "crt_redist_package_id": "Microsoft.VC.14.50.18.0.CRT.Redist.X64.base",
+    "crt_redist_package_version": "14.50.35719",
+    "crt_redist_content_version": "14.50.35710",
     "crt_redist_x64_sha256": "a4ab48822362df6e478eb4ed33bf825a07a6faacd6879c1e3d59929cd38b984b"
   },
   "resolved_dependencies": {
     "fmt": "12.2.0#1",
     "gtest": "1.17.0#3",
-    "baseline_gtest_match": false
+    "baseline_gtest_match": true
   }
 }

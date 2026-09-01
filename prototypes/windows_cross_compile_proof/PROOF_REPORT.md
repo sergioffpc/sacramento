@@ -5,8 +5,8 @@ Date: 2026-09-01
 Baseline under test: `CPP-ENGINEERING-BASELINE-001`
 
 Decision disposition: the proven build-host topology was admitted by
-`CPP-ENGINEERING-BASELINE-002` and ADR-0002. Exact dependency and Windows
-sysroot identities remain readiness blockers.
+`CPP-ENGINEERING-BASELINE-002` and ADR-0002. Baseline 002 also admits the exact
+dependency and Windows sysroot identities proved here.
 
 Verdict: **Cross-compilation proven; baseline correction required before
 operational approval.**
@@ -16,7 +16,7 @@ operational approval.**
 | Question | Result | Evidence |
 | --- | --- | --- |
 | Does C++23 `std::expected` work with the MSVC STL sysroot? | Pass | Ubuntu `clang-cl` 22.1.2 compiled `/std:c++23preview`; the PE printed `expected=42` on Windows and returned 0. |
-| Can vcpkg build `fmt` and GoogleTest for Windows from a Linux host? | Pass with version blocker | `fmt` 12.2.0 and `gtest` 1.17.0 were built as static Windows libraries by the pinned vcpkg registry; two GoogleTests passed on Windows. The registry does not contain the baseline's GoogleTest 1.18.0. |
+| Can vcpkg build `fmt` and GoogleTest for Windows from a Linux host? | Pass | `fmt` 12.2.0#1 and `gtest` 1.17.0#3 were built as static Windows libraries by the pinned vcpkg registry; two GoogleTests passed on Windows. Baseline 002 admits the resolved versions. |
 | Can Linux-hosted LLVM link a PE and execute it through WSL2 interop? | Pass | Linux `lld-link` produced PE32+ x86-64 executables. After app-local CRT deployment, the application and tests executed from `C:\Temp` with exit 0. |
 | Do PDB, CFG, ASan, reproducibility, and local caching work? | Pass | Full PDB generated; `llvm-readobj` reported CFG instrumentation/table plus ASLR/NX/high-entropy VA; clean ASan run passed; deliberate heap overflow produced a failing diagnostic; the clean replay produced identical EXE/PDB hashes; sccache 0.16.0 produced three cache hits. |
 
@@ -48,24 +48,23 @@ Windows ASan additionally requires Microsoft's target runtime and
 compiler-rt package contains Linux sanitizers and Windows builtins, but not the
 Windows ASan dynamic runtime.
 
-## Baseline blockers exposed by the proof
+## Baseline corrections resolved from the proof
 
-1. The approved baseline mandates Windows-hosted `clang-cl`, `link.exe`, and
-   Windows processes. The proven path uses Linux-hosted `clang-cl`, `llvm-lib`,
-   and `lld-link`; adopting it requires a new ADR/baseline revision.
-2. The pinned vcpkg commit
-   `9e593bb18ea69cc5095e012465dcd675a822ed0d` resolves GoogleTest 1.17.0#3,
-   not the approved 1.18.0.
-3. xwin's Visual Studio v17 manifest identifies the selected SDK as
-   10.0.26100.15, not the approved 10.0.26100.9169 identity.
-4. CRT 14.50 and SDK 10.0.26100 cannot be selected together from one current
-   xwin manifest. The proof composes the CRT directory from manifest v18 and the
-   SDK directory from manifest v17. This works but both manifests must become
-   retained immutable inputs.
-5. The Ubuntu rootfs started from a hash-pinned Canonical OCI archive, but its
+1. ADR-0002 and baseline 002 admit Linux-hosted `clang-cl`, `llvm-lib`, and
+   `lld-link` for the Windows target.
+2. Baseline 002 admits GoogleTest 1.17.0#3, the version resolved by the pinned
+   vcpkg commit and the current official GoogleTest release.
+3. Baseline 002 admits Windows SDK family 10.0.26100 through the exact xwin VS17
+   package version 10.0.26100.15.
+4. Baseline 002 explicitly admits the retained VS18 CRT plus VS17 SDK manifest
+   composition and requires both identities and hashes.
+
+## Remaining readiness blockers
+
+1. The Ubuntu rootfs started from a hash-pinned Canonical OCI archive, but its
    APT packages came from live Resolute repositories. An immutable APT snapshot or
    a final derived OCI digest is still required.
-6. This focused experiment does not re-prove the Debian target, release signing,
+2. This focused experiment does not re-prove the Debian target, release signing,
    native Windows performance, or formal acceptance.
 
 ## Decision disposition
@@ -75,7 +74,7 @@ in `BUILD_PROFILE_PROPOSAL.md` and:
 
 - allows Ubuntu-LTS-hosted Windows cross-compilation with `lld-link`;
 - retains native Windows runtime/performance/acceptance gates;
-- require the GoogleTest and Windows SDK version contradictions to be resolved;
+- admits the resolved GoogleTest and Windows SDK versions;
 - require the Ubuntu image, APT snapshot, Visual Studio manifests, Microsoft
   packages, LLVM Linux tools, LLVM Windows runtimes, and app-local CRT files to
   be pinned; and

@@ -117,15 +117,15 @@ for an installation identity to be completed before operational readiness.
 | CMake | Ubuntu 26.04 package version 4.2.3; both minimum and executed version |
 | Ninja | 1.13.2 |
 | sccache | 0.16.0 |
-| Windows SDK | 10.0.26100.9169 |
-| MSVC platform components | Build Tools 14.50 LTS target inputs, used only for MSVC STL/CRT, ASan runtime, redistributable runtime, and headers/libraries; exact package identities and hashes MUST be resolved before operational readiness |
+| Windows SDK | Family 10.0.26100; xwin VS17 package version 10.0.26100.15 |
+| MSVC platform components | CRT selector 14.50.18.0 and package 14.50.35735 from xwin VS18; ASan package 14.50.35734 with content 14.50.35717; CRT redistributable package 14.50.35719 with content 14.50.35710 |
 | Windows acceptance OS | Windows 11 Pro 25H2 and exact build/driver state in `RHP-DESKTOP-001` |
 | Debian | Debian 13.6 `trixie`; exact APT snapshot and OCI digest MUST be recorded before operational readiness |
 | Debian C++ library | libstdc++ 14.2.0-19 |
 | Debian assembler/linker | binutils 2.44-3 |
 | vcpkg registry | Release `2026.07.29`, commit `9e593bb18ea69cc5095e012465dcd675a822ed0d` |
 | vcpkg tool | 2026-07-27 |
-| GoogleTest/GoogleMock | 1.18.0 through vcpkg |
+| GoogleTest/GoogleMock | 1.17.0#3 through vcpkg |
 | Google Benchmark | 1.9.5 through vcpkg |
 | CodeQL Action | 4.37.9, commit `cdf488f595d80d6e07e03d4674febd5ab45fa938` |
 | CodeQL bundle/CLI | 2.26.4 |
@@ -142,7 +142,7 @@ Primary version evidence: [Ubuntu 26.04 rootfs](https://partner-images.canonical
 [Debian binutils](https://packages.debian.org/trixie/binutils),
 [vcpkg 2026.07.29](https://github.com/microsoft/vcpkg/releases/tag/2026.07.29),
 [vcpkg tool](https://github.com/microsoft/vcpkg-tool/releases/tag/2026-07-27),
-[GoogleTest 1.18.0](https://github.com/google/googletest/releases/tag/v1.18.0),
+[GoogleTest 1.17.0](https://github.com/google/googletest/releases/tag/v1.17.0),
 [Google Benchmark 1.9.5](https://github.com/google/benchmark/releases/tag/v1.9.5),
 [CodeQL Action 4.37.9](https://github.com/github/codeql-action/releases/tag/v4.37.9),
 and [CodeQL CLI 2.26.4](https://github.com/github/codeql-cli-binaries/releases/tag/v2.26.4).
@@ -157,6 +157,12 @@ snapshot. The Windows and Debian targets MUST NOT discover an ambient compiler,
 linker, standard library, or SDK. Release builds use preserved material without
 contacting a live repository. The machine-readable inventory binds the derived
 build-root digest to every installed package and external tool.
+
+The Windows sysroot deliberately composes CRT inputs from the retained VS18
+manifest with SDK inputs from the retained VS17 manifest because neither
+manifest contains both admitted families. The inventory MUST bind each source
+manifest, package manifest, payload, selector, and materialized sysroot. A live
+Visual Studio channel response is never a build input.
 
 ## Language and portability
 
@@ -496,7 +502,7 @@ Periodic and release-candidate builds start without either cache.
 
 ## Tests, fuzzing, coverage, and performance
 
-GoogleTest 1.18.0 and CTest are the canonical test stack. GoogleMock is used only
+GoogleTest 1.17.0#3 and CTest are the canonical test stack. GoogleMock is used only
 when a behavior-rich fake cannot provide a clearer boundary. Tests are classified
 as unit, component, integration, determinism/serialization, system, performance,
 or formal acceptance. A test name and retained output MUST identify the behavior
