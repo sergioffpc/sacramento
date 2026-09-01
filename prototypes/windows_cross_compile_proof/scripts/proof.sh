@@ -220,13 +220,52 @@ compile_asan_probe() {
       "/src/${source}"
 }
 
+build_asan() {
+  local build_dir="${state_root}/replay/asan"
+  mkdir -p "${build_dir}"
+  compile_asan_probe probes/expected.cc expected_asan
+  compile_asan_probe probes/asan_fault.cc asan_fault
+  echo "build ASan: PASS"
+}
+
+stage_windows_artifacts() {
+  local build_dir="${state_root}/replay/cmake"
+  local asan_dir="${state_root}/replay/asan"
+  local artifact_dir="${state_root}/artifacts/windows"
+  local redist_dir="${state_root}/redist-14.50/Contents/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT"
+  mkdir -p "${artifact_dir}"
+  cp \
+    "${build_dir}/proof_app.exe" \
+    "${build_dir}/proof_app.pdb" \
+    "${build_dir}/proof_tests.exe" \
+    "${build_dir}/proof_tests.pdb" \
+    "${asan_dir}/expected_asan.exe" \
+    "${asan_dir}/expected_asan.pdb" \
+    "${asan_dir}/asan_fault.exe" \
+    "${asan_dir}/asan_fault.pdb" \
+    "${msvc_asan_root}/bin/Hostx64/x64/clang_rt.asan_dynamic-x86_64.dll" \
+    "${redist_dir}/msvcp140.dll" \
+    "${redist_dir}/vcruntime140.dll" \
+    "${redist_dir}/vcruntime140_1.dll" \
+    "${artifact_dir}/"
+  (
+    cd "${artifact_dir}"
+    sha256sum \
+      proof_app.exe proof_app.pdb proof_tests.exe proof_tests.pdb \
+      expected_asan.exe expected_asan.pdb asan_fault.exe asan_fault.pdb \
+      clang_rt.asan_dynamic-x86_64.dll \
+      msvcp140.dll vcruntime140.dll vcruntime140_1.dll \
+      >SHA256SUMS
+  )
+  echo "stage Windows artifacts: PASS"
+}
+
 asan() {
   local build_dir="${state_root}/replay/asan"
   local windows_dir="/mnt/c/Temp/sacramento-cross-proof-asan"
   local redist_dir="${state_root}/redist-14.50/Contents/VC/Redist/MSVC/14.50.35710/x64/Microsoft.VC145.CRT"
-  mkdir -p "${build_dir}" "${windows_dir}"
-  compile_asan_probe probes/expected.cc expected_asan
-  compile_asan_probe probes/asan_fault.cc asan_fault
+  mkdir -p "${windows_dir}"
+  build_asan
   cp \
     "${build_dir}/expected_asan.exe" \
     "${build_dir}/asan_fault.exe" \
@@ -272,6 +311,14 @@ case "${1:-all}" in
     preflight
     asan
     ;;
+  build-asan)
+    preflight
+    build_asan
+    ;;
+  package-windows)
+    preflight
+    stage_windows_artifacts
+    ;;
   all)
     preflight
     build
@@ -280,7 +327,7 @@ case "${1:-all}" in
     asan
     ;;
   *)
-    echo "usage: $0 {preflight|build|inspect|run-windows|asan|all}" >&2
+    echo "usage: $0 {preflight|build|inspect|run-windows|build-asan|package-windows|asan|all}" >&2
     exit 2
     ;;
 esac

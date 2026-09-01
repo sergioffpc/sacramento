@@ -1,0 +1,91 @@
+name: Windows cross-compile proof
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/windows-cross-compile-proof.yml"
+      - "prototypes/windows_cross_compile_proof/**"
+  push:
+    branches:
+      - prototype/windows-cross-compile-proof
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-cross-proof-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ubuntu-build:
+    name: Ubuntu 26.04 Clang build
+    runs-on: ubuntu-26.04
+    timeout-minutes: 30
+    env:
+      SACRAMENTO_CROSS_PROOF_ROOT: ${{ runner.temp }}/sacramento-cross-proof
+      XWIN_ACCEPT_LICENSE: "1"
+    steps:
+      - name: Check out the proof revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Ensure the rootfs isolator is available
+        run: |
+          if ! command -v bwrap >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install --yes --no-install-recommends bubblewrap
+          fi
+
+      - name: Record Microsoft license acceptance
+        run: test "$XWIN_ACCEPT_LICENSE" = "1"
+
+      - name: Materialize and verify the locked toolchain
+        working-directory: prototypes/windows_cross_compile_proof
+        run: |
+          ./scripts/bootstrap.sh install
+          ./scripts/bootstrap.sh verify
+
+      - name: Build and inspect Windows targets with Clang
+        working-directory: prototypes/windows_cross_compile_proof
+        run: |
+          ./scripts/proof.sh build
+          ./scripts/proof.sh inspect
+          ./scripts/proof.sh build-asan
+          ./scripts/proof.sh package-windows
+
+      - name: Retain Windows build artefacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: windows-cross-proof-${{ github.sha }}
+          path: ${{ runner.temp }}/sacramento-cross-proof/artifacts/windows
+          if-no-files-found: error
+          retention-days: 7
+
+  windows-runtime:
+    name: Native Windows runtime gates
+    needs: ubuntu-build
+    runs-on: [self-hosted, sacramento, windows-11-25h2, cpp-proof]
+    timeout-minutes: 15
+    steps:
+      - name: Check out the proof revision
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Download the Windows package
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: windows-cross-proof-${{ github.sha }}
+          path: ${{ runner.temp }}\windows-cross-proof
+
+      - name: Run tests and ASan natively
+        shell: pwsh
+        working-directory: prototypes/windows_cross_compile_proof
+        run: ./scripts/run-windows.ps1 -ArtifactDirectory '${{ runner.temp }}\windows-cross-proof'
+
+      - name: Retain native Windows evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: windows-runtime-evidence-${{ github.sha }}
+          path: ${{ runner.temp }}\windows-cross-proof\windows-runtime-evidence.json
+          if-no-files-found: warn
+          retention-days: 7

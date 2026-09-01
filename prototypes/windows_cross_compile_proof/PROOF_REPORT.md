@@ -82,3 +82,14 @@ in `BUILD_PROFILE_PROPOSAL.md` and:
 
 The architectural correction and reproducible bootstrap are approved.
 Production C++ remains inadmissible until the remaining readiness gates pass.
+
+## CI gate boundary
+
+`.github/workflows/windows-cross-compile-proof.yml` operationalizes the proven
+boundary. An explicit Ubuntu 26.04 hosted job materializes the locked toolchain,
+builds and inspects PE/PDB output, compiles both ASan probes, and publishes a
+hash manifest with the native-runtime package. A controlled Windows 11 runner
+verifies every hash, runs the application and GoogleTests, runs the clean ASan
+probe, and requires the negative probe to fail with `heap-buffer-overflow`.
+The PowerShell runtime gate was also replayed successfully from NTFS during the
+prototype; execution directly from the WSL UNC share is deliberately unsupported.

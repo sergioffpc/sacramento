@@ -62,6 +62,12 @@ local compiler-cache hit and deterministic clean replay, inspects PE hardening,
 executes the application/tests on Windows, and runs positive and negative
 Windows ASan probes.
 
+The checked-in CI workflow splits the same gates at the platform boundary. Its
+explicit `ubuntu-26.04` job runs `build`, `inspect`, `build-asan`, and
+`package-windows`; the controlled Windows runner downloads that package and
+runs `scripts/run-windows.ps1` from native storage. No compiler runs in the
+Windows job, and no Windows executable runs in the Ubuntu job.
+
 Materializing the Microsoft sysroot with xwin requires acceptance of the
 Microsoft license. The owner accepted it for this prototype on 2026-09-01.
 Future automation must retain an explicit license-acceptance step.

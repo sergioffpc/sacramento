@@ -22,9 +22,8 @@ kernel `6.18.33.2-microsoft-standard-WSL2`. The generic upstream LLVM 22.1.8
 bundle was rejected because its `lld-link` expects the older `libxml2.so.2` ABI.
 The candidate profile instead uses Ubuntu's LLVM 22.1.2 packages, built against
 Ubuntu 26.04's `libxml2.so.16`. No compatibility symlink or Ubuntu 24.04 layer is
-used. Ubuntu's sccache 0.13.0 package remains present in the package inventory
-but is inactive: its Linux-hosted `clang-cl` output handling failed the proof.
-The active cache is the baseline-pinned official sccache 0.16.0 release.
+used. The active cache is the baseline-pinned official sccache 0.16.0 release;
+no distribution sccache package is installed in the sealed build root.
 
 ## Required profile changes
 
