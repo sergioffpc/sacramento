@@ -4,7 +4,7 @@ Date: 2026-09-02
 
 Build and packaging status: **PASS**.
 
-Native Windows/NVIDIA execution status: **PENDING**.
+Native Windows/NVIDIA execution status: **PASS**.
 
 ## Verdict
 
@@ -14,9 +14,10 @@ Sacramento consumer build. The Linux host packaged the SDK and cross-built the
 Vulkan/Slang/Aftermath smoke twice from clean output roots. Both runs produced
 identical SDK archives and executables.
 
-This proves the build and handoff portion of Gate 1C. It does not prove device
-creation, shader compilation, or Aftermath initialization on NVIDIA hardware;
-those checks require the native Windows run defined below.
+The corrected bundle then ran natively on Windows with an NVIDIA GeForce RTX
+5070 Ti. Falcor selected Vulkan, created the Slang compute program, reported
+the NVIDIA adapter, and kept Aftermath enabled. Gate 1C therefore passes both
+the reproducible Linux build/handoff proof and the native Windows acceptance.
 
 ## Immutable outputs
 
@@ -88,27 +89,24 @@ Falcor shader path and the prototype shader path, so this packaging regression
 now fails on Linux before native handoff.
 
 The two `Attempt to access invalid address.` messages observed before the
-missing-shader exception remain unclassified. They did not terminate device
-construction; the next native run must show whether they persist after the
-shader packaging correction.
+missing-shader exception did not recur in the captured corrected run.
 
-## Native acceptance still required
+## Native attempt 2 and acceptance
 
-Copy one clean smoke bundle to a Windows machine with a supported NVIDIA GPU
-and driver, then run:
+The run11 smoke bundle was copied from WSL storage to a fresh local Windows
+temporary directory. Both required shader paths existed and the executable
+identity matched the expected SHA-256 before execution. Running:
 
 ```powershell
 .\run-smoke.ps1
 ```
 
-The wrapper accepts only a zero exit code and JSON reporting all of the
-following:
+returned:
 
-- `status` is `pass`
-- `api` is `Vulkan`
-- `aftermath` is `true`
-- `adapter` is non-empty
-- the Slang program was created successfully
+```json
+{"status":"pass","api":"Vulkan","adapter":"NVIDIA GeForce RTX 5070 Ti","slang_program":"gate1c.slang","aftermath":true}
+```
 
-Until this native run passes, Gate 1C as a whole remains open even though its
-Linux build, packaging, provenance, and reproducibility checks pass.
+This satisfies every wrapper assertion: zero exit status, Vulkan API, explicit
+NVIDIA adapter, successful Slang program creation, and Aftermath enabled. Gate
+1C is complete.
