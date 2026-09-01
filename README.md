@@ -19,16 +19,20 @@ contain a selected software architecture or production implementation.
 
 - [Domain language](CONTEXT.md)
 - [Initial requirements](docs/requirements/training-simulation-initial-requirements.md)
+- [Non-functional requirements](docs/requirements/training-simulation-non-functional-requirements.md)
+- [Reference hardware profiles](docs/requirements/training-simulation-reference-hardware-profiles.md)
+- [Observability contract](docs/requirements/training-simulation-observability-contract.md)
+- [Trainee Performance Assessment requirements](docs/requirements/training-simulation-performance-assessment-requirements.md)
+- [Engagement Target performance profile](docs/requirements/training-simulation-performance-profile-engagement-target-001.md)
 - [Verification plan](docs/requirements/training-simulation-verification-plan.md)
-- [NFR interview inputs](docs/requirements/training-simulation-nfr-inputs.md)
 - [Research guidance](docs/research/initial-goals-requirements-and-constraints-guidance.md)
 - [Conventional Commit Profile](docs/standards/conventional-commits.md)
 - [Git Flow](docs/standards/git-flow.md)
 
 ## Verification inventory
 
-The verification-assignment CSV is generated from the requirements and
-verification plan. Regenerate it with:
+The verification-assignment CSV is generated from the approved functional
+requirements and their verification plan. Regenerate it with:
 
 ```sh
 python3 scripts/generate-verification-assignment-inventory.py

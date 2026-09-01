@@ -4,7 +4,7 @@ Status: Approved Functional Baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: C++23 target, project owner, 2026-08-31
+Latest approved amendment: Trainee Performance Assessment boundary, project owner, 2026-09-01
 
 Canonical language: English
 
@@ -22,7 +22,13 @@ Glossary: [CONTEXT.md](../../CONTEXT.md)
 
 Research rubric: [initial-goals-requirements-and-constraints-guidance.md](../research/initial-goals-requirements-and-constraints-guidance.md)
 
-NFR interview inputs: [training-simulation-nfr-inputs.md](training-simulation-nfr-inputs.md)
+Non-functional requirements: [training-simulation-non-functional-requirements.md](training-simulation-non-functional-requirements.md)
+
+Reference hardware profiles: [training-simulation-reference-hardware-profiles.md](training-simulation-reference-hardware-profiles.md)
+
+Observability contract: [training-simulation-observability-contract.md](training-simulation-observability-contract.md)
+
+Trainee Performance Assessment requirements: [training-simulation-performance-assessment-requirements.md](training-simulation-performance-assessment-requirements.md)
 
 Verification plan: [training-simulation-verification-plan.md](training-simulation-verification-plan.md)
 
@@ -64,8 +70,6 @@ Verification plan: [training-simulation-verification-plan.md](training-simulatio
 - [Project and documentation constraints](#project-and-documentation-constraints)
 - [Non-goals](#non-goals)
 - [Deferred capabilities](#deferred-capabilities)
-- [Open functional questions](#open-functional-questions)
-- [Working-draft completion rule](#working-draft-completion-rule)
 
 ## Purpose
 
@@ -73,7 +77,7 @@ This document captures the accepted goals, functional requirements, product cons
 
 Definitions live only in `CONTEXT.md`. Terms capitalized as glossary entries have their canonical meaning there.
 
-Intended readers are the project owner, requirements reviewers, architects, designers, implementers, and verification authors. Prerequisites are the canonical glossary and the research rubric linked above; the separate NFR draft is not a prerequisite for interpreting functional behavior.
+Intended readers are the project owner, requirements reviewers, architects, designers, implementers, and verification authors. Prerequisites are the canonical glossary and the research rubric linked above; the separate NFR document owns quality requirements and is not required to interpret functional behavior.
 
 ## Goals
 
@@ -106,7 +110,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **SCOPE-REQUIREMENTS-DOCUMENT-001** — This document owns goals, functional requirements, functional constraints, assumptions, deferred capabilities, and non-goals.
 
-**SCOPE-REQUIREMENTS-DOCUMENT-002** — Before approval of an overall product baseline, non-functional requirements MUST be defined in a separately identified canonical document; captured NFR interview inputs are non-normative and MUST NOT be treated as that document.
+**SCOPE-REQUIREMENTS-DOCUMENT-002** — Before approval of an overall product baseline, non-functional requirements MUST be defined in the separately identified canonical [Training Simulation Non-Functional Requirements](training-simulation-non-functional-requirements.md); interview notes and other transient elicitation material MUST NOT be treated as requirements.
 
 **SCOPE-FINANCE-001** — Financial limits, expenditure analysis, licensing cost, and budget planning are outside this requirements effort.
 
@@ -1998,17 +2002,17 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 ## Platform and deployment constraints
 
-**REQ-PLATFORM-ACCEPTANCE-PROFILE-001** — Accepted Desktop, PC-connected Virtual-Reality, and Session Authority configurations MUST each reference one exact approved Reference Hardware Profile version defining hardware, operating-system edition/build and configuration, drivers, input/output devices, display or headset, audio routing, network interface, runtime settings, and acceptance tolerances.
+**REQ-PLATFORM-ACCEPTANCE-PROFILE-001** — Accepted Desktop, PC-connected Virtual-Reality, and Session Authority configurations MUST each reference one exact approved Reference Hardware Profile version defining the fixed hardware and platform fields required for reproducible acceptance and the variable configuration fields that each acceptance execution must record as evidence.
 
 **REQ-PLATFORM-ACCEPTANCE-PROFILE-002** — Each role/mode MUST execute its complete applicable acceptance procedure on its exact Reference Hardware Profile and deployment configuration before that profile is admitted; inspection alone MUST NOT establish execution acceptance.
 
-**CONSTRAINT-CLIENT-OS-001** — Desktop Mode and PC-connected Virtual-Reality Mode clients MUST execute on the exact 64-bit Windows 11 edition, build, configuration, and driver set recorded by their admitted Reference Hardware Profiles.
+**CONSTRAINT-CLIENT-OS-001** — Desktop Mode and PC-connected Virtual-Reality Mode clients MUST execute on the exact 64-bit Windows 11 edition, build, and driver set defined by their admitted Reference Hardware Profiles; variable operating-system configuration MUST be recorded as acceptance-run evidence.
 
 **CONSTRAINT-AUTHORITY-HOST-001** — The Session Authority MUST execute on a dedicated machine in the same LAN as clients.
 
 **CONSTRAINT-AUTHORITY-HOST-002** — That machine MUST NOT host a local Trainee or gameplay client.
 
-**CONSTRAINT-AUTHORITY-OS-001** — The dedicated machine MUST execute the exact Ubuntu Server 26.04 LTS amd64 build, kernel, configuration, and driver set recorded by its admitted Reference Hardware Profile.
+**CONSTRAINT-AUTHORITY-OS-001** — The dedicated machine MUST execute the exact Debian 13 amd64 release and kernel defined by its admitted Reference Hardware Profile; variable operating-system configuration and driver state MUST be recorded as acceptance-run evidence.
 
 **CONSTRAINT-PLATFORM-MATRIX-001** — The supported initial matrix is Windows clients and Linux Session Authority.
 
@@ -2021,8 +2025,6 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 **CONSTRAINT-AUDIO-DEVICE-001** — Every accepted Trainee station MUST use stereo headphones with a microphone, or integrated VR hardware whose admitted Reference Hardware Profile demonstrates the same required two-channel spatial output, microphone input, simultaneous input/output routing, level domain, channel isolation, and applicable acoustic-test tolerances.
 
 ## Project and documentation constraints
-
-The accepted team-size and maintainability target is preserved only as a non-normative input in [Training Simulation NFR Interview Inputs](training-simulation-nfr-inputs.md) until the separate NFR baseline defines measurable acceptance.
 
 **CONSTRAINT-LANGUAGE-001** — English MUST be canonical for persistent requirements, design, architecture, ADRs, glossary terms, code identifiers, and code comments.
 
@@ -2107,7 +2109,7 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 ## Deferred capabilities
 
 - **DEFERRED-INSTRUCTOR-001** — Instructor control of Training Sessions.
-- **DEFERRED-AAR-001** — After-Action Review.
+- **DEFERRED-AAR-001** — Full After-Action Review, including Training Session reconstruction, tactical timeline, and detailed post-action analysis. Session performance metrics, Formal Assessment, and Leaderboards are governed separately and are not deferred by this entry.
 - **DEFERRED-RECOVERY-SUBJECT-001** — Replacing the Recovery Proxy with an autonomously controlled Recovery Subject.
 - **DEFERRED-SCENARIO-001** — Sabotage missions.
 - **DEFERRED-VR-DEVICE-001** — Standalone virtual-reality devices.
@@ -2116,13 +2118,3 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 - **DEFERRED-LOCOMOTION-001** — Free-form jumping and arbitrary surface climbing.
 - **DEFERRED-STRUCTURAL-COLLAPSE-001** — Full structural collapse of buildings.
 - **DEFERRED-MELEE-RESTRAINT-001** — Grappling, restraint, immobilization, arrest, and detention actions.
-
-## Open functional questions
-
-- None. The former `DEFERRED-AUTH-001` scope is closed by `SCOPE-AUTH-001` and the accepted AUTH requirements; only separately identified NFR measurements remain outside this functional baseline.
-
-## Working-draft completion rule
-
-This draft is ready for approval only when the functional interview frontier is empty, every open functional question is resolved or explicitly deferred, every critical requirement passes independent ambiguity review, and the user confirms shared understanding.
-
-Current completion state: the functional interview frontier is empty, including Authentication and authorization; every identified ambiguity has a resolved disposition, the complete AUTH delta passed independent review, every identifier has a verification assignment, and the project owner approved this functional baseline on 2026-08-28.

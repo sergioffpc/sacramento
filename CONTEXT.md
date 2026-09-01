@@ -1,6 +1,10 @@
 # Training Simulation
 
-Status: Under Review
+Status: Approved
+
+Approval: Project owner, 2026-09-01
+
+Baseline: Initial Domain Context
 
 Purpose: Define the canonical domain language for the Training Simulation.
 
@@ -57,8 +61,8 @@ A Trainee client whose current connection or permitted reconnection continuity i
 _Avoid_: Connected socket, authenticated identity, roster entry, Ready Trainee
 
 **After-Action Review (AAR)**:
-A structured examination of a completed training session used to understand events, decisions, and outcomes.
-_Avoid_: ARR, debrief
+A structured reconstruction and examination of a completed Training Session used to understand its event sequence, decisions, and outcomes. Session performance metrics, Formal Assessment, and Leaderboards are not by themselves an AAR.
+_Avoid_: ARR, debrief, performance summary, Leaderboard
 
 **Approved Profile**:
 A versioned record of represented behavior or data whose scope, reference conditions, evidence, tolerances, specialist validation, and project-owner approval satisfy the profile-admission requirements.
@@ -175,6 +179,10 @@ _Avoid_: Trainee Identity, connection, network address, Session Continuity Claim
 **Continuity Validation Outcome Catalogue**:
 The approved, versioned, and closed shared Identity Validation Package artifact assigning one exact terminal result and lifecycle disposition to every combination of Session Continuity Claim, Device Continuity Proof, protected-exchange integrity and binding, audit commit, cancellation, connection, supersession, and deadline outcomes.
 _Avoid_: Claim-only acceptance, implicit retry behavior, partial reconnection success
+
+**Controlled LAN**:
+The private, dedicated wired local network whose participants, local services, permitted traffic, and measurement conditions are closed by an exact deployment profile, with no route to an external network during a Training Session.
+_Avoid_: Wide-area network, shared office network, unspecified LAN
 
 **Conventional Commit Profile**:
 The repository-owned, versioned commit-message grammar, admitted types and scopes, breaking-change notation, validation rules, and integration policy based on one exact Conventional Commits specification version.
@@ -308,6 +316,10 @@ _Avoid_: Cached admission decision, local account, unverifiable identity claim
 The Session Authority's monotonic time source for Training Session lifecycle deadlines and countdowns, which advances independently from simulated time, including during Technical Pause.
 _Avoid_: Simulated time, Scenario timer, client clock, calendar clock
 
+**Observability Contract**:
+The approved, versioned definition of core metric and event identifiers, fields, units, timestamp semantics, correlation semantics, and availability needed to verify automated quality requirements and operational targets consistently in test and production builds.
+_Avoid_: Implementation-specific logging library, unrestricted diagnostic dump, AUTH Audit Record
+
 **Package Trust Reference**:
 The externally provisioned, project-owner-approved bootstrap reference by which a host verifies the identity, version, role, and integrity of the current Identity Validation Package manifest without trusting that package to validate itself.
 _Avoid_: Self-declared package integrity, Session Authority download, live identity lookup
@@ -371,6 +383,10 @@ _Avoid_: Flag, hostage, objective item
 **Reference Hardware Profile**:
 A versioned acceptance configuration that fixes the hardware, drivers, display conditions, and relevant settings used to verify one product role or access mode.
 _Avoid_: Minimum requirements, recommended PC, hardware class
+
+**Reference Workload Profile**:
+A versioned acceptance definition that fixes one reproducible `Typical`, `Stress`, or `Rejection Boundary` load used to verify applicable Training Simulation quality requirements.
+_Avoid_: Ad hoc benchmark, unspecified worst case, duplicated per-requirement workload
 
 **Representative Evaluator**:
 An armed-forces member with recent experience of the environments, equipment, and decisions represented by the Scenario who evaluates whether the Training Simulation preserves relevant training perception and outcomes.
@@ -439,6 +455,22 @@ _Avoid_: Timeout, tactical pause, game pause
 **Trainee**:
 An armed-forces participant who takes part in a Training Session as a member of a Team.
 _Avoid_: Player, participant, user
+
+**Trainee Performance Assessment**:
+A structured set of evidence-derived results about one Trainee's performance under defined Training Session, task, role, and profile conditions, with separate outputs for Training Feedback, Formal Assessment, and Leaderboard.
+_Avoid_: Gameplay telemetry, universal score, personnel record
+
+**Training Feedback**:
+Detailed, session-scoped information returned to a Trainee or instructor to support learning and improvement; it is not a formal competence decision.
+_Avoid_: Formal Assessment, ranking, raw telemetry
+
+**Formal Assessment**:
+An evidence-based evaluation of a Trainee against fixed, pre-approved performance criteria under defined conditions, independent of relative position among other Trainees.
+_Avoid_: Leaderboard position, popularity score, informal feedback
+
+**Leaderboard**:
+A relative ordering of eligible Trainees within one explicitly defined scope, period, role, and comparison population; it is not by itself a Formal Assessment.
+_Avoid_: Competence decision, universal ranking, hidden score
 
 **Trainee Authentication Act**:
 A deliberate act performed by the human Trainee to authenticate that Trainee Identity for one initial admission attempt, without prescribing the authentication mechanism.

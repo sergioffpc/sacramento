@@ -12,7 +12,7 @@ Review coverage: Accepted verification decisions through Q308 plus the complete 
 
 Purpose: Define how the accepted initial requirements are reviewed for ambiguity and assigned finite verification procedures, evidence, and responsibilities.
 
-Scope: Requirement review, verification methods, evidence ownership, specialist evaluation, and final acceptance authority. This document does not add product behavior, select architecture, define implementation tasks, or make the separate NFR inputs normative.
+Scope: Verification of the approved functional baseline and common verification conventions referenced by separately governed requirement documents. This document does not add product behavior, select architecture, define implementation tasks, or replace the requirement-specific catalogues in the non-functional or Trainee Performance Assessment documents.
 
 Intended readers: Project owner, requirements reviewers, architects, designers, implementers, verification authors, and Representative Evaluators.
 
@@ -25,7 +25,6 @@ Prerequisites: [Training Simulation Initial Requirements](training-simulation-in
 - [Responsibilities and approval](#responsibilities-and-approval)
 - [Requirement assignments](#requirement-assignments)
 - [Ambiguity findings](#ambiguity-findings)
-- [Open review questions](#open-review-questions)
 - [Definition of done](#definition-of-done)
 
 ## Verification methods
@@ -288,7 +287,7 @@ For the current baseline, each assignment-table method cell is the reviewed accu
 | `PROCESS-TRACEABILITY-001`, `PROCESS-TRACEABILITY-INVENTORY-001` through `PROCESS-TRACEABILITY-INVENTORY-003` | Inspection, Analysis | None | Versioned Baseline Artifact Inventory reconciled against complete authoritative architecture, design, implementation and verification repositories or registries; artifact metadata; stable-ID, non-applicability or deferral traces; missing/stale/unclassified negative cases; and exact-version project-owner approval | Implementation team | Project owner |
 | `CONSTRAINT-ACTION-SCOPE-001` | Inspection, Analysis, Representative Evaluation | None | Complete exposed-action inventory reconciliation; stable action metadata and requirement traces; approved pre-admission Training Need Records with activity, outcome, scope and rationale; structured findings that each admitted action has a valid military training purpose; and rejection of missing, unapproved, untraced or entertainment-only actions | Implementation team and Representative Evaluators | Project owner |
 | `PROCESS-ACTION-INVENTORY-001` through `PROCESS-ACTION-INVENTORY-003` | Inspection, Analysis | None | Complete exposed-action inventory reconciliation; stable action metadata and requirement traces; approved pre-admission Training Need Records with activity, outcome, scope and rationale; and rejection of missing, unapproved, untraced or entertainment-only actions | Implementation team | Project owner |
-| `SCOPE-REQUIREMENTS-DOCUMENT-002` | Inspection | None | Identification and status of the separate canonical NFR document before overall product-baseline approval, plus confirmation that captured NFR interview inputs remain non-normative | Implementation team | Project owner |
+| `SCOPE-REQUIREMENTS-DOCUMENT-002` | Inspection | None | Identification and status of the canonical NFR document before overall product-baseline approval, plus confirmation that transient elicitation material is not treated as requirements | Implementation team | Project owner |
 | `REQ-TEAM-LOCK-001`, `REQ-TEAM-RESET-001`, `REQ-LOADOUT-LOCK-001`, `REQ-SESSION-COUNTDOWN-003`, `REQ-SESSION-COUNTDOWN-004` | Automated Test, Inspection | Demonstration | Canonical traces for countdown start, cancellation, entry to Preparation, active simulation, Technical Pause, resume, normal completion and termination; rejection of changes while locked; permitted Team/Loadout changes after Preparation; claim/readiness effects; and a fresh five-second restart | Implementation team | Project owner |
 | `REQ-RECONNECT-IDENTITY-001` through `REQ-RECONNECT-TRUST-001`, `REQ-RECONNECT-CONTINUITY-OUTCOME-001` through `REQ-RECONNECT-CONTINUITY-RETRY-001`, `REQ-RECONNECT-CLAIM-CREATION-001`, `REQ-RECONNECT-CLAIM-REPLACEMENT-001`, `REQ-RECONNECT-CLAIM-ROTATION-001`, `REQ-RECONNECT-CLAIM-RELEASE-001`, `REQ-RECONNECT-CLAIM-SCOPE-001`, `REQ-RECONNECT-CLAIM-RESTART-001`, `REQ-RECONNECT-DEVICE-RESTART-001`, `REQ-RECONNECT-CLAIM-INVALIDATION-001`, `REQ-RECONNECT-CLAIM-INVALIDATION-002`, `REQ-RECONNECT-ROSTER-001`, `REQ-READINESS-PRECONDITION-006`, `REQ-SESSION-SEQUENTIAL-RECOVERY-001`, `REQ-SESSION-REPEAT-CLAIM-001` | Automated Test, Analysis, Inspection | Demonstration | Closed composite-outcome coverage; claim and Device Continuity Proof lifecycle tests covering initial assignment, binding, challenge, every valid/invalid/audit/deadline/cancellation combination, retry, replacement, release, process restart, recovery rotation only after composite success, predecessor rejection, later recovery, wrong device, wrong scope and every invalidator; unchanged roster cardinality and no new roster entry; new-session successor claim; and absence of human reauthentication or manual credential entry | Implementation team and Qualified Specialists for identity-security evidence | Project owner |
 | `REQ-SESSION-DISCONNECT-001`, `REQ-SESSION-RECONNECT-001` through `REQ-SESSION-RECONNECT-003` | Automated Test, Inspection | None | Canonical transition times and outcomes showing that the 30-second window starts on entry to Technical Pause, closes successfully only when both the matching claim and Device Continuity Proof are accepted before expiry, and terminates the Training Session and ends the disconnected Admission when either has not been accepted at expiry | Implementation team | Project owner |
@@ -689,12 +688,8 @@ The same inventory is the identifier-level Representative Evaluation applicabili
 
 **AMBIGUITY-AUTH-DENIAL-UNDELIVERABLE-001** — `Resolved; independent re-review passed`. A terminal outcome with no remaining protected response channel has `No Denial Disclosure`, retains its local audit disposition, and never queues a reason-bearing response into another attempt.
 
-## Open review questions
-
-- None.
-
 ## Definition of done
 
-This plan is complete when every normative identifier in the initial requirements baseline has an explicit ambiguity-review disposition, primary verification method, required evidence, evidence owner, and final approver; every accepted ambiguity correction is reflected in the canonical requirement; conflicts and unverifiable obligations are resolved or explicitly deferred; and no assignment makes the separate NFR inputs normative.
+This plan is complete when every normative identifier in the approved functional baseline has an explicit ambiguity-review disposition, primary verification method, required evidence, evidence owner, and final approver; every accepted ambiguity correction is reflected in the canonical requirement; and conflicts and unverifiable obligations are resolved or explicitly deferred.
 
 Current completion state: all conditions are satisfied for the complete functional baseline, including the independently reviewed Authentication and authorization delta. Every identifier is incorporated into the generated inventory, and the project owner approved this verification plan on 2026-08-28.
