@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 365785a..95e293d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -87 +86,0 @@ if(FALCOR_WINDOWS)
+-    set(PACKMAN "${CMAKE_SOURCE_DIR}/tools/packman/packman.cmd")
+@@ -90 +88,0 @@ elseif(FALCOR_LINUX)
+-    set(PACKMAN "${CMAKE_SOURCE_DIR}/tools/packman/packman")
+@@ -93,0 +92,6 @@ endif()
++if(CMAKE_HOST_WIN32)
++    set(PACKMAN "${CMAKE_SOURCE_DIR}/tools/packman/packman.cmd")
++else()
++    set(PACKMAN "${CMAKE_SOURCE_DIR}/tools/packman/packman")
++endif()
++

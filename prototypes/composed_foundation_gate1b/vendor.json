@@ -1,0 +1,33 @@
+{
+  "falcor": {
+    "commit": "9dc819c162b2070335c65060436041690b7937f8",
+    "repository": "https://github.com/NVIDIAGameWorks/Falcor.git",
+    "tag": "8.0"
+  },
+  "aftermath": {
+    "enabled": true,
+    "sha256": "e38136a60110199559b7365d3ea4ec0cb5588dc2b0f593877d864e0299659a3f",
+    "url": "https://developer.nvidia.com/downloads/assets/tools/secure/nsight-aftermath-sdk/2026_3_0/windows_x64/NVIDIA_Nsight_Aftermath_SDK_2026.3.0.26197-windows_x64.zip",
+    "version": "2026.3.0.26197"
+  },
+  "feature_selection": {
+    "aftermath": true,
+    "cuda": false,
+    "nvapi": false,
+    "optix": false,
+    "python": false,
+    "vulkan": true
+  },
+  "packman": {
+    "launcher_version": "7.23.2",
+    "target_platform": "windows-x86_64"
+  },
+  "submodules": {
+    "external/args": "a48e1f880813b367d2354963a58dedbf2b708584",
+    "external/fmt": "a0b8a92e3d1532361c2f7feb63babc5c18d00ef2",
+    "external/glfw": "45ce5ddd197d5c58f50fdd3296a5131c894e5527",
+    "external/imgui": "aceab9a877de0258d19d29a5d87a51b63a8999bf",
+    "external/pybind11": "7071735dbfc4be70dfb1b6bc312cd09f54e32c62",
+    "external/vulkan-headers": "6ea9413be28455ab172af63d14927f8453cb25f1"
+  }
+}
