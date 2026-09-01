@@ -75,8 +75,12 @@ toolchains outside the Git worktree avoids multi-gigabyte generated content in
 the repository:
 
 ```sh
-export SACRAMENTO_CROSS_PROOF_ROOT=/tmp/sacramento-cpp-baseline-002
+export SACRAMENTO_CPP_TOOLCHAIN_ROOT=/var/tmp/sacramento-cpp-baseline-002
 ```
+
+The bootstrap requires at least 12 GiB free. Avoid `/tmp` on WSL installations
+where it is backed by a size-limited `tmpfs`; `/var/tmp` uses the distribution's
+persistent filesystem by default.
 
 If HTTPS is intercepted by the local network, identify the host CA bundle used
 only for download transport:
@@ -100,7 +104,7 @@ the checked-in signatures and cryptographic hashes.
 
 `verify` is deliberately read-only. If it reports an incompatible state from an
 older baseline, select a new empty directory through
-`SACRAMENTO_CROSS_PROOF_ROOT` and run `install`; do not reuse or mutate the old
+`SACRAMENTO_CPP_TOOLCHAIN_ROOT` and run `install`; do not reuse or mutate the old
 rootfs.
 
 Optionally verify the deterministic Ubuntu and Debian archives:

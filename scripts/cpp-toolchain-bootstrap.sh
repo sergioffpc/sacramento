@@ -4,7 +4,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 lock_file="${repo_root}/config/cpp/bootstrap-lock.json"
 debian_lock_file="${repo_root}/config/cpp/debian-sysroot-lock.json"
-state_root="${SACRAMENTO_CROSS_PROOF_ROOT:-/tmp/sacramento-cpp-baseline-002}"
+state_root="${SACRAMENTO_CPP_TOOLCHAIN_ROOT:-/var/tmp/sacramento-cpp-baseline-002}"
 downloads="${state_root}/downloads"
 rootfs="${state_root}/ubuntu-26.04"
 debian_sysroot="${state_root}/debian-13.6-sysroot"
@@ -38,6 +38,19 @@ require_command() {
   if ! command -v "$1" >/dev/null; then
     echo "missing host command: $1" >&2
     exit 2
+  fi
+}
+
+require_install_space() {
+  local minimum_bytes=$((12 * 1024 * 1024 * 1024))
+  local available_bytes
+  mkdir -p "${state_root}"
+  available_bytes="$(df --output=avail --block-size=1 "${state_root}" | tail -n 1)"
+  if (( available_bytes < minimum_bytes )); then
+    echo "insufficient space for toolchain bootstrap at ${state_root}" >&2
+    echo "at least 12 GiB free is required; found $((available_bytes / 1024 / 1024 / 1024)) GiB" >&2
+    echo "set SACRAMENTO_CPP_TOOLCHAIN_ROOT to a filesystem with sufficient space" >&2
+    exit 1
   fi
 }
 
@@ -341,7 +354,7 @@ verify_packages() {
     if ! actual="$(run_in_rootfs \
         /usr/bin/dpkg-query -W -f='${Version}' "${name}" 2>/dev/null)"; then
       echo "bootstrap state is incompatible: missing Ubuntu package ${name}" >&2
-      echo "materialize a fresh state with a new SACRAMENTO_CROSS_PROOF_ROOT" >&2
+      echo "materialize a fresh state with a new SACRAMENTO_CPP_TOOLCHAIN_ROOT" >&2
       exit 1
     fi
     if [[ "${actual}" != "${expected}" ]]; then
@@ -461,6 +474,7 @@ case "${1:-verify}" in
     require_command python3
     require_command sha256sum
     require_command tar
+    require_install_space
     install_rootfs
     install_tool_archives
     install_windows_inputs
