@@ -4,6 +4,10 @@ Date: 2026-09-01
 
 Baseline under test: `CPP-ENGINEERING-BASELINE-001`
 
+Decision disposition: the proven build-host topology was admitted by
+`CPP-ENGINEERING-BASELINE-002` and ADR-0002. Exact dependency and Windows
+sysroot identities remain readiness blockers.
+
 Verdict: **Cross-compilation proven; baseline correction required before
 operational approval.**
 
@@ -64,18 +68,19 @@ Windows ASan dynamic runtime.
 6. This focused experiment does not re-prove the Debian target, release signing,
    native Windows performance, or formal acceptance.
 
-## Recommended decision
+## Decision disposition
 
-Adopt the candidate build topology in `BUILD_PROFILE_PROPOSAL.md`, then create a
-formally reviewed successor to `CPP-ENGINEERING-BASELINE-001` that:
+`CPP-ENGINEERING-BASELINE-002` and ADR-0002 adopt the candidate build topology
+in `BUILD_PROFILE_PROPOSAL.md` and:
 
 - allows Ubuntu-LTS-hosted Windows cross-compilation with `lld-link`;
 - retains native Windows runtime/performance/acceptance gates;
-- resolves the GoogleTest and Windows SDK version contradictions;
-- pins the Ubuntu image, APT snapshot, Visual Studio manifests, Microsoft
-  packages, LLVM Linux tools, LLVM Windows runtimes, and app-local CRT files;
-- separately proves the Debian product target from the same checked-in build
-  definitions.
+- require the GoogleTest and Windows SDK version contradictions to be resolved;
+- require the Ubuntu image, APT snapshot, Visual Studio manifests, Microsoft
+  packages, LLVM Linux tools, LLVM Windows runtimes, and app-local CRT files to
+  be pinned; and
+- require a separate proof of the Debian product target from the same checked-in
+  build definitions.
 
-Until those changes are approved, this prototype is positive technical evidence
-but does not admit production C++ under the current readiness clause.
+The architectural correction is approved. Production C++ remains inadmissible
+until the unresolved identities and all other readiness gates pass.

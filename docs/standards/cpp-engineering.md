@@ -6,7 +6,9 @@ Approval: Project owner, 2026-09-01
 
 Review: Completed and confirmed by the project owner, 2026-09-01
 
-Baseline identifier: `CPP-ENGINEERING-BASELINE-001`
+Baseline identifier: `CPP-ENGINEERING-BASELINE-002`
+
+Supersedes: `CPP-ENGINEERING-BASELINE-001`
 
 Purpose: Define the complete first-party C++ engineering rules, toolchain,
 build, dependency, verification, hardening, and release-quality baseline for
@@ -25,7 +27,9 @@ Prerequisites: [Training Simulation context](../../CONTEXT.md),
 [reference hardware profiles](../requirements/training-simulation-reference-hardware-profiles.md),
 [verification plan](../requirements/training-simulation-verification-plan.md),
 [C++ engineering research](../research/cpp-engineering-toolchain-and-quality-guidance.md),
-and [Clang-only ADR](../adr/0001-use-clang-only-for-cpp.md).
+[Clang-only ADR](../adr/0001-use-clang-only-for-cpp.md),
+[Ubuntu Windows cross-compilation ADR](../adr/0002-cross-compile-windows-from-ubuntu-with-clang.md),
+and [Windows cross-compilation proof](../../prototypes/windows_cross_compile_proof/PROOF_REPORT.md).
 
 Canonical information owner and approver: Project owner.
 
@@ -79,7 +83,8 @@ it involves a third-party API.
 | Concern | Approved decision |
 | --- | --- |
 | Language | Strict standard C++23 with an approved feature allowlist |
-| Compiler | Clang only: clang-cl on Windows and Clang on Debian |
+| Compiler | Clang only: Linux-hosted clang-cl for the Windows target and Clang for the Debian target |
+| Build host | Hash-pinned Ubuntu 26.04 LTS build root |
 | Build definition | Target-based CMake |
 | Build executor | Ninja single-config |
 | Build interface | Checked-in CMake configure, build, test, and workflow presets |
@@ -94,9 +99,11 @@ it involves a third-party API.
 | Editor integration | clangd; no mandatory editor or IDE |
 
 Clang-only means no build, test, warning, performance, or acceptance lane invokes
-MSVC `cl.exe` or GCC/G++. Platform-native libraries and linkers remain part of
-the complete toolchain: Windows uses MSVC STL/CRT, the Windows SDK, and
-`link.exe`; Debian uses libstdc++ and binutils.
+MSVC `cl.exe` or GCC/G++. The Windows target uses Linux-hosted `clang-cl`,
+`llvm-lib`, and `lld-link` with the MSVC STL/CRT and Windows SDK as target-sysroot
+inputs. The Debian target uses Clang, libstdc++, and its admitted target sysroot.
+Native Windows and Debian processes execute, measure, and formally accept their
+respective product artefacts.
 
 ## Toolchain inventory
 
@@ -105,12 +112,13 @@ for an installation identity to be completed before operational readiness.
 
 | Input | Approved version or identity |
 | --- | --- |
-| LLVM suite | 22.1.8: Clang, clang-cl, clang-format, clang-tidy, clangd, llvm-cov, llvm-profdata, llvm-symbolizer, compiler-rt, and libFuzzer |
-| CMake | 4.4.2; both minimum and executed version |
+| Build root | Ubuntu 26.04 LTS Canonical OCI rootfs; final derived image digest and immutable APT snapshot required before operational readiness |
+| LLVM suite | Ubuntu 26.04 package version 22.1.2: Clang, clang-cl, clang-format, clang-tidy, clangd, llvm-cov, llvm-profdata, llvm-symbolizer, compiler-rt, LLD, and libFuzzer |
+| CMake | Ubuntu 26.04 package version 4.2.3; both minimum and executed version |
 | Ninja | 1.13.2 |
 | sccache | 0.16.0 |
 | Windows SDK | 10.0.26100.9169 |
-| MSVC platform components | Build Tools 14.50 LTS, used for MSVC STL/CRT and `link.exe`, never `cl.exe`; exact installed component catalogue and `VCToolsVersion` MUST be recorded before the first Windows build |
+| MSVC platform components | Build Tools 14.50 LTS target inputs, used only for MSVC STL/CRT, ASan runtime, redistributable runtime, and headers/libraries; exact package identities and hashes MUST be resolved before operational readiness |
 | Windows acceptance OS | Windows 11 Pro 25H2 and exact build/driver state in `RHP-DESKTOP-001` |
 | Debian | Debian 13.6 `trixie`; exact APT snapshot and OCI digest MUST be recorded before operational readiness |
 | Debian C++ library | libstdc++ 14.2.0-19 |
@@ -122,8 +130,9 @@ for an installation identity to be completed before operational readiness.
 | CodeQL Action | 4.37.9, commit `cdf488f595d80d6e07e03d4674febd5ab45fa938` |
 | CodeQL bundle/CLI | 2.26.4 |
 
-Primary version evidence: [LLVM 22.1.8](https://github.com/llvm/llvm-project/releases/tag/llvmorg-22.1.8),
-[CMake 4.4.2](https://github.com/Kitware/CMake/releases/tag/v4.4.2),
+Primary version evidence: [Ubuntu 26.04 rootfs](https://partner-images.canonical.com/oci/resolute/current/),
+[LLVM](https://packages.ubuntu.com/resolute/clang-22),
+[CMake](https://packages.ubuntu.com/resolute/cmake),
 [Ninja 1.13.2](https://github.com/ninja-build/ninja/releases/tag/v1.13.2),
 [sccache 0.16.0](https://github.com/mozilla/sccache/releases/tag/v0.16.0),
 [Windows SDK](https://learn.microsoft.com/en-us/windows/apps/windows-sdk/downloads),
@@ -143,11 +152,11 @@ binary MUST have its source, full version/build identity, and cryptographic hash
 recorded in a machine-readable inventory. Finding a name on `PATH` is not proof
 of identity. LLVM components from different releases MUST NOT be mixed.
 
-Windows obtains official LLVM 22.1.8 artefacts with verified hashes. Debian uses
-an exact preserved snapshot of the LLVM 22 packages for `trixie` from
-`apt.llvm.org`; Debian's Clang 19 packages MUST NOT enter the build. Release and
-acceptance environments MUST use the preserved material without contacting the
-live repository.
+The build root obtains LLVM 22.1.2 from an exact preserved Ubuntu 26.04 package
+snapshot. The Windows and Debian targets MUST NOT discover an ambient compiler,
+linker, standard library, or SDK. Release builds use preserved material without
+contacting a live repository. The machine-readable inventory binds the derived
+build-root digest to every installed package and external tool.
 
 ## Language and portability
 
@@ -162,7 +171,7 @@ set_target_properties(target PROPERTIES
   CXX_EXTENSIONS NO)
 ```
 
-The effective Debian command MUST select `-std=c++23`. LLVM 22.1.8 exposes the
+The effective Debian command MUST select `-std=c++23`. LLVM 22.1.2 exposes the
 corresponding clang-cl mode as `/std:c++23preview`; Windows MUST select that mode
 and MUST NOT select `/std:c++latest`. Despite the switch name, only approved
 standard C++23 features from the project allowlist may be used. Neither platform
@@ -177,8 +186,8 @@ versioned allowlist MUST identify each used language or standard-library feature
 its feature-test macro where one exists, and a compile-and-run probe. A feature
 MUST pass both real product profiles:
 
-- clang-cl 22.1.8 with the pinned MSVC STL/CRT and Windows SDK;
-- Clang 22.1.8 with libstdc++ 14.2.0-19 on Debian 13.6.
+- Linux-hosted clang-cl 22.1.2 with the pinned MSVC STL/CRT and Windows SDK;
+- Clang 22.1.2 with the pinned Debian 13.6 target sysroot.
 
 Code MUST NOT depend on a feature absent from the current allowlist. Updating the
 allowlist changes this baseline and requires the normal approval process.
@@ -245,7 +254,7 @@ their dedicated sections rather than by C++ naming rules.
 
 ### Formatting
 
-- The repository's pinned clang-format 22.1.8 configuration is authoritative.
+- The repository's pinned clang-format 22.1.2 configuration is authoritative.
 - The style is based on Google formatting with an 80-column normal limit.
 - Spaces, indentation, brace placement, wrapping, pointer/reference alignment,
   include grouping, and include sorting are determined solely by that config.
@@ -411,7 +420,7 @@ answered or marked not applicable; omission is not an answer.
 
 ## Build system
 
-CMake 4.4.2 is the only build definition and Ninja 1.13.2 single-config is the
+CMake 4.2.3 is the only build definition and Ninja 1.13.2 single-config is the
 only executor. `CMakePresets.json` is the canonical interface. Developer-only
 values MAY live in ignored `CMakeUserPresets.json`, but MUST NOT change a gate's
 semantics.
@@ -512,7 +521,7 @@ expectations; a numeric module threshold requires a verifiable rationale.
 
 libFuzzer targets every untrusted byte or sequence boundary, including network
 messages, serialization, assets, profiles, catalogues, identity packages, and
-state-machine actions. Run libFuzzer with the matching LLVM 22.1.8 runtime and
+state-machine actions. Run libFuzzer with the matching LLVM 22.1.2 runtime and
 ASan+UBSan on Debian. Minimal corpora, dictionaries, seeds, and minimized crashes
 are retained. Every fixed crash becomes a permanent regression test.
 
@@ -541,7 +550,7 @@ explicit diagnostics. `-Weverything` is prohibited because new LLVM diagnostics
 would otherwise change the baseline implicitly.
 
 The repository `.clang-tidy` MUST begin from no checks and list every enabled
-check explicitly for LLVM 22.1.8; broad positive wildcards that make a future
+check explicitly for LLVM 22.1.2; broad positive wildcards that make a future
 tool update silently enable checks are prohibited. Its admitted checks cover
 Clang Static Analyzer, bug-prone behavior, CERT rules adopted here, concurrency,
 performance, portability, enforceable Google rules, and enforceable C++ Core
@@ -574,8 +583,8 @@ Any reproducible sanitizer diagnostic fails its gate. Sanitizers are not combine
 when LLVM documents incompatible instrumentation. A suppression requires the
 same approved exception record as every other automatic-check exception.
 
-Windows clang-cl release hardening includes compiler `/GS /guard:cf` and linker
-`/GUARD:CF /DYNAMICBASE /NXCOMPAT /HIGHENTROPYVA`. Debian Clang release hardening
+Windows-target clang-cl release hardening includes compiler `/GS /guard:cf` and
+linker `/GUARD:CF /DYNAMICBASE /NXCOMPAT /HIGHENTROPYVA`. Debian Clang release hardening
 includes `-fstack-protector-strong`, `-fstack-clash-protection`,
 `-D_FORTIFY_SOURCE=3`, and `-fPIE`, with linker
 `-pie -Wl,-z,relro,-z,now,-z,noexecstack`. The exact generated command is
@@ -596,10 +605,10 @@ perform blocking performance, release reproducibility, and formal acceptance.
 | Gate | Blocking work |
 | --- | --- |
 | Pre-push | Format; configure; primary platform build; affected clang-tidy, tests, determinism, and serialization checks |
-| Pull request | Parallel clang-cl Windows and Clang Debian builds; tests; affected clang-tidy; Debian ASan+UBSan; representative Windows ASan; short affected fuzzing; dependency, license, exception, and generated-file validation |
+| Pull request | Parallel Windows-target clang-cl and Debian-target Clang builds; native tests; affected clang-tidy; Debian ASan+UBSan; representative Windows ASan; short affected fuzzing; dependency, license, exception, and generated-file validation |
 | Merge/nightly | Full clang-tidy; CodeQL; TSan; feasible MSan; coverage; 15-minute fuzzing; clean uncached non-unity builds; repeated determinism; benchmark trends |
 | Weekly | One-hour high-risk fuzz campaigns, dependency/vulnerability audit, and toolchain-availability review |
-| Release candidate | Exact clang-cl Windows and Clang Debian release builds; hardening verification; regression corpora; two clean reproducible builds per platform; SBOM, provenance, license/vulnerability disposition, symbols, hashes, and signatures |
+| Release candidate | Exact Windows-target clang-cl and Debian-target Clang release builds; hardening verification; regression corpora; two clean reproducible builds per platform; SBOM, provenance, license/vulnerability disposition, symbols, hashes, and signatures |
 | Formal acceptance | Exact admitted hardware, OS, drivers, build, configuration, content, workload, production-parity observability, and every obligation-level disposition |
 
 Pull-request blocking work has a 15-minute target and runs in parallel. If it
@@ -628,10 +637,11 @@ configuration. It removes hostnames, random identifiers, wall-clock timestamps,
 and absolute source/build paths through supported prefix mapping. A hash mismatch
 blocks the release until corrected or covered by an approved release exception.
 
-Debian reproducibility uses an OCI image pinned by digest. Windows uses a
-controlled machine image with an equivalent inventory. These isolate builds but
-are not deployment or performance environments. Performance and acceptance run
-natively on the reference systems.
+Windows and Debian reproducibility use the same Ubuntu 26.04 build-root image
+pinned by digest, with separate immutable target sysroots and profiles. This
+isolates builds but is not a deployment or performance environment. Runtime,
+performance, release-signing, and acceptance gates run natively on the relevant
+reference system.
 
 Every release candidate generates an SPDX SBOM for the complete dependency graph
 and provenance linking commit, toolchain, presets, dependencies, workflow, and
@@ -661,12 +671,13 @@ Install describes intended changes and verifies every download. Local and CI
 consume the same inventory. The separately approved Project Python Toolchain and
 Style Profiles govern these first-party scripts before they are admitted.
 
-WSL MAY run Debian convenience builds. Windows outputs are always produced by
-Windows clang-cl, CMake, Ninja, MSVC platform libraries, and linker, even if WSL
-invokes those executables. Windows release, performance, and acceptance run
-natively. WSL is not a third supported product platform.
+WSL2 MAY orchestrate the pinned Ubuntu 26.04 build root. Windows outputs are
+produced by Linux-hosted Clang/LLVM processes using immutable Windows target
+inputs; Debian outputs use a separate immutable Debian target sysroot. WSL and
+Ubuntu are build environments, not additional product platforms. Windows and
+Debian runtime, performance, release, and acceptance gates run natively.
 
-clangd 22.1.8 is the supported language server. Editors and IDEs are optional and
+clangd 22.1.2 is the supported language server. Editors and IDEs are optional and
 non-normative.
 
 ## Exceptions
@@ -717,10 +728,11 @@ following exist and pass:
    configurations that map this complete profile;
 3. CMake project and every canonical preset;
 4. vcpkg manifest, configuration, and both project triplets;
-5. bootstrap verification on Windows and Debian;
-6. a proof containing a shared production library, clang-cl Windows executable,
-   Clang Debian executable, GoogleTest test, representative dependency, and C++23
-   feature probes;
+5. bootstrap verification of the Ubuntu build root and both immutable target
+   sysroots;
+6. a proof containing a shared production library, Linux-hosted clang-cl Windows
+   executable, Clang Debian executable, GoogleTest test, representative
+   dependency, and C++23 feature probes, with each executable run natively;
 7. local and CI gates producing the same disposition from the same inputs; and
 8. documented outstanding exceptions, if any.
 

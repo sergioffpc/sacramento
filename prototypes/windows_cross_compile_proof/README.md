@@ -8,8 +8,9 @@ Sacramento?
 
 The answer is **yes, with baseline corrections required**. See
 [`PROOF_REPORT.md`](PROOF_REPORT.md) for the evidence and blockers. This is not
-production engine code and does not silently amend
-[`CPP-ENGINEERING-BASELINE-001`](../../docs/standards/cpp-engineering.md).
+production engine code. Its build-host decision was subsequently admitted by
+[`CPP-ENGINEERING-BASELINE-002`](../../docs/standards/cpp-engineering.md) and
+[ADR-0002](../../docs/adr/0002-cross-compile-windows-from-ubuntu-with-clang.md).
 
 ## Proven topology
 

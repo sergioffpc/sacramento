@@ -2,6 +2,9 @@
 
 Status: Accepted
 
+Supersession: ADR-0002 replaces the Windows build-host and linker details; the
+Clang-only decision remains accepted.
+
 Sacramento uses clang-cl on Windows and Clang on Debian for development,
 verification, release, and acceptance. The project deliberately does not build
 with MSVC `cl.exe` or GCC/G++: compiler diversity would add CI and maintenance
