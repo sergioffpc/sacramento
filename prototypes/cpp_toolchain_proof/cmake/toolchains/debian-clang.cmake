@@ -1,0 +1,7 @@
+set(CMAKE_C_COMPILER clang CACHE FILEPATH "Clang C compiler")
+set(CMAKE_CXX_COMPILER clang++ CACHE FILEPATH "Clang C++ compiler")
+set(CMAKE_AR llvm-ar CACHE FILEPATH "LLVM archiver")
+set(CMAKE_RANLIB llvm-ranlib CACHE FILEPATH "LLVM ranlib")
+set(CMAKE_LINKER ld CACHE FILEPATH "Native Debian linker")
+set(CMAKE_OBJCOPY objcopy CACHE FILEPATH "Native Debian objcopy")
+set(CMAKE_STRIP strip CACHE FILEPATH "Native Debian strip")

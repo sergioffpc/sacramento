@@ -1,0 +1,23 @@
+{
+  "baseline": "CPP-ENGINEERING-BASELINE-001",
+  "features": [
+    {
+      "name": "std::expected",
+      "macro": "__cpp_lib_expected",
+      "minimum": 202202,
+      "probe": "probes/cpp23_features.cc"
+    },
+    {
+      "name": "std::byteswap",
+      "macro": "__cpp_lib_byteswap",
+      "minimum": 202110,
+      "probe": "probes/cpp23_features.cc"
+    },
+    {
+      "name": "std::span",
+      "macro": "__cpp_lib_span",
+      "minimum": 202002,
+      "probe": "probes/cpp23_features.cc"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+$ErrorActionPreference = "Stop"
+$scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Path
+python (Join-Path $scriptDirectory "proof.py") @args
+exit $LASTEXITCODE

@@ -1,0 +1,80 @@
+{
+  "baseline": "CPP-ENGINEERING-BASELINE-001",
+  "tools": {
+    "llvm": {
+      "version": "22.1.8",
+      "commands": [
+        "clang",
+        "clang++",
+        "clang-cl",
+        "clang-format",
+        "clang-tidy",
+        "clangd",
+        "llvm-ar",
+        "llvm-cov",
+        "llvm-profdata",
+        "llvm-ranlib",
+        "llvm-symbolizer"
+      ]
+    },
+    "cmake": { "version": "4.4.2", "command": "cmake" },
+    "ninja": { "version": "1.13.2", "command": "ninja" },
+    "sccache": { "version": "0.16.0", "command": "sccache" },
+    "vcpkg": {
+      "version": "2026-07-27",
+      "registry_release": "2026.07.29",
+      "registry_commit": "9e593bb18ea69cc5095e012465dcd675a822ed0d"
+    },
+    "codeql": {
+      "version": "2.26.4",
+      "action_version": "4.37.9",
+      "action_commit": "cdf488f595d80d6e07e03d4674febd5ab45fa938"
+    }
+  },
+  "windows": {
+    "os": "Windows 11 Pro 25H2",
+    "sdk": "10.0.26100.9169",
+    "build_tools": "14.50 LTS",
+    "vctools_version": null,
+    "required_compiler": "clang-cl",
+    "forbidden_compilers": ["cl", "gcc", "g++"],
+    "installation_catalogue_sha256": null,
+    "image_identity": null
+  },
+  "debian": {
+    "os": "Debian 13.6 trixie",
+    "libstdcxx": "14.2.0-19",
+    "binutils": "2.44-3",
+    "apt_snapshot": null,
+    "oci_digest": null,
+    "required_compiler": "clang++",
+    "forbidden_compilers": ["cl", "gcc", "g++"]
+  },
+  "artifacts": [
+    {
+      "id": "llvm-windows-22.1.8",
+      "source": "official LLVM release artifact",
+      "sha256": null
+    },
+    {
+      "id": "llvm-debian-22.1.8",
+      "source": "preserved apt.llvm.org snapshot",
+      "sha256": null
+    },
+    {
+      "id": "cmake-4.4.2",
+      "source": "official Kitware release artifact",
+      "sha256": null
+    },
+    {
+      "id": "ninja-1.13.2",
+      "source": "official Ninja release artifact",
+      "sha256": null
+    },
+    {
+      "id": "sccache-0.16.0",
+      "source": "official Mozilla release artifact",
+      "sha256": null
+    }
+  ]
+}

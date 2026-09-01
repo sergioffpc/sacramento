@@ -1,0 +1,20 @@
+{
+  "baseline": "CPP-ENGINEERING-BASELINE-001",
+  "first_party": [
+    "CMakeLists.txt",
+    "cmake/**/*.cmake",
+    "include/**/*.h",
+    "src/**/*.cc",
+    "tests/**/*.cc",
+    "probes/**/*.cc",
+    "fuzz/**/*.cc",
+    "scripts/**/*.py"
+  ],
+  "third_party": [
+    "build/*/vcpkg_installed/**"
+  ],
+  "generated": [
+    "build/**",
+    "evidence/**"
+  ]
+}
