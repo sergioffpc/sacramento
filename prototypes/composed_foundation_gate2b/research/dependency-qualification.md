@@ -40,8 +40,9 @@ dependency through this qualification.
    The official Python distribution is `usd-core 26.8`. It is a viable isolated
    experiment for composition, but it is not dependency admission: it contains
    core libraries only, has no imaging or optional plugins, and enters as a
-   wheel rather than through vcpkg. See the [26.08 release], [exact commit],
-   [26.08 documentation], and [official usd-core metadata].
+   wheel rather than through vcpkg. See the [26.08 release],
+   [exact OpenUSD commit], [26.08 documentation], and
+   [official usd-core metadata].
 5. Sacramento's pinned vcpkg registry contains `usd 26.5#1`, not 26.08; that
    port is dynamic-only and explicitly disables Python. A production admission
    of OpenUSD 26.08 with Python would therefore require a qualified custom vcpkg
@@ -69,6 +70,7 @@ dependency through this qualification.
 [C/C++ import API]: https://github.com/assimp/assimp/blob/v6.0.5/include/assimp/cimport.h
 [6.0.5 format matrix]: https://github.com/assimp/assimp/blob/v6.0.5/doc/Fileformats.md
 [26.08 release]: https://github.com/PixarAnimationStudios/OpenUSD/releases/tag/v26.08
+[exact OpenUSD commit]: https://github.com/PixarAnimationStudios/OpenUSD/commit/ee47c679abde5b467a7b6a41f3b2285564a4222e
 [26.08 documentation]: https://openusd.org/release/
 [official usd-core metadata]: https://pypi.org/pypi/usd-core/26.8/json
 [pinned USD manifest]: https://github.com/microsoft/vcpkg/blob/9e593bb18ea69cc5095e012465dcd675a822ed0d/ports/usd/vcpkg.json
@@ -137,6 +139,12 @@ the smallest import-only configuration: tests and tools off for the package,
 exporters off, Draco off unless the fixture proves it is needed, Assimp's USD
 importer off, and Cineware off. The representative adapter tests remain
 Sacramento tests. See [Assimp build instructions] and [6.0.5 CMake options].
+
+Assimp's optional USD importer is not OpenUSD: it uses a patched, pinned
+`tinyusdz` source acquired through CMake `FetchContent`. Enabling it would add a
+different USD implementation and an uncontrolled download path, so the Assimp
+overlay must keep `ASSIMP_BUILD_USD_IMPORTER=OFF`; the separate OpenUSD
+experiment owns USD evaluation.
 
 [Assimp build instructions]: https://github.com/assimp/assimp/blob/v6.0.5/Build.md
 [6.0.5 CMake options]: https://github.com/assimp/assimp/blob/v6.0.5/CMakeLists.txt
@@ -213,14 +221,17 @@ The [pinned registry port tree] is the authoritative package recipe snapshot.
 
 ### Identity, license, and distributions
 
-The exact release is tag `v26.08`; the annotated tag resolves to commit
+The exact release is annotated tag `v26.08`, tag object
+`cb5613f6da7c61b56fe86dbe8cc1cbe9f0d84ef1`, which resolves to commit
 `ee47c679abde5b467a7b6a41f3b2285564a4222e`. OpenUSD 26.08 is licensed under
 the Tomorrow Open Source Technology License 1.0 (TOST-1.0), derived from Apache
 2.0 but with a different section 6, plus the third-party notices collected in
 the release `LICENSE.txt`. This must be reviewed as TOST-1.0, not recorded as
-plain Apache-2.0. See the [OpenUSD 26.08 license].
+plain Apache-2.0, and distribution must also retain the upstream `NOTICE.txt`.
+See the [OpenUSD 26.08 license] and [OpenUSD 26.08 notice].
 
 [OpenUSD 26.08 license]: https://github.com/PixarAnimationStudios/OpenUSD/blob/v26.08/LICENSE.txt
+[OpenUSD 26.08 notice]: https://github.com/PixarAnimationStudios/OpenUSD/blob/v26.08/NOTICE.txt
 
 The official `usd-core 26.8` Python package is the narrowest viable Gate 2B
 experiment:
@@ -259,6 +270,10 @@ They are unnecessary for the composition-only Gate experiment and must remain
 off. See [OpenUSD build overview], [advanced build options], and the [tested
 version matrix].
 
+Those features must be disabled explicitly in a source build. Upstream's
+default `build_usd.py` invocation builds core, Imaging, and USD Imaging, and
+MaterialX is enabled by default in that script; it is not a lean cooker closure.
+
 [OpenUSD build overview]: https://github.com/PixarAnimationStudios/OpenUSD/blob/v26.08/README.md
 [advanced build options]: https://github.com/PixarAnimationStudios/OpenUSD/blob/v26.08/BUILDING.md
 [tested version matrix]: https://github.com/PixarAnimationStudios/OpenUSD/blob/v26.08/VERSIONS.md
@@ -294,6 +309,13 @@ version, zlib linkage, plugin metadata, installed resources, and both applicable
 platforms need fresh proof. Running upstream `build_usd.py` would be easier but
 would download/build its own selected dependencies (for example TBB/oneTBB and
 optional component closures), contrary to the vcpkg-only rule.
+
+For source content, `PXR_PREFER_SAFETY_OVER_SPEED=ON` is mandatory. The official
+[GHSA-8878-wr6v-j5cm advisory] states that the Crate bounds-checking fix is in
+26.08 and later but is compiled out when that option is off. The pinned vcpkg
+port already sets it on; a custom port must preserve and verify it.
+
+[GHSA-8878-wr6v-j5cm advisory]: https://github.com/PixarAnimationStudios/OpenUSD/security/advisories/GHSA-8878-wr6v-j5cm
 
 ### Composition semantics relevant to Map authoring
 
@@ -374,9 +396,9 @@ the [NVIDIA asset-structure principles] and [Omniverse variant workflow].
    license-check every native file and system dependency inside it.
 3. For any later vcpkg admission, create a 26.08 overlay from the exact pinned
    `usd 26.5#1` port. Rebase every patch deliberately, add only the Python/core
-   surface required by the cooker, keep imaging and plugins off, and capture
-   the resulting vcpkg graph and ABIs. Never invoke `build_usd.py` as a package
-   manager in a Sacramento build.
+   surface required by the cooker, keep imaging and plugins off, preserve
+   `PXR_PREFER_SAFETY_OVER_SPEED=ON`, and capture the resulting vcpkg graph and
+   ABIs. Never invoke `build_usd.py` as a package manager in a Sacramento build.
 4. From fresh roots, test the exact Clang host/target matrix that applies to the
    cooker. Verify plugin/resource discovery, relocatability, offline replay,
    and the absence of OpenUSD from every Trainee Client and Session Authority
