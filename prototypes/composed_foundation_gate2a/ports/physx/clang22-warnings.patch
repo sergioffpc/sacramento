@@ -1,0 +1,13 @@
+diff --git a/physx/source/compiler/cmake/linux/CMakeLists.txt b/physx/source/compiler/cmake/linux/CMakeLists.txt
+--- a/physx/source/compiler/cmake/linux/CMakeLists.txt
++++ b/physx/source/compiler/cmake/linux/CMakeLists.txt
+@@ -31,6 +31,9 @@
+     -Wno-unused-but-set-variable \
+     -Wno-switch-default \
+     -Wno-cast-qual \
++    -Wno-missing-include-dirs \
++    -Wno-nrvo \
++    -Wno-format-signedness \
+     -Wno-invalid-offsetof \
+     -Wno-unsafe-buffer-usage \
+     -Wno-alloca \

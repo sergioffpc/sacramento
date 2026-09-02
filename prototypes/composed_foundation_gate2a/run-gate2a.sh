@@ -76,8 +76,12 @@ run_in_rootfs \
   --x-install-root=/srv/vcpkg-installed \
   | tee "${evidence_root}/vcpkg-list.txt"
 
+grep -Eq '^flecs:x64-debian-cross-clang[[:space:]]+4\.1\.6[[:space:]]' \
+  "${evidence_root}/vcpkg-list.txt"
+grep -Eq '^physx:x64-debian-cross-clang[[:space:]]+5\.9\.0[[:space:]]' \
+  "${evidence_root}/vcpkg-list.txt"
 if grep -Eiq \
-  '^(falcor|vulkan|slang|steam.?audio|phonon|assimp|tracy):' \
+  '^(falcor|vulkan|slang|steam.?audio|phonon|assimp|tracy|cuda|optix):' \
   "${evidence_root}/vcpkg-list.txt"; then
   echo "client-only package entered the Gate 2A dependency closure" >&2
   exit 1

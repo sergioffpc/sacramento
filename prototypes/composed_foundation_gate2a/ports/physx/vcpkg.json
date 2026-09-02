@@ -1,8 +1,7 @@
 {
   "name": "physx",
-  "version": "5.5.0",
-  "port-version": 2,
-  "description": "Sacramento CPU-only overlay for NVIDIA PhysX 5.5.0.",
+  "version": "5.9.0",
+  "description": "Sacramento CPU-only overlay for NVIDIA PhysX 5.9.0.",
   "homepage": "https://github.com/NVIDIA-Omniverse/PhysX",
   "license": "BSD-3-Clause",
   "supports": "linux & x64",

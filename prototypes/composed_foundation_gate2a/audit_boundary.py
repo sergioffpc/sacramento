@@ -13,7 +13,8 @@ PUBLIC_VENDOR_PATTERN = re.compile(
     re.IGNORECASE,
 )
 CLIENT_LIBRARY_PATTERN = re.compile(
-    r"(?:falcor|vulkan|slang|steam.?audio|phonon|assimp|tracy)", re.IGNORECASE
+    r"(?:falcor|vulkan|slang|steam.?audio|phonon|assimp|tracy|cuda|optix|physxgpu)",
+    re.IGNORECASE,
 )
 
 

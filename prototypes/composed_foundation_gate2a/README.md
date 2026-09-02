@@ -18,8 +18,9 @@ root, builds the headless authority twice with the approved Debian
 cross-toolchain, compares the ELF files, executes the recorded scenario twice
 against the pinned Debian runtime, and compares the complete canonical traces.
 It also audits the public header and ELF dependencies for vendor leakage.
-The Gate-local PhysX overlay builds release/static Linux x64 CPU support only;
-it neither downloads nor installs NVIDIA's optional prebuilt PhysXGpu runtime.
+The Gate-local PhysX 5.9.0 overlay builds release/static Linux x64 CPU support
+only; it disables the optional CUDA/PhysXGpu projects and neither downloads nor
+installs a PhysXGpu runtime.
 
 Acceptance requires:
 

@@ -14,8 +14,7 @@
     },
     {
       "name": "physx",
-      "version": "5.5.0",
-      "port-version": 2
+      "version": "5.9.0"
     }
   ]
 }
