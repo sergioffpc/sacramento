@@ -51,15 +51,13 @@ dependency through this qualification.
    a second dependency manager under ADR-0003. See the [pinned USD manifest],
    [pinned USD portfile], and [upstream build script].
 6. Native USD composition materially can help multi-author, reusable Map
-   authoring and Omniverse interchange. For the small initial fixture, that
-   benefit is not yet enough by itself to justify OpenUSD's native packaging,
-   license, ABI, and update surface. Gate 2B should exercise the official
-   `usd-core 26.8` wheel in isolation, measure the result, and then choose
-   **optional cooker frontend** or **defer**. In either outcome the adapter must
-   fully compose the selected Stage, load required payloads, validate all
-   dependencies, and translate the result into the same Sacramento-owned
-   intermediate representation as Assimp. USD prim paths, layers, schemas,
-   material networks, and Physics schemas must not cross that boundary.
+   authoring and Omniverse interchange. Gate 2B exercised the official
+   `usd-core 26.8` wheel in isolation with layers, references, variants, and a
+   payload, then translated the composed result into the same Sacramento-owned
+   intermediate representation and exact cooked bytes as Assimp. This supports
+   **optional cooker frontend** for the gate, not baseline admission. USD prim
+   paths, layers, schemas, material networks, and Physics schemas remain behind
+   the adapter seam. See the [Gate 2B result].
 
 [6.0.5 release]: https://github.com/assimp/assimp/releases/tag/v6.0.5
 [exact commit]: https://github.com/assimp/assimp/commit/392a658f9c271be965271f45e7521a1b80ea4392
@@ -76,6 +74,7 @@ dependency through this qualification.
 [pinned USD manifest]: https://github.com/microsoft/vcpkg/blob/9e593bb18ea69cc5095e012465dcd675a822ed0d/ports/usd/vcpkg.json
 [pinned USD portfile]: https://github.com/microsoft/vcpkg/blob/9e593bb18ea69cc5095e012465dcd675a822ed0d/ports/usd/portfile.cmake
 [upstream build script]: https://github.com/PixarAnimationStudios/OpenUSD/blob/v26.08/build_scripts/build_usd.py
+[Gate 2B result]: ../evidence/gate-2b-result.md
 
 ## Assimp 6.0.5
 
@@ -144,10 +143,11 @@ Assimp's optional USD importer is not OpenUSD: it uses a patched, pinned
 `tinyusdz` source acquired through CMake `FetchContent`. Enabling it would add a
 different USD implementation and an uncontrolled download path, so the Assimp
 overlay must keep `ASSIMP_BUILD_USD_IMPORTER=OFF`; the separate OpenUSD
-experiment owns USD evaluation.
+experiment owns USD evaluation. See the [Assimp importer source closure].
 
 [Assimp build instructions]: https://github.com/assimp/assimp/blob/v6.0.5/Build.md
 [6.0.5 CMake options]: https://github.com/assimp/assimp/blob/v6.0.5/CMakeLists.txt
+[Assimp importer source closure]: https://github.com/assimp/assimp/blob/v6.0.5/code/CMakeLists.txt
 
 The upstream matrix lists more than forty import formats, including glTF
 1.0/2.0 and GLB, FBX, Collada, OBJ, PLY, STL, 3MF, IFC-STEP, USD, and deprecated
@@ -416,23 +416,11 @@ the [NVIDIA asset-structure principles] and [Omniverse variant workflow].
 
 [OpenUSD FAQ]: https://openusd.org/release/usdfaq.html
 
-## Gate 2B evidence still required
+## Gate execution
 
-This research qualifies candidates and exposes gaps; it does not close them.
-The executable gate must still record:
-
-- the final Assimp 6.0.5 overlay source hash, patch disposition, build flags,
-  actual vcpkg graph, package ABIs, installed licenses, and applicable platform
-  results;
-- the exact Python interpreter and subprocess protocol, proving no Python
-  wrapper and no Assimp type or serialization crosses the adapter boundary;
-- two clean byte-identical cooks, stable content/manifest identities, malformed
-  input rejection, package size, timing, and a runtime consumer with no source
-  importer;
-- the exact `usd-core 26.8` wheel identity and audited native closure, plus a
-  composed USD fixture that actually exercises layers, references, variants,
-  and payloads rather than merely opening one file;
-- absence of Assimp and OpenUSD from runtime link graphs and distributed runtime
-  packages; and
-- one explicit evidence-based OpenUSD disposition: optional cooker frontend or
-  defer. No finding in this document selects OpenUSD or amends ADR-0003.
+The executable gate closed the research questions for its representative
+x86-64 Linux cooker host. Exact hashes, package ABIs, dependency closure,
+licences, build/cook measurements, package identities, runtime link audit, and
+the OpenUSD disposition are retained in the [Gate 2B result] and reproducible
+through its linked scripts. These results do not admit either dependency for
+other hosts or amend ADR-0003.

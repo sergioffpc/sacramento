@@ -1,0 +1,18 @@
+#usda 1.0
+(
+    defaultPrim = "World"
+    metersPerUnit = 1
+    subLayers = [
+        @set-dressing.usda@
+    ]
+    upAxis = "Y"
+)
+
+def Xform "World"
+{
+    def Xform "TrainingYard" (
+        references = @asset.usda@</Asset>
+    )
+    {
+    }
+}

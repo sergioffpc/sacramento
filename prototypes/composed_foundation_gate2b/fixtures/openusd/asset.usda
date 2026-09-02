@@ -1,0 +1,22 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+)
+
+def Xform "Asset" (
+    payload = @payload.usda@</TrainingYardPayload>
+    prepend variantSets = "surface"
+    variants = {
+        string surface = "concrete"
+    }
+)
+{
+    variantSet "surface" = {
+        "concrete" {
+            custom string sacramento:material = "Concrete"
+        }
+        "alternate" {
+            custom string sacramento:material = "Alternate"
+        }
+    }
+}

@@ -16,9 +16,43 @@ PROTOTYPE_ROOT = Path(__file__).resolve().parents[1]
 COOKER = PROTOTYPE_ROOT / "cook.py"
 FIXTURE = PROTOTYPE_ROOT / "fixtures" / "blender-origin-map.gltf"
 RECIPE = PROTOTYPE_ROOT / "fixtures" / "blender-origin-map.recipe.json"
+OPENUSD_FIXTURE = PROTOTYPE_ROOT / "fixtures" / "openusd" / "root.usda"
 
 
 class CookerInterfaceTest(unittest.TestCase):
+    def test_missing_native_adapter_has_stable_sacramento_diagnostic(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    str(COOKER),
+                    "--source",
+                    str(FIXTURE),
+                    "--recipe",
+                    str(RECIPE),
+                    "--adapter",
+                    str(temporary_root / "missing-assimp-adapter"),
+                    "--output",
+                    str(temporary_root / "map.sacmap"),
+                    "--manifest",
+                    str(temporary_root / "map.manifest.json"),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+
+        self.assertEqual(result.returncode, 2)
+        self.assertEqual(result.stdout, "")
+        self.assertEqual(
+            json.loads(result.stderr),
+            {
+                "code": "SAC-COOK-ADAPTER-UNAVAILABLE",
+                "detail": "native source adapter is unavailable",
+            },
+        )
+
     def test_unsupported_source_has_stable_sacramento_diagnostic(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)
@@ -116,6 +150,8 @@ class CookerInterfaceTest(unittest.TestCase):
                 material["id"] for material in package["content"]["materials"]
             ],
             "mesh_ids": [mesh["id"] for mesh in package["content"]["meshes"]],
+            "positions": package["content"]["meshes"][0]["positions"],
+            "indices": package["content"]["meshes"][0]["indices"],
             "collider_ids": [
                 collider["id"] for collider in package["content"]["colliders"]
             ],
@@ -140,12 +176,114 @@ class CookerInterfaceTest(unittest.TestCase):
                 "anchor_ids": ["anchor.spawn.alpha"],
                 "material_ids": ["material.concrete"],
                 "mesh_ids": ["mesh.training-yard.floor"],
+                "positions": [
+                    [-1.0, 0.0, -1.0],
+                    [1.0, 0.0, -1.0],
+                    [1.0, 0.0, 1.0],
+                    [-1.0, 0.0, 1.0],
+                ],
+                "indices": [0, 1, 2, 0, 2, 3],
                 "collider_ids": ["collider.training-yard.floor"],
                 "content_identity_valid": True,
                 "package_identity_valid": True,
                 "has_banned_token": False,
             },
         )
+
+    def test_runtime_reader_inspects_only_the_cooked_package(self) -> None:
+        adapter = Path(os.environ["SACRAMENTO_GATE2B_ADAPTER"])
+        reader = Path(
+            os.environ.get(
+                "SACRAMENTO_GATE2B_RUNTIME_READER",
+                "/tmp/sacramento-gate2b-runtime-reader-not-built",
+            )
+        )
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            package = temporary_root / "map.sacmap"
+            cook_result = subprocess.run(
+                [
+                    sys.executable,
+                    str(COOKER),
+                    "--source",
+                    str(FIXTURE),
+                    "--recipe",
+                    str(RECIPE),
+                    "--adapter",
+                    str(adapter),
+                    "--output",
+                    str(package),
+                    "--manifest",
+                    str(temporary_root / "map.manifest.json"),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            read_result = subprocess.run(
+                [str(reader), str(package)],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+
+        self.assertEqual(cook_result.returncode, 0)
+        self.assertEqual(cook_result.stderr, "")
+        self.assertEqual(read_result.returncode, 0)
+        self.assertEqual(read_result.stderr, "")
+        self.assertEqual(
+            json.loads(read_result.stdout),
+            {
+                "format": "sacramento.map-inspection",
+                "version": 1,
+                "map_id": "map.gate2b.training-yard",
+                "anchor_count": 1,
+                "material_count": 1,
+                "mesh_count": 1,
+                "collider_count": 1,
+                "vertex_count": 4,
+                "triangle_count": 2,
+            },
+        )
+
+    @unittest.skipUnless(
+        os.environ.get("SACRAMENTO_GATE2B_OPENUSD_ADAPTER"),
+        "isolated usd-core experiment is not installed",
+    )
+    def test_openusd_composition_reaches_the_same_runtime_package(self) -> None:
+        assimp_adapter = Path(os.environ["SACRAMENTO_GATE2B_ADAPTER"])
+        openusd_adapter = Path(os.environ["SACRAMENTO_GATE2B_OPENUSD_ADAPTER"])
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            packages: list[bytes] = []
+            for name, source, adapter in (
+                ("assimp", FIXTURE, assimp_adapter),
+                ("openusd", OPENUSD_FIXTURE, openusd_adapter),
+            ):
+                package = temporary_root / f"{name}.sacmap"
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(COOKER),
+                        "--source",
+                        str(source),
+                        "--recipe",
+                        str(RECIPE),
+                        "--adapter",
+                        str(adapter),
+                        "--output",
+                        str(package),
+                        "--manifest",
+                        str(temporary_root / f"{name}.manifest.json"),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                packages.append(package.read_bytes())
+
+        self.assertEqual(packages[0], packages[1])
 
 
 if __name__ == "__main__":
