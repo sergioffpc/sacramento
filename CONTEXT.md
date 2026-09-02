@@ -2,7 +2,7 @@
 
 Status: Approved
 
-Approval: Project owner, 2026-09-01
+Approval: Project owner, 2026-09-02
 
 Baseline: Initial Domain Context
 
@@ -135,6 +135,10 @@ _Avoid_: Copied identity record, Authorization Assertion, Call Sign, possession 
 **Authorization Assertion**:
 A verifiable statement from the Identity Authority that assigns one or more AUTH Permissions to one identified Trainee Identity, Client Device Identity, or Session Authority Identity.
 _Avoid_: Authentication evidence, local account, Team assignment, Session Continuity Claim
+
+**Autonomous Participant**:
+A future Training Session participant controlled by software rather than a human Trainee and assigned to exactly one controlling client connection under the Autonomous Participant baseline. It is subject to the same represented action, physical, capacity, Team Position, and perceptible-information rules as a Trainee unless an approved future requirement states otherwise.
+_Avoid_: AI Trainee, bot, headless client, Synthetic Trainee Client
 
 **Ballistic Projectile**:
 A physically simulated projectile whose trajectory, time of flight, energy, and material interactions are governed by its approved Physical Profile.
