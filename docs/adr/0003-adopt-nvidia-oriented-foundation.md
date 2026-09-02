@@ -1,6 +1,7 @@
 # Adopt a narrow NVIDIA-oriented Sacramento foundation
 
-Status: Proposed pending the composed-foundation prototype in issue #11
+Status: Accepted as a conditional architectural direction; production
+dependency admission remains blocked
 
 Sacramento will own a narrow C++23 foundation whose interfaces use Sacramento
 types and whose implementations are composed from qualified third-party
@@ -50,10 +51,12 @@ a dependency to a product target. Each exact direct and transitive dependency
 version must satisfy the C++ engineering baseline before admission, including
 source identity and hash, license review, vulnerability disposition, selected
 features, ABI inputs, both applicable Clang platform builds, native runtime
-tests, and offline release/acceptance use. C++ dependencies, including any
-custom packaging required by Falcor or an NVIDIA SDK, enter through vcpkg; a
-dependency's own downloader or package manager must not become a second
-Sacramento dependency manager.
+tests, and offline release/acceptance use. C++ dependencies enter product
+builds through vcpkg. Falcor's pinned Packman closure is the sole exception: it
+is permitted only inside an immutable, integrity-checked, offline vendor
+capsule exposed to Sacramento through vcpkg and maintained with the minimum
+Vulkan-only patch set. Packman is not a general Sacramento dependency manager
+and must not run during offline product builds or acceptance.
 
 The first admitted adapter for each library must demonstrate the smallest
 interface needed by a representative Sacramento scenario. Additional library
@@ -76,3 +79,58 @@ the selected library is the sole production adapter until a real second
 implementation is required. The NVIDIA orientation permits NVIDIA-specific
 rendering investment on the Windows client without making rendering a
 dependency of the Debian authority or weakening shared-code platform parity.
+
+Gate 2G established conditional viability, not production admission. Its
+prototype identities and evidence are retained in
+`prototypes/composed_foundation_gate2g/synthesis.json`; every selected item
+remains `prototype_evidence_only` until separately admitted. The following five
+exceptions block production admission:
+
+- `EXC-FALCOR-VENDOR-CAPSULE`: Sacramento accepts ownership of the immutable
+  offline Falcor capsule, its Vulkan-only patches, and its qualification. If
+  measured upkeep cannot fit the two-generalist ceiling, Falcor is the first
+  selected mechanism to replace; Sacramento's rendering interface and content
+  contract remain unchanged.
+- `EXC-BUILD-TOOL-VERSIONS`: the engineering baseline and build root must move
+  to one sealed CMake 4.4.0 identity, matching the selected pinned vcpkg rather
+  than retaining the conflicting CMake 4.2.3 identity. Every retained host
+  helper, including GNU Make, must also be identified and sealed.
+- `EXC-CROSS-VCPKG-PROFILE`: production admission must provide one supported
+  cross-vcpkg profile covering find roots, Release `try_compile`, CRT, C++23,
+  and reproducible `clang-cl` path maps.
+- `EXC-VENDOR-SUPPORT-MATRIX`: Sacramento accepts responsibility for qualifying
+  the selected Clang 22/Debian 13 PhysX and Linux-hosted `clang-cl` Steam Audio
+  and Tracy paths even where the vendors do not claim them. Failure to qualify
+  a path requires selecting a supported version or replacing that mechanism;
+  it does not permit weakening the platform or toolchain constraints.
+- `EXC-GNS-CRYPTO-BACKENDS`: the initial foundation uses the platform-native
+  split of OpenSSL on Debian and BCrypt on Windows, and both closures require
+  independent qualification. These transport crypto mechanisms do not provide
+  or replace the Sacramento-owned AUTH Protected Exchange.
+
+The following obligations remain explicitly unproved and therefore cannot be
+claimed as consequences of this decision:
+
+- complete Reference Personnel Recovery Scenario vertical replay;
+- AUTH, Admission, offline trust, durable audit commit, continuity, and State
+  Restoration;
+- Controlled LAN loss, congestion, reconnect, recovery, and 16-client stress;
+- approved 16.67 ms presentation and 100 ms authoritative-action workloads;
+- Representative Evaluator visual and acoustic validity and peak coverage;
+- real-time audio/device path, reflections, pathing, and stress behavior;
+- live Tracy capture, profiling overhead, and complete production
+  observability transport;
+- candidate-wide vulnerability disposition, consolidated SBOM, and offline
+  dependency reconstruction;
+- one patch-version upgrade with measured adapter churn; and
+- demonstrated ongoing maintenance within two concurrent human generalists.
+
+Production dependency admission remains blocked until owners and acceptance
+evidence exist for all five exceptions and the applicable dependency
+qualification obligations. The other unproved obligations remain explicit
+product-architecture and acceptance work; this decision neither discharges
+them nor makes them all prerequisites for admitting an unrelated dependency.
+The mandatory two-generalist ceiling is not traded away by accepting this
+direction: if the integrated build, upgrade, qualification, or operational
+burden cannot meet it, the responsible implementation mechanism must be
+simplified or replaced behind the Sacramento interface.
