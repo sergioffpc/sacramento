@@ -1,3 +1,4 @@
+#include <steam/isteamnetworkingutils.h>
 #include <steam/steamnetworkingsockets.h>
 
 #include <array>
@@ -150,8 +151,10 @@ struct ClientTransport::Impl {
 
     SteamNetworkingIPAddr address{};
     address.Clear();
-    if (host != "127.0.0.1") throw std::runtime_error("SAC-NET-TRANSPORT-HOST");
-    address.SetIPv4(0x7f000001U, port);
+    const std::string host_text(host);
+    if (!address.ParseString(host_text.c_str()))
+      throw std::runtime_error("SAC-NET-TRANSPORT-HOST");
+    address.m_port = port;
     SteamNetworkingConfigValue_t callback{};
     callback.SetPtr(k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged,
                     reinterpret_cast<void*>(StatusChanged));
