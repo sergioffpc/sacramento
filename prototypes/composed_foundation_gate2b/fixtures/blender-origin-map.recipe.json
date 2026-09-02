@@ -1,0 +1,32 @@
+{
+  "package_format_version": 1,
+  "map_id": "map.gate2b.training-yard",
+  "anchors": [
+    {
+      "id": "anchor.spawn.alpha",
+      "source_node": "AnchorSpawnAlpha"
+    }
+  ],
+  "materials": [
+    {
+      "id": "material.concrete",
+      "shader_id": "shader.falcor.standard-surface.v1",
+      "source_material": "Concrete"
+    }
+  ],
+  "meshes": [
+    {
+      "id": "mesh.training-yard.floor",
+      "material_id": "material.concrete",
+      "source_node": "MapSurface"
+    }
+  ],
+  "colliders": [
+    {
+      "id": "collider.training-yard.floor",
+      "mesh_id": "mesh.training-yard.floor",
+      "source_node": "MapSurface",
+      "type": "triangle-mesh"
+    }
+  ]
+}
