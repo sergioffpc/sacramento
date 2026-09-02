@@ -164,6 +164,10 @@ _Avoid_: Username, account, real name
 The normalized tuple of exact Identity Authority, identity class, and stable subject identifier produced by successful identity validation and used for every identity comparison, binding, and uniqueness decision.
 _Avoid_: Display name, evidence document identity, network address, implementation-specific object identity
 
+**Canonical Tick**:
+One indivisible authoritative advancement of simulated time and canonical simulated state within a Training Session, identified by a monotonically increasing integer in one simulation epoch.
+_Avoid_: Render frame, network update, Operational Clock interval, variable time step
+
 **Carried Load**:
 The authoritative physical load attributed to a Trainee from every directly or transitively carried item, with each item's approved contribution counted exactly once.
 _Avoid_: Stress Load, item count, duplicated nested mass, cosmetic weight
@@ -259,6 +263,10 @@ _Avoid_: Server-downloaded trust data, dynamic validation dependency, local iden
 **Initial Start Condition Set**:
 The approved, versioned, and closed inventory of individual and Training Session-wide conditions that permit the initial countdown and transition into active simulation.
 _Avoid_: Hidden start gate, readiness preconditions only, implementation-defined start conditions
+
+**Intention**:
+A client request proposing a Trainee action for authoritative evaluation; it cannot prescribe its Canonical Tick, canonical ordering, result, or resulting state.
+_Avoid_: Client command, authoritative action, client-authored outcome, timestamped event
 
 **Injury Outcome Catalogue**:
 The approved, versioned, and closed coverage of every admitted body region, exposure, protection, prior-injury and Trainee Functional State tuple, with exact Injury Profile versions, resulting injuries, limitations, cues, and downstream profile effects.
@@ -392,6 +400,10 @@ _Avoid_: Minimum requirements, recommended PC, hardware class
 A versioned acceptance definition that fixes one reproducible `Typical`, `Stress`, or `Rejection Boundary` load used to verify applicable Training Simulation quality requirements.
 _Avoid_: Ad hoc benchmark, unspecified worst case, duplicated per-requirement workload
 
+**Runtime Timing Profile**:
+An Approved Profile that fixes the runtime cadence and finite operating bounds for authoritative Simulation, client Prediction, Presentation, catch-up, replication retention, and connection-loss detection.
+_Avoid_: Frame-rate setting, vendor scheduler configuration, implicit timeout defaults
+
 **Representative Evaluator**:
 An armed-forces member with recent experience of the environments, equipment, and decisions represented by the Scenario who evaluates whether the Training Simulation preserves relevant training perception and outcomes.
 _Avoid_: Developer, artist, generic tester
@@ -419,6 +431,10 @@ _Avoid_: Implicit reset, live-state guess, save game, checkpoint
 **Simulation Engine**:
 The internal software foundation built only to support the Training Simulation's validated needs. It is not an independently reusable or general-purpose product.
 _Avoid_: Product, general-purpose engine
+
+**Simulated Time**:
+The authoritative Training Session time derived exactly from its simulation epoch and Canonical Tick; it advances only through committed Canonical Ticks and remains frozen throughout Technical Pause.
+_Avoid_: Operational Clock, Trusted Identity Time, render time, client clock
 
 **Spawn Transform**:
 The position and orientation owned by one versioned Map spatial anchor that a Scenario references and associates with one Team Position for initial entry into active simulation.
