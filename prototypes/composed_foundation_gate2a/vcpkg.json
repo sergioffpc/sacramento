@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "sacramento-composed-foundation-gate2a",
+  "version-string": "0.1.0",
+  "builtin-baseline": "9e593bb18ea69cc5095e012465dcd675a822ed0d",
+  "dependencies": [
+    "flecs",
+    "physx"
+  ],
+  "overrides": [
+    {
+      "name": "flecs",
+      "version": "4.1.6"
+    },
+    {
+      "name": "physx",
+      "version": "5.5.0",
+      "port-version": 2
+    }
+  ]
+}

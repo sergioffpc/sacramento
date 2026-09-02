@@ -1,0 +1,9 @@
+format=sacramento.authority-gate2a.v1
+ticks=240
+tick_hz=60
+body_id=1
+initial_x_um=0
+initial_y_um=5000000
+initial_z_um=0
+radius_um=500000
+density_kg_m3=1000
