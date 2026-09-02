@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "question": "Can the selected narrow Sacramento-owned C++23 composition provide a viable foundation for the initial Windows Trainee Client and Debian Session Authority baseline?",
+  "verdict": "conditionally_viable",
+  "production_admission": "blocked",
+  "selected_foundation": [
+    {"name": "Flecs", "version": "4.1.6", "admission": "prototype_evidence_only"},
+    {"name": "Falcor", "version": "8.0@9dc819c162b2070335c65060436041690b7937f8", "admission": "prototype_evidence_only"},
+    {"name": "Slang", "version": "2024.1.34", "admission": "prototype_evidence_only"},
+    {"name": "PhysX", "version": "5.9.0@517a0073715120e114ee055b63b26c95e00d9039", "admission": "prototype_evidence_only"},
+    {"name": "GameNetworkingSockets", "version": "1.6.0@2cb93a06350bb065db53abdb0d87cf297e0bfd34", "admission": "prototype_evidence_only"},
+    {"name": "Steam Audio", "version": "4.8.1", "admission": "prototype_evidence_only"},
+    {"name": "Assimp", "version": "6.0.5@392a658f9c271be965271f45e7521a1b80ea4392", "admission": "prototype_evidence_only"},
+    {"name": "Tracy", "version": "0.13.1", "admission": "prototype_evidence_only"},
+    {"name": "Sacramento structured logging", "version": "OBS-CONTRACT-001 prototype subset", "admission": "prototype_evidence_only"}
+  ],
+  "issue_evidence": [
+    {
+      "id": "windows_debian_build",
+      "disposition": "pass_with_exceptions",
+      "finding": "Ubuntu-hosted Clang produced reproducible Windows PE and Debian ELF artifacts, and the composed client ran natively on Windows/NVIDIA against the Debian authority.",
+      "evidence": ["prototypes/composed_foundation_gate1c/evidence/gate-1c-result.md", "prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "rendering_shader_path",
+      "disposition": "pass_with_exceptions",
+      "finding": "Falcor selected Vulkan, Slang produced identified reproducible SPIR-V, and the native composed client created a Slang compute pass on an NVIDIA RTX 5070 Ti; Falcor requires a maintained vendor capsule.",
+      "evidence": ["prototypes/composed_foundation_gate1/evidence/gate-1-result.md", "prototypes/composed_foundation_gate1c/evidence/gate-1c-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "authority_dependency_boundary",
+      "disposition": "pass",
+      "finding": "The Debian Session Authority proofs exclude Falcor, Vulkan, Slang runtime compilation, Steam Audio, Assimp, Tracy, CUDA, OptiX, and PhysXGpu from the applicable authority closures.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md"]
+    },
+    {
+      "id": "map_content_pipeline",
+      "disposition": "pass",
+      "finding": "A Blender-origin Map fixture cooks deterministically through a Sacramento interchange into a versioned runtime package containing stable anchor, material, shader, collision, and integrity identities without runtime importer/editor dependencies.",
+      "evidence": ["prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md"]
+    },
+    {
+      "id": "network_determinism",
+      "disposition": "pass_with_exceptions",
+      "finding": "One rendered role plus three synthetic clients reproduced exact ordered 120-tick output, and the literal Windows rendered client later exchanged the same Sacramento protocol with Debian; Controlled LAN recovery and production admission remain unproved.",
+      "evidence": ["prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "physics_interaction",
+      "disposition": "pass_with_exceptions",
+      "finding": "The authoritative core ran a representative CPU-only PhysX contact for 240 fixed 60 Hz ticks with byte-identical canonical traces; broader cross-platform and profile coverage is unproved.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md"]
+    },
+    {
+      "id": "acoustic_propagation",
+      "disposition": "pass_with_exceptions",
+      "finding": "A Sacramento-owned authoritative arrival timestamp drove Steam Audio distance, occlusion, transmission, and HRTF output; the same PCM identity was reproduced natively in the composed Windows client.",
+      "evidence": ["prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "observability_profiles",
+      "disposition": "pass_with_exceptions",
+      "finding": "The structured writer emitted the required prototype identity and correlation subset; CoreOnly excludes Tracy while Diagnostic includes it, and the native composed client emitted CoreOnly signals.",
+      "evidence": ["prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "dependency_qualification",
+      "disposition": "partial",
+      "finding": "Exact versions, hashes, closures, licences, sizes, build observations, adapter surfaces, and update procedures are recorded, but vulnerability disposition, offline mirrors, consolidated SBOM, supported-toolchain claims, and one real patch-version upgrade are incomplete.",
+      "evidence": ["prototypes/composed_foundation_gate1c/evidence/gate-1c-result.md", "prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md", "prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md"]
+    },
+    {
+      "id": "vendor_type_containment",
+      "disposition": "pass",
+      "finding": "Boundary audits found no selected vendor type in Sacramento public headers, persistent runtime packages, network messages, or the demonstrated canonical component schema.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md", "prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md"]
+    }
+  ],
+  "architecture_drivers": [
+    {
+      "id": "product_boundary",
+      "disposition": "pass",
+      "finding": "The prototype is a narrow need-specific Simulation Engine foundation, not a general engine; Assimp is cooker-only and no custom graphical editor was introduced.",
+      "evidence": ["prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "authority_topology_time",
+      "disposition": "partial",
+      "finding": "One Session Authority owns canonical ticks and results, but Operational Clock, Trusted Identity Time, Technical Pause, continuity, and complete State Restoration were not implemented.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md"]
+    },
+    {
+      "id": "physical_composition",
+      "disposition": "partial",
+      "finding": "Representative deterministic physics and Acoustic Propagation seams work, but closed catalogues, Ballistic Projectile behavior, atomic multi-domain transitions, and broad spatial/profile coverage remain product work.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md"]
+    },
+    {
+      "id": "content_lifecycle",
+      "disposition": "pass_with_exceptions",
+      "finding": "The offline source-to-runtime seam proves identity, versioning, integrity, and importer isolation for one Map fragment; atomic activation, history, compatibility, and closed catalogue admission remain unspecified.",
+      "evidence": ["prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md"]
+    },
+    {
+      "id": "trust_offline_auth",
+      "disposition": "unproved",
+      "finding": "GNS is successfully isolated as transport, but mutual authentication, AUTH Protected Exchange, Admission, offline validation, continuity, durable audit commit, expiry, and recovery were not prototyped.",
+      "evidence": ["prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md"]
+    },
+    {
+      "id": "deployment_toolchain",
+      "disposition": "pass_with_exceptions",
+      "finding": "The mandated Windows 11 and Debian 13 artifact paths work with Ubuntu-hosted Clang and native Windows acceptance, subject to the enumerated Falcor, vcpkg, CMake, triplet, and vendor-support exceptions.",
+      "evidence": ["prototypes/composed_foundation_gate1c/evidence/gate-1c-result.md", "prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "runtime_qualities",
+      "disposition": "unproved",
+      "finding": "Smoke timings show functional headroom only; no approved Reference Workload Profile measured the 16.67 ms presentation, 100 ms action, Admission, fidelity, availability, or stress criteria.",
+      "evidence": ["prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md"]
+    },
+    {
+      "id": "observability_verification",
+      "disposition": "partial",
+      "finding": "A versioned core signal subset, deterministic evidence, and diagnostic separation are proven; loss accounting, buffering, collection, retention, integrity, clock offsets, and complete dependency-driven reverification are unproved.",
+      "evidence": ["prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md"]
+    }
+  ],
+  "selection_dimensions": [
+    {
+      "id": "validity_safety_security_consistency_recovery",
+      "disposition": "partial",
+      "finding": "Canonical consistency seams pass narrowly; training validity, safety profiles, AUTH security/audit integrity, and recovery require later architecture and evidence.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md"]
+    },
+    {
+      "id": "latency_presentation_thresholds",
+      "disposition": "unproved",
+      "finding": "No final-image or end-to-end action workload was measured against the approved thresholds.",
+      "evidence": ["prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "deterministic_replay_observability",
+      "disposition": "partial",
+      "finding": "Physics, network ordering, cooked content, builds, and signal fixtures are repeatable in isolation; one complete Personnel Recovery replay and loss-detectable production observability path are absent.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md"]
+    },
+    {
+      "id": "blender_offline_content",
+      "disposition": "pass",
+      "finding": "The Blender-origin Map path is deterministic, versioned, integrity-bound, preinstallable, and free of runtime Blender/Assimp/OpenUSD dependencies.",
+      "evidence": ["prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md"]
+    },
+    {
+      "id": "platform_build_package_runtime",
+      "disposition": "pass_with_exceptions",
+      "finding": "Applicable Windows and Debian cross-build/package/runtime paths pass at prototype scale, with native Windows client and Debian authority execution and explicit unsupported vendor paths.",
+      "evidence": ["prototypes/composed_foundation_gate1c/evidence/gate-1c-result.md", "prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    },
+    {
+      "id": "first_party_coupling",
+      "disposition": "pass_with_exceptions",
+      "finding": "Vendor coupling is localized to adapters and overlays; Falcor remains the outlier because its vendor capsule needs three maintained patches and a large packaged dependency surface.",
+      "evidence": ["prototypes/composed_foundation_gate1b/evidence/gate-1b-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md", "prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md"]
+    },
+    {
+      "id": "build_cost",
+      "disposition": "partial",
+      "finding": "Per-gate clean build and dependency costs plus package sizes are recorded, but no clean integrated spine build or representative developer iteration distribution was measured.",
+      "evidence": ["prototypes/composed_foundation_gate2a/evidence/gate-2a-result.md", "prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md", "prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md"]
+    },
+    {
+      "id": "upgrade_dependency_licence",
+      "disposition": "partial",
+      "finding": "Exact source identities, licence files, closure inventories, and update procedures exist; no candidate-wide patch upgrade, vulnerability disposition, offline mirror, or consolidated SBOM was completed.",
+      "evidence": ["prototypes/composed_foundation_gate1c/evidence/gate-1c-result.md", "prototypes/composed_foundation_gate2b/evidence/gate-2b-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md", "prototypes/composed_foundation_gate2e/evidence/gate-2e-result.md"]
+    },
+    {
+      "id": "two_generalist_maintenance",
+      "disposition": "owner_decision",
+      "finding": "The narrow adapters are credible individually, but the combined custom triplets, overlays, Falcor capsule and patches, two-platform acceptance, and broad unproved product seams do not yet establish the mandatory two-generalist ceiling.",
+      "evidence": ["prototypes/composed_foundation_gate1b/evidence/gate-1b-result.md", "prototypes/composed_foundation_gate2c/evidence/gate-2c-result.md", "prototypes/composed_foundation_gate2d/evidence/gate-2d-result.md", "prototypes/composed_foundation_gate2f/evidence/gate-2f-result.md"]
+    }
+  ],
+  "exceptions": [
+    {"id": "EXC-FALCOR-VENDOR-CAPSULE", "owner_decision": true, "production_admission_blocking": true, "summary": "Authorize maintained Vulkan-only Falcor patches and Packman only inside an integrity-controlled offline vendor capsule, or replace Falcor."},
+    {"id": "EXC-BUILD-TOOL-VERSIONS", "owner_decision": true, "production_admission_blocking": true, "summary": "Reconcile repository CMake 4.2.3 with vcpkg-required CMake 4.4.0 and seal every host helper, including GNU Make where retained."},
+    {"id": "EXC-CROSS-VCPKG-PROFILE", "owner_decision": false, "production_admission_blocking": true, "summary": "Create one supported production cross-vcpkg profile for find roots, Release try_compile, CRT, C++23, and reproducible clang-cl path maps."},
+    {"id": "EXC-VENDOR-SUPPORT-MATRIX", "owner_decision": true, "production_admission_blocking": true, "summary": "Accept and own unsupported Clang 22/Debian 13 PhysX and Linux-hosted clang-cl Steam Audio/Tracy paths, or select supported versions."},
+    {"id": "EXC-GNS-CRYPTO-BACKENDS", "owner_decision": true, "production_admission_blocking": true, "summary": "Approve and qualify OpenSSL on Debian plus BCrypt on Windows, or choose one cross-platform crypto dependency; neither substitutes for AUTH Protected Exchange."}
+  ],
+  "unproved": [
+    "Complete Reference Personnel Recovery Scenario vertical replay",
+    "AUTH, Admission, offline trust, durable audit commit, continuity, and State Restoration",
+    "Controlled LAN loss, congestion, reconnect, recovery, and 16-client stress",
+    "Approved 16.67 ms presentation and 100 ms authoritative-action workloads",
+    "Representative Evaluator visual and acoustic validity and peak coverage",
+    "Real-time audio/device path, reflections, pathing, and stress behavior",
+    "Live Tracy capture, profiling overhead, and complete production observability transport",
+    "Candidate-wide vulnerability disposition, consolidated SBOM, and offline dependency reconstruction",
+    "One patch-version upgrade with measured adapter churn",
+    "Demonstrated ongoing maintenance within two concurrent human generalists"
+  ],
+  "next_decision": "Issue #13 must decide whether the conditional viability and five exception classes justify confirming ADR-0003's selected strategy."
+}
