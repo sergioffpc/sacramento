@@ -1,10 +1,10 @@
 # Training Simulation Documentation Inventory
 
-Status: Approved initial inventory
+Status: Approved successor inventory
 
 Approval: Project owner, 2026-09-03
 
-Inventory version: `DOCINV-001`
+Inventory version: `DOCINV-002`
 
 Version basis: The exact repository tree containing this inventory version;
 any listed-document or information-map change creates a successor inventory
@@ -38,6 +38,7 @@ Canonical information owner: Project owner.
 - [Document inventory](#document-inventory)
 - [Reconciliation and validation](#reconciliation-and-validation)
 - [Current acceptance boundary](#current-acceptance-boundary)
+- [`DOCINV-002` impact analysis](#docinv-002-impact-analysis)
 - [Change control](#change-control)
 
 ## Classification rules
@@ -89,6 +90,7 @@ Markdown document.
 | `ENGAGEMENT-TARGET-001` | `docs/requirements/training-simulation-performance-profile-engagement-target-001.md` | Project owner | Engagement Target Performance Profile |
 | `RHP-SET-001` | `docs/requirements/training-simulation-reference-hardware-profiles.md` | Project owner | Reference Hardware Profiles |
 | `DOCINFO-VERIFICATION-PLAN-001` | `docs/requirements/training-simulation-verification-plan.md` | Project owner | Verification methods, assignments, evidence process, and acceptance gates |
+| `BAI-001` | `docs/requirements/training-simulation-baseline-applicability-inventory.csv` | Project owner | Exact Development Baseline dispositions for every current normative requirement and process identifier |
 | `DOCINFO-DOCUMENTATION-INVENTORY-001` | `docs/project/training-simulation-documentation-inventory.md` | Project owner | Documentation population, classifications, and canonical information mappings |
 | `CPP-ENGINEERING-BASELINE-003` | `docs/standards/cpp-engineering.md` | Project owner | C++ engineering and toolchain baseline |
 | `DOCINFO-CONVENTIONAL-COMMITS-001` | `docs/standards/conventional-commits.md` | Project owner | Conventional Commit Profile |
@@ -100,7 +102,7 @@ not a replacement for identifier-level traceability.
 
 ## Document inventory
 
-Every row has version basis `DOCINV-001 repository tree`. `Metadata` means the
+Every row has version basis `DOCINV-002 repository tree`. `Metadata` means the
 required title, purpose, scope, intended readers, status, prerequisites, and
 single canonical information owner. `ToC` is `Not Applicable` for manually
 maintained Markdown and non-Markdown formats under the current requirement;
@@ -144,14 +146,16 @@ manual documents may still provide one.
 | `DOC-034` | `docs/standards/conventional-commits.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-CONVENTIONAL-COMMITS-001` | Project owner | Required / Not Applicable | `DOC-019` | Approved initial profile |
 | `DOC-035` | `docs/standards/cpp-engineering.md` | Persistent | Markdown | Manual | Canonical: `CPP-ENGINEERING-BASELINE-003` | Project owner | Required / Not Applicable | Declared; links validated | Approved |
 | `DOC-036` | `docs/standards/git-flow.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-GIT-FLOW-001` | Project owner | Required / Not Applicable | `DOC-034` | Approved initial profile |
+| `DOC-037` | `docs/requirements/training-simulation-baseline-applicability-inventory.csv` | Persistent | CSV | Manual | Canonical: `BAI-001`; title `Training Simulation Baseline Applicability Inventory`; purpose and scope: classify every current normative requirement and process identifier exactly once for the Development Baseline; intended readers: project owner, requirements reviewers, architects, implementers, and verification authors; structurally validated by `scripts/validate-baseline-applicability-inventory.sh` | Project owner | Inventory control / Not Applicable | `DOC-019`, `DOC-020`, `DOC-021`, `DOC-022`, `DOC-023`, `DOC-024`, `DOC-026` | Approved `BAI-001`, project owner, 2026-09-03 |
 
 ## Reconciliation and validation
 
 The authoritative population is the union of root `AGENTS.md`, `CONTEXT.md`,
 `README.md`, `SECURITY.md`, `LICENSE`, every `*.md` below `docs/`, and generated
-documentation datasets below `docs/`. `DOCINV-001` contains 36 documents: 34
+documentation datasets below `docs/`. `DOCINV-002` contains 37 documents: 34
 manually maintained Markdown documents, one external-standard plain-text legal
-document, and one generated CSV dataset. It contains no retained
+document, one manually maintained CSV inventory, and one generated CSV dataset.
+It contains no retained
 `Non-persistent` document and no generated Markdown document.
 
 Run the structural validator from the repository root:
@@ -169,16 +173,38 @@ evidence impact remain review decisions rather than facts a script can infer.
 ## Current acceptance boundary
 
 The approved inventory and its document population are structurally reconciled
-for `DOCINV-001`; the project owner approved this exact version on 2026-09-03.
+for `DOCINV-002`; the project owner approved this exact successor on 2026-09-03.
 `SECURITY.md` remains an explicitly non-authoritative future placeholder and
 cannot support a security claim. The generated verification-assignment
 inventory remains a derived view and cannot substitute for the Baseline
-Applicability, Baseline Artifact, or Evidence Dependency Inventory.
+Artifact or Evidence Dependency Inventory.
 
 Architecture decisions are closed by ADR-0010. Product realization and
-architecture evidence remain incomplete. Baseline approval remains blocked by
-the missing inventories and every other unresolved requirement or evidence
-dependency identified by the approved baselines and architecture decisions.
+architecture evidence remain incomplete. Approved `BAI-001` contains 1,148
+exactly-once entries: 928 `Included`, 201 `Future`, and 19 `Not Applicable`.
+It makes no realization, evidence, or baseline-approval claim. Baseline approval
+remains blocked by the missing Baseline Artifact and Evidence Dependency
+Inventories and every other unresolved requirement or evidence dependency
+identified by the approved baselines and architecture decisions.
+
+## `DOCINV-002` impact analysis
+
+Documentation impact is confined to registering canonical `BAI-001`, routing
+readers to it from `README.md`, and advancing this inventory from `DOCINV-001`
+to `DOCINV-002`. No existing document, canonical information item, owner, or
+domain term is removed, renamed, reclassified, or reassigned. The seven frozen
+requirement and supporting inputs remain canonical in their existing documents.
+
+Evidence impact is conservative: no accepted product-baseline or Architecture
+Claim evidence exists to retain or invalidate. Existing prototype evidence and
+the generated verification-assignment view remain unchanged and cannot acquire
+an acceptance disposition from `BAI-001`. The applicability inventory assigns
+no realization or evidence state and cannot turn `Future` or `Not Applicable`
+into `Pass`. Its dispositions become inputs to the ordered Baseline Artifact
+and Evidence Dependency Inventories; those inventories remain absent and
+baseline approval remains blocked. Any source, disposition, milestone,
+ownership, or dependency change requires a successor `BAI-*` and `DOCINV-*`
+version and fresh impact analysis.
 
 ## Change control
 
