@@ -6,13 +6,27 @@ Baseline: Development Baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Platform deployment and production-security deferral, project owner, 2026-09-03
+Latest approved amendment: Cross-cutting architecture and verification closure, project owner, 2026-09-03
 
 Canonical language: English
 
 Canonical information owner: Project owner
 
-Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision, plus the project-owner-confirmed issue #33, #35, and #37 architecture grillings. Production-security mechanisms remain specified for the future Production Security Baseline; no current platform-deployment interview question remains open.
+Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision, plus the project-owner-confirmed issue #33, #35, #37, and #39 architecture grillings. Production-security mechanisms remain specified for the future Production Security Baseline; no current architecture-decision interview question remains open.
+
+Purpose: Define the approved functional, process, scope, and constraint baseline
+for the Training Simulation.
+
+Scope: Development Baseline product behavior and project controls, with named
+future baselines and non-goals explicitly excluded from current acceptance.
+
+Intended readers: Project owner, requirements reviewers, architects, designers,
+implementers, verification authors, Qualified Specialists, and Representative
+Evaluators.
+
+Prerequisites: [Training Simulation context](../../CONTEXT.md) and [Initial
+Goals, Requirements, and Constraints Document
+Guidance](../research/initial-goals-requirements-and-constraints-guidance.md).
 
 Priority convention: `MUST` and `MUST NOT` are required for the accepted initial baseline; `SHOULD` records an approved preference; `MAY` records permitted behavior. Deferred capabilities and non-goals are outside that baseline.
 
@@ -103,6 +117,24 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 **PROCESS-TRACEABILITY-INVENTORY-002** — Before a candidate baseline is approved, the implementation team MUST reconcile the Baseline Artifact Inventory against the complete current authoritative repositories or registries for all four artifact classes, and the project owner MUST approve the exact inventory version.
 
 **PROCESS-TRACEABILITY-INVENTORY-003** — Every registered artifact MUST have complete stable-identifier traces or an explicit non-applicability or intentional-deferral record; a missing artifact, missing trace, stale inventory entry, or unclassified artifact MUST block baseline approval.
+
+**PROCESS-ARCHITECTURE-CLAIM-001** — Every normative architecture claim MUST have one stable Architecture Claim key that remains unchanged while that claim's meaning remains unchanged and MUST remain distinct from requirement identifiers and verification-obligation keys.
+
+**PROCESS-ARCHITECTURE-CLAIM-002** — Every Architecture Claim MUST identify its governing requirement identifiers, canonical ADR or Software Architecture Description view, responsible module or owner, architecture-level verification surface, required evidence hooks, and current decision, baseline-applicability, realization, and evidence states.
+
+**PROCESS-ARCHITECTURE-CLAIM-003** — Architecture Claim decision state MUST be exactly `Accepted`, `Deferred`, or `Superseded`; baseline-applicability state MUST be exactly `Included`, `Future`, or `Not Applicable`; realization state MUST be exactly `Not Implemented`, `Partial`, or `Implemented`; and evidence state MUST be exactly `Not Run`, `Blocked`, `Fail`, or `Pass`.
+
+**PROCESS-ARCHITECTURE-CLAIM-004** — Closing or accepting an architecture decision MUST NOT by itself change its realization or evidence state, satisfy a requirement, admit a dependency, establish production security or platform availability, or approve a product baseline.
+
+**PROCESS-ARCHITECTURE-VERIFICATION-001** — Architecture-level verification MUST combine applicable static closure inspection, executable interface and adapter contract tests, native executable-closure tests, and representative end-to-end success and failure sequences; one layer MUST NOT substitute for another applicable layer.
+
+**PROCESS-ARCHITECTURE-CONTRACT-001** — Every production, development, and test adapter for one architecture seam MUST satisfy the same Sacramento interface contract suite, and a test adapter or test control MUST NOT expose an implementation bypass to a product caller.
+
+**PROCESS-ARCHITECTURE-EXECUTABLE-001** — Executable-closure verification MUST run every applicable runtime on its native target platform using only its exact Application Release, declared immutable artifacts, and approved dependencies, and MUST reject a missing, unexpected, incompatible, or undeclared runtime dependency before claiming closure.
+
+**PROCESS-ARCHITECTURE-DESCRIPTION-001** — The Software Architecture Description MUST identify every view's purpose, scope, notation, stakeholders, prerequisites, authoritative inputs, Architecture Claim mappings, relationships to other views, owner, and update triggers while linking rather than duplicating canonical requirements and ADR content.
+
+**PROCESS-ARCHITECTURE-UPDATE-001** — A change to a governing requirement, ADR, Architecture Claim, module interface, inventory disposition, or evidence dependency MUST trigger review of every reachable Software Architecture Description view and retained architecture-verification result under `PROCESS-EVIDENCE-CHANGE-001` through `PROCESS-EVIDENCE-CHANGE-006`.
 
 ## Product boundary
 
@@ -2052,7 +2084,7 @@ Production Security Baseline applies.
 
 **PROCESS-DOCUMENTATION-INVENTORY-002** — The project owner MUST approve the exact reconciled Documentation Inventory version; a missing, stale, uncertain, multiply owned, or unclassified persistent document or canonical information item MUST block documentation acceptance.
 
-**PROCESS-DOCUMENTATION-INVENTORY-003** — Every persistent document MUST state title, purpose, scope, intended readers, status, prerequisites, and exactly one canonical information owner and MUST map each normative information item to one canonical stable identifier and owning document.
+**PROCESS-DOCUMENTATION-INVENTORY-003** — Every persistent Markdown document MUST state title, purpose, scope, intended readers, status, prerequisites, and exactly one canonical information owner. A persistent non-Markdown document whose standard or generated format cannot safely embed that control block MUST instead have all seven fields recorded in its Documentation Inventory entry. Every persistent document MUST map each normative information item to one canonical stable identifier and owning document.
 
 **PROCESS-DOCUMENTATION-INVENTORY-004** — A non-canonical document MAY quote canonical information only when the quotation is explicitly marked non-authoritative and links to the exact canonical stable identifier and document version; an unmarked restatement that can independently change normative meaning is prohibited duplication.
 

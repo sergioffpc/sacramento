@@ -2,6 +2,20 @@
 
 Status: Accepted
 
+Purpose: Define authoritative time, state commitment, prediction, publication,
+and runtime lifecycle semantics.
+
+Scope: Session Authority canonical progression and corresponding client
+prediction and presentation behavior.
+
+Intended readers: Architects, designers, implementers, and verification
+authors.
+
+Prerequisites: ADR-0004 and the approved functional, non-functional,
+observability, and verification baselines.
+
+Canonical information owner: Project owner.
+
 Amendment: ADR-0008 replaces the former client-disconnection recovery behavior.
 
 ## Context

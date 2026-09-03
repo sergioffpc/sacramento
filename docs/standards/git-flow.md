@@ -6,6 +6,11 @@ Purpose: Define the repository branch lifecycle and integration rules.
 
 Scope: Every change integrated into the repository.
 
+Intended readers: Contributors, maintainers, release operators, and repository
+automation authors.
+
+Prerequisites: [Conventional Commit Profile](conventional-commits.md).
+
 Canonical information owner: Project owner.
 
 ## Table of contents

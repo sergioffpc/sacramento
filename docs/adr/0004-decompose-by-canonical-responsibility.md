@@ -2,6 +2,20 @@
 
 Status: Accepted
 
+Purpose: Define Sacramento's responsibility modules, runtime compositions, and
+dependency direction.
+
+Scope: Architecture-level module ownership, interfaces, adapters, and
+composition; detailed APIs and source layout remain outside this decision.
+
+Intended readers: Architects, designers, implementers, and verification
+authors.
+
+Prerequisites: ADR-0003 and the approved functional, non-functional,
+observability, and verification baselines.
+
+Canonical information owner: Project owner.
+
 Amendment: ADR-0008 adds the Trainee Performance Assessment Module and retained-evidence seams.
 
 Amendment: ADR-0009 preserves the `AUTH & Admission` interface while moving its production-security adapters to the future Production Security Baseline.

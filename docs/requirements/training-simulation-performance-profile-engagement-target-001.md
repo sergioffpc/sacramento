@@ -14,6 +14,16 @@ Purpose: Define the first versioned performance-comparison profile for a Riflema
 
 Scope: Target-identification and engagement tasks in Desktop Mode.
 
+Intended readers: Project owner, assessment designers, implementers,
+verification authors, and Representative Evaluators.
+
+Prerequisites: [Trainee Performance Assessment
+Requirements](training-simulation-performance-assessment-requirements.md),
+[Training Simulation Verification Plan](training-simulation-verification-plan.md),
+and the applicable approved content and profiles.
+
+Canonical information owner and approver: Project owner.
+
 ## Comparison conditions
 
 **ETP-COMPARISON-001** — Every result under this profile MUST use and record these comparison conditions:

@@ -1,0 +1,324 @@
+#!/usr/bin/env python3
+"""Validate the canonical documentation inventory against the repository."""
+
+from __future__ import annotations
+
+import pathlib
+import re
+import sys
+from dataclasses import dataclass
+
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+INVENTORY = ROOT / "docs/project/training-simulation-documentation-inventory.md"
+DOCUMENT_ID_RE = re.compile(r"DOC-[0-9]{3}")
+LINK_RE = re.compile(r"(?<!!)\[[^]]*\]\(([^)]+)\)")
+HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
+CONTROL_FIELDS = (
+    "Status",
+    "Purpose",
+    "Scope",
+    "Intended readers",
+    "Prerequisites",
+    "Canonical information owner",
+)
+
+
+@dataclass(frozen=True)
+class Document:
+    """One parsed Documentation Inventory row."""
+
+    identifier: str
+    path: pathlib.PurePosixPath
+    retention: str
+    format: str
+    maintenance: str
+    authority: str
+    owner: str
+    controls: str
+    prerequisites: str
+    status: str
+
+
+def markdown_slug(value: str) -> str:
+    """Return the repository's GitHub-style slug for a simple heading."""
+    value = re.sub(r"[`*_~]", "", value.strip().lower())
+    value = re.sub(r"[^\w\- ]", "", value, flags=re.UNICODE)
+    return re.sub(r"\s+", "-", value)
+
+
+def inventory_population() -> set[pathlib.PurePosixPath]:
+    """Return every retained path governed as a project document."""
+    paths = {
+        pathlib.PurePosixPath(name)
+        for name in ("AGENTS.md", "CONTEXT.md", "README.md", "SECURITY.md", "LICENSE")
+    }
+    for candidate in (ROOT / "docs").rglob("*"):
+        if candidate.is_file() and candidate.suffix in {".md", ".csv"}:
+            paths.add(pathlib.PurePosixPath(candidate.relative_to(ROOT).as_posix()))
+    return paths
+
+
+def parse_inventory(errors: list[str]) -> list[Document]:
+    """Parse document rows from the inventory's Markdown table."""
+    try:
+        lines = INVENTORY.read_text(encoding="utf-8").splitlines()
+    except OSError as error:
+        raise SystemExit(f"cannot read {INVENTORY}: {error}") from error
+
+    rows: list[Document] = []
+    for line_number, line in enumerate(lines, start=1):
+        if not line.startswith("| `DOC-"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) != 10:
+            errors.append(
+                f"inventory:{line_number}: expected 10 cells, found {len(cells)}",
+            )
+            continue
+        identifier = cells[0].strip("`")
+        path = cells[1].strip("`")
+        rows.append(
+            Document(
+                identifier=identifier,
+                path=pathlib.PurePosixPath(path),
+                retention=cells[2],
+                format=cells[3],
+                maintenance=cells[4],
+                authority=cells[5],
+                owner=cells[6],
+                controls=cells[7],
+                prerequisites=cells[8],
+                status=cells[9],
+            )
+        )
+    if not rows:
+        errors.append("inventory: no document rows found")
+    return rows
+
+
+def validate_rows(documents: list[Document], errors: list[str]) -> None:
+    """Validate row identity, classification, and repository reconciliation."""
+    identifiers = [document.identifier for document in documents]
+    paths = [document.path for document in documents]
+    expected_identifiers = [
+        f"DOC-{number:03d}" for number in range(1, len(documents) + 1)
+    ]
+    if identifiers != expected_identifiers:
+        errors.append(
+            "inventory: document identifiers must be unique, ordered, and contiguous",
+        )
+    if len(paths) != len(set(paths)):
+        errors.append("inventory: duplicate document path")
+
+    actual = inventory_population()
+    recorded = set(paths)
+    for path in sorted(actual - recorded):
+        errors.append(f"inventory: unregistered document: {path}")
+    for path in sorted(recorded - actual):
+        errors.append(f"inventory: stale or missing document: {path}")
+
+    for document in documents:
+        label = f"inventory:{document.identifier}"
+        if not DOCUMENT_ID_RE.fullmatch(document.identifier):
+            errors.append(f"{label}: invalid stable identifier")
+        if document.path.is_absolute() or ".." in document.path.parts:
+            errors.append(f"{label}: path must be repository-relative and resolved")
+        if document.retention not in {"Persistent", "Non-persistent"}:
+            errors.append(f"{label}: invalid retention classification")
+        expected_format = (
+            "Markdown"
+            if document.path.suffix == ".md"
+            else "CSV"
+            if document.path.suffix == ".csv"
+            else "Plain text"
+        )
+        if document.format != expected_format:
+            errors.append(f"{label}: expected format {expected_format}")
+        if not (
+            document.maintenance == "Manual"
+            or document.maintenance.startswith("Generated by ")
+        ):
+            errors.append(f"{label}: invalid maintenance classification")
+        if not document.authority.startswith(("Canonical:", "Non-canonical")):
+            errors.append(f"{label}: missing canonical classification and mapping")
+        if not document.owner or document.owner == "None":
+            errors.append(f"{label}: missing one responsible owner")
+        if not document.prerequisites:
+            errors.append(f"{label}: missing prerequisite classification")
+        elif document.prerequisites == "None":
+            pass
+        elif document.prerequisites == "Declared; links validated":
+            if document.format != "Markdown":
+                errors.append(f"{label}: only Markdown can declare prerequisites")
+        elif document.prerequisites.startswith(("External: ", "Deferred: ")):
+            if not document.prerequisites.split(":", maxsplit=1)[1].strip():
+                errors.append(f"{label}: empty prerequisite disposition")
+        else:
+            referenced_ids = set(DOCUMENT_ID_RE.findall(document.prerequisites))
+            unknown_ids = referenced_ids - set(identifiers)
+            if not referenced_ids:
+                errors.append(f"{label}: unresolved prerequisite classification")
+            for identifier in sorted(unknown_ids):
+                errors.append(f"{label}: unknown prerequisite {identifier}")
+        if not document.status:
+            errors.append(f"{label}: missing status")
+        if document.format == "Markdown" and not document.controls.startswith(
+            "Required / "
+        ):
+            errors.append(f"{label}: Markdown control metadata must be Required")
+        if document.format != "Markdown" and not document.controls.startswith(
+            "Inventory control / "
+        ):
+            errors.append(
+                f"{label}: non-Markdown control metadata must be inventory-held",
+            )
+        if document.format != "Markdown":
+            control_words = ("title", "purpose and scope", "intended readers")
+            for word in control_words:
+                if word not in document.authority:
+                    errors.append(f"{label}: inventory-held metadata lacks {word}")
+
+
+def control_value(text: str, field: str) -> list[str]:
+    """Return control-field values, accepting the owner-and-approver form."""
+    if field == "Canonical information owner":
+        pattern = re.compile(
+            r"^Canonical information owner(?: and approver)?:\s*(.*)$",
+            re.MULTILINE,
+        )
+    else:
+        pattern = re.compile(rf"^{re.escape(field)}:\s*(.*)$", re.MULTILINE)
+    return pattern.findall(text)
+
+
+def without_fenced_code(text: str) -> str:
+    """Remove fenced code so examples are not treated as document structure."""
+    kept: list[str] = []
+    in_fence = False
+    for line in text.splitlines():
+        if line.startswith("```"):
+            in_fence = not in_fence
+            continue
+        if not in_fence:
+            kept.append(line)
+    return "\n".join(kept)
+
+
+def prerequisite_block(control_block: str) -> str:
+    """Return the complete declared prerequisite field from a control block."""
+    match = re.search(
+        r"^Prerequisites:\s*(.*?)(?=\n\n|\Z)",
+        control_block,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    return "" if match is None else match.group(1).strip()
+
+
+def validate_markdown(document: Document, errors: list[str]) -> None:
+    """Validate one Markdown document's control block, links, and generated ToC."""
+    path = ROOT / document.path
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as error:
+        errors.append(f"{document.path}: cannot read UTF-8 Markdown: {error}")
+        return
+
+    structural_text = without_fenced_code(text)
+    h1 = [line for line in structural_text.splitlines() if line.startswith("# ")]
+    if len(h1) != 1:
+        errors.append(f"{document.path}: expected exactly one title heading")
+    control_block = structural_text.split("\n## ", maxsplit=1)[0]
+    for field in CONTROL_FIELDS:
+        values = control_value(control_block, field)
+        if len(values) != 1:
+            errors.append(f"{document.path}: expected exactly one {field} field")
+        elif (
+            field == "Canonical information owner"
+            and values[0].strip() in {"", "None"}
+        ):
+            errors.append(f"{document.path}: canonical information owner is empty")
+
+    if document.prerequisites == "Declared; links validated":
+        declared = prerequisite_block(control_block)
+        if not declared or declared == "None.":
+            errors.append(f"{document.path}: declared prerequisites are empty")
+        for token in re.findall(r"`([^`]+\.md)`", declared):
+            local = (path.parent / token).resolve()
+            root_relative = (ROOT / token).resolve()
+            if not local.exists() and not root_relative.exists():
+                errors.append(
+                    f"{document.path}: unresolved prerequisite document: {token}"
+                )
+        for adr in set(re.findall(r"ADR-([0-9]{4})", declared)):
+            if not list((ROOT / "docs/adr").glob(f"{adr}-*.md")):
+                errors.append(f"{document.path}: unresolved prerequisite ADR-{adr}")
+
+    for target in LINK_RE.findall(structural_text):
+        target = target.strip().split(maxsplit=1)[0].strip("<>")
+        if target.startswith(("https://", "http://", "mailto:", "#")):
+            continue
+        relative = target.split("#", maxsplit=1)[0]
+        if not relative:
+            continue
+        linked = (path.parent / relative).resolve()
+        try:
+            linked.relative_to(ROOT)
+        except ValueError:
+            errors.append(f"{document.path}: link escapes repository: {target}")
+            continue
+        if not linked.exists():
+            errors.append(f"{document.path}: broken local link: {target}")
+
+    if not document.maintenance.startswith("Generated by "):
+        return
+    headings: list[str] = []
+    for line in structural_text.splitlines():
+        match = HEADING_RE.match(line)
+        if match is None:
+            continue
+        marks, title = match.groups()
+        if len(marks) == 2 and title != "Table of contents":
+            headings.append(title)
+    toc_match = re.search(
+        r"^## Table of contents\s*$\n(.*?)(?=^##\s|\Z)",
+        structural_text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    if toc_match is None:
+        errors.append(f"{document.path}: generated Markdown has no Table of contents")
+        return
+    toc = toc_match.group(1)
+    for heading in headings:
+        anchor = f"#{markdown_slug(heading)}"
+        if len(re.findall(rf"\]\({re.escape(anchor)}\)", toc)) != 1:
+            errors.append(f"{document.path}: expected one ToC link for {heading!r}")
+
+
+def main() -> int:
+    """Validate inventory and print one deterministic summary."""
+    errors: list[str] = []
+    documents = parse_inventory(errors)
+    validate_rows(documents, errors)
+    for document in documents:
+        if document.format == "Markdown" and (ROOT / document.path).is_file():
+            validate_markdown(document, errors)
+
+    if errors:
+        for error in errors:
+            print(error, file=sys.stderr)
+        print(
+            f"documentation inventory validation failed: {len(errors)} error(s)",
+            file=sys.stderr,
+        )
+        return 1
+    print(
+        "documentation inventory valid: "
+        f"{len(documents)} documents, "
+        f"{sum(d.format == 'Markdown' for d in documents)} Markdown"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

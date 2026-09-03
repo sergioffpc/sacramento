@@ -2,6 +2,20 @@
 
 Status: Accepted
 
+Purpose: Define runtime execution domains, exclusive ownership, scheduling,
+atomicity, capacity, and bounded failure containment.
+
+Scope: Session Authority and Trainee Client concurrency and failure semantics;
+detailed threading and queue APIs remain outside this decision.
+
+Intended readers: Architects, designers, implementers, and verification
+authors.
+
+Prerequisites: ADR-0004, ADR-0005, and the approved functional,
+non-functional, observability, and verification baselines.
+
+Canonical information owner: Project owner.
+
 Amendment: ADR-0008 replaces client recovery and defines retained-evidence seams.
 
 Amendment: ADR-0009 makes production AUTH durability and recovery future-baseline obligations while retaining their seams and failure invariants.

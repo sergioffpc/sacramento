@@ -2,6 +2,20 @@
 
 Status: Accepted
 
+Purpose: Define immutable Scenario-bound runtime content, cooking, admission,
+pairing, compatibility, and process-lifetime rules.
+
+Scope: Content Cooker, Authority Pack, Client Pack, Runtime Content Release,
+runtime activation, and retained processing evidence.
+
+Intended readers: Architects, content-pipeline designers, implementers,
+security reviewers, and verification authors.
+
+Prerequisites: ADR-0003 through ADR-0006 and the approved functional,
+non-functional, observability, and verification baselines.
+
+Canonical information owner: Project owner.
+
 Amendment: ADR-0008 supersedes this decision's former client-continuity exception.
 
 Amendment: ADR-0009 defines the external launch, packaging, compatibility, readiness, update, rollback, and supervision contracts deferred by this decision.
