@@ -4,7 +4,7 @@ Status: Approved
 
 Approval: Project owner, 2026-09-01
 
-Latest approved amendment: Technical Removal and Session Evidence Set handoff, project owner, 2026-09-03
+Latest approved amendment: Platform deployment and production-security deferral, project owner, 2026-09-03
 
 Contract version: `OBS-CONTRACT-003`
 
@@ -54,10 +54,10 @@ An inapplicable conditional field is absent rather than populated with an invent
 | `OBS-ACOUSTIC-EVENT-PRESENTED-001` | Rendered Desktop Mode client | Correlated acoustic presentation and output-route identifier | `NFR-ACOUSTIC-PEAK-001` |
 | `OBS-ADMISSION-STARTED-001` | Session Authority | Opaque attempt correlation and start of initial Admission after the Authentication Act | `NFR-AUTH-ADMISSION-001` |
 | `OBS-ADMISSION-TERMINAL-001` | Session Authority | Correlated terminal classification: `Success` or `Denied` | `NFR-AUTH-ADMISSION-001` |
-| `OBS-ADMISSION-AUDIT-COMMITTED-001` | Session Authority | Correlated non-secret AUTH Audit Commit Unit reference | `NFR-AUTH-ADMISSION-001` |
+| `OBS-ADMISSION-AUDIT-COMMITTED-001` | Session Authority under the Production Security Baseline | Correlated non-secret AUTH Audit Commit Unit reference; absent under permissive development AUTH | `NFR-AUTH-ADMISSION-001` |
 | `OBS-TECHNICAL-REMOVAL-001` | Session Authority | Correlated non-personal Technical Removal and canonical state-version transition | `NFR-OBSERVABILITY-CORE-001`, `REQ-TECHNICAL-REMOVAL-003` |
 | `OBS-SESSION-EVIDENCE-HANDOFF-001` | Session Authority | Terminal Session Evidence Set completeness and durable-handoff disposition | `NFR-OBSERVABILITY-CORE-001`, `REQ-SESSION-EVIDENCE-004` |
-| `OBS-RUNTIME-IDENTITY-001` | Desktop Mode or Session Authority process | Exact build, configuration, contract, Runtime Content Release, role-pack and Content Signing Trust Reference identities, applicable profile versions, and observability detail level active at process start | `NFR-OBSERVABILITY-CORE-001`, `CONSTRAINT-NFR-OBSERVABILITY-ACCEPTANCE-001` |
+| `OBS-RUNTIME-IDENTITY-001` | Desktop Mode or Session Authority process | Exact Application Release, Runtime Launch Specification, build, configuration, contract, Runtime Content Release, role-pack and Content Signing Trust Reference identities, AUTH mode, applicable profile versions, and observability detail level active at process start | `NFR-OBSERVABILITY-CORE-001`, `CONSTRAINT-NFR-OBSERVABILITY-ACCEPTANCE-001` |
 | `OBS-SIGNAL-LOSS-001` | Every core-signal producer or collector | Cumulative lost-or-discarded count by affected signal identifier and loss location | `NFR-OBSERVABILITY-INTEGRITY-001` |
 | `OBS-OPERATIONAL-ALERT-001` | Production observability collector | Correlated alert creation for a signal-loss increase | `NFR-OBSERVABILITY-ALERTING-001` |
 
@@ -131,7 +131,18 @@ The exact script identifies which 16 steps are weapon sources and which four are
 
 ### Admission signals
 
-One opaque `event_correlation_id` is created for each initial Admission attempt after completion of the Trainee Authentication Act. It conveys no Trainee identity, credential, authentication evidence, or detailed denial reason.
+One opaque `event_correlation_id` is created for each initial Admission attempt:
+after completion of the Trainee Authentication Act under the Production Security
+Baseline, or when the finite permissive development attempt begins. It conveys
+no Trainee Identity, Synthetic Identity, credential, authentication evidence,
+or detailed denial reason.
+
+Under permissive development AUTH, the runtime emits the start and terminal
+signals with its non-production AUTH mode declared by
+`OBS-RUNTIME-IDENTITY-001`; it emits no
+`OBS-ADMISSION-AUDIT-COMMITTED-001`, and those records cannot satisfy
+`NFR-AUTH-ADMISSION-001`. The complete three-signal measurement applies only
+under the Production Security Baseline.
 
 | Signal | Signal-specific fields and cardinality |
 | --- | --- |

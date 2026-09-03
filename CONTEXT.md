@@ -4,7 +4,7 @@ Status: Approved
 
 Approval: Project owner, 2026-09-02
 
-Latest approved amendment: Technical Removal and retained-evidence language, project owner, 2026-09-03
+Latest approved amendment: Platform deployment and non-production identity language, project owner, 2026-09-03
 
 Baseline: Initial Domain Context
 
@@ -51,8 +51,8 @@ The approved, versioned, and closed inventory of canonical physical-condition cl
 _Avoid_: Ad hoc state check, implementation-defined condition, matrix row chosen at runtime
 
 **Admission**:
-The authoritative acceptance with one stable Admission identifier that atomically binds one authenticated and authorized Trainee Identity and Client Device Identity to the validating Session Authority Identity and exactly one current client connection until an exact admission-ending event occurs.
-_Avoid_: Network connection, authentication result, Team Position assignment, Ready
+The authoritative runtime acceptance with one stable Admission identifier that atomically binds exactly one current client connection to either authenticated and authorized Trainee, Client Device, and Session Authority Identities or, only under the explicitly non-production permissive development mode, their declared Synthetic Identities until an exact admission-ending event occurs.
+_Avoid_: Network connection, authentication result, production acceptance of Synthetic Identity, Team Position assignment, Ready
 
 **Admission Authorization Rule Set**:
 The approved, versioned product rules whose client-applicable rows authorize the Session Authority Identity and whose authority-applicable rows convert authenticated Trainee and Client Device Identities and external Authorization Assertions into the final admission or denial decision.
@@ -69,6 +69,10 @@ _Avoid_: ARR, debrief, performance summary, Leaderboard
 **Approved Profile**:
 A versioned record of represented behavior or data whose scope, reference conditions, evidence, tolerances, specialist validation, and project-owner approval satisfy the profile-admission requirements.
 _Avoid_: Tuning preset, provisional values, undocumented configuration
+
+**Application Release**:
+An immutable, identified release containing one complete executable runtime and its dependency closure for one exact product role and platform.
+_Avoid_: Runtime Content Release, mutable installation, source tree, latest build
 
 **AUTH Attempt**:
 One finite runtime initial-admission, lifecycle, or audit-recovery attempt with one unique instance identifier and one stable class key whose exact nested AUTH Operations, validator roles, start, terminal result, cancellation propagation, and supersession behavior are declared by the AUTH Operation Inventory.
@@ -209,6 +213,14 @@ _Avoid_: Free-form commit title, implicit type list, unvalidated merge message
 **Desktop Mode**:
 The mandatory Trainee access mode that provides every required Training Session capability through a conventional monitor, keyboard, and mouse without virtual-reality equipment.
 _Avoid_: Basic mode, non-VR fallback
+
+**Development Baseline**:
+The explicitly non-production baseline used to implement and verify Training Simulation behavior and stable integration seams before production security and platform-operations capabilities are admitted.
+_Avoid_: Production deployment, security acceptance, operational availability claim, throwaway architecture
+
+**Deployment Compatibility Matrix**:
+The approved, versioned, and closed coverage of exact Application Release, Runtime Content Release, protocol, launch, observability, and external-integration contract combinations permitted to start or communicate.
+_Avoid_: Runtime version negotiation, semantic-version range, automatic fallback, implicit compatibility
 
 **Diegetic Presentation**:
 The active-simulation rule that a Trainee receives only information the represented person could perceive in an equivalent physical exercise.
@@ -358,6 +370,10 @@ _Avoid_: Power level, generic damage value
 The preference that shared Simulation Engine capabilities and technologies remain functionally portable between Windows and Linux. It does not imply that every product executable is supported or accepted on both operating systems.
 _Avoid_: Full platform matrix, identical deployment support
 
+**Platform Operations Baseline**:
+The future named baseline that will govern runtime orchestration, infrastructure scheduling and supervision, capability availability, redundancy, failover, cluster and network topology, power resilience, hardening, secrets, operational credentials, and alert routing.
+_Avoid_: Training Session restoration, canonical runtime behavior, current Development Baseline
+
 **Preparation**:
 The pre-active Training Session lifecycle state in which no initial countdown is running and admitted Trainees may make or change selections and declare `Ready`, including after a cancelled initial countdown.
 _Avoid_: Active simulation, initial countdown
@@ -369,6 +385,10 @@ _Avoid_: Live external guide, developer preference, formatter defaults, unwritte
 **Project Python Style Profile**:
 The repository-owned, versioned, and closed Python language and style rules, automatic-tool mappings, explicitly admitted deviations, scope, and acceptance gates used as the sole project style authority.
 _Avoid_: Live external guide, developer preference, linter defaults, unexplained suppression
+
+**Production Security Baseline**:
+The future named baseline that will govern production identity authentication, authorization, protected exchange, revocation, durable AUTH audit and recovery, operational trust, authenticated evidence custody, and qualification of their adapters.
+_Avoid_: Permissive development AUTH, Synthetic Identity, infrastructure availability, security claim without acceptance
 
 **Proximity Voice**:
 Live Trainee speech emitted from the speaker's physical Scenario position and perceived by any nearby Trainee through Acoustic Propagation, regardless of Team.
@@ -389,6 +409,10 @@ _Avoid_: Connected, loaded, waiting
 **Runtime Content Release**:
 One immutable, signed release for an exact Scenario version, comprising exactly one Authority Pack and one Client Pack under a common identity that binds their roles, runtime content contracts, integrity hashes, dependencies, and processing provenance.
 _Avoid_: Loose asset directory, independently selected packs, live content set
+
+**Runtime Launch Specification**:
+The immutable, versioned, role-specific selection that completely binds one process execution to its exact Application Release, runtime content, profiles, endpoint, capacities, operating mode, and applicable external integrations.
+_Avoid_: Mutable environment defaults, directory discovery, newest version, runtime download
 
 **Recovery Carrier**:
 The Trainee currently transporting the Recovery Proxy during a Personnel Recovery mission.
@@ -453,6 +477,10 @@ _Avoid_: Player stress, fear meter, aim penalty
 **Stress Profile**:
 An exact admitted Approved Profile version defining the closed stressor and optional-effect inventories, Stress Load bounds, authoritative simulated-time accumulation and recovery, history windows, applicability, and permitted downstream effects.
 _Avoid_: Mood system, undocumented stress penalty, actual psychological measurement
+
+**Synthetic Identity**:
+An explicitly non-production, launch-declared stand-in for exactly one Trainee, Client Device, or Session Authority identity class, used only to exercise runtime Admission interfaces without claiming authentication, authorization, or a Canonical Identity Key.
+_Avoid_: Trainee Identity, Client Device Identity, Session Authority Identity, authenticated identity, production account
 
 **Team**:
 A configured group of Trainees that cooperates against another Team during a Training Session.

@@ -4,9 +4,11 @@ Status: Approved
 
 Approval: Project owner, 2026-09-01
 
-Latest approved amendment: Technical Removal and retained-evidence observability, project owner, 2026-09-03
+Latest approved amendment: Platform deployment and production-security deferral, project owner, 2026-09-03
 
 Baseline identifier: `NFR-BASELINE-001`
+
+Applicability: Development Baseline; explicitly identified production-security and platform-operations requirements remain future.
 
 Purpose: Define the measurable non-functional requirements that the initial Training Simulation baseline must satisfy before it can guide architecture and receive product-baseline approval.
 
@@ -35,7 +37,7 @@ Normative effect: This approved document is the canonical NFR baseline for initi
 When accepted requirements conflict, the higher-ranked quality governs:
 
 1. training validity and human safety;
-2. information security and AUTH audit integrity;
+2. information security and AUTH audit integrity, when the Production Security Baseline applies;
 3. canonical-state consistency;
 4. retained-evidence completeness and bounded failure containment;
 5. latency and temporal stability;
@@ -78,7 +80,7 @@ The [Training Simulation Observability Contract](training-simulation-observabili
 
 **CONSTRAINT-NFR-OBSERVABILITY-ACCEPTANCE-001** — Every formal NFR acceptance run MUST use the Observability Contract's `CoreOnly` detail level. Optional diagnostic signals, including per-final-image detail, MUST remain disabled throughout that run.
 
-**NFR-OBSERVABILITY-CORE-001** — The Observability Contract core inventory MUST contain process lifecycle; final-image intervals; correlated action submission, authoritative-result receipt, and rendered presentation; acoustic-event initiation and presentation; Admission start, terminal result, and AUTH Audit Commit Unit reference; Technical Removal; Session Evidence Set terminal handoff; exact build, configuration, applicable profile versions and Runtime Content Release; and counts of lost or discarded observability signals. Core signals MUST NOT contain gameplay payloads, credentials, authentication evidence, or personal data.
+**NFR-OBSERVABILITY-CORE-001** — The Observability Contract core inventory MUST contain process lifecycle; final-image intervals; correlated action submission, authoritative-result receipt, and rendered presentation; acoustic-event initiation and presentation; Admission start and terminal result; AUTH Audit Commit Unit reference when the Production Security Baseline applies; Technical Removal; Session Evidence Set terminal handoff; exact Application Release, Runtime Launch Specification, build, configuration, AUTH mode, applicable profile versions and Runtime Content Release; and counts of lost or discarded observability signals. Core signals MUST NOT contain gameplay payloads, credentials, authentication evidence, or personal data.
 
 **NFR-OBSERVABILITY-RETENTION-001** — In production, core operational signals MUST remain retrievable for at least 30 days after collection. Formal acceptance evidence remains governed by the verification plan rather than this operational retention period. A future Session Authority capability-availability target MUST define its own evidence and retention window.
 
@@ -102,9 +104,9 @@ The [Training Simulation Observability Contract](training-simulation-observabili
 
 **NFR-ACOUSTIC-PEAK-001** — Under the `Stress` runtime Reference Workload Profile, when 16 active weapon sources and four explosions are initiated within one second, every tactically relevant acoustic event required by the applicable exact Acoustic Profile versions MUST be presented to every applicable connected Desktop Mode client without omission.
 
-**NFR-AUTH-ADMISSION-001** — After completion of the Trainee Authentication Act, when up to 16 initial Admission attempts execute concurrently on the exact approved Session Authority Reference Hardware Profile, at least 99 percent of those attempts MUST reach a terminal success or denial result, including the required AUTH Audit Commit Unit, within five seconds.
+**NFR-AUTH-ADMISSION-001** — Under the future Production Security Baseline, after completion of the Trainee Authentication Act, when up to 16 initial Admission attempts execute concurrently on the exact approved Session Authority Reference Hardware Profile, at least 99 percent of those attempts MUST reach a terminal success or denial result, including the required AUTH Audit Commit Unit, within five seconds. This target does not apply to or become satisfied by the permissive development adapter.
 
-**DEFERRED-NFR-AUTHORITY-CAPABILITY-AVAILABILITY-001** — Availability of the capability to start and operate an assigned ephemeral Session Authority requires a separately approved deployment baseline defining its subject, stimulus, measurement window, exclusions, evidence and threshold. No process-lifetime, fleet, scheduler or cluster availability target applies to the initial baseline.
+**DEFERRED-NFR-AUTHORITY-CAPABILITY-AVAILABILITY-001** — Availability of the capability to start and operate an assigned ephemeral Session Authority belongs to a separately approved Platform Operations Baseline defining its subject, stimulus, measurement window, exclusions, evidence and threshold. No process-lifetime, fleet, scheduler, Kubernetes, or cluster availability target applies to the Development Baseline.
 
 **CONSTRAINT-NFR-TEAM-001** — Ongoing first-party engineering and maintenance MUST require no more than two concurrently assigned human generalists; AI agents MAY support them and specialists MAY perform bounded reviews.
 
@@ -135,15 +137,15 @@ Security strength, Trusted Identity Time behavior, internal AUTH stage limits, r
 | `NFR-VISUAL-COVER-INVERSION-001` | Quality requirement | Approved; mandatory for the initial baseline | `NFR-VISUAL-VALIDITY-001`; prevents aggregate scores from hiding a repeated tactically unsafe perception error | Safe-cover and exposure tasks in the visual-validity set | Representative Evaluation using independently attributable task-condition responses | None |
 | `NFR-ACOUSTIC-LOCALIZATION-001` | Quality requirement | Approved; mandatory for the initial baseline | `GOAL-TRAINING-001`, `REQ-ACOUSTIC-001`, `REQ-ACOUSTIC-ENVIRONMENT-001`; verifies tactically useful spatial perception rather than an implementation technique | Desktop Mode on the exact reference hardware, audio-routing, Map, Acoustic Profile, and blind-task-set versions | Representative Evaluation with separately attributable source conditions and scored responses from at least five Representative Evaluators | None |
 | `NFR-ACOUSTIC-PEAK-001` | Quality requirement | Approved; mandatory for the initial baseline | `GOAL-TRAINING-001`, `REQ-ACOUSTIC-001`, `REQ-ACOUSTIC-CATALOGUE-002`; prevents peak combat audio from suppressing required tactical cues | Desktop Mode under the `Stress` runtime profile and exact applicable Acoustic Profile versions | Automated Test correlating every initiated required acoustic event with its presentation at every applicable connected client | None |
-| `NFR-AUTH-ADMISSION-001` | Quality requirement | Approved; mandatory for the initial baseline | `SCOPE-AUTH-001`; bounds Admission delay at the maximum Training Session capacity | Up to 16 concurrent initial Admission attempts on the exact Session Authority hardware and AUTH profile versions | Automated Test correlating attempt start, terminal result, and AUTH Audit Commit Unit evidence | None |
-| `DEFERRED-NFR-AUTHORITY-CAPABILITY-AVAILABILITY-001` | Deferred deployment-quality requirement | Deferred to a separately approved deployment baseline | `GOAL-TRAINING-001`, `REQ-AUTHORITY-SINGLE-SESSION-001`; the previous continuous-process target is incompatible with intentionally ephemeral authorities | Future deployment and orchestration capability | Not defined; a future requirement must establish complete measurable acceptance conditions before approval | Deployment architecture and operational evidence |
+| `NFR-AUTH-ADMISSION-001` | Future security quality requirement | Approved for the Production Security Baseline; not satisfied by permissive development AUTH | `SCOPE-AUTH-001`; bounds Admission delay at the maximum Training Session capacity | Up to 16 concurrent production-security initial Admission attempts on the exact Session Authority hardware and AUTH profile versions | Automated Test correlating attempt start, terminal result, and AUTH Audit Commit Unit evidence | Production Security Baseline |
+| `DEFERRED-NFR-AUTHORITY-CAPABILITY-AVAILABILITY-001` | Deferred deployment-quality requirement | Deferred to the Platform Operations Baseline | `GOAL-TRAINING-001`, `REQ-AUTHORITY-SINGLE-SESSION-001`; the previous continuous-process target is incompatible with intentionally ephemeral authorities | Future infrastructure capability to launch and operate assigned authorities | Not defined; the future baseline must establish complete measurable acceptance conditions before approval | Platform Operations Baseline and operational evidence |
 | `CONSTRAINT-NFR-TEAM-001` | Organizational constraint | Approved; mandatory for the initial baseline | Accepted permanent staffing boundary; constrains architecture and maintenance burden | First-party engineering and maintenance | Inspection of approved plans and concurrently assigned human roles | None |
 
 ## Ambiguity review
 
 The requirement set was reviewed through the project-owner amendment of 2026-09-03 against the ambiguity checklist in the research guidance. Every current normative obligation has a stable identifier, subject, scope, threshold or closed profile reference, priority, rationale, owner, verification method, and pass/fail evidence. Exact build, script, Map, and applicable profile versions are evidence selected and recorded before an acceptance run. No definition-level ambiguity or unresolved current-baseline acceptance dependency remains; Session Authority capability availability is explicitly deferred until deployment architecture supplies a measurable subject and evidence boundary.
 
-The initial baseline sets no financial limit, delivery deadline, content iteration-time target, maximum planned-maintenance duration, or Session Authority capability-availability target. It requires no infrastructure redundancy, process failover, power redundancy, network high availability, scheduler, or cluster platform.
+The Development Baseline sets no financial limit, delivery deadline, content iteration-time target, maximum planned-maintenance duration, or Session Authority capability-availability target. It requires no infrastructure redundancy, process failover, power redundancy, network high availability, scheduler, Kubernetes, or cluster platform. Those operational qualities belong to the future Platform Operations Baseline; production-security quality requirements belong to the future Production Security Baseline.
 
 ## Completion rule
 

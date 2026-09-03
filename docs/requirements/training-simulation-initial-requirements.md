@@ -2,15 +2,17 @@
 
 Status: Approved Functional Baseline
 
+Baseline: Development Baseline
+
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Technical Removal and retained-evidence architecture, project owner, 2026-09-03
+Latest approved amendment: Platform deployment and production-security deferral, project owner, 2026-09-03
 
 Canonical language: English
 
 Canonical information owner: Project owner
 
-Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision, plus the project-owner-confirmed issue #33 and #35 architecture grillings. No AUTH, runtime-content, Technical Removal, or retained-evidence interview question remains open.
+Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision, plus the project-owner-confirmed issue #33, #35, and #37 architecture grillings. Production-security mechanisms remain specified for the future Production Security Baseline; no current platform-deployment interview question remains open.
 
 Priority convention: `MUST` and `MUST NOT` are required for the accepted initial baseline; `SHOULD` records an approved preference; `MAY` records permitted behavior. Deferred capabilities and non-goals are outside that baseline.
 
@@ -122,7 +124,13 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **PROCESS-ACTION-INVENTORY-003** — Before baseline approval, the implementation team MUST reconcile the Action Inventory against every Trainee action exposed by the candidate product and reject any missing, untraced, unapproved, or entertainment-only action.
 
-**SCOPE-AUTH-001** — The initial functional baseline includes mutual Session Authority and client authentication, authorization, initial Admission, offline validation, and AUTH auditing under the requirements in this document; these capabilities MUST NOT be treated as deferred.
+**SCOPE-AUTH-001** — The Development Baseline includes the `AUTH & Admission` interface, finite Admission and lifecycle behavior, and one explicitly non-production permissive adapter; mutual identity authentication, real authorization, offline validation, protected exchange, durable AUTH auditing, revocation, and operational trust are requirements of the future Production Security Baseline and MUST block a production security or authenticated-assessment claim until that baseline is approved and satisfied.
+
+**REQ-AUTH-DEVELOPMENT-ADAPTER-001** — The permissive development adapter MUST grant the declared closed AUTH Permissions only to Synthetic Identities of the Trainee, Client Device, and Session Authority identity classes supplied by the immutable Runtime Launch Specification, MUST identify its mode as non-production, and MUST NOT claim to authenticate or authorize an identity or produce a Canonical Identity Key.
+
+**REQ-AUTH-DEVELOPMENT-ADAPTER-002** — The permissive development adapter MUST exercise the same finite attempt, decision, Admission, lifecycle, correlation, ordering, cancellation, and failure interfaces reserved for a future production adapter. For every granting decision it MUST produce the final decision and corresponding non-durable, mode-marked audit test event before the Admission or other granting effect becomes visible; failure to produce that event MUST prevent the effect. Every record and result remains explicitly unauthenticated test evidence.
+
+**REQ-AUTH-DEVELOPMENT-ADAPTER-003** — A process using the permissive development adapter MUST NOT be admitted to production, produce a valid Formal Assessment or Leaderboard result, or satisfy a Production Security Baseline obligation.
 
 **SCOPE-MELEE-001** — The initial Melee baseline MUST support last-resort close physical combat and MUST NOT treat custody, restraint, or control of a person as a Melee objective.
 
@@ -224,7 +232,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-READINESS-PRECONDITION-005** — The client MUST have the required input, visual-output, and audio-input-and-output devices for the selected access mode available to the Training Simulation.
 
-**REQ-READINESS-PRECONDITION-006** — The client MUST have one current Admission whose retained Trainee Identity and Client Device Identity bindings match that client connection and whose Session Authority Identity matches the current Session Authority.
+**REQ-READINESS-PRECONDITION-006** — The client MUST have one current Admission whose mode-applicable Trainee and Client Device identity bindings match that client connection and whose mode-applicable Session Authority identity binding matches the current Session Authority. Synthetic Identity bindings satisfy this precondition only under the explicitly non-production permissive development mode.
 
 **REQ-READINESS-CLOSED-001** — The initial baseline MUST NOT prevent a Trainee from entering `Ready` because of a condition not stated by `REQ-READINESS-001` or `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006`.
 
@@ -242,9 +250,18 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 ## Connection and admission
 
-**REQ-SESSION-CONNECTION-001** — A Trainee MUST join by manually entering the Session Authority network address.
+The production-security requirements `REQ-AUTH-SUBJECT-001` through
+`REQ-AUTH-EXCHANGE-006`, `REQ-ADMISSION-PRECONDITION-001`, and
+`REQ-AUTH-ATTEMPT-CANCEL-001` through `REQ-AUTH-TRANSIENT-DATA-003` remain
+approved requirements for the future Production Security Baseline. They do not
+describe capabilities of the permissive development adapter. The remaining
+Admission lifecycle requirements in this section apply to both modes, with
+authenticated identities and durable audit references required only when the
+Production Security Baseline applies.
 
-**REQ-SESSION-ACCESS-001** — Any LAN device that knows the address MUST be allowed to initiate Session Authority validation, but knowledge of the address MUST NOT authenticate an identity, authorize use, create an Admission, or reserve Training Session capacity.
+**REQ-SESSION-CONNECTION-001** — A Trainee Client process MUST receive exactly one Session Authority endpoint through its immutable Runtime Launch Specification and MUST connect only to that endpoint; it MUST NOT discover, select, negotiate, or fall back to another Session Authority.
+
+**REQ-SESSION-ACCESS-001** — Under the Production Security Baseline, any Controlled LAN device that knows the address MUST be allowed to initiate Session Authority validation, but knowledge of the address MUST NOT authenticate an identity, authorize use, create an Admission, or reserve Training Session capacity. Under the permissive development mode, the exact endpoint and Synthetic Identities MUST instead come from the Runtime Launch Specification.
 
 **REQ-AUTH-SUBJECT-001** — Before admitting a client to Preparation, the Session Authority MUST successfully authenticate exactly one Trainee Identity and exactly one Client Device Identity and MUST bind both authenticated identities to that admitted client connection.
 
@@ -535,29 +552,29 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-ADMISSION-PRECONDITION-001** — Admission MUST require successful Session Authority authentication and authorization by the client; exact matching of the client and authority Runtime Content Release and role-pack pair; successful Trainee Identity and Client Device Identity authentication and authorization by the Session Authority; the exact launch-activated Identity Validation Package, catalogue, assurance profiles, rule set, evidence validity and revocation results; and persistent commitment of every required AUTH Audit Record and checkpoint.
 
-**REQ-ADMISSION-ATOMIC-001** — After every admission precondition succeeds, the Session Authority MUST atomically create exactly one stable Admission identifier and bind it to its three Canonical Identity Keys, current client connection, AUTH Attempt class key and instance identifier, package release and role manifests, Identity Evidence Catalogue, rule-set, operation-inventory, data-inventory, audit-policy, audit-integrity-profile, and Trusted Identity Time references; no partial Admission MAY be observable.
+**REQ-ADMISSION-ATOMIC-001** — After every mode-applicable admission precondition succeeds, the Session Authority MUST atomically create exactly one stable Admission identifier and bind it to the exact Trainee, Client Device, and Session Authority identity references, current client connection, AUTH mode, attempt identity, Runtime Content Release, and every package, rule, audit, integrity, or time reference required by that mode; no partial Admission MAY be observable. Synthetic Identity references under the permissive development adapter MUST remain distinguishable from authenticated Canonical Identity Keys.
 
-**REQ-ADMISSION-IDENTIFIER-001** — An Admission identifier MUST be unique within its Session Authority Identity domain and MUST NOT be reused while any Admission, challenge, decision, AUTH Audit Record, checkpoint, incomplete-commit artifact, Session Evidence Set, or other retained reference bound to it remains valid or retained.
+**REQ-ADMISSION-IDENTIFIER-001** — An Admission identifier MUST be unique within its mode-applicable Session Authority identity-reference domain and MUST NOT be reused while any Admission, challenge, decision, mode-applicable AUTH audit artifact, Session Evidence Set, or other retained reference bound to it remains valid or retained.
 
 **REQ-ADMISSION-FAILURE-001** — A failed, cancelled, interrupted, or incomplete admission attempt MUST create no Admission, Team Position, roster entry, Ready state, or Loadout selection and MUST release every transient reservation created only for that attempt.
 
-**REQ-ADMISSION-UNIQUENESS-001** — One Session Authority MUST have at most one current Admission for one Trainee Identity and at most one current Admission for one Client Device Identity.
+**REQ-ADMISSION-UNIQUENESS-001** — One Session Authority MUST have at most one current Admission for one mode-applicable Trainee identity reference and at most one current Admission for one mode-applicable Client Device identity reference; the permissive development mode MUST compare Synthetic Identity references without treating them as Canonical Identity Keys.
 
-**REQ-ADMISSION-DUPLICATE-001** — If a new attempt would duplicate either identity of a current Admission, the Session Authority MUST reject the new attempt, MUST preserve the existing Admission unchanged, and MUST NOT transfer, replace, or disconnect it.
+**REQ-ADMISSION-DUPLICATE-001** — If a new attempt would duplicate either mode-applicable identity reference of a current Admission, the Session Authority MUST reject the new attempt, MUST preserve the existing Admission unchanged, and MUST NOT transfer, replace, or disconnect it.
 
-**SCOPE-AUTH-CROSS-AUTHORITY-001** — Detecting or preventing simultaneous use of one Trainee Identity or Client Device Identity across different Session Authorities is outside the initial product boundary.
+**SCOPE-AUTH-CROSS-AUTHORITY-001** — Detecting or preventing simultaneous use of one mode-applicable Trainee or Client Device identity reference across different Session Authorities is outside the Development Baseline.
 
 **REQ-ADMISSION-END-001** — An Admission MUST end exactly when its client explicitly leaves or its connection is confirmed lost before active simulation, when its Technical Removal commits during active simulation, or when its Session Authority process stops or restarts.
 
 **REQ-ADMISSION-PERSISTENCE-001** — Normal Training Session completion or non-voluntary Training Session termination MUST NOT by itself end a connected client's Admission before the Session Authority completes its terminal result and required settling; the following orderly process stop MUST end every remaining Admission under `REQ-ADMISSION-END-001`.
 
-**REQ-ADMISSION-END-EFFECT-001** — Ending an Admission MUST atomically clear its Ready state, release its Team Position and Loadout selection, invalidate outstanding challenges, remove its retained AUTH identity binding from live state, and preserve only the required AUTH Audit Records, Session Evidence Set references, and non-secret references.
+**REQ-ADMISSION-END-EFFECT-001** — Ending an Admission MUST atomically clear its Ready state, release its Team Position and Loadout selection, invalidate outstanding challenges, remove its retained AUTH identity binding from live state, and preserve only the mode-applicable AUTH audit evidence, Session Evidence Set references, and non-secret references.
 
 **REQ-ADMISSION-PREPARATION-DISCONNECT-001** — Confirmed connection loss or explicit departure during Preparation or initial countdown MUST end that client's Admission immediately and MUST apply ordinary countdown cancellation when a countdown is active.
 
-**REQ-ADMISSION-OPERATOR-CHANGE-001** — Changing the Trainee Identity bound to an Admitted Client MUST require the current Admission to end and a new initial admission with a new Trainee Authentication Act; changing the physical operator without that flow MUST NOT change the retained identity binding.
+**REQ-ADMISSION-OPERATOR-CHANGE-001** — Changing the mode-applicable Trainee identity reference bound to an Admitted Client MUST require the current Admission to end and a new initial-admission attempt, including a new Trainee Authentication Act when the Production Security Baseline applies; changing the physical operator or Synthetic Identity declaration without that flow MUST NOT change the retained identity binding.
 
-**REQ-ADMISSION-DEVICE-CHANGE-001** — Changing the Client Device Identity MUST require a new initial Admission; another device MUST NOT inherit or transfer the current Admission, Team Position, or live state.
+**REQ-ADMISSION-DEVICE-CHANGE-001** — Changing the mode-applicable Client Device identity reference MUST require a new initial Admission; another real device or Synthetic Identity reference MUST NOT inherit or transfer the current Admission, Team Position, or live state.
 
 **REQ-AUTH-LATE-JOIN-001** — After the client authenticates the Session Authority, an authority with active simulation running MUST reject a new initial admission before requesting or accepting Trainee Identity or Client Device Identity evidence and MUST disclose only `Admission Denied` when the same AUTH Protected Exchange retains a protected response channel; otherwise it MUST apply `No Denial Disclosure` under `REQ-AUTH-DENIAL-MAPPING-001` and `REQ-AUTH-DENIAL-DELIVERY-001`.
 
@@ -585,7 +602,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **SCOPE-AUTH-CREDENTIAL-RECOVERY-001** — Issuance, replacement, recovery, reset, or administrative unlocking of an identity or authenticator is owned by the Identity Authority and MUST NOT be performed by the Training Simulation.
 
-**REQ-SESSION-ACCESS-002** — Initial admission MUST satisfy every applicable `REQ-AUTH-*`, `REQ-AUTHORITY-*`, `REQ-AUTHORIZATION-*`, and `REQ-ADMISSION-*` requirement but MUST NOT require a persistent user account managed by the Training Simulation.
+**REQ-SESSION-ACCESS-002** — Initial admission MUST satisfy every requirement applicable to its declared AUTH mode and every common `REQ-ADMISSION-*` lifecycle requirement, but MUST NOT require a persistent user account managed by the Training Simulation. The permissive development mode MUST NOT make a production-security requirement applicable or satisfied.
 
 **REQ-LATE-JOIN-001** — A new Trainee MUST NOT join after active simulation begins, including after Technical Removal.
 
@@ -617,7 +634,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTHORITY-SINGLE-SESSION-001** — One Session Authority process MUST be bound at launch to exactly one Scenario and MUST own exactly one Training Session over its complete process lifetime.
 
-**REQ-AUTHORITY-TERMINAL-SETTLEMENT-001** — After normal completion or termination, the Session Authority MUST fix the terminal result, close every Admission, finalize the Session Evidence Set, complete its required durable handoff, settle required AUTH audit and bounded Observability work, and accept no second Training Session.
+**REQ-AUTHORITY-TERMINAL-SETTLEMENT-001** — After normal completion or termination, the Session Authority MUST fix the terminal result, close every Admission, finalize the Session Evidence Set, complete its required durable handoff, settle mode-applicable AUTH audit and bounded Observability work, and accept no second Training Session.
 
 **REQ-AUTHORITY-TERMINAL-SHUTDOWN-001** — After the terminal settlement succeeds or reaches its applicable terminal failure, the Session Authority process MUST release its resources and terminate with the applicable process result.
 
@@ -633,9 +650,9 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SESSION-EVIDENCE-006** — A Session Evidence Set and its exact runtime, content, profile, interpretation, and replay dependencies MUST remain immutable and retained indefinitely; this baseline authorizes no deletion, overwrite, or use as persisted live-session state.
 
-**REQ-SESSION-EVIDENCE-TRUST-001** — Trust used to validate a Session Evidence Set destination and durable handoff receipt MUST be provisioned independently of that set, destination response, Runtime Content Release, Identity Validation Package, and Identity Authority and MUST grant no authority to sign or validate those other domains.
+**REQ-SESSION-EVIDENCE-TRUST-001** — Under the Production Security Baseline, trust used to validate a Session Evidence Set destination and durable handoff receipt MUST be provisioned independently of that set, destination response, Runtime Content Release, Identity Validation Package, and Identity Authority and MUST grant no authority to sign or validate those other domains. The Development Baseline MUST preserve the destination-and-receipt validation seam but MUST NOT claim authenticated custody.
 
-**REQ-SESSION-EVIDENCE-CONFIDENTIALITY-001** — Before process launch, the project owner MUST approve one exact closed recipient-and-field matrix for Session Evidence Set creation, handoff, retention, and retrieval; every operation MUST authenticate its destination or requester, disclose only the fields authorized for that recipient role, protect confidentiality and integrity, and reject an unauthorized recipient without disclosing record contents or existence. A Session Evidence Set MUST contain no credential, authentication evidence, Trainee Identity, or identity-bound performance field.
+**REQ-SESSION-EVIDENCE-CONFIDENTIALITY-001** — Before process launch, the project owner MUST approve one exact closed recipient-and-field matrix for Session Evidence Set creation, handoff, retention, and retrieval. Every mode MUST disclose only the fields permitted for its declared recipient role, and a Session Evidence Set MUST contain no credential, authentication evidence, Trainee Identity, Synthetic Identity, or identity-bound performance field. Under the Production Security Baseline, every operation MUST additionally authenticate its destination or requester, protect confidentiality and integrity, and reject an unauthorized recipient without disclosing record contents or existence; the Development Baseline MUST preserve these seams but MUST NOT claim those protections.
 
 **REQ-CLIENT-SINGLE-SESSION-001** — One Trainee client process MUST be bound to exactly one Client Pack and one Training Session; participation in another Training Session or Scenario MUST require a new process.
 
@@ -1941,6 +1958,32 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 ## Platform and deployment constraints
 
+**REQ-APPLICATION-RELEASE-001** — Each deployable runtime MUST be supplied as one immutable Application Release containing the complete executable and dependency closure for one exact product role and platform, with an exact identity that remains separate from Runtime Content Release and launch-configuration identity.
+
+**REQ-RUNTIME-LAUNCH-SPECIFICATION-001** — Every Trainee Client and Session Authority process MUST receive exactly one immutable Runtime Launch Specification that completely selects its role-applicable Application Release, Runtime Content Release role pack, profiles, configuration, endpoint, capacities, AUTH mode, Observability Contract, and enabled external-integration contracts before startup validation begins.
+
+**REQ-RUNTIME-LAUNCH-SPECIFICATION-002** — Startup MUST atomically accept and materialize every applicable launch input or reject the complete launch with a stable non-sensitive classification, `Not Ready`, cleanup, and non-zero exit; a partially initialized process MUST NOT publish `Ready`, accept a connection or Admission, or enter Preparation.
+
+**REQ-RUNTIME-PROVISIONING-001** — An external deployment action MUST place every launch-selected immutable artifact before process start; a runtime MUST NOT scan for a version, choose a newest artifact, download, patch, replace, or fall back to another artifact or mutable default.
+
+**REQ-DEPLOYMENT-COMPATIBILITY-001** — A Deployment Compatibility Matrix MUST enumerate the exact admitted combinations of client and authority Application Releases, Protocol & Replication contract, Runtime Content Release role contracts, Runtime Launch Specification contract, Observability Contract, and applicable external-integration contracts.
+
+**REQ-DEPLOYMENT-COMPATIBILITY-002** — A process or peer combination absent from the approved Deployment Compatibility Matrix MUST fail before Admission and MUST NOT negotiate a range, migrate, translate, downgrade, or select an alternative at runtime.
+
+**REQ-RUNTIME-READINESS-001** — A Session Authority MUST publish its assigned endpoint and `Ready` only after complete launch validation, capacity reservation, required adapter and destination validation, retained-candidate classification where applicable, immutable-view materialization, and endpoint binding succeed.
+
+**REQ-RUNTIME-EXTERNAL-LIFECYCLE-001** — Each runtime MUST expose its exact launch and execution identities, `Starting`, `Ready`, `Not Ready`, `Stopping`, and `Terminated` states, stable readiness and exit classifications, reserved-capacity disposition, and applicable Training Session and terminal-settlement identities without exposing native platform or orchestrator types.
+
+**REQ-RUNTIME-SUPERVISION-001** — The Training Simulation MUST NOT require or provide a resident Sacramento launcher or supervisor; an external executor MAY start, observe, request graceful shutdown of, and replace a process only through the runtime external-lifecycle contract.
+
+**REQ-RUNTIME-REPLACEMENT-001** — Replacement of a lost Session Authority process MUST create a new process execution and a new Training Session from the Scenario's initial state and MUST NOT restore an Admission, live session state, endpoint identity, or continuity claim from the lost process.
+
+**REQ-APPLICATION-UPDATE-001** — Installation and candidate validation MUST occur outside runtime processes; activation MUST atomically change the complete Application Release and compatible artifact selection available only to later process starts, while failure MUST leave the preceding selection unchanged.
+
+**REQ-APPLICATION-ROLLBACK-001** — Rollback MUST be an explicit selection of a preceding approved Application Release and compatible Runtime Content Release for a new process; automatic rollback, patch-in-place, and live-session migration MUST NOT occur.
+
+**REQ-AUTHORITY-PLACEMENT-001** — The initial accepted deployment MUST run no more than one active Session Authority process on one `RHP-AUTHORITY-001` host; greater density requires a separately approved Deployment Profile proving independent capacity reservations, endpoints and artifact paths, isolation, absence of overcommit, and every applicable workload.
+
 **REQ-PLATFORM-ACCEPTANCE-PROFILE-001** — Accepted Desktop, PC-connected Virtual-Reality, and Session Authority configurations MUST each reference one exact approved Reference Hardware Profile version defining the fixed hardware and platform fields required for reproducible acceptance and the variable configuration fields that each acceptance execution must record as evidence.
 
 **REQ-PLATFORM-ACCEPTANCE-PROFILE-002** — Each role/mode MUST execute its complete applicable acceptance procedure on its exact Reference Hardware Profile and deployment configuration before that profile is admitted; inspection alone MUST NOT establish execution acceptance.
@@ -2046,6 +2089,9 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 - **NON-GOAL-ACCESSORY-THERMAL-HANDLING-001** — Accessory-specific contact burns, protective-handling rules, or removal restrictions caused by accessory temperature in the initial baseline.
 
 ## Deferred capabilities
+
+- **DEFERRED-PRODUCTION-SECURITY-001** — The Production Security Baseline: real mutual authentication and authorization, offline identity validation, AUTH Protected Exchange, revocation, durable-before-effect AUTH audit and recovery, operational trust, authenticated evidence custody, and production qualification of their adapters.
+- **DEFERRED-PLATFORM-OPERATIONS-001** — The Platform Operations Baseline: Kubernetes resources and configuration, infrastructure scheduling and supervision, capability availability and its measurable target, redundancy, failover, cluster and network topology, power resilience, hardening, secrets, operational credentials, and alert routing.
 
 - **DEFERRED-INSTRUCTOR-001** — Instructor control of Training Sessions.
 - **DEFERRED-AAR-001** — Full After-Action Review, including Training Session reconstruction, tactical timeline, and detailed post-action analysis. Session performance metrics, Formal Assessment, and Leaderboards are governed separately and are not deferred by this entry.
