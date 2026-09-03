@@ -1,17 +1,5 @@
 # Software Design Document Guidance
 
-Status: Research guidance
-
-Purpose: Explain how a software design document can produce concrete, testable, and traceable implementation obligations.
-
-Scope: Design content, boundaries, normative language, traceability, acceptance, anti-patterns, templates, and completion criteria.
-
-Intended readers: Project owner, design authors, reviewers, implementers, and verification authors.
-
-Prerequisites: An approved requirements baseline and its architecture inputs.
-
-Canonical information owner: Project owner.
-
 ## Table of contents
 
 - [Purpose](#purpose)

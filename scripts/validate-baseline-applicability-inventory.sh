@@ -7,14 +7,14 @@ inventory_path="${repository_root}/docs/requirements/training-simulation-baselin
 scratch_path=$(mktemp -d)
 trap 'rm -rf -- "${scratch_path}"' EXIT HUP INT TERM
 
-expected_header='inventory_version,baseline_identifier,sequence,entry_id,source_document,source_version,source_sha256,requirement_identifier,disposition,milestone_or_justification,responsible_owner,approval_state,change_impact_status'
+expected_header='sequence,requirement_identifier,disposition,milestone_or_justification,responsible_owner'
 
 check_hash() {
     source_path=$1
     expected_hash=$2
     actual_hash=$(sha256sum "${repository_root}/${source_path}" | awk '{print $1}')
     if [ "${actual_hash}" != "${expected_hash}" ]; then
-        echo "source changed: ${source_path}; create and reconcile a successor to BAI-001" >&2
+        echo "source changed: ${source_path}; create and reconcile a successor to BAI-002" >&2
         exit 1
     fi
 }
@@ -43,13 +43,14 @@ extract_identifiers() {
 }
 
 cat > "${scratch_path}/sources" <<'EOF'
-docs/requirements/training-simulation-initial-requirements.md|Development Baseline; approved 2026-08-28; amended 2026-09-03|081a0ec9f280c128792b6238a5259414927798067d6c597f6027a327c26fdd4f|registry
+docs/requirements/training-simulation-initial-requirements.md|Development Baseline; candidate documentation-control amendment|706938fbe3cb4ee616cd882e5981c3c9f519357a19114e4c48a6827e518fe574|registry
 docs/requirements/training-simulation-non-functional-requirements.md|NFR-BASELINE-001; approved 2026-09-01; amended 2026-09-03|8a024d6b7538f04e19df6dcae66c68160b2b6b474423d5d52f43a9fbee6ae092|registry
 docs/requirements/training-simulation-observability-contract.md|OBS-CONTRACT-003; approved 2026-09-01|45c5392ca799388eac588ad54a5aa9e980ff4261de3b2b90fa0ba524f4a1f592|supporting
 docs/requirements/training-simulation-performance-assessment-requirements.md|PERF-BASELINE-001; approved 2026-09-01; amended 2026-09-03|4d036de0500b7d0161dcf988fc40c2c0a53f9cfc69288c7c2c9f805755df01f9|registry
 docs/requirements/training-simulation-performance-profile-engagement-target-001.md|ENGAGEMENT-TARGET-001; approved 2026-09-01|cc5f2fb21b692452d7fa12e34d05bfd83baded1eaf325f3c7bb754a79baae493|registry
 docs/requirements/training-simulation-reference-hardware-profiles.md|RHP-SET-001; approved 2026-09-01|074dc42d25cf44800198b4207b8b90a2897ebe7109dadab4c3766e3cbc644095|supporting
-docs/requirements/training-simulation-verification-plan.md|Approved 2026-08-28; amended 2026-09-03|64fc52cdd85f0b5475a456d1818981be0426c9e1fbec1a51adc031fdcd736437|registry
+docs/requirements/training-simulation-verification-plan.md|Candidate normalized assignment amendment|aa366423a0f6f6a469765491ee2c2d822b7c7eb8f977f9efe20ae62caa09e59e|registry
+docs/requirements/training-simulation-baseline-applicability.md|BAI-CONTROL-002 candidate|350152393c8f4cdc8feec4c278c319c2fa9f040eef65d074098760428d81df6b|supporting
 EOF
 
 while IFS='|' read -r source_path source_version source_hash source_role
@@ -65,7 +66,7 @@ find "${repository_root}/docs/requirements" -maxdepth 1 -type f -name '*.md' \
     -printf '%f\n' | sort > "${scratch_path}/actual-markdown"
 sort -o "${scratch_path}/expected-markdown" "${scratch_path}/expected-markdown"
 if ! cmp -s "${scratch_path}/expected-markdown" "${scratch_path}/actual-markdown"; then
-    echo 'requirement-source population changed; reconcile a successor to BAI-001' >&2
+    echo 'requirement-source population changed; reconcile a successor to BAI-002' >&2
     diff -u "${scratch_path}/expected-markdown" "${scratch_path}/actual-markdown" >&2 || true
     exit 1
 fi
@@ -87,12 +88,12 @@ awk -F ',' -v expected_header="${expected_header}" '
         next
     }
     {
-        if (NF != 13) {
-            print "inventory line " FNR ": expected 13 comma-free fields, found " NF > "/dev/stderr"
+        if (NF != 5) {
+            print "inventory line " FNR ": expected 5 comma-free fields, found " NF > "/dev/stderr"
             failed = 1
             next
         }
-        identifier = $8
+        identifier = $2
         if (!(identifier in expected_path)) {
             print "unexpected or non-normative identifier: " identifier > "/dev/stderr"
             failed = 1
@@ -101,47 +102,31 @@ awk -F ',' -v expected_header="${expected_header}" '
             print "duplicate identifier: " identifier > "/dev/stderr"
             failed = 1
         }
-        if ($1 != "BAI-001" || $2 != "Development Baseline" || $3 != FNR - 1) {
-            print "invalid inventory identity or sequence at " identifier > "/dev/stderr"
+        if ($1 != FNR - 1) {
+            print "invalid sequence at " identifier > "/dev/stderr"
             failed = 1
         }
-        if ($4 != "BAI-" identifier) {
-            print "invalid stable entry identity: " identifier > "/dev/stderr"
-            failed = 1
-        }
-        if ($5 != expected_path[identifier] || $6 != expected_version[identifier] || $7 != expected_hash[identifier]) {
-            print "stale source identity: " identifier > "/dev/stderr"
-            failed = 1
-        }
-        if ($9 != "Included" && $9 != "Future" && $9 != "Not Applicable") {
+        if ($3 != "Included" && $3 != "Future" && $3 != "Not Applicable") {
             print "invalid disposition: " identifier > "/dev/stderr"
             failed = 1
         }
-        if ($9 == "Included" && $10 != "Development Baseline") {
+        if ($3 == "Included" && $4 != "Development Baseline") {
             print "invalid Included baseline: " identifier > "/dev/stderr"
             failed = 1
         }
-        if ($9 == "Future" && ($10 == "" || $10 == "Development Baseline")) {
+        if ($3 == "Future" && ($4 == "" || $4 == "Development Baseline")) {
             print "missing future milestone: " identifier > "/dev/stderr"
             failed = 1
         }
-        if ($9 == "Not Applicable" && $10 != "Approved objective scope exclusion recorded by " identifier) {
+        if ($3 == "Not Applicable" && $4 != "Approved objective scope exclusion recorded by " identifier) {
             print "missing objective justification: " identifier > "/dev/stderr"
             failed = 1
         }
-        if ($11 == "" || $11 ~ /Named future baseline owner/) {
+        if ($5 == "" || $5 ~ /Named future baseline owner/) {
             print "missing responsible owner: " identifier > "/dev/stderr"
             failed = 1
         }
-        if ($12 != "Candidate — project-owner approval pending" && $12 != "Approved — project owner on 2026-09-03") {
-            print "invalid approval state: " identifier > "/dev/stderr"
-            failed = 1
-        }
-        if ($13 != "Reconciled — no source or classification change pending") {
-            print "invalid change-impact status: " identifier > "/dev/stderr"
-            failed = 1
-        }
-        dispositions[$9]++
+        dispositions[$3]++
     }
     END {
         for (identifier in expected_path) {
@@ -219,39 +204,23 @@ EOF
 cat "${scratch_path}/future-ranges" "${scratch_path}/future-explicit" | \
     sort > "${scratch_path}/expected-future"
 
-awk -F ',' 'NR > 1 && $9 == "Future" {print $8 "|" $10}' \
+awk -F ',' 'NR > 1 && $3 == "Future" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-future"
 
 if ! cmp -s "${scratch_path}/expected-future" "${scratch_path}/actual-future"; then
-    echo 'future classification or milestone differs from approved BAI-001 policy' >&2
+    echo 'future classification or milestone differs from candidate BAI-002 policy' >&2
     diff -u "${scratch_path}/expected-future" "${scratch_path}/actual-future" >&2 || true
     exit 1
 fi
 
 awk -F '\t' '$1 ~ /^NON-GOAL-/ {print $1 "|Approved objective scope exclusion recorded by " $1}' \
     "${scratch_path}/registry" | sort > "${scratch_path}/expected-not-applicable"
-awk -F ',' 'NR > 1 && $9 == "Not Applicable" {print $8 "|" $10}' \
+awk -F ',' 'NR > 1 && $3 == "Not Applicable" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-not-applicable"
 if ! cmp -s "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable"; then
-    echo 'Not Applicable classification or justification differs from approved BAI-001 policy' >&2
+    echo 'Not Applicable classification or justification differs from candidate BAI-002 policy' >&2
     diff -u "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable" >&2 || true
     exit 1
 fi
 
-for source_path in \
-    'docs/requirements/training-simulation-initial-requirements.md' \
-    'docs/requirements/training-simulation-verification-plan.md'
-do
-    extract_identifiers "${source_path}" include_ambiguities
-done | sort > "${scratch_path}/expected-assignment-crosscheck"
-awk -F ',' 'NR > 1 {gsub(/^"|"$/, "", $5); print $5}' \
-    "${repository_root}/docs/requirements/training-simulation-verification-assignment-inventory.csv" | \
-    sort > "${scratch_path}/actual-assignment-crosscheck"
-if ! cmp -s "${scratch_path}/expected-assignment-crosscheck" "${scratch_path}/actual-assignment-crosscheck"; then
-    echo 'verification-assignment population cross-check failed' >&2
-    diff -u "${scratch_path}/expected-assignment-crosscheck" \
-        "${scratch_path}/actual-assignment-crosscheck" >&2 || true
-    exit 1
-fi
-
-echo 'Baseline applicability inventory valid: BAI-001: 1148 entries; Included=928, Future=201, Not Applicable=19'
+echo 'Baseline applicability inventory valid: BAI-002: 1148 entries; Included=928, Future=201, Not Applicable=19'

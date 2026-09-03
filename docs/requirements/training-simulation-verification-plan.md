@@ -1,10 +1,12 @@
 # Training Simulation Verification Plan
 
-Status: Approved
+Status: Approved baseline; candidate normalized-assignment amendment
 
 Approval: Project owner, 2026-08-28
 
 Latest approved amendment: Cross-cutting architecture and verification closure, project owner, 2026-09-03
+
+Candidate amendment: Compact reconstructible assignment inventory; project-owner approval pending
 
 Canonical language: English
 
@@ -248,7 +250,7 @@ Every matching row and default rule accumulates. The broad rows below establish 
 
 **PROCESS-ASSIGNMENT-RANGE-001** — An assignment range MUST cover every stable identifier occurring between its two named endpoints, inclusive, in the exact canonical source-document version used by the assignment.
 
-**PROCESS-ASSIGNMENT-RANGE-002** — Each expanded assignment record MUST retain the exact source-document identifier and version, ordered expanded identifier list, matching rows and defaults, accumulated Required and Supporting methods, required evidence, evidence owner, and final approver for every covered identifier.
+**PROCESS-ASSIGNMENT-RANGE-002** — The expanded assignment inventory MUST bind the exact source documents through its content-derived version and retain the ordered identifiers, matching assignment rows, and evidence owners. Generation MUST validate complete coverage, defaults, accumulated Required and Supporting methods, evidence, final approvers, Representative Evaluation applicability, and obligation scope; those values MAY be reconstructed from the bound canonical rows instead of repeated per identifier.
 
 For the current baseline, each assignment-table method cell is the reviewed accumulated result of its matching explicit rows and default rules: a listed method is applicable and accumulated, an absent method is recorded as not applicable, and no Verification Method Exception exists. The Assignment Expansion Inventory MAY retain required evidence by stable assignment-row reference when that reference is bound to the exact verification-plan content hash.
 
@@ -372,11 +374,14 @@ For the current baseline, each assignment-table method cell is the reviewed accu
 
 ### Assignment Expansion Inventory
 
-The generated [Assignment Expansion Inventory](training-simulation-verification-assignment-inventory.csv) is the canonical expanded record for this plan version. Its content-derived inventory version binds the exact initial-requirements and verification-plan contents used for expansion. `AR-nnn` identifies the corresponding assignment-table row in canonical order within that bound plan version.
+The generated Assignment Expansion Inventory at
+`docs/requirements/training-simulation-verification-assignment-inventory.csv`
+is the canonical compact index for this plan version. It is a non-retained
+local output: regenerate it from the exact initial-requirements and
+verification-plan contents whenever it is needed. Each identifier retains its
+canonical order, source document, matching `AR-nnn` rows, and evidence owners.
 
-The inventory expands every range, retains every matching row, records the accumulated Required and Supporting methods, references each applicable required-evidence statement, and records evidence owners and final approvers. Its default-method field records each default as `Accumulated`, `Accumulated as Supporting`, or `Not Applicable`; there are no current Verification Method Exceptions.
-
-The same inventory is the identifier-level Representative Evaluation applicability baseline. `Required Within Identifier` means at least one obligation in the identifier requires the method; it does not apply that method to independently objective obligations in a compound identifier. `Not Required for Identifier` means objective criteria and reproducible technical evidence are sufficient for every obligation. Ambiguity findings are classified `Not Applicable — Metadata`. Each verification procedure replaces this coarse classification with stable obligation-key decisions before approval, preserving mixed decisions separately.
+The generator expands every range and validates accumulated methods, defaults, evidence, approvers, Representative Evaluation applicability and rationale, and obligation scope before writing the index. Those values remain in the bound canonical assignment rows and rules rather than being copied into every output row. There are no current Verification Method Exceptions. Each procedure replaces identifier-level applicability with stable obligation-key decisions before approval, preserving mixed decisions separately.
 
 ## Ambiguity findings
 

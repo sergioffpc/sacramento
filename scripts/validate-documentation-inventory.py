@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import pathlib
 import re
+import subprocess
 import sys
 from dataclasses import dataclass
 
@@ -22,6 +23,7 @@ CONTROL_FIELDS = (
     "Prerequisites",
     "Canonical information owner",
 )
+CONTROL_TIERS = {"Controlled", "Routed", "Reference", "Generated"}
 
 
 @dataclass(frozen=True)
@@ -49,14 +51,25 @@ def markdown_slug(value: str) -> str:
 
 def inventory_population() -> set[pathlib.PurePosixPath]:
     """Return every retained path governed as a project document."""
-    paths = {
-        pathlib.PurePosixPath(name)
-        for name in ("AGENTS.md", "CONTEXT.md", "README.md", "SECURITY.md", "LICENSE")
+    result = subprocess.run(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    candidates = {
+        pathlib.PurePosixPath(line)
+        for line in result.stdout.splitlines()
+        if line
     }
-    for candidate in (ROOT / "docs").rglob("*"):
-        if candidate.is_file() and candidate.suffix in {".md", ".csv"}:
-            paths.add(pathlib.PurePosixPath(candidate.relative_to(ROOT).as_posix()))
-    return paths
+    roots = {"AGENTS.md", "CONTEXT.md", "README.md", "SECURITY.md", "LICENSE"}
+    return {
+        path
+        for path in candidates
+        if path.as_posix() in roots
+        or (path.parts[0] == "docs" and path.suffix in {".md", ".csv"})
+    }
 
 
 def parse_inventory(errors: list[str]) -> list[Document]:
@@ -163,17 +176,24 @@ def validate_rows(documents: list[Document], errors: list[str]) -> None:
                 errors.append(f"{label}: unknown prerequisite {identifier}")
         if not document.status:
             errors.append(f"{label}: missing status")
-        if document.format == "Markdown" and not document.controls.startswith(
-            "Required / "
+        control_parts = [part.strip() for part in document.controls.split("/")]
+        if len(control_parts) != 3:
+            errors.append(f"{label}: expected tier / metadata / ToC controls")
+            continue
+        tier, metadata, _toc = control_parts
+        if tier not in CONTROL_TIERS:
+            errors.append(f"{label}: invalid control tier {tier}")
+        if metadata not in {"Embedded", "Inventory"}:
+            errors.append(f"{label}: invalid metadata location {metadata}")
+        if (
+            tier == "Controlled"
+            and document.format == "Markdown"
+            and metadata != "Embedded"
         ):
-            errors.append(f"{label}: Markdown control metadata must be Required")
-        if document.format != "Markdown" and not document.controls.startswith(
-            "Inventory control / "
-        ):
-            errors.append(
-                f"{label}: non-Markdown control metadata must be inventory-held",
-            )
-        if document.format != "Markdown":
+            errors.append(f"{label}: controlled Markdown metadata must be embedded")
+        if document.format != "Markdown" and metadata != "Inventory":
+            errors.append(f"{label}: non-Markdown metadata must be inventory-held")
+        if metadata == "Inventory":
             control_words = ("title", "purpose and scope", "intended readers")
             for word in control_words:
                 if word not in document.authority:
@@ -229,17 +249,22 @@ def validate_markdown(document: Document, errors: list[str]) -> None:
     if len(h1) != 1:
         errors.append(f"{document.path}: expected exactly one title heading")
     control_block = structural_text.split("\n## ", maxsplit=1)[0]
-    for field in CONTROL_FIELDS:
-        values = control_value(control_block, field)
-        if len(values) != 1:
-            errors.append(f"{document.path}: expected exactly one {field} field")
-        elif (
-            field == "Canonical information owner"
-            and values[0].strip() in {"", "None"}
-        ):
-            errors.append(f"{document.path}: canonical information owner is empty")
+    metadata = [part.strip() for part in document.controls.split("/")][1]
+    if metadata == "Embedded":
+        for field in CONTROL_FIELDS:
+            values = control_value(control_block, field)
+            if len(values) != 1:
+                errors.append(f"{document.path}: expected exactly one {field} field")
+            elif (
+                field == "Canonical information owner"
+                and values[0].strip() in {"", "None"}
+            ):
+                errors.append(f"{document.path}: canonical information owner is empty")
 
-    if document.prerequisites == "Declared; links validated":
+    if (
+        document.prerequisites == "Declared; links validated"
+        and metadata == "Embedded"
+    ):
         declared = prerequisite_block(control_block)
         if not declared or declared == "None.":
             errors.append(f"{document.path}: declared prerequisites are empty")
