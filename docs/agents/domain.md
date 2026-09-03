@@ -5,6 +5,12 @@ Status: Active
 Purpose: Define how engineering skills consume the repository's domain
 documentation.
 
+Scope: Agent work that reads or changes domain language or architecture.
+
+Intended readers: Repository agents and their maintainers.
+
+Prerequisites: None.
+
 Canonical information owner: Project owner.
 
 ## Table of contents

@@ -2,6 +2,17 @@
 
 Status: Accepted
 
+Purpose: Record why Sacramento uses Clang as its only C++ compiler.
+
+Scope: First-party C++ compilation for Windows and Debian.
+
+Intended readers: Architects, implementers, build operators, and verification
+authors.
+
+Prerequisites: The approved C++ requirements and engineering baseline.
+
+Canonical information owner: Project owner.
+
 Supersession: ADR-0002 replaces the Windows build-host and linker details; the
 Clang-only decision remains accepted.
 

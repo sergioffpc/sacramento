@@ -4,6 +4,12 @@ Status: Active
 
 Purpose: Map canonical triage roles to the labels used by this repository.
 
+Scope: Classification of GitHub issues during repository triage.
+
+Intended readers: Repository agents, maintainers, and issue triagers.
+
+Prerequisites: [Issue Tracker](issue-tracker.md).
+
 Canonical information owner: Project owner.
 
 ## Table of contents

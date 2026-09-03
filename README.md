@@ -1,11 +1,25 @@
 # Sacramento
 
+Status: Active repository overview
+
+Purpose: Introduce the repository and route readers to authoritative project
+documents and supported workflows.
+
+Scope: Repository navigation and non-normative project orientation.
+
+Intended readers: Contributors, reviewers, and project stakeholders.
+
+Prerequisites: None.
+
+Canonical information owner: Project owner.
+
 Sacramento is a multiplayer armed-forces training simulation focused on
 realistic team exercises, authoritative simulation, and desktop-first access
 with optional virtual reality.
 
-The repository contains an approved requirements baseline and an initial
-architectural direction. It does not yet contain a production implementation.
+The repository contains an approved requirements baseline and an accepted
+Development Baseline architecture decision set. It does not yet contain a
+production implementation or architecture acceptance evidence.
 
 ## Table of contents
 
@@ -19,7 +33,9 @@ architectural direction. It does not yet contain a production implementation.
 ## Documentation
 
 - [Domain language](CONTEXT.md)
+- [Documentation Inventory](docs/project/training-simulation-documentation-inventory.md)
 - [NVIDIA-oriented Sacramento foundation](docs/adr/0003-adopt-nvidia-oriented-foundation.md)
+- [Cross-cutting architecture and verification closure](docs/adr/0010-close-cross-cutting-architecture-and-verification.md)
 - [Initial requirements](docs/requirements/training-simulation-initial-requirements.md)
 - [Non-functional requirements](docs/requirements/training-simulation-non-functional-requirements.md)
 - [Reference hardware profiles](docs/requirements/training-simulation-reference-hardware-profiles.md)
@@ -43,6 +59,13 @@ python3 scripts/generate-verification-assignment-inventory.py
 ```
 
 Do not edit the generated CSV manually.
+
+Validate the canonical Documentation Inventory and its retained document
+population with:
+
+```sh
+python3 scripts/validate-documentation-inventory.py
+```
 
 ## Development constraints
 

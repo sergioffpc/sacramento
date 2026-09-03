@@ -2,6 +2,19 @@
 
 Status: Accepted
 
+Purpose: Record why Windows C++ artefacts are cross-compiled from a pinned
+Ubuntu build root.
+
+Scope: Windows build-host, target-sysroot, linker, and native-test allocation.
+
+Intended readers: Architects, implementers, build operators, and verification
+authors.
+
+Prerequisites: ADR-0001 and the approved C++ requirements and engineering
+baseline.
+
+Canonical information owner: Project owner.
+
 Sacramento produces its Windows C++ artefacts in a pinned Ubuntu 26.04 LTS
 build root using Linux-hosted `clang-cl`, `llvm-lib`, and `lld-link`. The MSVC
 STL/CRT and Windows SDK are immutable target-sysroot inputs; they do not make

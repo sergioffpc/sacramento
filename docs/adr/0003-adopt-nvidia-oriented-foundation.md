@@ -3,6 +3,20 @@
 Status: Accepted as a conditional architectural direction; production
 dependency admission remains blocked
 
+Purpose: Record the selected narrow technology foundation and its qualification
+conditions.
+
+Scope: Initial C++ runtime and cooker technologies, dependency seams, and
+production-admission boundaries.
+
+Intended readers: Architects, implementers, build operators, dependency
+reviewers, and verification authors.
+
+Prerequisites: ADR-0001, ADR-0002, and the approved functional,
+non-functional, toolchain, and verification baselines.
+
+Canonical information owner: Project owner.
+
 Sacramento will own a narrow C++23 foundation whose interfaces use Sacramento
 types and whose implementations are composed from qualified third-party
 libraries. The Trainee Client is deliberately NVIDIA-oriented: Flecs provides

@@ -5,6 +5,12 @@ Status: Active
 Purpose: Define where project issues live and how engineering skills interact
 with them.
 
+Scope: Agent creation, reading, triage, and resolution of project work items.
+
+Intended readers: Repository agents and their maintainers.
+
+Prerequisites: Repository access through the GitHub CLI.
+
 Canonical information owner: Project owner.
 
 ## Table of contents
