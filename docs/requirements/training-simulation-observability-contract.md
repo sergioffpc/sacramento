@@ -4,7 +4,9 @@ Status: Approved
 
 Approval: Project owner, 2026-09-01
 
-Contract version: `OBS-CONTRACT-001`
+Latest approved amendment: Ephemeral Session Authority and Runtime Content Release identity, project owner, 2026-09-03
+
+Contract version: `OBS-CONTRACT-002`
 
 Purpose: Define the stable signal semantics required to verify automated Training Simulation quality requirements and operational targets in test and production builds.
 
@@ -33,6 +35,7 @@ Every core signal record has:
 | `build_version` | Exact emitting product build |
 | `configuration_version` | Exact applicable runtime configuration |
 | `profile_versions` | Exact applicable workload, hardware, Map, Acoustic, or other profile versions |
+| `runtime_content_release_id` | Exact Runtime Content Release identity when the source is bound to runtime content |
 | `session_correlation_id` | Opaque non-personal Training Session correlation identifier when applicable |
 | `event_correlation_id` | Opaque non-personal correlation identifier when applicable |
 
@@ -43,7 +46,6 @@ An inapplicable conditional field is absent rather than populated with an invent
 | Signal identifier | Source | Signal-specific meaning and fields | Primary trace |
 | --- | --- | --- | --- |
 | `OBS-PROCESS-LIFECYCLE-001` | Desktop Mode or Session Authority process | Lifecycle transition: `Started`, `Stopping`, or `Terminated`; termination classification when known | `NFR-OBSERVABILITY-CORE-001` |
-| `OBS-AUTHORITY-READINESS-001` | External Controlled-LAN readiness monitor | Check identifier, scheduled instant, observed instant, and result: `Ready`, `NotReady`, or `Missing` | `NFR-AUTHORITY-AVAILABILITY-001` |
 | `OBS-FINAL-IMAGE-001` | Rendered Desktop Mode client | One-second final-image aggregate defined below | `NFR-DESKTOP-SMOOTHNESS-001`, `NFR-DESKTOP-STALL-001` |
 | `OBS-ACTION-SUBMITTED-001` | Originating rendered or synthetic client | Script step and event correlation identifying submission of a valid action without its gameplay payload | `NFR-ACTION-RESPONSE-001` |
 | `OBS-ACTION-RESULT-RECEIVED-001` | Each rendered or synthetic client | Correlated first authoritative-result receipt | `NFR-ACTION-RESPONSE-001` |
@@ -53,9 +55,9 @@ An inapplicable conditional field is absent rather than populated with an invent
 | `OBS-ADMISSION-STARTED-001` | Session Authority | Opaque attempt correlation and start of initial Admission after the Authentication Act | `NFR-AUTH-ADMISSION-001` |
 | `OBS-ADMISSION-TERMINAL-001` | Session Authority | Correlated terminal classification: `Success` or `Denied` | `NFR-AUTH-ADMISSION-001` |
 | `OBS-ADMISSION-AUDIT-COMMITTED-001` | Session Authority | Correlated non-secret AUTH Audit Commit Unit reference | `NFR-AUTH-ADMISSION-001` |
-| `OBS-RUNTIME-IDENTITY-001` | Desktop Mode or Session Authority process | Exact build, configuration, contract, applicable profile versions, and observability detail level active at process start and after any permitted change | `NFR-OBSERVABILITY-CORE-001`, `CONSTRAINT-NFR-OBSERVABILITY-ACCEPTANCE-001` |
+| `OBS-RUNTIME-IDENTITY-001` | Desktop Mode or Session Authority process | Exact build, configuration, contract, Runtime Content Release, role-pack and Content Signing Trust Reference identities, applicable profile versions, and observability detail level active at process start | `NFR-OBSERVABILITY-CORE-001`, `CONSTRAINT-NFR-OBSERVABILITY-ACCEPTANCE-001` |
 | `OBS-SIGNAL-LOSS-001` | Every core-signal producer or collector | Cumulative lost-or-discarded count by affected signal identifier and loss location | `NFR-OBSERVABILITY-INTEGRITY-001` |
-| `OBS-OPERATIONAL-ALERT-001` | Production observability service or readiness monitor | Correlated alert creation for a signal-loss increase or `NotReady`/`Missing` readiness result | `NFR-OBSERVABILITY-ALERTING-001` |
+| `OBS-OPERATIONAL-ALERT-001` | Production observability collector | Correlated alert creation for a signal-loss increase | `NFR-OBSERVABILITY-ALERTING-001` |
 
 ## Acceptance supporting records
 
@@ -68,32 +70,16 @@ The following records belong to the acceptance environment rather than the conti
 | `OBS-REPLAY-OUTCOME-001` | Script version, opaque client slot, expected and completed step counts, first failed or missed step if any, and terminal outcome; exactly once per rendered or synthetic client at run end | `CONSTRAINT-NFR-REPLAY-001` |
 | `OBS-CLOCK-OFFSET-001` | Measurement-method version, opaque machine-pair identifiers, measurement-window start and end, and greatest measured absolute offset in nanoseconds; complete coverage of every cross-machine measurement window | `NFR-OBSERVABILITY-TIME-001` |
 
-`OBS-AVAILABILITY-EXCLUSION-001` is a supporting operational record rather than a continuously emitted product signal. An operator may create it manually with opaque `record_id`; `exclusion_category` (`DeclaredMaintenance`, `Host`, `OperatingSystem`, `Power`, or `ControlledLAN`); inclusive `start_reference_timestamp_ns`; exclusive `end_reference_timestamp_ns`; `recorded_reference_timestamp_ns`; non-sensitive `justification`; and optional `corrects_record_id`. A `DeclaredMaintenance` record is valid only when its recorded timestamp precedes its start; the other categories may be recorded after the interval is confirmed.
-
-An exclusion record is immutable and cannot be deleted. A correction is a new record whose `corrects_record_id` identifies exactly one retained earlier record; both remain retrievable, and the correction supplies the effective values for subsequent availability calculations. The contract does not prescribe storage technology or location.
-
-### Authority-readiness signal
-
-The external Controlled-LAN monitor schedules one `OBS-AUTHORITY-READINESS-001` check every five seconds. Each record contains opaque `check_id`, `scheduled_reference_timestamp_ns`, optional `observed_reference_timestamp_ns`, and `readiness_result`:
-
-- `Ready` when the Session Authority responds positively and reports that it can accept Preparation and Training Session execution operations;
-- `NotReady` when it responds negatively; or
-- `Missing` when no valid response is observed before the next scheduled check.
-
-A response arriving after the next check is scheduled does not change the preceding `Missing` result. Each record contributes exactly five seconds to the availability calculation. A check is excluded only when its complete five-second interval is covered by one or more valid exclusion records; partial coverage does not exclude or fractionally weight the check.
-
-Each `NotReady` or `Missing` result is a trigger for `OBS-OPERATIONAL-ALERT-001` under `NFR-OBSERVABILITY-ALERTING-001`.
-
 ### Process and observability-health signals
 
 | Signal | Signal-specific fields and cardinality |
 | --- | --- |
 | `OBS-PROCESS-LIFECYCLE-001` | `lifecycle_state`, exactly `Started`, `Stopping`, or `Terminated`, plus optional `termination_class`, exactly `Clean`, `Unexpected`, or `Unknown`; one `Started`, at most one `Stopping`, and at most one `Terminated` per source instance |
-| `OBS-RUNTIME-IDENTITY-001` | `observability_detail_level`, exactly `CoreOnly` or `Diagnostic`; emitted once immediately after `Started` and before other product signals, then before any signal affected by a permitted configuration or profile change |
+| `OBS-RUNTIME-IDENTITY-001` | `observability_detail_level`, exactly `CoreOnly` or `Diagnostic`, exact `role_pack_id`, `role_pack_hash`, `content_contract_id`, and `content_signing_trust_reference_id`; emitted once immediately after `Started` and before other product signals |
 | `OBS-SIGNAL-LOSS-001` | `affected_signal_id`, `loss_location`, exactly `Producer`, `Transport`, or `Collector`, and monotonically increasing `cumulative_lost_or_discarded_count`; emitted on every increase |
-| `OBS-OPERATIONAL-ALERT-001` | `trigger_signal_id`, opaque trigger-record correlation, and `alert_created_reference_timestamp_ns`; emitted exactly once for each trigger required by `NFR-OBSERVABILITY-ALERTING-001` |
+| `OBS-OPERATIONAL-ALERT-001` | `trigger_signal_id`, opaque trigger-record correlation, and `alert_created_reference_timestamp_ns`; emitted exactly once for each signal-loss trigger required by `NFR-OBSERVABILITY-ALERTING-001` |
 
-Absence of `Stopping` or `Terminated` after an unexpected process loss does not invent a lifecycle transition. Applicable readiness results, sequence gaps, and loss counters provide the observable failure evidence.
+Absence of `Stopping` or `Terminated` after an unexpected process loss does not invent a lifecycle transition. Process-launch outcomes, sequence gaps, and loss counters provide the applicable observable failure evidence.
 
 ### Final-image signals
 
@@ -160,8 +146,6 @@ Core signals contain no gameplay payload, credential, authentication evidence, p
 Operational retention follows `NFR-OBSERVABILITY-RETENTION-001`. Sequence gaps and `OBS-SIGNAL-LOSS-001` establish signal loss; acceptance and production behavior follows `NFR-OBSERVABILITY-INTEGRITY-001`.
 
 Optional signals emitted in `Diagnostic` mode have no mandatory retention period. Their retention may be selected operationally without changing the retention or availability of any core signal.
-
-`NFR-AUTHORITY-AVAILABILITY-001` excludes only intervals covered by a valid `OBS-AVAILABILITY-EXCLUSION-001` record. Manual entry alone does not change readiness-check results; it classifies the covered interval for the availability calculation.
 
 Cross-machine interval evidence includes the measured clock-offset record required by `NFR-OBSERVABILITY-TIME-001`.
 
