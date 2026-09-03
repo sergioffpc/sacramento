@@ -4,9 +4,9 @@ Status: Approved
 
 Approval: Project owner, 2026-09-01
 
-Latest approved amendment: Ephemeral Session Authority and Runtime Content Release identity, project owner, 2026-09-03
+Latest approved amendment: Technical Removal and Session Evidence Set handoff, project owner, 2026-09-03
 
-Contract version: `OBS-CONTRACT-002`
+Contract version: `OBS-CONTRACT-003`
 
 Purpose: Define the stable signal semantics required to verify automated Training Simulation quality requirements and operational targets in test and production builds.
 
@@ -55,6 +55,8 @@ An inapplicable conditional field is absent rather than populated with an invent
 | `OBS-ADMISSION-STARTED-001` | Session Authority | Opaque attempt correlation and start of initial Admission after the Authentication Act | `NFR-AUTH-ADMISSION-001` |
 | `OBS-ADMISSION-TERMINAL-001` | Session Authority | Correlated terminal classification: `Success` or `Denied` | `NFR-AUTH-ADMISSION-001` |
 | `OBS-ADMISSION-AUDIT-COMMITTED-001` | Session Authority | Correlated non-secret AUTH Audit Commit Unit reference | `NFR-AUTH-ADMISSION-001` |
+| `OBS-TECHNICAL-REMOVAL-001` | Session Authority | Correlated non-personal Technical Removal and canonical state-version transition | `NFR-OBSERVABILITY-CORE-001`, `REQ-TECHNICAL-REMOVAL-003` |
+| `OBS-SESSION-EVIDENCE-HANDOFF-001` | Session Authority | Terminal Session Evidence Set completeness and durable-handoff disposition | `NFR-OBSERVABILITY-CORE-001`, `REQ-SESSION-EVIDENCE-004` |
 | `OBS-RUNTIME-IDENTITY-001` | Desktop Mode or Session Authority process | Exact build, configuration, contract, Runtime Content Release, role-pack and Content Signing Trust Reference identities, applicable profile versions, and observability detail level active at process start | `NFR-OBSERVABILITY-CORE-001`, `CONSTRAINT-NFR-OBSERVABILITY-ACCEPTANCE-001` |
 | `OBS-SIGNAL-LOSS-001` | Every core-signal producer or collector | Cumulative lost-or-discarded count by affected signal identifier and loss location | `NFR-OBSERVABILITY-INTEGRITY-001` |
 | `OBS-OPERATIONAL-ALERT-001` | Production observability collector | Correlated alert creation for a signal-loss increase | `NFR-OBSERVABILITY-ALERTING-001` |
@@ -78,6 +80,8 @@ The following records belong to the acceptance environment rather than the conti
 | `OBS-RUNTIME-IDENTITY-001` | `observability_detail_level`, exactly `CoreOnly` or `Diagnostic`, exact `role_pack_id`, `role_pack_hash`, `content_contract_id`, and `content_signing_trust_reference_id`; emitted once immediately after `Started` and before other product signals |
 | `OBS-SIGNAL-LOSS-001` | `affected_signal_id`, `loss_location`, exactly `Producer`, `Transport`, or `Collector`, and monotonically increasing `cumulative_lost_or_discarded_count`; emitted on every increase |
 | `OBS-OPERATIONAL-ALERT-001` | `trigger_signal_id`, opaque trigger-record correlation, and `alert_created_reference_timestamp_ns`; emitted exactly once for each signal-loss trigger required by `NFR-OBSERVABILITY-ALERTING-001` |
+| `OBS-TECHNICAL-REMOVAL-001` | Opaque `removed_client_slot_id`, `removal_cause` exactly `Disconnected`, `preceding_state_version`, and `resulting_state_version`; emitted exactly once after the atomic Technical Removal becomes visible |
+| `OBS-SESSION-EVIDENCE-HANDOFF-001` | Opaque `session_evidence_set_id`, `completeness` exactly `Complete` or `Incomplete`, `handoff_result` exactly `Durable` or `Failed`, and an opaque non-secret `handoff_receipt_reference` only when durable; emitted exactly once before orderly Session Authority exit |
 
 Absence of `Stopping` or `Terminated` after an unexpected process loss does not invent a lifecycle transition. Process-launch outcomes, sequence gaps, and loss counters provide the applicable observable failure evidence.
 

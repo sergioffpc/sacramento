@@ -6,7 +6,7 @@ Approval: Project owner, 2026-09-01
 
 Baseline identifier: `PERF-BASELINE-001`
 
-Latest approved amendment: Verification closure and `ENGAGEMENT-TARGET-001`, project owner, 2026-09-01
+Latest approved amendment: Persistent assessment ownership and Technical Removal, project owner, 2026-09-03
 
 Purpose: Define the evidence, results, and boundaries for Training Feedback, Formal Assessment, and Leaderboard outputs about Trainee performance.
 
@@ -26,6 +26,8 @@ Performance assessment is a separate product concern from technical observabilit
 
 Performance assessment is not a full `After-Action Review`. Training Session reconstruction, a tactical timeline, and detailed post-action analysis remain deferred by `DEFERRED-AAR-001`.
 
+The `Trainee Performance Assessment Module` owns identity-bound performance events, metrics, results, approvals, corrections, access decisions, and retained history. It consumes immutable authoritative event inputs and Session Evidence Set references without owning canonical Simulation state, participating in a Canonical Tick, sharing persistence with a Session Authority, or making a retained record an input to live-session restoration.
+
 ## Accepted decisions
 
 **PERF-IDENTITY-001** — Every Training Feedback, Formal Assessment, and Leaderboard result MUST identify the authenticated `Trainee Identity` to which it applies. A Training Session-local Call Sign or display pseudonym MUST NOT be the authoritative identity for a result.
@@ -43,6 +45,10 @@ Performance assessment is not a full `After-Action Review`. Training Session rec
 **PERF-RETENTION-001** — Performance assessment records MUST be retained indefinitely and remain associated with the authenticated `Trainee Identity`. No automatic expiry or deletion period is defined by this requirements baseline.
 
 **PERF-INTEGRITY-001** — A recorded performance result MUST NOT be overwritten or deleted as part of correction. A correction MUST preserve the prior value and record the author, timestamp, reason, and changed value.
+
+**PERF-PERSISTENCE-001** — The Trainee Performance Assessment Module MUST commit each accepted event, result, approval, and correction durably through its private persistence seam using a stable identity, non-visible candidate, atomic commit, and idempotent retry; an incomplete, corrupt, or ambiguous commit MUST NOT become a valid result and MUST be classified deterministically during recovery.
+
+**PERF-TECHNICAL-REMOVAL-001** — Technical Removal MUST NOT be counted as Fatal, injury, incapacity, casualty, or task error; valid evidence committed before removal MUST remain eligible, while each metric whose required later evidence is absent because of removal MUST be marked invalid under `PERF-DATA-VALIDITY-001` and MUST NOT be estimated.
 
 **PERF-PERIOD-001** — A `Leaderboard` MUST declare its ranking period and comparison profile. The system MUST support both explicitly bounded periods (for example, a course or training cycle) and an all-time historical view.
 
@@ -102,7 +108,8 @@ The three outputs are independent:
 | `PERF-METRICS-001`, `PERF-GRANULARITY-001`, `PERF-METRIC-DEFINITION-001`, `PERF-DATA-VALIDITY-001`, `PERF-EVENTS-001`, `PERF-TIME-001` | Automated Test, Inspection | Versioned metric definitions and deterministic event fixtures covering individual measurements, aggregates, units, rounding, missing evidence, invalid evidence, and cross-machine timing | Implementation team | Project owner |
 | `PERF-COMPARABILITY-001`, `PERF-PERIOD-001`, `PERF-TIE-001`, `PERF-SCORE-001`, `PERF-ELIGIBILITY-001`, `PERF-LEADERBOARD-AGGREGATION-001` | Automated Test, Inspection | Positive and negative comparison-profile cases; bounded and all-time periods; equal-score ordering; fixed score versions; all-session eligibility; best-score selection | Implementation team | Project owner |
 | `PERF-VISIBILITY-001`, `PERF-AUTHORITY-001`, `PERF-PERMISSIONS-001`, `PERF-LEADERBOARD-IDENTIFIER-001` | Automated Test, Inspection | Role and ownership access matrix; denied cross-Trainee detail access; independent permission cases; external identity and presentation-name traces | Implementation team | Project owner |
-| `PERF-RETENTION-001`, `PERF-INTEGRITY-001`, `PERF-PROFILE-EFFECT-001` | Automated Test, Inspection | Retention configuration; immutable correction history; preserved historical result and profile version after profile change | Implementation team | Project owner |
+| `PERF-RETENTION-001`, `PERF-INTEGRITY-001`, `PERF-PERSISTENCE-001`, `PERF-PROFILE-EFFECT-001` | Automated Test, Inspection | Indefinite retention configuration; immutable correction history; atomic commit and idempotent retry; incomplete, corrupt and ambiguous recovery cases; preserved historical result and profile version after profile change | Implementation team | Project owner |
+| `PERF-TECHNICAL-REMOVAL-001` | Automated Test, Inspection | Partial-session fixtures proving preservation of valid prior evidence, invalidation of incomplete metrics, and absence of Fatal, injury, incapacity, casualty or task-error classification | Implementation team | Project owner |
 | `PERF-FORMAL-APPROVAL-001`, `PERF-FORMAL-RESULT-001`, `PERF-FORMAL-VALIDITY-001`, `PERF-FORMAL-AGGREGATION-001` | Automated Test, Inspection | Proposed and approved assessment state transitions; evaluator identity and timestamp; criterion and overall results; expiry/no-expiry cases; latest-approved qualification state with retained history | Implementation team | Project owner |
 | `PERF-PROFILES-001`, `PERF-PROFILE-VALIDATION-001` | Inspection, Representative Evaluation | Exact versioned profile; two independently submitted in-scope findings covering task, conditions, metric meaning, weights, thresholds, role and difficulty; project-owner approval | Implementation team and Representative Evaluators | Project owner |
 | `PERF-PRESENTATION-001`, `PERF-AVAILABILITY-001` | Automated Test | Active-session feedback cases and post-session consolidation timestamps under every applicable approved reference hardware and workload profile | Implementation team | Project owner |

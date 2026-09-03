@@ -4,7 +4,7 @@ Status: Approved
 
 Approval: Project owner, 2026-09-01
 
-Latest approved amendment: Ephemeral Session Authority availability boundary, project owner, 2026-09-03
+Latest approved amendment: Technical Removal and retained-evidence observability, project owner, 2026-09-03
 
 Baseline identifier: `NFR-BASELINE-001`
 
@@ -37,7 +37,7 @@ When accepted requirements conflict, the higher-ranked quality governs:
 1. training validity and human safety;
 2. information security and AUTH audit integrity;
 3. canonical-state consistency;
-4. Training Session continuity and recovery;
+4. retained-evidence completeness and bounded failure containment;
 5. latency and temporal stability;
 6. visual and acoustic fidelity beyond the approved minimum;
 7. maintainability; and
@@ -78,7 +78,7 @@ The [Training Simulation Observability Contract](training-simulation-observabili
 
 **CONSTRAINT-NFR-OBSERVABILITY-ACCEPTANCE-001** — Every formal NFR acceptance run MUST use the Observability Contract's `CoreOnly` detail level. Optional diagnostic signals, including per-final-image detail, MUST remain disabled throughout that run.
 
-**NFR-OBSERVABILITY-CORE-001** — The Observability Contract core inventory MUST contain process lifecycle; final-image intervals; correlated action submission, authoritative-result receipt, and rendered presentation; acoustic-event initiation and presentation; Admission start, terminal result, and AUTH Audit Commit Unit reference; exact build, configuration, applicable profile versions and Runtime Content Release; and counts of lost or discarded observability signals. Core signals MUST NOT contain gameplay payloads, credentials, authentication evidence, or personal data.
+**NFR-OBSERVABILITY-CORE-001** — The Observability Contract core inventory MUST contain process lifecycle; final-image intervals; correlated action submission, authoritative-result receipt, and rendered presentation; acoustic-event initiation and presentation; Admission start, terminal result, and AUTH Audit Commit Unit reference; Technical Removal; Session Evidence Set terminal handoff; exact build, configuration, applicable profile versions and Runtime Content Release; and counts of lost or discarded observability signals. Core signals MUST NOT contain gameplay payloads, credentials, authentication evidence, or personal data.
 
 **NFR-OBSERVABILITY-RETENTION-001** — In production, core operational signals MUST remain retrievable for at least 30 days after collection. Formal acceptance evidence remains governed by the verification plan rather than this operational retention period. A future Session Authority capability-availability target MUST define its own evidence and retention window.
 

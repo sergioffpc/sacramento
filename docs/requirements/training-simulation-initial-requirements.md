@@ -4,13 +4,13 @@ Status: Approved Functional Baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Runtime Content Release and single-session authority lifecycle, project owner, 2026-09-03
+Latest approved amendment: Technical Removal and retained-evidence architecture, project owner, 2026-09-03
 
 Canonical language: English
 
 Canonical information owner: Project owner
 
-Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision, plus the project-owner-confirmed issue #33 architecture grilling. No AUTH or runtime-content interview question remains open.
+Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision, plus the project-owner-confirmed issue #33 and #35 architecture grillings. No AUTH, runtime-content, Technical Removal, or retained-evidence interview question remains open.
 
 Priority convention: `MUST` and `MUST NOT` are required for the accepted initial baseline; `SHOULD` records an approved preference; `MAY` records permitted behavior. Deferred capabilities and non-goals are outside that baseline.
 
@@ -43,7 +43,7 @@ Verification plan: [training-simulation-verification-plan.md](training-simulatio
 - [Loadouts and starting state](#loadouts-and-starting-state)
 - [Ready and initial start](#ready-and-initial-start)
 - [Connection and admission](#connection-and-admission)
-- [Disconnect, Technical Pause, and resume](#disconnect-technical-pause-and-resume)
+- [Disconnection and Technical Removal](#disconnection-and-technical-removal)
 - [Voluntary departure and process completion](#voluntary-departure-and-process-completion)
 - [Scenario and Map model](#scenario-and-map-model)
 - [Scenario selection and hosting](#scenario-selection-and-hosting)
@@ -122,7 +122,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **PROCESS-ACTION-INVENTORY-003** — Before baseline approval, the implementation team MUST reconcile the Action Inventory against every Trainee action exposed by the candidate product and reject any missing, untraced, unapproved, or entertainment-only action.
 
-**SCOPE-AUTH-001** — The initial functional baseline includes mutual Session Authority and client authentication, authorization, Admission, reconnection continuity protection, offline validation, and AUTH auditing under the requirements in this document; these capabilities MUST NOT be treated as deferred.
+**SCOPE-AUTH-001** — The initial functional baseline includes mutual Session Authority and client authentication, authorization, initial Admission, offline validation, and AUTH auditing under the requirements in this document; these capabilities MUST NOT be treated as deferred.
 
 **SCOPE-MELEE-001** — The initial Melee baseline MUST support last-resort close physical combat and MUST NOT treat custody, restraint, or control of a person as a Melee objective.
 
@@ -130,9 +130,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **ASSUMPTION-AUTH-AUDIT-CHECKPOINT-001** — The external host environment collects and retains AUTH Audit Checkpoints outside the storage of their AUTH Audit Sequence; without a surviving externally retained checkpoint, the Training Simulation cannot guarantee detection of terminal-record or complete-sequence deletion by an actor controlling the host.
 
-**ASSUMPTION-AUTH-DEVICE-CONTROL-001** — A reconnecting party that presents the valid Session Continuity Claim and proves control of the Client Device Identity authenticator bound at initial admission is treated as the same admitted client device; the Training Simulation cannot distinguish the legitimate Trainee from another person who controls both.
-
-**ASSUMPTION-AUTH-HUMAN-CONTINUITY-001** — After the initial Trainee Authentication Act, the Training Simulation does not continuously verify the physical human operating an Admitted Client and cannot distinguish the authenticated Trainee from another person who takes control of that admitted computer.
+**ASSUMPTION-AUTH-HUMAN-CONTROL-001** — After the initial Trainee Authentication Act, the Training Simulation does not continuously verify the physical human operating an Admitted Client and cannot distinguish the authenticated Trainee from another person who takes control of that admitted computer.
 
 **ASSUMPTION-AUTH-IDENTITY-AUTHORITY-001** — The Training Simulation relies on the Identity Authority to issue correct identity bindings, Authentication Assurance Profiles, Authorization Assertions, Offline Revocation Status values, issuer records, and validity intervals; evidence that is valid under the approved catalogue cannot reveal an Identity Authority mis-issuance by itself.
 
@@ -194,9 +192,9 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 ## Ready and initial start
 
-**REQ-OPERATIONAL-CLOCK-001** — The Session Authority MUST be the sole authority for the Operational Clock used by initial countdowns, resume countdowns, reconnection windows, and restoration windows.
+**REQ-OPERATIONAL-CLOCK-001** — The Session Authority MUST be the sole authority for the Operational Clock used by initial countdowns and runtime lifecycle deadlines.
 
-**REQ-OPERATIONAL-CLOCK-002** — The Operational Clock MUST advance monotonically during Technical Pause and MUST remain independent from simulated time and Scenario timers.
+**REQ-OPERATIONAL-CLOCK-002** — The Operational Clock MUST advance monotonically and MUST remain independent from simulated time and Scenario timers.
 
 **REQ-OPERATIONAL-CLOCK-003** — A client clock or client-provided timestamp MUST NOT determine countdown completion, deadline expiry, or authoritative event ordering.
 
@@ -214,7 +212,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-INITIAL-START-CONDITIONS-004** — The initial baseline MUST NOT prevent countdown or start because of a condition absent from the approved Initial Start Condition Set.
 
-**REQ-READINESS-001** — A Trainee MUST satisfy every applicable requirement from `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-007` and explicitly declare readiness before entering `Ready`.
+**REQ-READINESS-001** — A Trainee MUST satisfy every applicable requirement from `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006` and explicitly declare readiness before entering `Ready`.
 
 **REQ-READINESS-PRECONDITION-001** — The Trainee's client MUST have an admitted active connection to the Session Authority.
 
@@ -226,11 +224,9 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-READINESS-PRECONDITION-005** — The client MUST have the required input, visual-output, and audio-input-and-output devices for the selected access mode available to the Training Simulation.
 
-**REQ-READINESS-PRECONDITION-006** — The client MUST have a valid Session Continuity Claim for its current Training Session and assigned Team Position.
+**REQ-READINESS-PRECONDITION-006** — The client MUST have one current Admission whose retained Trainee Identity and Client Device Identity bindings match that client connection and whose Session Authority Identity matches the current Session Authority.
 
-**REQ-READINESS-PRECONDITION-007** — The client MUST have one current Admission whose retained Trainee Identity and Client Device Identity bindings match that client connection and whose Session Authority Identity matches the current Session Authority.
-
-**REQ-READINESS-CLOSED-001** — The initial baseline MUST NOT prevent a Trainee from entering `Ready` because of a condition not stated by `REQ-READINESS-001` or `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-007`.
+**REQ-READINESS-CLOSED-001** — The initial baseline MUST NOT prevent a Trainee from entering `Ready` because of a condition not stated by `REQ-READINESS-001` or `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006`.
 
 **REQ-READINESS-002** — The system MUST revoke `Ready` if any readiness precondition stops being true before start.
 
@@ -302,13 +298,13 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-CONTROL-NONDISCLOSURE-001** — Producing Authenticator Control Proof MUST NOT require disclosure or transfer of the controlled authenticator to the validating peer.
 
-**REQ-AUTH-CHALLENGE-001** — Every Authenticator Control Proof and Device Continuity Proof MUST respond to a new Authentication Challenge created by the validator for that exact AUTH Operation and AUTH Attempt.
+**REQ-AUTH-CHALLENGE-001** — Every Authenticator Control Proof MUST respond to a new Authentication Challenge created by the validator for that exact AUTH Operation and AUTH Attempt.
 
 **REQ-AUTH-CHALLENGE-BINDING-001** — An Authentication Challenge and its accepted proof MUST be bound to the exact presenter identity, validator identity, validation purpose, AUTH Operation class key and instance identifier, and AUTH Attempt class key and instance identifier for which the challenge was created.
 
 **REQ-AUTH-CHALLENGE-USE-001** — An Authentication Challenge MUST be accepted at most once and MUST become invalid when its owning AUTH Operation reaches any terminal result; cancellation or supersession of the enclosing AUTH Attempt MUST propagate that invalidation under `REQ-AUTH-ATTEMPT-SUPERSESSION-001`.
 
-**REQ-AUTH-REPLAY-001** — A proof created for a different, preceding, completed, failed, cancelled, superseded, or already accepted Authentication Challenge MUST be rejected and MUST NOT authenticate an identity, establish device continuity, or permit admission or reconnection.
+**REQ-AUTH-REPLAY-001** — A proof created for a different, preceding, completed, failed, cancelled, superseded, or already accepted Authentication Challenge MUST be rejected and MUST NOT authenticate an identity or permit Admission.
 
 **REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-001** — Every Trainee Identity authentication-evidence item MUST identify the exact Authentication Assurance Profile version assigned by the Identity Authority to that identity.
 
@@ -342,13 +338,13 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-IDENTITY-KEY-002** — The Identity Evidence Catalogue MUST define the complete normalization and equality rules that derive one Canonical Identity Key from every supported evidence type and schema version, and a missing, ambiguous, or non-canonical result MUST cause validation to fail.
 
-**REQ-AUTH-IDENTITY-KEY-003** — Every identity binding, Authorization Assertion match, duplicate-Admission check, continuity check, retained identity reference, and identity comparison MUST use Canonical Identity Key equality and MUST NOT compare display text, serialized evidence, network addresses, or implementation object identity.
+**REQ-AUTH-IDENTITY-KEY-003** — Every identity binding, Authorization Assertion match, duplicate-Admission check, retained identity reference, and identity comparison MUST use Canonical Identity Key equality and MUST NOT compare display text, serialized evidence, network addresses, or implementation object identity.
 
 **REQ-AUTH-VALIDATION-PACKAGE-001** — Before an admission attempt, every Trainee client and Session Authority host MUST have its applicable Identity Validation Package role manifest and the release's shared non-sensitive artifacts provisioned by an external process independent of the Training Simulation.
 
-**REQ-AUTH-VALIDATION-PACKAGE-002** — An Identity Validation Package release MUST define exactly one closed `Trainee Client` manifest and one closed `Session Authority` manifest; both MUST identify the same exact release, Identity Evidence Catalogue, Admission Authorization Rule Set, AUTH Operation Inventory, AUTH Data Inventory, AUTH Audit Policy, AUTH Audit Integrity Profile, and Continuity Validation Outcome Catalogue versions, while each manifest contains only the profiles, issuer records, validation dependencies, offline status inputs, and internal fields declared applicable to that host role.
+**REQ-AUTH-VALIDATION-PACKAGE-002** — An Identity Validation Package release MUST define exactly one closed `Trainee Client` manifest and one closed `Session Authority` manifest; both MUST identify the same exact release, Identity Evidence Catalogue, Admission Authorization Rule Set, AUTH Operation Inventory, AUTH Data Inventory, AUTH Audit Policy, and AUTH Audit Integrity Profile versions, while each manifest contains only the profiles, issuer records, validation dependencies, offline status inputs, and internal fields declared applicable to that host role.
 
-**REQ-AUTH-VALIDATION-PACKAGE-003** — Before using an Identity Validation Package role manifest, the host MUST verify its canonical release and manifest identities, release and manifest versions, role, integrity, complete declared contents, shared artifact versions, and applicability against the exact current Package Trust Reference provisioned independently under `REQ-AUTH-VALIDATION-PACKAGE-TRUST-001`.
+**REQ-AUTH-VALIDATION-PACKAGE-003** — Before using an Identity Validation Package role manifest, the host MUST verify its canonical release and manifest identities, release and manifest versions, role, integrity, complete declared contents, shared artifact versions, and applicability against the exact launch-selected Package Trust Reference provisioned independently under `REQ-AUTH-VALIDATION-PACKAGE-TRUST-001`.
 
 **REQ-AUTH-VALIDATION-PACKAGE-004** — The Training Simulation MUST NOT obtain or update an Identity Validation Package, catalogue, profile, issuer record, validation dependency, or offline status input from the Session Authority during client connection or from live Identity Authority communication during admission.
 
@@ -356,25 +352,25 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-VALIDATION-PACKAGE-006** — A Trainee client host MUST NOT receive or retain the `Session Authority` role manifest, and a Session Authority host MUST NOT receive or retain the `Trainee Client` role manifest; shared artifacts MUST be explicitly classified as non-sensitive and applicable to both roles by the package and AUTH Data inventories.
 
-**REQ-AUTH-VALIDATION-PACKAGE-CURRENT-001** — One and only one Identity Validation Package version MUST be designated as the current approved version for new admissions to a candidate product baseline.
+**REQ-AUTH-VALIDATION-PACKAGE-CURRENT-001** — Each Trainee Client and Session Authority process MUST receive exactly one approved Identity Validation Package role manifest and Package Trust Reference as immutable launch inputs and MUST retain one validated immutable package view for its lifetime.
 
-**REQ-AUTH-VALIDATION-PACKAGE-TRUST-001** — The candidate product baseline MUST identify one exact project-owner-approved Package Trust Reference for the current package, provisioned to each host independently of the package contents, Session Authority, and live Identity Authority communication; missing, invalid, mismatched, or unapproved bootstrap evidence MUST reject the package.
+**REQ-AUTH-VALIDATION-PACKAGE-TRUST-001** — Each candidate activation pair MUST identify one exact project-owner-approved Package Trust Reference for its Identity Validation Package, provisioned to each host independently of the package contents, Session Authority, and live Identity Authority communication; missing, invalid, mismatched, or unapproved bootstrap evidence MUST reject the pair.
 
-**REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-001** — Before current designation, a candidate package MUST be reconciled against every required component, supported host role, Identity Evidence and Continuity Validation Outcome catalogue dependency, rule, policy, profile, issuer, offline input, AUTH requirement, retained historical dependency, and Package Trust Reference, with every applicable check receiving `Pass` and exact project-owner approval.
+**REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-001** — Before approval for process activation, a candidate package MUST be reconciled against every required component, supported host role, Identity Evidence Catalogue dependency, rule, policy, profile, issuer, offline input, AUTH requirement, retained historical dependency, and Package Trust Reference, with every applicable check receiving `Pass` and exact project-owner approval.
 
-**REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-002** — `Fail`, `Blocked`, `Not Evaluated`, an incomplete applicability decision, or missing project-owner approval for any candidate-package check MUST prevent current designation and activation.
+**REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-002** — `Fail`, `Blocked`, `Not Evaluated`, an incomplete applicability decision, or missing project-owner approval for any candidate-package check MUST prevent approval and activation.
 
-**REQ-AUTH-VALIDATION-PACKAGE-CURRENT-002** — A new admission attempt MUST proceed only when the Trainee client uses the current approved `Trainee Client` manifest, the Session Authority uses the current approved `Session Authority` manifest, and both manifests identify the same exact current release and shared artifact versions.
+**REQ-AUTH-VALIDATION-PACKAGE-CURRENT-002** — A new admission attempt MUST proceed only when the Trainee client and Session Authority use approved immutable role manifests identifying the same exact release and shared artifact versions activated at their respective process starts.
 
 **REQ-AUTH-VALIDATION-PACKAGE-MISMATCH-001** — An older, newer, unknown, unapproved, wrong-role, release-mismatched, or shared-artifact-mismatched manifest on either host MUST cause the admission attempt to be rejected before the client presents Trainee Identity or Client Device Identity authentication evidence.
 
 **REQ-AUTH-VALIDATION-PACKAGE-COMPATIBILITY-001** — The initial baseline MUST NOT negotiate, migrate, translate, or provide backward or forward compatibility between Identity Validation Package releases or role-manifest versions; cross-role compatibility exists only for the exact pair admitted and approved within one release.
 
-**REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001** — The current approved Identity Validation Package version MUST NOT be replaced while the Session Authority has any admitted client or any Training Session that is not completed or terminated.
+**REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001** — Identity Validation Package or Package Trust Reference rotation MUST affect only later process starts and MUST NOT replace, patch, or revalidate the immutable package view of a running process.
 
-**REQ-AUTH-VALIDATION-PACKAGE-UPDATE-002** — Replacing the current approved package version and Package Trust Reference MUST atomically change the exact pair used for every later admission attempt and MUST NOT expose a state in which different new admission attempts use different current versions.
+**REQ-AUTH-VALIDATION-PACKAGE-UPDATE-002** — Rotation MUST atomically change the exact package and Package Trust Reference pair admitted for later process starts and MUST NOT expose a new process to a mixed pair.
 
-**REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003** — If complete validation and activation of a replacement package fail, the preceding current approved package version MUST remain unchanged and the incomplete replacement MUST NOT be used for admission.
+**REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003** — If complete validation and activation of a replacement package fail, the preceding approved launch pair MUST remain unchanged and the incomplete replacement MUST NOT be used by a new process.
 
 **REQ-AUTH-VALIDATION-PACKAGE-HISTORY-001** — The implementation team MUST retain a stable version and activation-history record for every package designated current, including its Package Trust Reference, approval evidence, activation and supersession instants, predecessor, and candidate validation result, as project verification evidence governed by `PROCESS-EVIDENCE-RETENTION-001`; that project evidence is outside the runtime Training Simulation and AUTH Data Inventory and MUST NOT be used as a current AUTH decision input.
 
@@ -382,11 +378,6 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-VALIDATION-PACKAGE-IMPACT-001** — Candidate-package admission MUST prove that replacement preserves every dependency required by retained records and checkpoints or supplies an approved exact successor mapping without changing their historical interpretation or validation result.
 
-**REQ-AUTH-CONTINUITY-CATALOGUE-001** — The Continuity Validation Outcome Catalogue MUST be a shared non-sensitive artifact of the current Identity Validation Package, and every initial Admission MUST retain its exact catalogue version binding.
-
-**REQ-AUTH-CONTINUITY-CATALOGUE-002** — Before use, the implementation team MUST reconcile the Continuity Validation Outcome Catalogue against the AUTH Operation Inventory and every protected-exchange, claim, device-continuity, audit, cancellation, connection, supersession, deadline, Admission, and recovery-lifecycle requirement, and the project owner MUST approve its exact version.
-
-**REQ-AUTH-CONTINUITY-CATALOGUE-003** — The current Continuity Validation Outcome Catalogue version MUST change only through Identity Validation Package replacement; each superseded runtime version and non-secret dependency MUST remain available until every dependent Admission has ended and every dependent retained audit or checkpoint has completed its exact finite expiry disposition, while its separate approval and activation history remains project verification evidence under `REQ-AUTH-VALIDATION-PACKAGE-HISTORY-001`.
 
 **REQ-AUTH-REVALIDATION-001** — Identity-evidence validity, authorization, and Offline Revocation Status MUST be evaluated as conditions of initial admission and MUST NOT be re-evaluated as conditions for retaining that admission, entering `Ready`, starting active simulation, or continuing active simulation.
 
@@ -394,7 +385,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTHORIZATION-SUBJECT-001** — Before admitting a client to Preparation, the Session Authority MUST establish that both the authenticated Trainee Identity and the authenticated Client Device Identity are individually authorized to use the Training Simulation.
 
-**REQ-AUTHORIZATION-DENIAL-001** — If either required identity is not successfully authenticated or is not positively authorized, the Session Authority MUST reject admission and MUST NOT assign a Team Position, establish a Session Continuity Claim, or allow the client to enter Preparation.
+**REQ-AUTHORIZATION-DENIAL-001** — If either required identity is not successfully authenticated or is not positively authorized, the Session Authority MUST reject admission and MUST NOT assign a Team Position or allow the client to enter Preparation.
 
 **REQ-AUTHORIZATION-ASSERTION-001** — The Identity Authority MUST be the authoritative source of every Authorization Assertion used to decide whether a Trainee Identity may use the Training Simulation, a Client Device Identity may operate a Trainee client, or a Session Authority Identity may operate the authority role.
 
@@ -422,17 +413,17 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-INTERNAL-USE-001** — Retained authenticated identities MAY be used only for AUTH decisions, AUTH evidence traceability, and AUTH audit records and MUST NOT change gameplay, training selection, or Scenario outcomes.
 
-**REQ-AUTH-AUDIT-COVERAGE-001** — The producer assigned by the AUTH Operation Inventory MUST create exactly the classified AUTH Audit Record for every terminal `Audited` AUTH Operation, including every covered authentication, authorization, admission, continuity, lifecycle, and audit-recovery operation; a `Not Audited` row MUST create none.
+**REQ-AUTH-AUDIT-COVERAGE-001** — The producer assigned by the AUTH Operation Inventory MUST create exactly the classified AUTH Audit Record for every terminal `Audited` AUTH Operation, including every covered authentication, authorization, admission, lifecycle, and audit-recovery operation; a `Not Audited` row MUST create none.
 
 **REQ-AUTH-AUDIT-DISPOSITION-001** — Before its AUTH Audit Commit Unit is attempted, each AUTH Audit Record MUST contain the settled terminal result of `Success`, `Failure`, or `Cancelled` assigned to its exact AUTH Operation and MUST identify the exact acceptance, rejection, or cancellation rule that produced it.
 
-**REQ-AUTH-AUDIT-CONTENT-001** — Each AUTH Audit Record MUST contain a stable record identifier, its AUTH Attempt and AUTH Operation class keys and instance identifiers, Trusted Identity Time instant, producing host role and identity, final result, reason, and governing AUTH Audit Policy and Integrity Profile versions; the schema matrix MUST classify the applicability and exact source of validation purpose, Canonical Identity Key, package, catalogue, assurance profile, rule set, operation inventory, non-secret evidence, revocation-status, Admission, Training Session, Team Position, Session Continuity Claim, and Device Continuity Proof references for each record class.
+**REQ-AUTH-AUDIT-CONTENT-001** — Each AUTH Audit Record MUST contain a stable record identifier, its AUTH Attempt and AUTH Operation class keys and instance identifiers, Trusted Identity Time instant, producing host role and identity, final result, reason, and governing AUTH Audit Policy and Integrity Profile versions; the schema matrix MUST classify the applicability and exact source of validation purpose, Canonical Identity Key, package, catalogue, assurance profile, rule set, operation inventory, non-secret evidence, revocation-status, Admission, Training Session, Team Position, and Technical Removal references for each record class.
 
 **REQ-AUTH-AUDIT-SCHEMA-001** — The AUTH Audit Policy MUST contain a closed schema matrix for every AUTH Audit Record class and assign every candidate field exactly one disposition of `Required Current Input`, `Required Retained Reference`, or `Not Applicable`, with the exact source and meaning for each required field.
 
-**REQ-AUTH-AUDIT-SCHEMA-002** — A record MUST contain every field applicable to its class, MUST omit each `Not Applicable` field, and MUST NOT cause evidence, assurance, authorization, validity, or revocation to be re-evaluated merely to populate a retained reference for a continuity or lifecycle record.
+**REQ-AUTH-AUDIT-SCHEMA-002** — A record MUST contain every field applicable to its class, MUST omit each `Not Applicable` field, and MUST NOT cause evidence, assurance, authorization, validity, or revocation to be re-evaluated merely to populate a retained reference for a lifecycle record.
 
-**REQ-AUTH-AUDIT-SECRET-001** — An AUTH Audit Record MUST NOT contain an authenticator, Authenticator Control Proof, Device Continuity Proof, Session Continuity Claim value, reusable Authentication Challenge value, or other material sufficient to authenticate, authorize, establish continuity, or reproduce an accepted proof.
+**REQ-AUTH-AUDIT-SECRET-001** — An AUTH Audit Record MUST NOT contain an authenticator, Authenticator Control Proof, reusable Authentication Challenge value, or other material sufficient to authenticate, authorize, or reproduce an accepted proof.
 
 **REQ-AUTH-AUDIT-SEPARATION-001** — AUTH Audit Records MUST remain separate from gameplay state, Scenario outcomes, and After-Action Review data and MUST NOT be disclosed to Trainee clients as training information.
 
@@ -448,7 +439,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-AUDIT-POLICY-005** — Before use, the implementation team MUST reconcile the AUTH Audit Policy against every AUTH Audit Record producer and class, and the project owner MUST approve its exact version.
 
-**REQ-AUTH-AUDIT-POLICY-CHANGE-001** — Replacing the current AUTH Audit Policy for new records MUST occur only through replacement of the current Identity Validation Package under `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001` through `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003`.
+**REQ-AUTH-AUDIT-POLICY-CHANGE-001** — Replacing the AUTH Audit Policy for later process starts MUST occur only through activation of a replacement Identity Validation Package pair under `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001` through `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003`; a running process retains its launch-bound policy.
 
 **REQ-AUTH-AUDIT-POLICY-CHANGE-002** — A record MUST remain governed by the exact AUTH Audit Policy version identified when it was created; superseded policy versions MUST remain available until every governed record has reached its expiry disposition and MUST NOT govern a new record after replacement.
 
@@ -474,7 +465,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-AUDIT-CHECKPOINT-001** — The AUTH Audit Integrity Profile MUST define the exact checkpoint granularity, scope, producing host identity binding, covered record identities and ordering boundary, creation instant, validation inputs, and objective acceptance criteria required to achieve the specified detection outcomes.
 
-**REQ-AUTH-AUDIT-CHECKPOINT-002** — Each AUTH Audit Checkpoint MUST be a separately collectable host-environment artifact and MUST NOT contain an authenticator, reusable proof, Session Continuity Claim value, Device Continuity Proof, or other authentication secret.
+**REQ-AUTH-AUDIT-CHECKPOINT-002** — Each AUTH Audit Checkpoint MUST be a separately collectable host-environment artifact and MUST NOT contain an authenticator, reusable proof, or other authentication secret.
 
 **REQ-AUTH-AUDIT-CHECKPOINT-003** — An externally retained AUTH Audit Checkpoint MUST permit detection of a missing or changed boundary record, truncated or completely missing local checkpointed extent, unauthorized expiry, or undeclared discontinuity for its exact scope.
 
@@ -482,17 +473,17 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-AUDIT-WRITE-GATE-001** — Before beginning any AUTH Operation classified `Audited`, the assigned producer MUST establish and reserve the ability to persist its complete AUTH Audit Commit Unit; inability to reserve it MUST prevent the operation from accepting input or producing an AUTH effect.
 
-**REQ-AUTH-AUDIT-COMMIT-001** — An `Audited` AUTH Operation MUST NOT produce an access-, privilege-, Admission-, or continuity-granting AUTH effect until its complete AUTH Audit Commit Unit, containing the settled final record and every integrity reference required by the current profile, has been persistently committed as one externally verifiable success outcome.
+**REQ-AUTH-AUDIT-COMMIT-001** — An `Audited` AUTH Operation MUST NOT produce an access-, privilege-, or Admission-granting AUTH effect until its complete AUTH Audit Commit Unit, containing the settled final record and every integrity reference required by the current profile, has been persistently committed as one externally verifiable success outcome.
 
-**REQ-AUTH-AUDIT-WRITE-FAILURE-001** — If an AUTH Audit Commit Unit cannot be committed completely, the governed AUTH Operation MUST produce no access-, privilege-, Admission-, or continuity-granting AUTH effect; it MUST still reach its inventory-defined failure or cancellation result, invalidate its challenges and partial results, perform the applicable transient cleanup, and disclose the applicable generic denial only when a protected response channel remains; the host MUST classify every partial artifact as an incomplete commit rather than a final AUTH Audit Record or valid checkpoint and MUST reject new AUTH Operations until audit-write capability is restored and validated.
+**REQ-AUTH-AUDIT-WRITE-FAILURE-001** — If an AUTH Audit Commit Unit cannot be committed completely, the governed AUTH Operation MUST produce no access-, privilege-, or Admission-granting AUTH effect; it MUST still reach its inventory-defined failure or cancellation result, invalidate its challenges and partial results, perform the applicable transient cleanup, and disclose the applicable generic denial only when a protected response channel remains; the host MUST classify every partial artifact as an incomplete commit rather than a final AUTH Audit Record or valid checkpoint and MUST reject new AUTH Operations until audit-write capability is restored and validated.
 
-**REQ-AUTH-AUDIT-WRITE-FAILURE-002** — Loss of audit-write capability MUST NOT by itself remove an admitted client, revoke `Ready`, interrupt an active Trainee, or terminate a Training Session, but any reconnection requiring a new AUTH operation while that capability is unavailable MUST be rejected under `REQ-AUTH-AUDIT-WRITE-FAILURE-001`.
+**REQ-AUTH-AUDIT-WRITE-FAILURE-002** — Loss of audit-write capability MUST NOT by itself remove an admitted client, revoke `Ready`, interrupt an active Trainee, or terminate a Training Session, but any new Admission requiring an AUTH Operation while that capability is unavailable MUST be rejected under `REQ-AUTH-AUDIT-WRITE-FAILURE-001`.
 
 **REQ-AUTH-AUDIT-WRITE-RECOVERY-001** — Before accepting AUTH Operations again, the host MUST validate retained integrity continuity, disposition incomplete commit artifacts, and successfully commit the inventory-required recovery AUTH Audit Commit Unit bound to the last valid retained state or to an explicitly authenticated new continuity scope that identifies the preceding scope, unavoidable gap, and discontinuity without claiming that a missing artifact existed.
 
-**REQ-AUTH-DENIAL-CATEGORY-001** — The closed AUTH Denial Category set disclosed to a requesting client MUST contain exactly `Session Authority Validation Failed`, `Admission Denied`, `Reconnection Denied`, and `AUTH Temporarily Unavailable`; `No Denial Disclosure` is the only non-disclosure disposition and is not an AUTH Denial Category.
+**REQ-AUTH-DENIAL-CATEGORY-001** — The closed AUTH Denial Category set disclosed to a requesting client MUST contain exactly `Session Authority Validation Failed`, `Admission Denied`, and `AUTH Temporarily Unavailable`; `No Denial Disclosure` is the only non-disclosure disposition and is not an AUTH Denial Category.
 
-**REQ-AUTH-DENIAL-MAPPING-001** — Each terminal AUTH Attempt or refusal to begin MUST map to exactly one disclosure disposition using this ordered precedence: `Success` maps to `No Denial Disclosure`; client-requested cancellation before an independent failure or any terminal outcome for which no protected response channel remains maps to `No Denial Disclosure`; otherwise audit-write unavailability or audit-commit failure maps to `AUTH Temporarily Unavailable`; otherwise initial-admission failure, cancellation, or refusal before successful Session Authority Identity validation maps to `Session Authority Validation Failed`; otherwise initial-admission failure, cancellation, or refusal maps to `Admission Denied`; otherwise continuity failure, cancellation, or refusal maps to `Reconnection Denied`; otherwise lifecycle or audit-recovery failure, cancellation, or refusal maps to `No Denial Disclosure`.
+**REQ-AUTH-DENIAL-MAPPING-001** — Each terminal AUTH Attempt or refusal to begin MUST map to exactly one disclosure disposition using this ordered precedence: `Success` maps to `No Denial Disclosure`; client-requested cancellation before an independent failure or any terminal outcome for which no protected response channel remains maps to `No Denial Disclosure`; otherwise audit-write unavailability or audit-commit failure maps to `AUTH Temporarily Unavailable`; otherwise initial-admission failure, cancellation, or refusal before successful Session Authority Identity validation maps to `Session Authority Validation Failed`; otherwise initial-admission failure, cancellation, or refusal maps to `Admission Denied`; otherwise lifecycle or audit-recovery failure, cancellation, or refusal maps to `No Denial Disclosure`.
 
 **REQ-AUTH-DENIAL-MAPPING-002** — The AUTH Operation Inventory MUST classify every terminal AUTH Attempt result and pre-processing refusal under exactly one row of `REQ-AUTH-DENIAL-MAPPING-001`; overlapping, absent, or multiple disclosure dispositions MUST prevent approval of that inventory.
 
@@ -502,7 +493,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-DENIAL-EQUIVALENCE-001** — All failures mapped to one AUTH Denial Category MUST expose the same category and MUST NOT expose a more specific result through another Training Simulation message or state transition; timing-equivalence limits remain a separate NFR input.
 
-**REQ-AUTH-IDENTITY-AUTHORITY-002** — One exact Identity Authority identity and its complete admitted issuer set MUST be declared by the current Identity Validation Package, and evidence from another authority or undeclared issuer MUST be rejected.
+**REQ-AUTH-IDENTITY-AUTHORITY-002** — One exact Identity Authority identity and its complete admitted issuer set MUST be declared by the process-bound Identity Validation Package, and evidence from another authority or undeclared issuer MUST be rejected.
 
 **REQ-AUTHORIZATION-PERMISSION-001** — The initial AUTH Permission set MUST contain exactly `Use Training Simulation`, `Operate Trainee Client`, and `Operate Session Authority`.
 
@@ -514,13 +505,13 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTHORIZATION-RULE-SET-APPLICABILITY-001** — Every Admission Authorization Rule Set row MUST identify exactly one validator role of `Trainee Client` or `Session Authority`: client rows MUST cover Session Authority Identity and `Operate Session Authority`, while authority rows MUST cover Trainee Identity with `Use Training Simulation` and Client Device Identity with `Operate Trainee Client`.
 
-**REQ-AUTHORIZATION-RULE-SET-002** — The exact current Admission Authorization Rule Set version MUST be included in the current Identity Validation Package, reconciled against every AUTH Permission and admission requirement, and approved by the project owner before use.
+**REQ-AUTHORIZATION-RULE-SET-002** — The exact process-bound Admission Authorization Rule Set version MUST be included in the launch-activated Identity Validation Package, reconciled against every AUTH Permission and admission requirement, and approved by the project owner before use.
 
-**REQ-AUTH-OPERATION-INVENTORY-001** — The AUTH Operation Inventory MUST enumerate every initial-admission, continuity, lifecycle, and audit-recovery AUTH Attempt and AUTH Operation class using stable class keys and MUST define exact nesting, validator, presenter, validation purpose, start event, terminal results, supersession event, cancellation propagation, permitted AUTH effect, exact cleanup disposition for every terminal result, and audit classification for each row; an `Audited` row MUST identify its required AUTH Audit Record class and producer, while a `Not Audited` row MUST NOT identify or produce an AUTH Audit Record.
+**REQ-AUTH-OPERATION-INVENTORY-001** — The AUTH Operation Inventory MUST enumerate every initial-admission, lifecycle, and audit-recovery AUTH Attempt and AUTH Operation class using stable class keys and MUST define exact nesting, validator, presenter, validation purpose, start event, terminal results, supersession event, cancellation propagation, permitted AUTH effect, exact cleanup disposition for every terminal result, and audit classification for each row; an `Audited` row MUST identify its required AUTH Audit Record class and producer, while a `Not Audited` row MUST NOT identify or produce an AUTH Audit Record.
 
 **REQ-AUTH-OPERATION-INVENTORY-002** — At runtime, every AUTH Attempt and AUTH Operation MUST have exactly one unique instance identifier in addition to its stable inventory class key; each AUTH Operation, including audit recovery, MUST belong to exactly one current AUTH Attempt, and each challenge, proof, evidence input, decision, audit record, and AUTH effect MUST identify its exact operation and attempt class keys and instance identifiers.
 
-**REQ-AUTH-OPERATION-INVENTORY-003** — The inventory MUST classify every Admission and Session Continuity Claim creation, replacement, rotation, release, invalidation, and end event as either `Audited` with exact producer and record correlation or `Not Audited` with exact project-owner-approved rationale; an absent or unclassified lifecycle event MUST NOT execute.
+**REQ-AUTH-OPERATION-INVENTORY-003** — The inventory MUST classify every Admission creation and end event, including Technical Removal, as either `Audited` with exact producer and record correlation or `Not Audited` with exact project-owner-approved rationale; an absent or unclassified lifecycle event MUST NOT execute.
 
 **REQ-AUTH-OPERATION-INVENTORY-004** — Before use, the implementation team MUST reconcile the AUTH Operation Inventory against every AUTH producer, consumer, lifecycle transition, challenge, proof, cancellation, retry, concurrency, audit, and denial-category requirement, and the project owner MUST approve its exact version.
 
@@ -528,9 +519,9 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-ATTEMPT-LIFECYCLE-001** — An AUTH Attempt MUST begin at its inventory-defined start event and reach exactly one terminal result of `Success`, `Failure`, or `Cancelled`; after a terminal result it MUST accept no input, produce no new AUTH effect, and become eligible only for the exact audit and cleanup disposition assigned to that result.
 
-**REQ-AUTH-ATTEMPT-SUPERSESSION-001** — Superseding an AUTH Attempt or AUTH Operation MUST atomically assign its inventory-defined terminal result, propagate cancellation to every still-nonterminal nested operation, invalidate their challenges and partial results, perform its inventory-defined audit and cleanup dispositions, and prevent any later access-, privilege-, Admission-, or continuity-granting effect from that superseded scope.
+**REQ-AUTH-ATTEMPT-SUPERSESSION-001** — Superseding an AUTH Attempt or AUTH Operation MUST atomically assign its inventory-defined terminal result, propagate cancellation to every still-nonterminal nested operation, invalidate their challenges and partial results, perform its inventory-defined audit and cleanup dispositions, and prevent any later access-, privilege-, or Admission-granting effect from that superseded scope.
 
-**REQ-AUTH-EXCHANGE-001** — Every initial-admission and continuity AUTH Attempt MUST use one AUTH Protected Exchange bound to the exact AUTH Attempt class key and instance identifier, client endpoint, Session Authority endpoint, Session Authority Identity, Identity Validation Package release and role-manifest versions, and every nested AUTH Operation class key, instance identifier, and validation purpose carried by that exchange.
+**REQ-AUTH-EXCHANGE-001** — Every initial-admission AUTH Attempt MUST use one AUTH Protected Exchange bound to the exact AUTH Attempt class key and instance identifier, client endpoint, Session Authority endpoint, Session Authority Identity, Identity Validation Package release and role-manifest versions, and every nested AUTH Operation class key, instance identifier, and validation purpose carried by that exchange.
 
 **REQ-AUTH-EXCHANGE-002** — The AUTH Protected Exchange MUST protect every AUTH message against unauthorized disclosure, modification, injection, replay, reordering, truncation, and use with another peer, identity, attempt, purpose, or package version.
 
@@ -538,17 +529,17 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-EXCHANGE-004** — After Session Authority validation succeeds, every Trainee Identity and Client Device Identity input and result MUST remain confidential and integrity-protected between that Trainee client and Session Authority and MUST NOT be transmitted to another client.
 
-**REQ-AUTH-EXCHANGE-005** — Loss of exchange protection, peer-identity change, endpoint change, package-release or manifest change, connection loss, cancellation, or transcript-integrity failure before initial Admission commit or continuity composite commit MUST cancel the applicable AUTH Attempt, invalidate every outstanding Authentication Challenge, and prevent reuse of its partial results.
+**REQ-AUTH-EXCHANGE-005** — Loss of exchange protection, peer-identity change, endpoint change, package-release or manifest change, connection loss, cancellation, or transcript-integrity failure before initial Admission commit MUST cancel the applicable AUTH Attempt, invalidate every outstanding Authentication Challenge, and prevent reuse of its partial results.
 
 **REQ-AUTH-EXCHANGE-006** — The Training Simulation MUST NOT fall back to an unprotected exchange, weaker validation rule, different package version, cached decision, or reduced identity population after an AUTH Protected Exchange fails.
 
-**REQ-ADMISSION-PRECONDITION-001** — Admission MUST require successful Session Authority authentication and authorization by the client; exact matching of the client and authority Runtime Content Release and role-pack pair; successful Trainee Identity and Client Device Identity authentication and authorization by the Session Authority; the exact current Identity Validation Package, catalogue, assurance profiles, rule set, evidence validity and revocation results; and persistent commitment of every required AUTH Audit Record and checkpoint.
+**REQ-ADMISSION-PRECONDITION-001** — Admission MUST require successful Session Authority authentication and authorization by the client; exact matching of the client and authority Runtime Content Release and role-pack pair; successful Trainee Identity and Client Device Identity authentication and authorization by the Session Authority; the exact launch-activated Identity Validation Package, catalogue, assurance profiles, rule set, evidence validity and revocation results; and persistent commitment of every required AUTH Audit Record and checkpoint.
 
-**REQ-ADMISSION-ATOMIC-001** — After every admission precondition succeeds, the Session Authority MUST atomically create exactly one stable Admission identifier and bind it to its three Canonical Identity Keys, current client connection, AUTH Attempt class key and instance identifier, package release and role manifests, Identity Evidence Catalogue, Continuity Validation Outcome Catalogue, rule-set, operation-inventory, data-inventory, audit-policy, audit-integrity-profile, and Trusted Identity Time references; no partial Admission MAY be observable.
+**REQ-ADMISSION-ATOMIC-001** — After every admission precondition succeeds, the Session Authority MUST atomically create exactly one stable Admission identifier and bind it to its three Canonical Identity Keys, current client connection, AUTH Attempt class key and instance identifier, package release and role manifests, Identity Evidence Catalogue, rule-set, operation-inventory, data-inventory, audit-policy, audit-integrity-profile, and Trusted Identity Time references; no partial Admission MAY be observable.
 
-**REQ-ADMISSION-IDENTIFIER-001** — An Admission identifier MUST be unique within its Session Authority Identity domain and MUST NOT be reused while any Admission, Session Continuity Claim, Device Continuity Proof input, challenge, decision, AUTH Audit Record, checkpoint, incomplete-commit artifact, or other retained reference bound to it remains valid or retained.
+**REQ-ADMISSION-IDENTIFIER-001** — An Admission identifier MUST be unique within its Session Authority Identity domain and MUST NOT be reused while any Admission, challenge, decision, AUTH Audit Record, checkpoint, incomplete-commit artifact, Session Evidence Set, or other retained reference bound to it remains valid or retained.
 
-**REQ-ADMISSION-FAILURE-001** — A failed, cancelled, interrupted, or incomplete admission attempt MUST create no Admission, Team Position, roster entry, Ready state, Loadout selection, or Session Continuity Claim and MUST release every transient reservation created only for that attempt.
+**REQ-ADMISSION-FAILURE-001** — A failed, cancelled, interrupted, or incomplete admission attempt MUST create no Admission, Team Position, roster entry, Ready state, or Loadout selection and MUST release every transient reservation created only for that attempt.
 
 **REQ-ADMISSION-UNIQUENESS-001** — One Session Authority MUST have at most one current Admission for one Trainee Identity and at most one current Admission for one Client Device Identity.
 
@@ -556,27 +547,21 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **SCOPE-AUTH-CROSS-AUTHORITY-001** — Detecting or preventing simultaneous use of one Trainee Identity or Client Device Identity across different Session Authorities is outside the initial product boundary.
 
-**REQ-ADMISSION-END-001** — An Admission MUST end exactly when its client explicitly leaves, its connection closes during Preparation or initial countdown, its active-simulation reconnection window expires without successful continuity validation, it is disconnected or suspended when recovery terminates, its voluntary departure is accepted, or its Session Authority process stops or restarts.
+**REQ-ADMISSION-END-001** — An Admission MUST end exactly when its client explicitly leaves or its connection is confirmed lost before active simulation, when its Technical Removal commits during active simulation, or when its Session Authority process stops or restarts.
 
 **REQ-ADMISSION-PERSISTENCE-001** — Normal Training Session completion or non-voluntary Training Session termination MUST NOT by itself end a connected client's Admission before the Session Authority completes its terminal result and required settling; the following orderly process stop MUST end every remaining Admission under `REQ-ADMISSION-END-001`.
 
-**REQ-ADMISSION-END-EFFECT-001** — Ending an Admission MUST atomically clear its Ready state, release its Team Position and Loadout selection, invalidate its Session Continuity Claim and outstanding challenges, remove its retained AUTH identity binding from live state, and preserve only the required AUTH Audit Records and non-secret references.
+**REQ-ADMISSION-END-EFFECT-001** — Ending an Admission MUST atomically clear its Ready state, release its Team Position and Loadout selection, invalidate outstanding challenges, remove its retained AUTH identity binding from live state, and preserve only the required AUTH Audit Records, Session Evidence Set references, and non-secret references.
 
-**REQ-ADMISSION-PREPARATION-DISCONNECT-001** — Connection loss during Preparation or initial countdown MUST end that client's Admission immediately, MUST NOT open a reconnection window, and MUST apply ordinary countdown cancellation when a countdown is active.
-
-**REQ-ADMISSION-ACTIVE-CONTINUITY-001** — Connection loss during active simulation or its recovery flow MUST suspend, rather than end, the disconnected client's Admission until successful reconnection restores it or an admission-ending condition occurs.
-
-**REQ-ADMISSION-RECONNECTION-BINDING-001** — Successful composite continuity validation MUST atomically rebind the same stable Admission from its lost connection to exactly one recovered connection, preserve every authenticated identity and admitted artifact binding unchanged, and make the preceding connection binding unusable before State Restoration begins.
-
-**REQ-ADMISSION-RECOVERY-TERMINATION-001** — When a Training Session terminates during recovery because of restoration-window expiry, a further connection loss, or another recovery termination trigger, the Session Authority MUST retain Admissions for clients connected at the terminal transition and MUST atomically end every disconnected or suspended Admission under `REQ-ADMISSION-END-EFFECT-001`.
+**REQ-ADMISSION-PREPARATION-DISCONNECT-001** — Confirmed connection loss or explicit departure during Preparation or initial countdown MUST end that client's Admission immediately and MUST apply ordinary countdown cancellation when a countdown is active.
 
 **REQ-ADMISSION-OPERATOR-CHANGE-001** — Changing the Trainee Identity bound to an Admitted Client MUST require the current Admission to end and a new initial admission with a new Trainee Authentication Act; changing the physical operator without that flow MUST NOT change the retained identity binding.
 
-**REQ-ADMISSION-DEVICE-CHANGE-001** — Changing the Client Device Identity MUST require a new initial admission; another device MUST NOT inherit, transfer, or recover the current Admission, Session Continuity Claim, Team Position, or Device Continuity Proof state.
+**REQ-ADMISSION-DEVICE-CHANGE-001** — Changing the Client Device Identity MUST require a new initial Admission; another device MUST NOT inherit or transfer the current Admission, Team Position, or live state.
 
 **REQ-AUTH-LATE-JOIN-001** — After the client authenticates the Session Authority, an authority with active simulation running MUST reject a new initial admission before requesting or accepting Trainee Identity or Client Device Identity evidence and MUST disclose only `Admission Denied` when the same AUTH Protected Exchange retains a protected response channel; otherwise it MUST apply `No Denial Disclosure` under `REQ-AUTH-DENIAL-MAPPING-001` and `REQ-AUTH-DENIAL-DELIVERY-001`.
 
-**REQ-AUTH-ATTEMPT-CANCEL-001** — Client cancellation or connection loss before initial Admission or continuity composite commit MUST cancel the complete applicable AUTH Attempt, invalidate its challenges and proofs, apply the outcome-specific cleanup rules in `REQ-AUTH-TRANSIENT-DATA-001` through `REQ-AUTH-TRANSIENT-DATA-003`, and require any retry to begin as a new attempt.
+**REQ-AUTH-ATTEMPT-CANCEL-001** — Client cancellation or connection loss before initial Admission commit MUST cancel the complete applicable AUTH Attempt, invalidate its challenges and proofs, apply the outcome-specific cleanup rules in `REQ-AUTH-TRANSIENT-DATA-001` through `REQ-AUTH-TRANSIENT-DATA-003`, and require any retry to begin as a new attempt.
 
 **REQ-AUTH-RETRY-001** — A retry after failure or cancellation MUST use a new AUTH Protected Exchange, new Authentication Challenges, a new Trainee Authentication Act, current evidence and revocation status, and a new audit reservation and MUST NOT reuse a preceding success or partial result.
 
@@ -586,137 +571,75 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-DATA-MINIMIZATION-001** — An AUTH validator MUST request or process externally presented identity, evidence, assertion, status, profile, and proof fields only when required by the exact applicable Identity Evidence Catalogue row and MUST reject an unclassified external field that would influence an AUTH result.
 
-**REQ-AUTH-DATA-INVENTORY-001** — The current Identity Validation Package MUST contain a closed AUTH Data Inventory that assigns every externally provisioned package payload and every internally produced live, transient, audit, attempt, package, policy, Admission, Training Session, Team Position, claim, proof-reference, and integrity-reference field an exact purpose, source or producer, permitted host-role recipient, consumer, persistence class, retention or cleanup event, and governing requirement.
+**REQ-AUTH-DATA-INVENTORY-001** — The Identity Validation Package MUST contain a closed AUTH Data Inventory that assigns every externally provisioned package payload and every internally produced live, transient, audit, attempt, package, policy, Admission, Training Session, Team Position, proof-reference, and integrity-reference field an exact purpose, source or producer, permitted host-role recipient, consumer, persistence class, retention or cleanup event, and governing requirement.
 
 **REQ-AUTH-DATA-INVENTORY-002** — The Training Simulation MUST NOT receive, create, retain, disclose, or use an AUTH package payload or internal field absent from the approved AUTH Data Inventory or on a host role not admitted by its row, and the inventory MUST NOT admit a field without a current requirement and finite purpose and lifetime.
 
-**REQ-AUTH-DATA-INVENTORY-003** — Before use, the implementation team MUST reconcile the AUTH Data Inventory against every current identity, Admission, continuity, audit, lifecycle, cleanup, and disclosure requirement and every role manifest, and the project owner MUST approve its exact version.
+**REQ-AUTH-DATA-INVENTORY-003** — Before use, the implementation team MUST reconcile the AUTH Data Inventory against every current identity, Admission, audit, lifecycle, cleanup, and disclosure requirement and every role manifest, and the project owner MUST approve its exact version.
 
-**REQ-AUTH-TRANSIENT-DATA-001** — In the exact terminal transition of a successful initial-admission attempt, each host MUST clear every transient field after the required AUTH Audit Commit Units and live non-secret binding commit; after successful continuity, it MUST clear them after the required audit commits and atomic Admission rebind; after a successful lifecycle or audit-recovery attempt, it MUST clear them after the required audit commits and permitted effect commit, with an inventory row that uses no transient fields explicitly declaring that disposition; in any failed or cancelled attempt, it MUST clear them after the required failure or cancellation audit commit without requiring a live binding.
+**REQ-AUTH-TRANSIENT-DATA-001** — In the exact terminal transition of a successful initial-admission attempt, each host MUST clear every transient field after the required AUTH Audit Commit Units and live non-secret binding commit; after a successful lifecycle or audit-recovery attempt, it MUST clear them after the required audit commits and permitted effect commit, with an inventory row that uses no transient fields explicitly declaring that disposition; in any failed or cancelled attempt, it MUST clear them after the required failure or cancellation audit commit without requiring a live binding.
 
 **REQ-AUTH-TRANSIENT-DATA-002** — If audit commit fails, each host MUST clear all evidence, proofs, challenges, exchange material, and other transient inputs at the inventory-defined failed-commit recovery boundary; only incomplete-commit metadata explicitly required by the AUTH Audit Integrity Profile MAY remain until recovery.
 
 **REQ-AUTH-TRANSIENT-DATA-003** — After terminal cleanup, only the exact live, audit, or incomplete-commit fields enumerated by the AUTH Data Inventory for that outcome MAY remain; every undeclared transient field MUST be absent before another AUTH Attempt begins.
 
-**REQ-AUTH-CLAIM-CONFIDENTIALITY-001** — A Session Continuity Claim value and the private state used to produce Device Continuity Proof MUST be accessible only to the bound Trainee client and Session Authority and MUST NOT be disclosed to another client, included in gameplay or AAR data, or written to an AUTH Audit Record.
-
-**REQ-AUTH-CLAIM-PROTECTION-001** — Stored Session Continuity Claim and device-continuity state MUST detect unauthorized modification before use, MUST remain bound to the exact Client Device Identity authenticator and claim scope, and MUST NOT be usable from another Client Device Identity.
-
-**REQ-AUTH-CLAIM-RESTART-001** — After client-process termination or restart during a reconnection window, the same admitted computer MUST recover the current protected claim and every device-continuity state item required to produce Device Continuity Proof, solely for the automatic reconnection flow defined by the `REQ-RECONNECT-*` requirements.
-
-**REQ-AUTH-CLAIM-CLEANUP-001** — When a Session Continuity Claim becomes invalid, the Session Authority MUST immediately reject it and make its authoritative value unusable; a disconnected, stopped, or offline client that can determine invalidation locally MUST erase or make its local value unusable at its earliest later execution and before presentation, while a client that cannot know an authority-only invalidation MAY recover the protected value only for one ordinary AUTH Protected Exchange continuity attempt and MUST erase or disable it at its earliest observation or later execution after any terminal non-success occurring after its presentation, without receiving a claim-specific status or reason.
-
 **SCOPE-AUTH-CREDENTIAL-RECOVERY-001** — Issuance, replacement, recovery, reset, or administrative unlocking of an identity or authenticator is owned by the Identity Authority and MUST NOT be performed by the Training Simulation.
 
 **REQ-SESSION-ACCESS-002** — Initial admission MUST satisfy every applicable `REQ-AUTH-*`, `REQ-AUTHORITY-*`, `REQ-AUTHORIZATION-*`, and `REQ-ADMISSION-*` requirement but MUST NOT require a persistent user account managed by the Training Simulation.
 
-**REQ-LATE-JOIN-001** — A new Trainee MUST NOT join after active simulation begins.
+**REQ-LATE-JOIN-001** — A new Trainee MUST NOT join after active simulation begins, including after Technical Removal.
 
-**REQ-RECONNECT-IDENTITY-001** — During a reconnection window, only a client presenting both the currently valid Session Continuity Claim established or rotated for the same Training Session and reserved Team Position and valid Device Continuity Proof for the Client Device Identity bound at initial admission MAY reclaim that Team Position.
+## Disconnection and Technical Removal
 
-**REQ-RECONNECT-IDENTITY-002** — The Session Continuity Claim MUST establish continuity with the original stable Admission identifier and reserved Team Position but MUST NOT by itself assert the Trainee Identity or Client Device Identity; Device Continuity Proof MUST establish only continuity with the initially bound Client Device Identity and MUST NOT assert the current human operator.
+**REQ-SESSION-DISCONNECT-001** — Protocol & Replication MUST report a Trainee connection as lost only after applying the exact connection-loss detection rule and bound in the current Runtime Timing Profile.
 
-**REQ-RECONNECT-IDENTITY-003** — Establishing and presenting the Session Continuity Claim and Device Continuity Proof MUST occur automatically without a new Trainee Authentication Act, account, password, access code, or manual credential entry by the Trainee.
+**REQ-SESSION-DISCONNECT-002** — A confirmed technical disconnection MUST NOT be represented as Fatal, injury, incapacity, casualty, voluntary tactical action, or task error.
 
-**REQ-RECONNECT-IDENTITY-004** — A client missing either the valid Session Continuity Claim or the valid Device Continuity Proof MUST NOT reclaim the reserved Team Position.
+**REQ-TECHNICAL-REMOVAL-001** — If a Trainee connection is lost while active simulation is running, the Session Authority MUST execute exactly one irreversible Technical Removal for that Trainee and MUST continue the Training Session with the remaining Trainees.
 
-**REQ-RECONNECT-DEVICE-CONTINUITY-001** — Device Continuity Proof MUST be bound to the exact Client Device Identity, stable Admission identifier, Training Session, and Team Position associated when the current Session Continuity Claim was established or rotated.
+**REQ-TECHNICAL-REMOVAL-002** — Technical Removal MUST atomically end the Trainee's Admission; clear Ready; release the Team Position and Loadout; remove the Trainee from participation, collision, communication, action and presentation; and assign `Withdrawn` to every physical item associated with that Trainee before any later Canonical Tick or externally visible state.
 
-**REQ-RECONNECT-DEVICE-CONTINUITY-002** — Validating Device Continuity Proof during reconnection MUST NOT repeat evidence-validity, authorization, or Offline Revocation Status evaluation for the Client Device Identity.
+**REQ-TECHNICAL-REMOVAL-003** — Technical Removal MUST record cause `Disconnected`, the removed Admission and Team Position, the exact last preceding canonical state version, and the resulting canonical state version in the deterministic reconstruction record and Session Evidence Set without disclosing authenticated identity to other Trainee clients.
 
-**REQ-RECONNECT-TRUST-001** — A valid Session Continuity Claim and valid Device Continuity Proof MUST be sufficient AUTH evidence for reconnection and the Session Authority MUST NOT require a new Trainee Authentication Act or another proof of the current human operator.
+**REQ-TECHNICAL-REMOVAL-004** — Technical Removal of one Trainee MUST NOT pause simulated time, create a client-recovery state, restore the removed Admission, or by itself terminate the Training Session.
 
-**REQ-RECONNECT-CONTINUITY-OUTCOME-001** — Before use, the project owner MUST approve a closed Continuity Validation Outcome Catalogue covering every combination of claim validation, Device Continuity Proof validation, required audit-commit result, loss of exchange protection, peer-identity change, endpoint change, package-release or manifest change, transcript-integrity failure, attempt cancellation, connection loss, supersession, and reconnection-deadline ordering, with exactly one terminal attempt result and lifecycle disposition per row.
+**REQ-TECHNICAL-REMOVAL-005** — Every Scenario MUST define the result when a Team has no participating Trainee after Technical Removal; the Reference Personnel Recovery Scenario MUST assign defeat to that Team.
 
-**REQ-RECONNECT-CONTINUITY-SUCCESS-001** — Exactly one catalogue row MAY produce continuity success: both the current Session Continuity Claim and Device Continuity Proof validate in the same AUTH Attempt strictly before deadline and every required AUTH Audit Commit Unit succeeds; no individual validation result alone MAY change Admission, claim, Team Position, connection binding, or recovery lifecycle state.
-
-**REQ-RECONNECT-CONTINUITY-FAILURE-001** — Every other terminal catalogue row MUST produce no Admission rebind, claim rotation, Team Position reclaim, successful-window closure, restoration start, or other recovery lifecycle effect; it MUST invalidate the attempt's challenges and transient proofs while leaving the current authoritative claim unchanged unless an independent claim-invalidating event has occurred.
-
-**REQ-RECONNECT-CONTINUITY-RETRY-001** — After a failed or cancelled continuity attempt and before the reconnection deadline, a retry MAY begin only as a new AUTH Attempt with new challenges and audit reservations; it MAY present the still-current claim only when the preceding attempt terminated before that claim was presented and MUST NOT reuse a preceding proof or partial validation result.
-
-**REQ-RECONNECT-CLAIM-CREATION-001** — When an admitted client receives a Team Position, the Training Simulation MUST establish a valid Session Continuity Claim for that client, Training Session, and Team Position automatically within the same canonical state transition.
-
-**REQ-RECONNECT-CLAIM-REPLACEMENT-001** — When a permitted preparation-time Team Position change is accepted, the Training Simulation MUST invalidate the preceding claim and establish its replacement for the new Team Position within that same canonical state transition.
-
-**REQ-RECONNECT-CLAIM-ROTATION-001** — Only when composite continuity succeeds under `REQ-RECONNECT-CONTINUITY-SUCCESS-001`, the Session Authority MUST invalidate the accepted claim and establish a new valid claim for the retained Training Session and Team Position within the same canonical transition as Admission rebinding and successful-window closure.
-
-**REQ-RECONNECT-CLAIM-RELEASE-001** — Releasing a Team Position MUST invalidate its claim and MUST leave the client without a valid Session Continuity Claim until another Team Position is assigned.
-
-**REQ-RECONNECT-CLAIM-SCOPE-001** — A Session Continuity Claim MUST be valid only for the exact Training Session and Team Position for which it was established.
-
-**REQ-RECONNECT-CLAIM-RESTART-001** — The Trainee client MUST make the valid Session Continuity Claim available automatically for reconnection after the client process terminates or restarts during the reconnection window, without manual credential entry.
-
-**REQ-RECONNECT-DEVICE-RESTART-001** — The Trainee client on the same admitted computer MUST make every protected device-continuity state item needed to produce Device Continuity Proof available automatically after client-process termination or restart during the reconnection window, without manual credential entry.
-
-**REQ-RECONNECT-CLAIM-INVALIDATION-001** — A Session Continuity Claim MUST become invalid when composite continuity succeeds and rotates it, its reconnection window expires, its Team Position is released or changed, or its Training Session completes or terminates.
-
-**REQ-RECONNECT-CLAIM-INVALIDATION-002** — The Session Authority MUST reject a Session Continuity Claim after any invalidating event stated by `REQ-RECONNECT-CLAIM-INVALIDATION-001`.
-
-**REQ-RECONNECT-ROSTER-001** — Reconnection MUST restore the existing Team Position and MUST NOT create a new roster entry.
-
-## Disconnect, Technical Pause, and resume
-
-**REQ-SESSION-DISCONNECT-001** — If a Trainee connection is lost while active simulation is running, the system MUST enter a Technical Pause for all remaining Trainees; a later loss before active simulation resumes is governed only by `REQ-SESSION-CONCURRENT-DISCONNECT-001`.
-
-**REQ-SESSION-DISCONNECT-002** — A technical disconnection MUST NOT be represented as an in-Scenario casualty, elimination, or voluntary departure.
-
-**REQ-TECHNICAL-PAUSE-001** — During a Technical Pause, simulation time, movement, physics, Ballistic Projectiles, damage, Scenario timers, and time-dependent effects MUST NOT advance.
-
-**REQ-TECHNICAL-PAUSE-002** — Gameplay input during a Technical Pause MUST NOT change simulated state.
-
-**REQ-TECHNICAL-PAUSE-003** — Every connected Trainee MUST be informed that the Training Session is paused and which Trainee is disconnected.
-
-**REQ-SESSION-RECONNECT-001** — When the Session Authority detects the loss of a Trainee connection and enters Technical Pause, it MUST start a 30-second reconnection window on the Operational Clock at that state transition.
-
-**REQ-SESSION-RECONNECT-002** — If composite continuity succeeds strictly before the reconnection window expires, the Session Authority MUST atomically close that window as successful, rebind the Admission, retain the Team Position for State Restoration, rotate the claim, and start the restoration window; every other outcome is governed by the Continuity Validation Outcome Catalogue.
-
-**REQ-SESSION-RECONNECT-003** — If composite continuity has not succeeded when the reconnection window expires, the active Training Session MUST terminate for all Trainees and the disconnected client's Admission MUST end, including when the claim and Device Continuity Proof validated individually but a later audit, cancellation, connection, supersession, exchange, or ordering outcome prevented composite success.
-
-**REQ-SESSION-RECONNECT-004** — Termination caused by reconnection-window expiry, restoration-window expiry, an additional Trainee disconnection during recovery, or loss of `Ready` during the resume countdown MUST clear every `Ready` state and begin terminal settlement without returning any client to Preparation.
-
-**REQ-SESSION-RESTORE-DEADLINE-001** — When composite continuity succeeds, the Session Authority MUST start a 30-second restoration window on the Operational Clock in the same canonical transition specified by `REQ-SESSION-RECONNECT-002`.
-
-**REQ-STATE-RESTORATION-001** — During the restoration window, the reconnected client MUST satisfy every applicable item in the approved State Restoration Coverage Catalogue for the current paused canonical state and selected access mode.
-
-**REQ-STATE-RESTORATION-002** — The Session Authority MUST declare State Restoration complete only after implementation-defined evidence bound to the current Training Session, Technical Pause, and paused canonical state establishes that the reconnected client satisfies every applicable catalogue item.
-
-**REQ-STATE-RESTORATION-003** — Missing, incomplete, premature, stale, cross-session, cross-pause, or cross-state evidence MUST NOT complete State Restoration.
-
-**REQ-SESSION-RESUME-001** — Before the restoration window expires, the reconnected client MUST complete State Restoration and the Trainee MUST explicitly re-enter `Ready`.
-
-**REQ-SESSION-RESTORE-DEADLINE-002** — If state restoration is incomplete or the reconnected Trainee is not `Ready` when the restoration window expires, the active Training Session MUST terminate for all Trainees.
-
-**REQ-SESSION-RESTORE-DEADLINE-003** — If state restoration is complete and the reconnected Trainee enters `Ready` before expiry, the Session Authority MUST close the restoration window as successful.
-
-**REQ-SESSION-CONCURRENT-DISCONNECT-001** — If any further Trainee connection loss occurs after the state transition specified by `REQ-SESSION-RECONNECT-001` starts the reconnection window and before active simulation resumes, including another loss by the client being recovered, the active Training Session MUST terminate immediately without opening or restarting either a reconnection window or a restoration window.
-
-**REQ-SESSION-SEQUENTIAL-RECOVERY-001** — After active simulation has resumed successfully, a later Trainee disconnection MUST begin a new recovery cycle under the same reconnection, State Restoration, `Ready`, countdown, and termination requirements.
-
-**REQ-SESSION-RESUME-002** — The system MUST start a shared five-second resume countdown measured by the Operational Clock only when the restoration window has closed successfully, the required roster is restored, and every Trainee is `Ready`.
-
-**REQ-SESSION-RESUME-003** — Active simulation MUST resume only when the five-second resume countdown completes while the restoration window remains successfully closed, the required roster remains restored, and every Trainee remains `Ready`.
-
-**REQ-SESSION-RESUME-GATE-001** — While recovery remains nonterminal and any condition stated by `REQ-SESSION-RESUME-002` is false, the Training Session MUST remain in Technical Pause and MUST NOT have an active resume countdown; a termination trigger MUST instead perform its required termination and begin terminal settlement.
-
-**REQ-SESSION-RESUME-READY-LOSS-001** — If any Trainee loses `Ready` after the resume countdown starts and before active simulation resumes, the active Training Session MUST terminate immediately without starting another recovery or resume countdown.
+**REQ-TECHNICAL-REMOVAL-006** — After Technical Removal, the removed Trainee MUST NOT rejoin that Training Session; another client process or connection MUST require a new initial Admission and MAY join only before active simulation begins.
 
 ## Voluntary departure and process completion
 
 **REQ-VOLUNTARY-LEAVE-001** — A Trainee MUST be able to leave an active Training Session explicitly.
 
-**REQ-VOLUNTARY-LEAVE-002** — Explicit departure MUST terminate the Training Session immediately without a reconnection window.
+**REQ-VOLUNTARY-LEAVE-002** — Explicit departure during active simulation MUST produce the same atomic Technical Removal and `Disconnected` cause as confirmed connection loss and MUST NOT by itself terminate the Training Session.
 
-**REQ-VOLUNTARY-LEAVE-003** — Termination by voluntary departure MUST NOT record normal Scenario completion and MUST begin the same terminal settling and orderly Session Authority shutdown required for every terminated Training Session.
+**REQ-VOLUNTARY-LEAVE-003** — Explicit departure MUST NOT be represented as Fatal, injury, incapacity, casualty, or task error; any resulting last-participant Scenario outcome MUST follow `REQ-TECHNICAL-REMOVAL-005`.
 
 **REQ-AUTHORITY-SINGLE-SESSION-001** — One Session Authority process MUST be bound at launch to exactly one Scenario and MUST own exactly one Training Session over its complete process lifetime.
 
-**REQ-AUTHORITY-TERMINAL-SETTLEMENT-001** — After normal completion or termination, the Session Authority MUST fix and publish the terminal result and required reconstruction evidence, end every Admission, complete required AUTH audit and bounded Observability settling, and accept no second Training Session.
+**REQ-AUTHORITY-TERMINAL-SETTLEMENT-001** — After normal completion or termination, the Session Authority MUST fix the terminal result, close every Admission, finalize the Session Evidence Set, complete its required durable handoff, settle required AUTH audit and bounded Observability work, and accept no second Training Session.
 
 **REQ-AUTHORITY-TERMINAL-SHUTDOWN-001** — After the terminal settlement succeeds or reaches its applicable terminal failure, the Session Authority process MUST release its resources and terminate with the applicable process result.
 
+**REQ-SESSION-EVIDENCE-001** — Simulation and Session Lifecycle MUST create one immutable deterministic reconstruction record with every canonical or lifecycle commit they own, and a committed result without its complete reconstruction record MUST NOT become externally visible.
+
+**REQ-SESSION-EVIDENCE-002** — Reconstruction-record persistence and export MUST execute asynchronously outside Canonical Tick, Prediction, Presentation, transport-publication, and Observability barriers; inability to preserve the reserved record before commit MUST prevent visibility and terminate the Training Session as a canonical-path integrity failure rather than wait for storage.
+
+**REQ-SESSION-EVIDENCE-003** — One immutable Session Evidence Set MUST bind the exact Training Session, Scenario, Runtime Content Release, build, configuration, ordered Canonical Tick and lifecycle record ranges, terminal result, provenance, and either complete coverage or every explicit loss and authority-loss boundary under one verifiable identity.
+
+**REQ-SESSION-EVIDENCE-004** — A clean Session Authority exit MUST require a durable verifiable handoff receipt for the final Session Evidence Set manifest and terminal result; failure to obtain it within the admitted terminal-settling bound MUST produce a non-clean process result without restoring or extending the Training Session.
+
+**REQ-SESSION-EVIDENCE-005** — Every Session Evidence Set candidate and export MUST use a stable identity, non-visible preparation, atomic commit, and idempotent retry; startup or administrative recovery MUST classify each retained artifact as committed, incomplete, or corrupt and MUST NOT infer success from an absent or ambiguous commit point.
+
+**REQ-SESSION-EVIDENCE-006** — A Session Evidence Set and its exact runtime, content, profile, interpretation, and replay dependencies MUST remain immutable and retained indefinitely; this baseline authorizes no deletion, overwrite, or use as persisted live-session state.
+
+**REQ-SESSION-EVIDENCE-TRUST-001** — Trust used to validate a Session Evidence Set destination and durable handoff receipt MUST be provisioned independently of that set, destination response, Runtime Content Release, Identity Validation Package, and Identity Authority and MUST grant no authority to sign or validate those other domains.
+
+**REQ-SESSION-EVIDENCE-CONFIDENTIALITY-001** — Before process launch, the project owner MUST approve one exact closed recipient-and-field matrix for Session Evidence Set creation, handoff, retention, and retrieval; every operation MUST authenticate its destination or requester, disclose only the fields authorized for that recipient role, protect confidentiality and integrity, and reject an unauthorized recipient without disclosing record contents or existence. A Session Evidence Set MUST contain no credential, authentication evidence, Trainee Identity, or identity-bound performance field.
+
 **REQ-CLIENT-SINGLE-SESSION-001** — One Trainee client process MUST be bound to exactly one Client Pack and one Training Session; participation in another Training Session or Scenario MUST require a new process.
 
-**REQ-SESSION-FRESH-START-001** — Every new Training Session MUST execute in a new Session Authority process and begin from the initial state defined by its exact Scenario without canonical, Admission, Ready, Team Position, Loadout, claim, or simulated state from a preceding Training Session.
+**REQ-SESSION-FRESH-START-001** — Every new Training Session MUST execute in a new Session Authority process and begin from the initial state defined by its exact Scenario without canonical, Admission, Ready, Team Position, Loadout, or simulated state from a preceding Training Session.
 
 **REQ-SESSION-TERMINATION-STATE-001** — No live canonical or client state from a completed or terminated Training Session MAY become input to another Training Session.
 
@@ -734,7 +657,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SESSION-TIMER-001** — Active simulation MUST end when the configured duration expires.
 
-**REQ-SESSION-TIMER-002** — Initial countdowns, resume countdowns, and Technical Pauses MUST NOT consume active-simulation duration.
+**REQ-SESSION-TIMER-002** — Initial countdowns MUST NOT consume active-simulation duration.
 
 **REQ-SESSION-END-001** — A Training Session MUST end normally when its first objective completion condition occurs or its duration expires.
 
@@ -742,11 +665,11 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SCENARIO-END-PRECEDENCE-002** — Before ending the Training Session, the Session Authority MUST apply the Scenario-defined resolution to all completion conditions and duration expiry accepted in that canonical transition and MUST record the resulting normal-completion result.
 
-**REQ-SESSION-END-002** — Voluntary departure and technical termination MUST NOT be classified as normal Scenario completion.
+**REQ-SESSION-END-002** — Technical process termination MUST NOT be classified as normal Scenario completion; a last-participant Technical Removal uses the Scenario-defined result and classification required by `REQ-TECHNICAL-REMOVAL-005`.
 
 ## Scenario selection and hosting
 
-**REQ-SERVER-SESSION-001** — A Session Authority process MUST contain exactly one Training Session over its lifetime, including Preparation, initial countdown, active simulation, Technical Pause, resume countdown, completion processing, terminal settling, and shutdown.
+**REQ-SERVER-SESSION-001** — A Session Authority process MUST contain exactly one Training Session over its lifetime, including Preparation, initial countdown, active simulation, completion processing, terminal settling, and shutdown.
 
 **REQ-AUTHORITY-SCENARIO-BINDING-001** — The immutable launch configuration MUST identify exactly one Authority Pack whose signed Runtime Content Release selects exactly one Scenario before the Session Authority process begins content validation.
 
@@ -786,7 +709,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **CONSTRAINT-DIEGETIC-002** — Active simulation MUST NOT display a crosshair, state bars, ammunition counters, hit markers, objective markers, minimap, floating names, threat indicators, or gameplay messages.
 
-**REQ-OPERATIONAL-UI-001** — Non-diegetic interface MAY be used during connection, preparation, Team selection, `Ready`, countdowns, and Technical Pauses.
+**REQ-OPERATIONAL-UI-001** — Non-diegetic interface MAY be used during connection, preparation, Team selection, `Ready`, and initial countdowns.
 
 **REQ-OPERATIONAL-UI-002** — Non-diegetic operational interface MUST NOT remain visible after active simulation starts or resumes.
 
@@ -868,7 +791,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 ## Session Authority and canonical state
 
-**REQ-AUTHORITY-001** — Each non-completed and non-terminated Training Session MUST have exactly one Session Authority throughout Preparation, initial countdown, active simulation, Technical Pause, resume countdown, and completion processing, and that same authority MUST determine canonical simulated state and outcomes.
+**REQ-AUTHORITY-001** — Each non-completed and non-terminated Training Session MUST have exactly one Session Authority throughout Preparation, initial countdown, active simulation, and completion processing, and that same authority MUST determine canonical simulated state and outcomes.
 
 **REQ-CLIENT-TRUST-001** — Trainee clients MUST submit inputs and intentions but MUST NOT determine authoritative positions, impacts, injury, Scenario progression, or results.
 
@@ -1040,7 +963,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-FATIGUE-EFFECT-INVENTORY-001** — Every enabled Fatigue effect MUST define its affected requirement or Action Inventory entries, exact input domain, outcome rule, bounds, tolerances, and feedback; no unenumerated effect is permitted.
 
-**REQ-FATIGUE-EVOLUTION-001** — Fatigue accumulation and recovery MUST be calculated from the Fatigue Profile using Session Authority simulated elapsed time, which MUST NOT advance during Technical Pause.
+**REQ-FATIGUE-EVOLUTION-001** — Fatigue accumulation and recovery MUST be calculated from the Fatigue Profile using Session Authority simulated elapsed time.
 
 **REQ-FATIGUE-LOAD-001** — Fatigue evolution MUST account for the Trainee's Carried Load wherever the admitted Fatigue Profile declares that load applicable.
 
@@ -1054,7 +977,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-STRESS-EFFECT-INVENTORY-001** — The Stress Profile MUST enumerate every permitted Stress Load effect and classify it as `Enabled` or `Disabled` for the candidate baseline; every enabled effect MUST define its affected Action Inventory entries, input domain, exact outcome rule, bounds, tolerances, and feedback, and no unenumerated effect is permitted.
 
-**REQ-STRESS-TIME-001** — Stress Load accumulation and recovery MUST use Session Authority simulated elapsed time, which MUST NOT advance during Technical Pause.
+**REQ-STRESS-TIME-001** — Stress Load accumulation and recovery MUST use Session Authority simulated elapsed time.
 
 **REQ-STRESS-STIMULUS-001** — Stress Load MUST respond to every applicable stressor according to the exact admitted Stress Profile and MUST NOT respond to an input absent from its closed stressor inventory.
 
@@ -2108,7 +2031,7 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 - **NON-GOAL-AUTH-RISK-ENGINE-001** — Adaptive, behavioral, location-based, reputation-based, or risk-scored authentication and authorization.
 - **NON-GOAL-AUTH-CROSS-AUTHORITY-SESSION-001** — Detection or prevention of concurrent use of one identity across different Session Authorities.
 - **NON-GOAL-MEDICAL-001** — First aid, stabilization, treatment, or medical recovery.
-- **NON-GOAL-SESSION-SAVE-001** — Durable save or checkpoint of active simulation state, or resumption from persisted simulation state outside the defined in-memory live Technical Pause, Session Continuity Claim, reconnection, restoration, and resume windows.
+- **NON-GOAL-SESSION-SAVE-001** — Durable save or checkpoint of active simulation state, resumption from persisted simulation state, or restoration of an Admission after client or Session Authority process loss; retained Session Evidence Sets are replay evidence and never live-session input.
 - **NON-GOAL-CUSTOM-EDITOR-001** — A custom graphical Map or Scenario editor.
 - **NON-GOAL-CONTENT-DOWNLOAD-001** — Distribution, download, patching, or streaming of content from Session Authority to clients.
 - **NON-GOAL-CONTENT-MIGRATION-001** — Content migration and backward or forward compatibility.
