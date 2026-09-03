@@ -4,6 +4,8 @@ Status: Accepted
 
 Amendment: ADR-0008 replaces client recovery and defines retained-evidence seams.
 
+Amendment: ADR-0009 makes production AUTH durability and recovery future-baseline obligations while retaining their seams and failure invariants.
+
 ## Context
 
 ADR-0004 assigns canonical responsibility and ADR-0005 defines the fixed-step

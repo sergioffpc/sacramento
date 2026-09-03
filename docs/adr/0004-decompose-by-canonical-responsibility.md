@@ -4,6 +4,8 @@ Status: Accepted
 
 Amendment: ADR-0008 adds the Trainee Performance Assessment Module and retained-evidence seams.
 
+Amendment: ADR-0009 preserves the `AUTH & Admission` interface while moving its production-security adapters to the future Production Security Baseline.
+
 Sacramento is decomposed into deep modules that own canonical product
 responsibilities, not into process layers or public wrappers around selected
 vendors. Process-specific runtimes compose those modules and coordinate
@@ -27,6 +29,7 @@ owned.
 | `Trainee Performance Assessment Module` | Identity-bound performance events, metrics, Training Feedback, Formal Assessments, Leaderboards, access decisions, corrections, and retained history without ownership of canonical Simulation state. |
 | `Prediction` | Non-authoritative client state derived from confirmed replication updates and local intentions, always replaceable by authoritative correction. |
 | `Presentation` | Trainee-facing visual and acoustic presentation and interaction, consuming Prediction rather than wire or vendor structures. |
+| `Input & Interaction` | Raw platform-device input, access-mode interpretation, and construction of client-local Intentions without authority over their canonical outcome. |
 
 `Prediction` and `Presentation` are deliberately separate. This permits
 portable non-presenting consumers without making prediction authoritative or
@@ -38,7 +41,7 @@ client state derivation.
 | Runtime | Composed modules |
 | --- | --- |
 | `Session Authority Runtime` | Simulation, Session Lifecycle, AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, and Observability. |
-| `Trainee Client Runtime` | AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, Prediction, Presentation, and Observability. |
+| `Trainee Client Runtime` | AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, Prediction, Presentation, Input & Interaction, and Observability. |
 | `Content Cooker Runtime` | Runtime Package and Observability, with private source-import adapters. |
 | Administrative Tool Runtimes | Offline content, Approved Profile, catalogue, trust-package, and provisioning operations; later data and deployment decisions select the concrete executables. |
 | `Synthetic Client Runtime` | Test-only protocol, deterministic action replay, authoritative-result receipt, and Observability; neither Presentation nor Prediction is mandatory. |
@@ -64,6 +67,7 @@ Content Admission -------------> Runtime Package
 Simulation --------------------> Content Admission
 Prediction --------------------> Protocol & Replication
 Presentation ------------------> Prediction
+Input & Interaction -----------> Protocol & Replication
 
 Behavior-owning modules -------> Observability
 Executable runtimes -----------> modules they compose

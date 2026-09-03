@@ -8,6 +8,8 @@ Purpose: Define the architecture-level trust, persistence, retention, recovery, 
 
 Scope: Live session state, AUTH audit, reconstruction and terminal evidence, Observability, performance assessment, verification evidence, runtime artifacts, and their trust and custody seams; concrete storage, cryptography, orchestration, and deployment topology remain outside this decision.
 
+Amendment: ADR-0009 retains these semantic ownership and trust-domain seams but moves production authentication, authorization, durable AUTH audit, revocation, and operational trust mechanisms to the future Production Security Baseline.
+
 Canonical information owner: Project owner
 
 Intended readers: Architects, designers, implementers, security reviewers, verification authors, operators, Qualified Specialists, and Representative Evaluators.

@@ -6,7 +6,9 @@ Approval: Project owner, 2026-09-01
 
 Baseline identifier: `PERF-BASELINE-001`
 
-Latest approved amendment: Persistent assessment ownership and Technical Removal, project owner, 2026-09-03
+Applicability: Development Baseline; production assessment additionally requires the future Production Security Baseline.
+
+Latest approved amendment: Production-security applicability, project owner, 2026-09-03
 
 Purpose: Define the evidence, results, and boundaries for Training Feedback, Formal Assessment, and Leaderboard outputs about Trainee performance.
 
@@ -31,6 +33,8 @@ The `Trainee Performance Assessment Module` owns identity-bound performance even
 ## Accepted decisions
 
 **PERF-IDENTITY-001** — Every Training Feedback, Formal Assessment, and Leaderboard result MUST identify the authenticated `Trainee Identity` to which it applies. A Training Session-local Call Sign or display pseudonym MUST NOT be the authoritative identity for a result.
+
+**PERF-AUTHENTICITY-001** — Events produced under the permissive development AUTH adapter MAY exercise Training Feedback and assessment interfaces as explicitly unauthenticated test evidence, but MUST NOT create a valid Formal Assessment, Leaderboard result, production assessment record, or authenticated Trainee Identity association. Production assessment requires the future Production Security Baseline.
 
 **PERF-SCOPE-001** — `Formal Assessment` MUST be limited to training qualification and competence decisions within the Training Simulation. It MUST NOT directly determine administrative, employment, promotion, or other personnel decisions. Any such use requires a separate external process with explicit human authority.
 
@@ -90,9 +94,9 @@ The first approved profile is [`ENGAGEMENT-TARGET-001`](training-simulation-perf
 
 **PERF-PROFILE-EFFECT-001** — A new assessment-profile version MUST apply only to Training Sessions started after that version becomes effective. Historical results MUST retain their original profile version and MUST NOT be automatically recalculated under a later version.
 
-**PERF-PRESENTATION-001** — Training Feedback metrics MAY be presented during an active Training Session. A proposed Formal Assessment and the applicable Leaderboard update MUST be consolidated only after the Training Session ends.
+**PERF-PRESENTATION-001** — Training Feedback metrics MAY be presented during an active Training Session. For a Training Session admitted under the Production Security Baseline, a proposed Formal Assessment and the applicable Leaderboard update MUST be consolidated only after the Training Session ends; permissive development AUTH MUST NOT produce those outputs.
 
-**PERF-AVAILABILITY-001** — The proposed Formal Assessment and updated applicable Leaderboard MUST be available no later than five seconds after the Training Session ends, measured under the approved reference hardware and workload profiles.
+**PERF-AVAILABILITY-001** — For a Training Session admitted under the Production Security Baseline, the proposed Formal Assessment and updated applicable Leaderboard MUST be available no later than five seconds after the Training Session ends, measured under the approved reference hardware and workload profiles. This target does not apply to permissive development AUTH because those outputs are prohibited.
 
 The three outputs are independent:
 
@@ -104,6 +108,7 @@ The three outputs are independent:
 
 | Requirement identifiers | Required methods | Required evidence | Evidence owner | Final approver |
 | --- | --- | --- | --- | --- |
+| `PERF-AUTHENTICITY-001` | Automated Test, Inspection | Permissive-mode fixtures proving unauthenticated marking, optional test-only Training Feedback, and absence of Formal Assessment, Leaderboard, production record and authenticated identity association | Implementation team | Project owner |
 | `PERF-IDENTITY-001`, `PERF-SCOPE-001` | Automated Test, Inspection | Identity-bound result records; rejection of Call Sign as authoritative identity; inspection of the training-only decision boundary | Implementation team | Project owner |
 | `PERF-METRICS-001`, `PERF-GRANULARITY-001`, `PERF-METRIC-DEFINITION-001`, `PERF-DATA-VALIDITY-001`, `PERF-EVENTS-001`, `PERF-TIME-001` | Automated Test, Inspection | Versioned metric definitions and deterministic event fixtures covering individual measurements, aggregates, units, rounding, missing evidence, invalid evidence, and cross-machine timing | Implementation team | Project owner |
 | `PERF-COMPARABILITY-001`, `PERF-PERIOD-001`, `PERF-TIE-001`, `PERF-SCORE-001`, `PERF-ELIGIBILITY-001`, `PERF-LEADERBOARD-AGGREGATION-001` | Automated Test, Inspection | Positive and negative comparison-profile cases; bounded and all-time periods; equal-score ordering; fixed score versions; all-session eligibility; best-score selection | Implementation team | Project owner |

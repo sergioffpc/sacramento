@@ -4,6 +4,8 @@ Status: Accepted
 
 Amendment: ADR-0008 supersedes this decision's former client-continuity exception.
 
+Amendment: ADR-0009 defines the external launch, packaging, compatibility, readiness, update, rollback, and supervision contracts deferred by this decision.
+
 Sacramento cooks every exact Scenario version into one immutable Runtime
 Content Release containing an Authority Pack and a Client Pack. The two packs
 are signed, cryptographically bound as one release, selected explicitly at
