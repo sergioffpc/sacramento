@@ -1,35 +1,22 @@
 # Agent Instructions
 
-Status: Active
+Issues: When a task reads, creates, updates, triages, or derives work from an
+issue, follow [Issue Tracker](docs/agents/issue-tracker.md). For triage-state
+changes, also apply [Triage Labels](docs/agents/triage-labels.md).
 
-Purpose: Route repository agents to the authoritative instructions required for
-issue work, triage, and domain changes.
+Project model: Before interpreting or changing product behavior, canonical
+language, requirements, architecture, or verification obligations, follow
+[Domain Documentation](docs/agents/domain.md).
 
-Scope: Every agent operating in this repository.
+Documentation: When adding, removing, renaming, reclassifying, or changing the
+canonical ownership of a retained document, update the
+[Documentation Inventory](docs/project/training-simulation-documentation-inventory.md)
+and run its validator.
 
-Intended readers: Repository agents and their maintainers.
+C++: Before changing first-party C++, CMake, dependencies, toolchains, builds,
+quality gates, or C++ CI, apply the
+[C++ Engineering Baseline](docs/standards/cpp-engineering.md).
 
-Prerequisites: None.
-
-Canonical information owner: Project owner.
-
-## Table of contents
-
-- [Agent skills](#agent-skills)
-
-## Agent skills
-
-### Issue tracker
-
-When creating, reading, triaging, or converting work into issues, use GitHub
-Issues. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-When triaging issues, use the repository's five canonical triage labels. See
-`docs/agents/triage-labels.md`.
-
-### Domain docs
-
-Before exploring or changing domain behavior, use the repository's
-single-context documentation. See `docs/agents/domain.md`.
+Git history: When creating commits, branches, pull requests, integrations, or
+releases, apply the [Conventional Commit Profile](docs/standards/conventional-commits.md)
+and [Git Flow](docs/standards/git-flow.md).

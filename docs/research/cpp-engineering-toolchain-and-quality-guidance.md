@@ -1,27 +1,6 @@
 # C++ Engineering Toolchain and Quality Guidance
 
-Status: Research guidance
-
 Research date: 2026-09-01
-
-Purpose: Recommend a C++ engineering baseline for correctness, portability,
-diagnosability, measured performance, and repeatable builds of the Training
-Simulation and Simulation Engine.
-
-Scope: Language policy, compilers, code conventions, build and dependency
-tooling, tests, benchmarks, fuzzing, analysis, hardening, CI, and reproducibility.
-
-Intended readers: Project owner, architects, implementers, build operators,
-dependency reviewers, and verification authors.
-
-Prerequisites: [Training Simulation context](../../CONTEXT.md),
-[initial requirements](../requirements/training-simulation-initial-requirements.md),
-[non-functional requirements](../requirements/training-simulation-non-functional-requirements.md),
-[reference hardware profiles](../requirements/training-simulation-reference-hardware-profiles.md),
-and [verification plan](../requirements/training-simulation-verification-plan.md).
-
-Canonical information owner: Project owner. This research is not an approved
-architecture, style profile, toolchain profile, or verification baseline.
 
 Decision outcome: This research informed the approved
 [C++ Engineering Baseline](../standards/cpp-engineering.md). Where this note's

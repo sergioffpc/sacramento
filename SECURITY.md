@@ -1,20 +1,5 @@
 # Security Policy
 
-Status: Unapproved placeholder; not a Production Security Baseline
-
-Purpose: Reserve the repository location for a future vulnerability-reporting
-policy without making a current security-support commitment.
-
-Scope: Repository vulnerability-reporting guidance only; product security,
-supported releases, credentials, and operational response remain unspecified.
-
-Intended readers: Project stakeholders and future security-policy authors.
-
-Prerequisites: A future approved Production Security Baseline and release
-policy.
-
-Canonical information owner: Project owner.
-
 This document is a non-authoritative pointer to
 [`DEFERRED-PRODUCTION-SECURITY-001`](docs/requirements/training-simulation-initial-requirements.md#deferred-capabilities)
 in the Development Baseline requirements at the cross-cutting architecture

@@ -1,33 +1,17 @@
 # Triage Labels
 
-Status: Active
-
-Purpose: Map canonical triage roles to the labels used by this repository.
-
-Scope: Classification of GitHub issues during repository triage.
-
-Intended readers: Repository agents, maintainers, and issue triagers.
-
-Prerequisites: [Issue Tracker](issue-tracker.md).
-
-Canonical information owner: Project owner.
-
-## Table of contents
-
-- [Label mapping](#label-mapping)
-- [Usage](#usage)
-
-## Label mapping
+Read the issue and its comments, then apply the one canonical label describing
+its current triage state. Remove any canonical triage label that describes a
+superseded state.
 
 | Canonical role | Repository label | Meaning |
 |---|---|---|
-| `needs-triage` | `needs-triage` | Maintainer must evaluate the issue |
-| `needs-info` | `needs-info` | Waiting for information from the reporter |
-| `ready-for-agent` | `ready-for-agent` | Fully specified and ready for an autonomous agent |
-| `ready-for-human` | `ready-for-human` | Requires human implementation |
-| `wontfix` | `wontfix` | Will not be actioned |
+| `needs-triage` | `needs-triage` | A maintainer has not yet chosen the issue's disposition |
+| `needs-info` | `needs-info` | A named question must be answered before disposition or execution |
+| `ready-for-agent` | `ready-for-agent` | Scope, acceptance conditions, and dependencies permit autonomous execution |
+| `ready-for-human` | `ready-for-human` | Execution requires a named human capability or decision |
+| `wontfix` | `wontfix` | A maintainer has decided that the repository will not action the issue |
 
-## Usage
-
-When a skill refers to a canonical triage role, use the corresponding
-repository label from this table.
+Triage is complete when the fetched issue shows the selected label and its
+comments make any missing information, human dependency, or `wontfix` rationale
+explicit.

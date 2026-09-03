@@ -1,12 +1,14 @@
 # Training Simulation Initial Requirements
 
-Status: Approved Functional Baseline
+Status: Approved Functional Baseline; candidate documentation-control amendment
 
 Baseline: Development Baseline
 
 Approval: Project owner, 2026-08-28
 
 Latest approved amendment: Cross-cutting architecture and verification closure, project owner, 2026-09-03
+
+Candidate amendment: Tiered document control; project-owner approval pending
 
 Canonical language: English
 
@@ -2084,7 +2086,7 @@ Production Security Baseline applies.
 
 **PROCESS-DOCUMENTATION-INVENTORY-002** — The project owner MUST approve the exact reconciled Documentation Inventory version; a missing, stale, uncertain, multiply owned, or unclassified persistent document or canonical information item MUST block documentation acceptance.
 
-**PROCESS-DOCUMENTATION-INVENTORY-003** — Every persistent Markdown document MUST state title, purpose, scope, intended readers, status, prerequisites, and exactly one canonical information owner. A persistent non-Markdown document whose standard or generated format cannot safely embed that control block MUST instead have all seven fields recorded in its Documentation Inventory entry. Every persistent document MUST map each normative information item to one canonical stable identifier and owning document.
+**PROCESS-DOCUMENTATION-INVENTORY-003** — The Documentation Inventory MUST assign every persistent document one control tier: `Controlled` for normative or canonical project information, `Routed` for operational navigation and agent instructions, `Reference` for non-canonical research, or `Generated` for reproducible views. Controlled Markdown MUST embed title, purpose, scope, intended readers, status, prerequisites, and exactly one canonical information owner. The inventory MAY hold fields for other tiers and formats when their compact form remains unambiguous. Every persistent document MUST map each normative information item to one canonical stable identifier and owning document.
 
 **PROCESS-DOCUMENTATION-INVENTORY-004** — A non-canonical document MAY quote canonical information only when the quotation is explicitly marked non-authoritative and links to the exact canonical stable identifier and document version; an unmarked restatement that can independently change normative meaning is prohibited duplication.
 
@@ -2094,7 +2096,7 @@ Production Security Baseline applies.
 
 **CONSTRAINT-DOCUMENTATION-TOC-001** — Every generated Markdown document MUST contain a Table of Contents with links to its principal sections.
 
-**CONSTRAINT-DOCUMENT-CONTROL-001** — Each document MUST state purpose, scope, intended readers, status, and prerequisites.
+**CONSTRAINT-DOCUMENT-CONTROL-001** — Each document MUST expose its purpose, scope, intended readers, status, and prerequisites either in the document or in its exact Documentation Inventory row according to its control tier.
 
 Ambiguity review, verification responsibility, and acceptance are governed by the canonical [Training Simulation Verification Plan](training-simulation-verification-plan.md).
 

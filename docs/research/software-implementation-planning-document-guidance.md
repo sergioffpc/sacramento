@@ -1,17 +1,5 @@
 # Software Implementation Planning Document Guidance
 
-Status: Research guidance
-
-Purpose: Explain how implementation planning can turn approved design into concrete, ordered, verifiable work.
-
-Scope: Entry conditions, work-item content, traceability, readiness, acceptance, anti-patterns, templates, and completion criteria.
-
-Intended readers: Project owner, planning authors, implementers, reviewers, and verification authors.
-
-Prerequisites: Approved requirements, architecture, and applicable design documents.
-
-Canonical information owner: Project owner.
-
 ## Table of contents
 
 - [Purpose](#purpose)

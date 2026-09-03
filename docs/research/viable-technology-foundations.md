@@ -1,33 +1,6 @@
 # Viable Technology Foundations for the Initial Training Simulation
 
-Status: Research guidance
-
 Research date: 2026-09-01
-
-Purpose: Establish the feasible technology-foundation landscape and the
-evidence still needed before selecting the initial Training Simulation
-foundation.
-
-Scope: Project-specific foundations, existing engines, and compositions of
-libraries or middleware for the approved Desktop Mode and Session Authority
-baseline. This report does not select an architecture or approve a dependency.
-
-Intended readers: Project owner, architects, implementers, verification
-authors, and dependency reviewers.
-
-Prerequisites: [Training Simulation context](../../CONTEXT.md),
-[initial requirements](../requirements/training-simulation-initial-requirements.md),
-[non-functional requirements](../requirements/training-simulation-non-functional-requirements.md),
-[reference hardware profiles](../requirements/training-simulation-reference-hardware-profiles.md),
-[observability contract](../requirements/training-simulation-observability-contract.md),
-[verification plan](../requirements/training-simulation-verification-plan.md),
-[C++ engineering baseline](../standards/cpp-engineering.md),
-[ADR-0001](../adr/0001-use-clang-only-for-cpp.md), and
-[ADR-0002](../adr/0002-cross-compile-windows-from-ubuntu-with-clang.md).
-
-Canonical information owner: None. This report records external facts and
-inferences; it is not an approved architecture, dependency inventory, licence
-decision, or toolchain exception.
 
 ## Table of contents
 

@@ -1,17 +1,5 @@
 # Initial Goals, Requirements, and Constraints Document Guidance
 
-Status: Research guidance
-
-Purpose: Explain how to write an initial goals, requirements, and constraints document that can guide architecture.
-
-Scope: Statement types, structure, requirement quality, game-engine considerations, ambiguity review, anti-patterns, and completion criteria.
-
-Intended readers: Project owner, requirements authors, architects, reviewers, and verification authors.
-
-Prerequisites: None.
-
-Canonical information owner: Project owner.
-
 ## Table of contents
 
 - [Purpose](#purpose)

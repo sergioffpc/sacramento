@@ -1,18 +1,5 @@
 # Sacramento
 
-Status: Active repository overview
-
-Purpose: Introduce the repository and route readers to authoritative project
-documents and supported workflows.
-
-Scope: Repository navigation and non-normative project orientation.
-
-Intended readers: Contributors, reviewers, and project stakeholders.
-
-Prerequisites: None.
-
-Canonical information owner: Project owner.
-
 Sacramento is a multiplayer armed-forces training simulation focused on
 realistic team exercises, authoritative simulation, and desktop-first access
 with optional virtual reality.
@@ -32,36 +19,49 @@ production implementation or architecture acceptance evidence.
 
 ## Documentation
 
+Repository agents start with [AGENTS.md](AGENTS.md). The
+[Documentation Inventory](docs/project/training-simulation-documentation-inventory.md)
+identifies the canonical owner, status, and control tier of every retained
+document.
+
+Product model:
+
 - [Domain language](CONTEXT.md)
-- [Documentation Inventory](docs/project/training-simulation-documentation-inventory.md)
-- [NVIDIA-oriented Sacramento foundation](docs/adr/0003-adopt-nvidia-oriented-foundation.md)
-- [Cross-cutting architecture and verification closure](docs/adr/0010-close-cross-cutting-architecture-and-verification.md)
+- [Technical language](docs/glossary/technical.md)
+- [Governance language](docs/glossary/governance.md)
 - [Initial requirements](docs/requirements/training-simulation-initial-requirements.md)
 - [Non-functional requirements](docs/requirements/training-simulation-non-functional-requirements.md)
+- [Verification plan](docs/requirements/training-simulation-verification-plan.md)
+- [Baseline Applicability Inventory](docs/requirements/training-simulation-baseline-applicability.md)
+
+Specialized baseline documents:
+
 - [Reference hardware profiles](docs/requirements/training-simulation-reference-hardware-profiles.md)
 - [Observability contract](docs/requirements/training-simulation-observability-contract.md)
 - [Trainee Performance Assessment requirements](docs/requirements/training-simulation-performance-assessment-requirements.md)
 - [Engagement Target performance profile](docs/requirements/training-simulation-performance-profile-engagement-target-001.md)
-- [Verification plan](docs/requirements/training-simulation-verification-plan.md)
-- [Baseline Applicability Inventory](docs/requirements/training-simulation-baseline-applicability-inventory.csv)
-- [Research guidance](docs/research/initial-goals-requirements-and-constraints-guidance.md)
-- [C++ engineering research](docs/research/cpp-engineering-toolchain-and-quality-guidance.md)
 - [C++ Engineering Baseline](docs/standards/cpp-engineering.md)
 - [Conventional Commit Profile](docs/standards/conventional-commits.md)
 - [Git Flow](docs/standards/git-flow.md)
 
+Architecture work starts with the relevant concise ADR. Each ADR links its
+detailed specification; the [cross-cutting ADR](docs/adr/0010-close-cross-cutting-architecture-and-verification.md)
+links the Architecture Claim register. Files under `docs/research/` are
+historical inputs rather than canonical project decisions.
+
 ## Verification inventory
 
 The verification-assignment CSV is generated from the approved functional
-requirements and their verification plan. Regenerate it with:
+requirements and their verification plan. It is ignored by Git and regenerated
+locally with:
 
 ```sh
 python3 scripts/generate-verification-assignment-inventory.py
 ```
 
-The Baseline Applicability Inventory records reviewed semantic decisions and is
-validated against its frozen authoritative sources and explicit applicability
-policy. Validate it with:
+The normalized Baseline Applicability Inventory keeps global control data in a
+small Markdown record and per-identifier decisions in CSV. Validate the pair
+against its frozen sources and explicit applicability policy with:
 
 ```sh
 sh scripts/validate-baseline-applicability-inventory.sh

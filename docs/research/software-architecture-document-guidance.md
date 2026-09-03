@@ -1,17 +1,5 @@
 # What a Software Architecture Document Should—and Should Not—Contain
 
-Status: Research guidance
-
-Purpose: Explain the intended outcomes, contents, boundaries, and completion criteria of a lean software architecture document.
-
-Scope: General software architecture documentation and game-engine-specific implications, without defining this project's architecture.
-
-Intended readers: Project owner, architects, design authors, reviewers, and implementers.
-
-Prerequisites: None.
-
-Canonical information owner: Project owner.
-
 ## Table of contents
 
 - [Scope](#scope)

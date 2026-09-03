@@ -39,20 +39,9 @@ HEADER = (
     "inventory_version",
     "sequence",
     "source_document",
-    "source_sha256",
     "identifier",
-    "entry_kind",
     "matching_assignment_rows",
-    "applicable_defaults",
-    "required_methods",
-    "supporting_methods",
-    "required_evidence_references",
     "evidence_owners",
-    "final_approvers",
-    "representative_evaluation_applicability",
-    "representative_evaluation_evidence_references",
-    "representative_evaluation_rationale",
-    "obligation_scope",
 )
 
 
@@ -287,20 +276,9 @@ def main() -> None:
             inventory_version,
             position + 1,
             definition_source[identifier],
-            source_hash[definition_source[identifier]],
             identifier,
-            entry_kind,
-            ";".join(row_ids),
-            ";".join(defaults),
-            ";".join(required),
-            ";".join(supporting) if supporting else "None",
             ";".join(row_ids),
             ";".join(owners),
-            ";".join(approvers),
-            applicability,
-            representative_evidence,
-            rationale,
-            scope,
         )
         output_lines.append(
             ",".join(quote_csv_field(value) for value in record)
