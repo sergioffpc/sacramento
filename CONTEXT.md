@@ -136,6 +136,10 @@ _Avoid_: Copied identity record, Authorization Assertion, Call Sign, possession 
 A verifiable statement from the Identity Authority that assigns one or more AUTH Permissions to one identified Trainee Identity, Client Device Identity, or Session Authority Identity.
 _Avoid_: Authentication evidence, local account, Team assignment, Session Continuity Claim
 
+**Authority Pack**:
+The signed, immutable, role-specific half of one Runtime Content Release containing the complete runtime content required by one Session Authority for its exact Scenario and Training Session.
+_Avoid_: Client Pack, source assets, mutable server data
+
 **Autonomous Participant**:
 A future Training Session participant controlled by software rather than a human Trainee and assigned to exactly one controlling client connection under the Autonomous Participant baseline. It is subject to the same represented action, physical, capacity, Team Position, and perceptible-information rules as a Trainee unless an approved future requirement states otherwise.
 _Avoid_: AI Trainee, bot, headless client, Synthetic Trainee Client
@@ -183,6 +187,14 @@ _Avoid_: Initial Loadout, runtime guess, incomplete compatibility table, abstrac
 **Client Device Identity**:
 The identity of the computer operating a Trainee client, distinct from the identity of the human Trainee using it.
 _Avoid_: Trainee Identity, connection, network address, Session Continuity Claim
+
+**Client Pack**:
+The signed, immutable, role-specific half of one Runtime Content Release containing the complete Prediction and Presentation content required by one Trainee client for its exact Scenario and Training Session.
+_Avoid_: Authority Pack, source assets, downloadable content
+
+**Content Signing Trust Reference**:
+An independently provisioned, versioned statement that assigns authorized content-signing keys to the exact pack roles and runtime content contracts they may sign.
+_Avoid_: Pack-contained trust root, unrestricted signing key, runtime version negotiation
 
 **Continuity Validation Outcome Catalogue**:
 The approved, versioned, and closed shared Identity Validation Package artifact assigning one exact terminal result and lifecycle disposition to every combination of Session Continuity Claim, Device Continuity Proof, protected-exchange integrity and binding, audit commit, cancellation, connection, supersession, and deadline outcomes.
@@ -380,6 +392,10 @@ _Avoid_: Informal walk test, overlapping-traffic test, unspecified audibility
 A Training Session state indicating that a Trainee satisfies the complete approved readiness-precondition set and has explicitly declared readiness to begin.
 _Avoid_: Connected, loaded, waiting
 
+**Runtime Content Release**:
+One immutable, signed release for an exact Scenario version, comprising exactly one Authority Pack and one Client Pack under a common identity that binds their roles, runtime content contracts, integrity hashes, dependencies, and processing provenance.
+_Avoid_: Loose asset directory, independently selected packs, live content set
+
 **Recovery Carrier**:
 The Trainee currently transporting the Recovery Proxy during a Personnel Recovery mission.
 _Avoid_: Carrier player, flag carrier
@@ -423,10 +439,6 @@ _Avoid_: Network address, Training Session identity, Session Continuity Claim
 **Session Continuity Claim**:
 Session-local evidence scoped to one Training Session and reserved Team Position that, together with Device Continuity Proof, permits a reconnecting client to reclaim that position without reauthenticating the human Trainee or re-evaluating identity authorization or revocation.
 _Avoid_: User identity, account, login, persistent credential
-
-**Session Reset Catalogue**:
-The approved, versioned, and closed inventory that classifies each canonical state field as reset or eligible for retention when one Training Session transitions to Preparation for another.
-_Avoid_: Implicit reset, live-state guess, save game, checkpoint
 
 **Simulation Engine**:
 The internal software foundation built only to support the Training Simulation's validated needs. It is not an independently reusable or general-purpose product.

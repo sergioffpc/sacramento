@@ -4,13 +4,13 @@ Status: Approved Functional Baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Trainee Performance Assessment boundary, project owner, 2026-09-01
+Latest approved amendment: Runtime Content Release and single-session authority lifecycle, project owner, 2026-09-03
 
 Canonical language: English
 
 Canonical information owner: Project owner
 
-Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision. No AUTH interview question remains open.
+Interview coverage: Accepted answers through Q267 and AUTH-Q31, followed by project-owner authorization to accept every remaining recommended AUTH closure decision, plus the project-owner-confirmed issue #33 architecture grilling. No AUTH or runtime-content interview question remains open.
 
 Priority convention: `MUST` and `MUST NOT` are required for the accepted initial baseline; `SHOULD` records an approved preference; `MAY` records permitted behavior. Deferred capabilities and non-goals are outside that baseline.
 
@@ -44,7 +44,7 @@ Verification plan: [training-simulation-verification-plan.md](training-simulatio
 - [Ready and initial start](#ready-and-initial-start)
 - [Connection and admission](#connection-and-admission)
 - [Disconnect, Technical Pause, and resume](#disconnect-technical-pause-and-resume)
-- [Voluntary departure and repetition](#voluntary-departure-and-repetition)
+- [Voluntary departure and process completion](#voluntary-departure-and-process-completion)
 - [Scenario and Map model](#scenario-and-map-model)
 - [Scenario selection and hosting](#scenario-selection-and-hosting)
 - [Briefing, navigation, and identification](#briefing-navigation-and-identification)
@@ -206,7 +206,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SESSION-ROSTER-001** — Before a Training Session can start, its configuration MUST specify the required number of Trainees for each Team.
 
-**REQ-INITIAL-START-CONDITIONS-001** — The initial Initial Start Condition Set MUST contain exactly: a configured two-Team roster satisfying `REQ-TEAM-001`, `REQ-CAPACITY-002`, and `REQ-CAPACITY-003`; each Team filled to its independently configured required size; every assigned Trainee in `Ready`; exactly one selected Scenario package and its selected Map package loaded by the Session Authority with canonical package identities, current format versions, and verified integrity; and successful validation of `REQ-LOADOUT-001`, `REQ-LOADOUT-CAPACITY-001`, `REQ-SPAWN-001`, `REQ-SPAWN-VALIDATION-001`, `REQ-SCENARIO-MAP-001`, `REQ-SCENARIO-END-001`, and `REQ-SCENARIO-DURATION-001`.
+**REQ-INITIAL-START-CONDITIONS-001** — The initial Initial Start Condition Set MUST contain exactly: a configured two-Team roster satisfying `REQ-TEAM-001`, `REQ-CAPACITY-002`, and `REQ-CAPACITY-003`; each Team filled to its independently configured required size; every assigned Trainee in `Ready`; the Session Authority's exact Authority Pack and immutable Runtime Content Release view loaded with verified identity, signature, role, content contract, pair binding, integrity, and completeness; and successful validation of `REQ-LOADOUT-001`, `REQ-LOADOUT-CAPACITY-001`, `REQ-SPAWN-001`, `REQ-SPAWN-VALIDATION-001`, `REQ-SCENARIO-MAP-001`, `REQ-SCENARIO-END-001`, and `REQ-SCENARIO-DURATION-001`.
 
 **REQ-INITIAL-START-CONDITIONS-002** — The Initial Start Condition Set MUST be versioned and MUST trace every condition to its governing stable identifiers and exact configuration evidence.
 
@@ -222,7 +222,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-READINESS-PRECONDITION-003** — The Trainee MUST have a valid selected Loadout permitted for the assigned Team and available within its configured quantity.
 
-**REQ-READINESS-PRECONDITION-004** — The client MUST have the required Map and Scenario packages installed, MUST confirm their required identifiers, format versions, and integrity against the Session Authority, and MUST complete loading them for the Training Session.
+**REQ-READINESS-PRECONDITION-004** — Before connection, the client MUST validate and completely materialize the exact Client Pack selected for the process; before Admission, it MUST confirm that pack's Runtime Content Release identity, Scenario, role, content contract, pair binding, and integrity against the Session Authority.
 
 **REQ-READINESS-PRECONDITION-005** — The client MUST have the required input, visual-output, and audio-input-and-output devices for the selected access mode available to the Training Simulation.
 
@@ -542,7 +542,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-AUTH-EXCHANGE-006** — The Training Simulation MUST NOT fall back to an unprotected exchange, weaker validation rule, different package version, cached decision, or reduced identity population after an AUTH Protected Exchange fails.
 
-**REQ-ADMISSION-PRECONDITION-001** — Admission MUST require successful Session Authority authentication and authorization by the client; successful Trainee Identity and Client Device Identity authentication and authorization by the Session Authority; the exact current package, catalogue, assurance profiles, rule set, evidence validity and revocation results; and persistent commitment of every required AUTH Audit Record and checkpoint.
+**REQ-ADMISSION-PRECONDITION-001** — Admission MUST require successful Session Authority authentication and authorization by the client; exact matching of the client and authority Runtime Content Release and role-pack pair; successful Trainee Identity and Client Device Identity authentication and authorization by the Session Authority; the exact current Identity Validation Package, catalogue, assurance profiles, rule set, evidence validity and revocation results; and persistent commitment of every required AUTH Audit Record and checkpoint.
 
 **REQ-ADMISSION-ATOMIC-001** — After every admission precondition succeeds, the Session Authority MUST atomically create exactly one stable Admission identifier and bind it to its three Canonical Identity Keys, current client connection, AUTH Attempt class key and instance identifier, package release and role manifests, Identity Evidence Catalogue, Continuity Validation Outcome Catalogue, rule-set, operation-inventory, data-inventory, audit-policy, audit-integrity-profile, and Trusted Identity Time references; no partial Admission MAY be observable.
 
@@ -558,7 +558,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-ADMISSION-END-001** — An Admission MUST end exactly when its client explicitly leaves, its connection closes during Preparation or initial countdown, its active-simulation reconnection window expires without successful continuity validation, it is disconnected or suspended when recovery terminates, its voluntary departure is accepted, or its Session Authority process stops or restarts.
 
-**REQ-ADMISSION-PERSISTENCE-001** — Normal Training Session completion, non-voluntary Training Session termination affecting a still-connected client, return to Preparation, selection of another Scenario, or repetition of a Training Session MUST NOT end that connected client's Admission.
+**REQ-ADMISSION-PERSISTENCE-001** — Normal Training Session completion or non-voluntary Training Session termination MUST NOT by itself end a connected client's Admission before the Session Authority completes its terminal result and required settling; the following orderly process stop MUST end every remaining Admission under `REQ-ADMISSION-END-001`.
 
 **REQ-ADMISSION-END-EFFECT-001** — Ending an Admission MUST atomically clear its Ready state, release its Team Position and Loadout selection, invalidate its Session Continuity Claim and outstanding challenges, remove its retained AUTH identity binding from live state, and preserve only the required AUTH Audit Records and non-secret references.
 
@@ -672,7 +672,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SESSION-RECONNECT-003** — If composite continuity has not succeeded when the reconnection window expires, the active Training Session MUST terminate for all Trainees and the disconnected client's Admission MUST end, including when the claim and Device Continuity Proof validated individually but a later audit, cancellation, connection, supersession, exchange, or ordering outcome prevented composite success.
 
-**REQ-SESSION-RECONNECT-004** — After termination caused by reconnection-window expiry, restoration-window expiry, an additional Trainee disconnection during recovery, or loss of `Ready` during the resume countdown, connected Trainees MUST return to preparation and all `Ready` states MUST be cleared.
+**REQ-SESSION-RECONNECT-004** — Termination caused by reconnection-window expiry, restoration-window expiry, an additional Trainee disconnection during recovery, or loss of `Ready` during the resume countdown MUST clear every `Ready` state and begin terminal settlement without returning any client to Preparation.
 
 **REQ-SESSION-RESTORE-DEADLINE-001** — When composite continuity succeeds, the Session Authority MUST start a 30-second restoration window on the Operational Clock in the same canonical transition specified by `REQ-SESSION-RECONNECT-002`.
 
@@ -696,39 +696,29 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SESSION-RESUME-003** — Active simulation MUST resume only when the five-second resume countdown completes while the restoration window remains successfully closed, the required roster remains restored, and every Trainee remains `Ready`.
 
-**REQ-SESSION-RESUME-GATE-001** — While recovery remains nonterminal and any condition stated by `REQ-SESSION-RESUME-002` is false, the Training Session MUST remain in Technical Pause and MUST NOT have an active resume countdown; a termination trigger MUST instead perform its required termination and Preparation transition.
+**REQ-SESSION-RESUME-GATE-001** — While recovery remains nonterminal and any condition stated by `REQ-SESSION-RESUME-002` is false, the Training Session MUST remain in Technical Pause and MUST NOT have an active resume countdown; a termination trigger MUST instead perform its required termination and begin terminal settlement.
 
 **REQ-SESSION-RESUME-READY-LOSS-001** — If any Trainee loses `Ready` after the resume countdown starts and before active simulation resumes, the active Training Session MUST terminate immediately without starting another recovery or resume countdown.
 
-## Voluntary departure and repetition
+## Voluntary departure and process completion
 
 **REQ-VOLUNTARY-LEAVE-001** — A Trainee MUST be able to leave an active Training Session explicitly.
 
 **REQ-VOLUNTARY-LEAVE-002** — Explicit departure MUST terminate the Training Session immediately without a reconnection window.
 
-**REQ-VOLUNTARY-LEAVE-003** — Termination by voluntary departure MUST return connected Trainees to preparation and MUST NOT record normal Scenario completion.
+**REQ-VOLUNTARY-LEAVE-003** — Termination by voluntary departure MUST NOT record normal Scenario completion and MUST begin the same terminal settling and orderly Session Authority shutdown required for every terminated Training Session.
 
-**REQ-SESSION-REPEAT-001** — After normal completion, the Session Authority MUST return automatically to preparation for another Training Session using the same Scenario.
+**REQ-AUTHORITY-SINGLE-SESSION-001** — One Session Authority process MUST be bound at launch to exactly one Scenario and MUST own exactly one Training Session over its complete process lifetime.
 
-**REQ-SESSION-REPEAT-002** — Returning to preparation MUST clear all `Ready` states.
+**REQ-AUTHORITY-TERMINAL-SETTLEMENT-001** — After normal completion or termination, the Session Authority MUST fix and publish the terminal result and required reconstruction evidence, end every Admission, complete required AUTH audit and bounded Observability settling, and accept no second Training Session.
 
-**REQ-SESSION-REPEAT-003** — Connected Trainees SHOULD retain their Call Signs and Team assignments after normal completion.
+**REQ-AUTHORITY-TERMINAL-SHUTDOWN-001** — After the terminal settlement succeeds or reaches its applicable terminal failure, the Session Authority process MUST release its resources and terminate with the applicable process result.
 
-**REQ-SESSION-RESET-CATALOGUE-001** — The Session Reset Catalogue MUST enumerate every canonical state field and assign its exact disposition for transition after normal completion and after termination as either `Reset` or `Retain`, with the governing requirement trace for that disposition.
+**REQ-CLIENT-SINGLE-SESSION-001** — One Trainee client process MUST be bound to exactly one Client Pack and one Training Session; participation in another Training Session or Scenario MUST require a new process.
 
-**REQ-SESSION-RESET-CATALOGUE-002** — In the initial Session Reset Catalogue, `Ready`, every Session Continuity Claim, and all simulated Scenario state MUST be `Reset` after both normal completion and termination; Call Signs and Team assignments MUST be `Retain` after normal completion unless `REQ-SESSION-REPEAT-003` has an approved exception, and MUST be `Reset` after termination.
+**REQ-SESSION-FRESH-START-001** — Every new Training Session MUST execute in a new Session Authority process and begin from the initial state defined by its exact Scenario without canonical, Admission, Ready, Team Position, Loadout, claim, or simulated state from a preceding Training Session.
 
-**REQ-SESSION-RESET-AUTH-001** — After normal completion or non-voluntary termination, the current Admission and its authenticated Trainee Identity, Client Device Identity, Session Authority Identity, package, catalogue, rule-set, audit-policy, and Trusted Identity Time references MUST be `Retain` for each still-connected client; they MUST be `Reset` only when that Admission ends under `REQ-ADMISSION-END-001`.
-
-**REQ-SESSION-RESET-CATALOGUE-003** — Before use, the implementation team MUST reconcile the Session Reset Catalogue against the complete current canonical-state schema and applicable requirements, and the project owner MUST approve its exact version.
-
-**REQ-SESSION-RESET-CATALOGUE-004** — A state field absent from the approved Session Reset Catalogue or lacking an applicable disposition MUST NOT carry into another Training Session.
-
-**REQ-SESSION-REPEAT-CLAIM-001** — When a Team Position is retained into Preparation for another Training Session, the Session Authority MUST establish a new valid Session Continuity Claim scoped to that new Training Session and retained Team Position in the same canonical transition; every claim scoped to the preceding Training Session MUST remain invalid.
-
-**REQ-SESSION-FRESH-START-001** — Every new Training Session MUST begin from the initial state defined by its Scenario after applying the approved Session Reset Catalogue.
-
-**REQ-SESSION-TERMINATION-STATE-001** — A canonical state field from a completed or terminated Training Session MUST NOT carry into the next Training Session unless the approved Session Reset Catalogue assigns `Retain` for that exact field and transition type.
+**REQ-SESSION-TERMINATION-STATE-001** — No live canonical or client state from a completed or terminated Training Session MAY become input to another Training Session.
 
 ## Scenario and Map model
 
@@ -756,17 +746,17 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 ## Scenario selection and hosting
 
-**REQ-SERVER-SESSION-001** — A Session Authority instance MUST contain no more than one non-completed and non-terminated Training Session at a time, including Preparation, initial countdown, active simulation, Technical Pause, resume countdown, and completion processing.
+**REQ-SERVER-SESSION-001** — A Session Authority process MUST contain exactly one Training Session over its lifetime, including Preparation, initial countdown, active simulation, Technical Pause, resume countdown, completion processing, terminal settling, and shutdown.
 
-**REQ-SERVER-SCENARIO-001** — Between Training Sessions, the dedicated machine MUST allow selection of another Scenario, including one using another Map.
+**REQ-AUTHORITY-SCENARIO-BINDING-001** — The immutable launch configuration MUST identify exactly one Authority Pack whose signed Runtime Content Release selects exactly one Scenario before the Session Authority process begins content validation.
 
-**REQ-SCENARIO-SELECTION-001** — The Scenario MUST be selected locally on the dedicated machine before the Session Authority accepts Trainee connections.
+**REQ-SCENARIO-SELECTION-001** — The Session Authority MUST validate and activate its exact Scenario through the Authority Pack selected by launch configuration before publishing readiness or accepting Trainee connections.
 
 **REQ-SCENARIO-SELECTION-002** — Connected Trainees MUST be able to identify the selected Scenario but MUST NOT change it.
 
-**REQ-SCENARIO-CHANGE-001** — The selected Scenario MUST remain unchanged through preparation, countdown, active simulation, Technical Pause, and completion processing.
+**REQ-SCENARIO-CHANGE-001** — The selected Scenario and Runtime Content Release MUST remain unchanged through the complete Session Authority process lifetime.
 
-**REQ-SCENARIO-RECONFIGURE-001** — Selecting another Scenario requires local reconfiguration between Training Sessions.
+**REQ-SCENARIO-RECONFIGURE-001** — Selecting another Scenario or Runtime Content Release MUST require a new Session Authority process with new immutable launch configuration and a new Training Session.
 
 ## Briefing, navigation, and identification
 
@@ -1846,7 +1836,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-MAP-DAMAGE-LIFETIME-001** — Localized Map damage MUST remain for the rest of the current Training Session.
 
-**REQ-MAP-RESET-001** — Before a new Training Session, the Map MUST return to the initial state defined by the Scenario.
+**REQ-MAP-RESET-001** — A new Session Authority process MUST initialize its Map to the initial state defined by its Scenario before its Training Session can start.
 
 ## Reference Personnel Recovery Scenario
 
@@ -1980,25 +1970,51 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-CONTENT-PROCESSING-GATE-001** — Before execution, the project owner MUST approve an exact versioned content-processing gate defining every validation criterion, procedure, input and output schema, tool/configuration constraint, disposition rule, and admission effect.
 
-**REQ-CONTENT-PROCESSING-RECORD-001** — Every content-processing execution MUST produce a versioned record identifying the exact approved gate version, all canonical source identities and versions, processing pipeline, tool and configuration versions, output package type, identifier, format version and integrity hash, source-to-output mappings, criterion-level validation results, executor and date.
+**REQ-CONTENT-PROCESSING-RECORD-001** — Every content-processing execution MUST produce a versioned record identifying the exact approved gate version; Scenario and every canonical source, Approved Profile, catalogue, dependency and version; processing pipeline, tool and configuration versions; Runtime Content Release and role-pack identities, roles, runtime content contracts, integrity hashes, pair binding and signatures; source-to-output mappings; criterion-level validation results; executor; and date.
 
-**REQ-CONTENT-PROCESSING-001** — Blender-authored content MUST complete the exact approved processing pipeline and all current-format, identity, integrity, traceability and validation gates before its output can become deployment-ready content for a Training Session.
+**REQ-CONTENT-PROCESSING-001** — One exact Scenario and its complete canonical-source closure MUST complete the approved processing pipeline and every identity, dependency, integrity, traceability and validation gate before the Content Cooker can sign or publish its Runtime Content Release.
 
-**REQ-CONTENT-TRACEABILITY-001** — Every deployment-ready Map output item MUST retain an exact mapping to its canonical Blender source item and version through the processing record.
+**REQ-CONTENT-TRACEABILITY-001** — Every deployment-ready runtime output item in either role pack MUST retain an exact mapping through the processing record to its canonical source item and version; every Map-derived output MUST retain the exact mapping to its canonical Blender source item and version.
 
-**REQ-CONTENT-PROCESSING-ADMISSION-001** — A deployment-ready package MUST be admitted only after the exact pre-approved gate produces `Pass` for every required criterion or the project owner approves the exact passing processing record; any missing, failed, blocked, stale, uncertain, or wrong-gate input, mapping, output, format, integrity, or criterion result MUST prevent admission.
+**REQ-CONTENT-PROCESSING-ADMISSION-001** — The Content Cooker MUST sign a Runtime Content Release only after the exact pre-approved gate produces `Pass` for every required criterion and the complete processing record and role-pack pair are available; any missing, failed, blocked, stale, uncertain, wrong-gate, incompatible or corrupt input, dependency, mapping, output, integrity result or criterion MUST fail the complete job and prevent publication of either pack.
 
-**CONSTRAINT-CONTENT-DISTRIBUTION-001** — Required Maps and Scenarios MUST be installed on every client before connection.
+**REQ-CONTENT-RELEASE-001** — Every Runtime Content Release MUST identify exactly one Scenario version and contain exactly one immutable signed Authority Pack and one immutable signed Client Pack under one common release identity.
 
-**REQ-CONTENT-MISSING-001** — A client missing required content MUST NOT enter `Ready`.
+**REQ-CONTENT-PACK-ROLE-001** — The Authority Pack MUST contain the complete closed runtime content required by the Session Authority for that Scenario, the Client Pack MUST contain the complete closed runtime content required by Prediction and Presentation, and neither runtime MUST require the other role's pack or source-format data.
 
-**REQ-CONTENT-IDENTITY-001** — Before `Ready`, client and Session Authority MUST confirm matching Map and Scenario identifiers, current format versions, and content integrity.
+**REQ-CONTENT-PAIR-001** — Each role pack MUST bind the exact common Runtime Content Release identity, Scenario, role, runtime content contract, its own identity and integrity hash, and the identity and integrity hash of its counterpart.
 
-**REQ-CONTENT-MISMATCH-001** — Mismatched content MUST keep the client in preparation and identify the incompatible package.
+**REQ-CONTENT-PAIR-ATOMIC-001** — The Content Cooker MUST publish a Runtime Content Release only after both complete role packs, their reciprocal bindings, processing record and signatures succeed; interruption, resource failure or process loss before that point MUST expose no usable successor release and MUST leave every preceding release unchanged.
 
-**REQ-CONTENT-VERSION-001** — The Training Simulation MUST load only Maps and Scenarios created for the current content-format version.
+**REQ-CONTENT-SIGNING-001** — The Content Cooker MUST sign both role packs using its configured content-signing private key after the complete job passes, and no unsigned or partially signed pair MAY become a usable Runtime Content Release.
 
-**REQ-CONTENT-VERSION-002** — A Map or Scenario package whose format version is not the current supported version MUST be rejected before the client can enter `Ready`, and the rejection result MUST identify whether it is a Map or Scenario and report its canonical package identifier, detected format version, and required current format version.
+**REQ-CONTENT-TRUST-001** — Each runtime MUST receive a versioned Content Signing Trust Reference independently of its pack, MUST accept no pack-contained or network-provided trust root, and MUST validate that the signer is authorized for the pack's exact role and runtime content contract.
+
+**REQ-CONTENT-COMPATIBILITY-001** — A valid signature under the exact Content Signing Trust Reference MUST be the sole admitted compatibility assertion for a role pack; runtime content-contract ranges, migration, translation, version negotiation and inferred compatibility MUST NOT be used.
+
+**CONSTRAINT-CONTENT-DISTRIBUTION-001** — The exact Authority Pack or Client Pack and applicable Content Signing Trust Reference MUST be present in the corresponding host filesystem before its process starts; the Session Authority MUST NOT distribute, download, patch or stream content to a client.
+
+**REQ-CONTENT-MISSING-001** — A missing Authority Pack, Client Pack or Content Signing Trust Reference MUST fail the corresponding process startup before readiness, connection or Admission.
+
+**REQ-CONTENT-IDENTITY-001** — After authenticating the Session Authority and before presenting client identity evidence or creating an Admission, the client and authority MUST confirm an exact match of Runtime Content Release, Scenario, role-pack identities and integrity hashes.
+
+**REQ-CONTENT-MISMATCH-001** — A content mismatch MUST terminate the connection attempt before Admission, identify the incompatible role pack and release using non-sensitive identifiers, and MUST NOT create Preparation, Ready, roster, Team Position or Loadout state.
+
+**REQ-CONTENT-VERSION-001** — A runtime MUST load only a role pack whose signature is valid under a Content Signing Trust Reference entry authorizing its exact role and runtime content contract.
+
+**REQ-CONTENT-VERSION-002** — Rejection MUST distinguish missing content, invalid signature, unauthorized signer for the role or runtime content contract, broken pair binding, malformed structure, integrity failure and materialization failure and MUST report the applicable non-sensitive pack, release, Scenario and trust-reference identities.
+
+**REQ-CONTENT-STARTUP-001** — Each Session Authority and Trainee client process MUST receive exactly one explicit role-pack path through immutable launch configuration and MUST NOT scan for, select, negotiate or fall back to another pack.
+
+**REQ-CONTENT-ACTIVATION-001** — Before the Session Authority publishes readiness or accepts a connection, and before a Trainee client initiates a connection, the process MUST validate and completely materialize its exact role pack and atomically publish one immutable identified content view or terminate startup with a non-zero process result.
+
+**REQ-CONTENT-IMMUTABILITY-001** — After activation, a process MUST use only its immutable materialized content view and MUST NOT reread, poll, patch, stream, replace or derive runtime behavior from later filesystem or Content Signing Trust Reference changes.
+
+**REQ-CONTENT-OVERRIDE-001** — Runtime launch configuration and live state MUST NOT override a normative Scenario, Map, Approved Profile, catalogue or other content value in the activated Runtime Content Release.
+
+**REQ-CONTENT-ROLLBACK-001** — A preceding Runtime Content Release MAY be selected explicitly for a new process only while it remains approved and its signature remains authorized for the exact role and runtime content contract; automatic rollback or fallback MUST NOT occur.
+
+**REQ-CONTENT-RETENTION-001** — Runtime processes MUST NOT create, mutate or delete published role packs; external deployment policy MUST own their filesystem availability, retention and removal, and this baseline MUST NOT infer a retention duration or cache bound.
 
 ## Platform and deployment constraints
 
