@@ -43,6 +43,7 @@ production implementation or architecture acceptance evidence.
 - [Trainee Performance Assessment requirements](docs/requirements/training-simulation-performance-assessment-requirements.md)
 - [Engagement Target performance profile](docs/requirements/training-simulation-performance-profile-engagement-target-001.md)
 - [Verification plan](docs/requirements/training-simulation-verification-plan.md)
+- [Baseline Applicability Inventory](docs/requirements/training-simulation-baseline-applicability-inventory.csv)
 - [Research guidance](docs/research/initial-goals-requirements-and-constraints-guidance.md)
 - [C++ engineering research](docs/research/cpp-engineering-toolchain-and-quality-guidance.md)
 - [C++ Engineering Baseline](docs/standards/cpp-engineering.md)
@@ -58,7 +59,17 @@ requirements and their verification plan. Regenerate it with:
 python3 scripts/generate-verification-assignment-inventory.py
 ```
 
-Do not edit the generated CSV manually.
+The Baseline Applicability Inventory records reviewed semantic decisions and is
+validated against its frozen authoritative sources and explicit applicability
+policy. Validate it with:
+
+```sh
+sh scripts/validate-baseline-applicability-inventory.sh
+```
+
+Do not edit the generated verification-assignment CSV manually. Applicability
+changes are reviewed semantic decisions and require a successor inventory
+version before the canonical Baseline Applicability Inventory is edited.
 
 Validate the canonical Documentation Inventory and its retained document
 population with:
