@@ -2,6 +2,8 @@
 
 Status: Accepted
 
+Amendment: ADR-0008 supersedes this decision's former client-continuity exception.
+
 Sacramento cooks every exact Scenario version into one immutable Runtime
 Content Release containing an Authority Pack and a Client Pack. The two packs
 are signed, cryptographically bound as one release, selected explicitly at
@@ -172,11 +174,10 @@ then exits. Unexpected authority loss ends the Training Session. A replacement
 process using the same Authority Pack creates a new Training Session and never
 restores the prior live state.
 
-Client process loss within the same Training Session retains the established
-continuity behavior: a new process on the same Client Device may load the same
-Client Pack and attempt protected continuity within the existing window.
-Prediction and Presentation restart from confirmed authority state. This is
-not process reuse for another Training Session.
+Client process loss ends that client's active participation. During Active the
+Session Authority applies Technical Removal with cause `Disconnected`; before
+Active it ends the Admission and releases preparation state. A new client
+process cannot reclaim that Admission or join the existing Training Session.
 
 This process contract deliberately exposes a small orchestration seam: exact
 immutable launch configuration, readiness, the connection endpoint, stable
@@ -227,8 +228,9 @@ pack.
 Live file replacement, deletion, or trust-reference rotation cannot alter an
 active Training Session because the content view is already materialized and
 immutable. Authority loss terminates only its Training Session. Client loss
-uses the existing bounded continuity path. Normal completion publishes and
-settles its terminal truth before the ephemeral process exits.
+uses the phase-appropriate Admission end or Technical Removal path. Normal
+completion publishes and settles its terminal truth before the ephemeral
+process exits.
 
 ## Verification and evidence
 
@@ -308,7 +310,7 @@ must be updated to reflect ephemeral authority processes.
 
 This decision resolves issue #33 and traces principally to
 `REQ-CONTENT-PROCESSING-GATE-001` through `REQ-CONTENT-RETENTION-001`,
-`REQ-PROFILE-RECORD-001` through `REQ-PROFILE-HISTORY-001`,
+`REQ-PROFILE-RECORD-001` through `REQ-PROFILE-CHANGE-HISTORY-001`,
 `REQ-INITIAL-START-CONDITIONS-001`, `REQ-READINESS-PRECONDITION-004`,
 `REQ-AUTHORITY-SINGLE-SESSION-001` through
 `REQ-SESSION-TERMINATION-STATE-001`, `REQ-SERVER-SESSION-001`,

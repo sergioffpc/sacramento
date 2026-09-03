@@ -2,6 +2,8 @@
 
 Status: Accepted
 
+Amendment: ADR-0008 adds the Trainee Performance Assessment Module and retained-evidence seams.
+
 Sacramento is decomposed into deep modules that own canonical product
 responsibilities, not into process layers or public wrappers around selected
 vendors. Process-specific runtimes compose those modules and coordinate
@@ -16,12 +18,13 @@ owned.
 | Module | Architecture-level ownership |
 | --- | --- |
 | `Simulation` | Canonical simulated state, simulated-time transitions, and authoritative simulation results. |
-| `Session Lifecycle` | Training Session lifecycle state, Operational Clock decisions, pause, resume, termination, and restoration coordination inputs and outcomes. |
-| `AUTH & Admission` | Authentication, authorization, Admission, continuity, and the invariant that applicable AUTH Audit Commit Units become durable before granting effects. |
+| `Session Lifecycle` | Training Session lifecycle state, Operational Clock decisions, Technical Removal coordination, completion, termination, and terminal results. |
+| `AUTH & Admission` | Authentication, authorization, Admission lifecycle, host-scoped AUTH audit state, and the invariant that applicable AUTH Audit Commit Units become durable before granting effects. |
 | `Runtime Package` | Persistent runtime-package schema, deterministic codec, identity, integrity, version, and compatibility. |
 | `Content Admission` | Validation and atomic activation of exact Maps, Scenarios, Approved Profiles, catalogues, and other admitted runtime content. |
 | `Protocol & Replication` | Versioned Sacramento wire schemas, replication semantics, ordering, and compatibility, independently of transport and internal simulation structures. |
 | `Observability` | Required signal meanings, identity, correlation, loss semantics, and Sacramento-owned emission interface. |
+| `Trainee Performance Assessment Module` | Identity-bound performance events, metrics, Training Feedback, Formal Assessments, Leaderboards, access decisions, corrections, and retained history without ownership of canonical Simulation state. |
 | `Prediction` | Non-authoritative client state derived from confirmed replication updates and local intentions, always replaceable by authoritative correction. |
 | `Presentation` | Trainee-facing visual and acoustic presentation and interaction, consuming Prediction rather than wire or vendor structures. |
 
@@ -43,6 +46,11 @@ client state derivation.
 Only the Session Authority Runtime composes the owners of canonical Simulation
 and Session Lifecycle state. A Trainee Client never determines authoritative
 positions, impacts, injury, Scenario progression, or results.
+
+ADR-0008 leaves the deployment location of `Trainee Performance Assessment Module`
+open. Runtimes exchange only immutable Sacramento event inputs and result
+references with it; no runtime shares its persistent state or makes it a
+Canonical Tick dependency.
 
 ## Module dependency view
 

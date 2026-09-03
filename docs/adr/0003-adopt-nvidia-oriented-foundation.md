@@ -112,9 +112,8 @@ The following obligations remain explicitly unproved and therefore cannot be
 claimed as consequences of this decision:
 
 - complete Reference Personnel Recovery Scenario vertical replay;
-- AUTH, Admission, offline trust, durable audit commit, continuity, and State
-  Restoration;
-- Controlled LAN loss, congestion, reconnect, recovery, and 16-client stress;
+- AUTH, Admission, offline trust, durable audit commit, and Technical Removal;
+- Controlled LAN loss, congestion, disconnection, and 16-client stress;
 - approved 16.67 ms presentation and 100 ms authoritative-action workloads;
 - Representative Evaluator visual and acoustic validity and peak coverage;
 - real-time audio/device path, reflections, pathing, and stress behavior;

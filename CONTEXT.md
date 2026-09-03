@@ -4,6 +4,8 @@ Status: Approved
 
 Approval: Project owner, 2026-09-02
 
+Latest approved amendment: Technical Removal and retained-evidence language, project owner, 2026-09-03
+
 Baseline: Initial Domain Context
 
 Purpose: Define the canonical domain language for the Training Simulation.
@@ -49,7 +51,7 @@ The approved, versioned, and closed inventory of canonical physical-condition cl
 _Avoid_: Ad hoc state check, implementation-defined condition, matrix row chosen at runtime
 
 **Admission**:
-The authoritative acceptance with one stable Admission identifier that atomically binds one authenticated and authorized Trainee Identity and Client Device Identity to the validating Session Authority Identity and exactly one current client connection, permitting an atomic rebind to one recovered connection only after successful continuity validation, until an exact admission-ending event occurs.
+The authoritative acceptance with one stable Admission identifier that atomically binds one authenticated and authorized Trainee Identity and Client Device Identity to the validating Session Authority Identity and exactly one current client connection until an exact admission-ending event occurs.
 _Avoid_: Network connection, authentication result, Team Position assignment, Ready
 
 **Admission Authorization Rule Set**:
@@ -57,7 +59,7 @@ The approved, versioned product rules whose client-applicable rows authorize the
 _Avoid_: Local user allowlist, identity lifecycle policy, implicit access check
 
 **Admitted Client**:
-A Trainee client whose current connection or permitted reconnection continuity is governed by one successful Admission.
+A Trainee client whose current connection is governed by one successful Admission.
 _Avoid_: Connected socket, authenticated identity, roster entry, Ready Trainee
 
 **After-Action Review (AAR)**:
@@ -69,7 +71,7 @@ A versioned record of represented behavior or data whose scope, reference condit
 _Avoid_: Tuning preset, provisional values, undocumented configuration
 
 **AUTH Attempt**:
-One finite runtime initial-admission, continuity, lifecycle, or audit-recovery attempt with one unique instance identifier and one stable class key whose exact nested AUTH Operations, validator roles, start, terminal result, cancellation propagation, and supersession behavior are declared by the AUTH Operation Inventory.
+One finite runtime initial-admission, lifecycle, or audit-recovery attempt with one unique instance identifier and one stable class key whose exact nested AUTH Operations, validator roles, start, terminal result, cancellation propagation, and supersession behavior are declared by the AUTH Operation Inventory.
 _Avoid_: Network connection, retry, individual proof check, unbounded login process
 
 **AUTH Audit Checkpoint**:
@@ -77,7 +79,7 @@ A separately collectable, non-secret integrity reference whose exact scope and r
 _Avoid_: Audit record copy, mutable sequence pointer, unauthenticated file offset
 
 **AUTH Audit Commit Unit**:
-The atomic persistence outcome covering one final AUTH Audit Record and every integrity reference required for it by the current AUTH Audit Integrity Profile, committed before the governed operation may produce an access-, privilege-, Admission-, or continuity-granting AUTH effect.
+The atomic persistence outcome covering one final AUTH Audit Record and every integrity reference required for it by the current AUTH Audit Integrity Profile, committed before the governed operation may produce an access-, privilege-, or Admission-granting AUTH effect.
 _Avoid_: Record written before its result is known, best-effort log write, gameplay transaction
 
 **AUTH Audit Integrity Profile**:
@@ -89,7 +91,7 @@ The approved, versioned policy that defines AUTH Audit Record classes, host-role
 _Avoid_: Scenario setting, indefinite retention, implementation default
 
 **AUTH Audit Record**:
-A persistent record of one inventory-classified authentication, authorization, admission, continuity, lifecycle, or audit-recovery operation and its exact applicable non-secret inputs and result, retained for security traceability rather than gameplay or After-Action Review.
+A persistent record of one inventory-classified authentication, authorization, admission, lifecycle, or audit-recovery operation and its exact applicable non-secret inputs and result, retained for security traceability rather than gameplay or After-Action Review.
 _Avoid_: AAR event, gameplay telemetry, authentication secret, reusable proof
 
 **AUTH Audit Sequence**:
@@ -105,7 +107,7 @@ One of the closed generic outcomes disclosed to a requesting client when AUTH ca
 _Avoid_: Exact rejection reason, diagnostic trace, silent disconnect
 
 **AUTH Operation**:
-One independently resolved runtime authentication, authorization, admission, claim-validation, device-continuity-validation, lifecycle, or audit-recovery action with one unique instance identifier and one stable class key, nested in exactly one AUTH Attempt.
+One independently resolved runtime authentication, authorization, admission, lifecycle, or audit-recovery action with one unique instance identifier and one stable class key, nested in exactly one AUTH Attempt.
 _Avoid_: Entire network connection, implicit validation step, gameplay action
 
 **AUTH Operation Inventory**:
@@ -125,7 +127,7 @@ An exact versioned Identity Authority policy defining the authenticator classes,
 _Avoid_: Product-owned account policy, implicit assurance, universal password rule
 
 **Authentication Challenge**:
-A single-use request created by a validator for one exact AUTH Operation and Attempt, presenter identity, validator identity, and authentication or continuity purpose.
+A single-use request created by a validator for one exact AUTH Operation and Attempt, presenter identity, validator identity, and authentication purpose.
 _Avoid_: Reusable nonce, timestamp alone, session identifier, Authorization Assertion
 
 **Authenticator Control Proof**:
@@ -134,7 +136,7 @@ _Avoid_: Copied identity record, Authorization Assertion, Call Sign, possession 
 
 **Authorization Assertion**:
 A verifiable statement from the Identity Authority that assigns one or more AUTH Permissions to one identified Trainee Identity, Client Device Identity, or Session Authority Identity.
-_Avoid_: Authentication evidence, local account, Team assignment, Session Continuity Claim
+_Avoid_: Authentication evidence, local account, Team assignment
 
 **Authority Pack**:
 The signed, immutable, role-specific half of one Runtime Content Release containing the complete runtime content required by one Session Authority for its exact Scenario and Training Session.
@@ -186,7 +188,7 @@ _Avoid_: Initial Loadout, runtime guess, incomplete compatibility table, abstrac
 
 **Client Device Identity**:
 The identity of the computer operating a Trainee client, distinct from the identity of the human Trainee using it.
-_Avoid_: Trainee Identity, connection, network address, Session Continuity Claim
+_Avoid_: Trainee Identity, connection, network address
 
 **Client Pack**:
 The signed, immutable, role-specific half of one Runtime Content Release containing the complete Prediction and Presentation content required by one Trainee client for its exact Scenario and Training Session.
@@ -195,10 +197,6 @@ _Avoid_: Authority Pack, source assets, downloadable content
 **Content Signing Trust Reference**:
 An independently provisioned, versioned statement that assigns authorized content-signing keys to the exact pack roles and runtime content contracts they may sign.
 _Avoid_: Pack-contained trust root, unrestricted signing key, runtime version negotiation
-
-**Continuity Validation Outcome Catalogue**:
-The approved, versioned, and closed shared Identity Validation Package artifact assigning one exact terminal result and lifecycle disposition to every combination of Session Continuity Claim, Device Continuity Proof, protected-exchange integrity and binding, audit commit, cancellation, connection, supersession, and deadline outcomes.
-_Avoid_: Claim-only acceptance, implicit retry behavior, partial reconnection success
 
 **Controlled LAN**:
 The private, dedicated wired local network whose participants, local services, permitted traffic, and measurement conditions are closed by an exact deployment profile, with no route to an external network during a Training Session.
@@ -211,10 +209,6 @@ _Avoid_: Free-form commit title, implicit type list, unvalidated merge message
 **Desktop Mode**:
 The mandatory Trainee access mode that provides every required Training Session capability through a conventional monitor, keyboard, and mouse without virtual-reality equipment.
 _Avoid_: Basic mode, non-VR fallback
-
-**Device Continuity Proof**:
-Evidence that a reconnecting client controls the same Client Device Identity bound at initial admission, without repeating identity-validity, authorization, or revocation evaluation.
-_Avoid_: Session Continuity Claim, new device authentication, human identity proof
 
 **Diegetic Presentation**:
 The active-simulation rule that a Trainee receives only information the represented person could perceive in an equivalent physical exercise.
@@ -262,7 +256,7 @@ _Avoid_: Damage types, open other-harm list, Team-specific damage table
 
 **Identity Authority**:
 The system outside the Training Simulation that owns the authoritative lifecycle of Trainee Identities, Client Device Identities, and Session Authority Identities.
-_Avoid_: Training Simulation account store, Call Sign registry, Session Continuity Claim issuer
+_Avoid_: Training Simulation account store, Call Sign registry
 
 **Identity Evidence Catalogue**:
 The approved, versioned, and closed inventory of supported identity classes, evidence and assertion types and versions, required fields, issuers, Authentication Assurance Profiles, Offline Revocation Status forms, validation purposes, dependencies, and objective validation rules.
@@ -289,7 +283,7 @@ An exact admitted Approved Profile version defining injury thresholds, protectio
 _Avoid_: Damage value, health table, unvalidated medical rule
 
 **Item Disposition**:
-The single authoritative placement or terminal status of one stable physical item identity, including the Scenario, a Carry Position, a weapon chamber, magazine body, weapon interface, `Consumed`, or replacement by explicitly traced transformation products.
+The single authoritative placement or terminal status of one stable physical item identity, including the Scenario, a Carry Position, a weapon chamber, magazine body, weapon interface, `Consumed`, `Withdrawn`, or replacement by explicitly traced transformation products.
 _Avoid_: Duplicate inventory entry, implicit attachment, untracked deletion, copied item
 
 **Lighting Profile**:
@@ -337,7 +331,7 @@ Identity authentication evidence or an Authorization Assertion issued under the 
 _Avoid_: Cached admission decision, local account, unverifiable identity claim
 
 **Operational Clock**:
-The Session Authority's monotonic time source for Training Session lifecycle deadlines and countdowns, which advances independently from simulated time, including during Technical Pause.
+The Session Authority's monotonic time source for Training Session lifecycle deadlines and countdowns, independent from simulated time.
 _Avoid_: Simulated time, Scenario timer, client clock, calendar clock
 
 **Observability Contract**:
@@ -366,7 +360,7 @@ _Avoid_: Full platform matrix, identical deployment support
 
 **Preparation**:
 The pre-active Training Session lifecycle state in which no initial countdown is running and admitted Trainees may make or change selections and declare `Ready`, including after a cancelled initial countdown.
-_Avoid_: Active simulation, Technical Pause, resume countdown
+_Avoid_: Active simulation, initial countdown
 
 **Project C++ Style Profile**:
 The repository-owned, versioned, and closed C++ coding rules, automatic-tool mappings, explicitly admitted deviations, scope, and acceptance gates used as the sole project style authority.
@@ -434,31 +428,23 @@ _Avoid_: Client, host player, source of truth
 
 **Session Authority Identity**:
 The externally governed identity presented by a Session Authority endpoint so a Trainee client can authenticate and authorize that authority before disclosing Trainee or client-device authentication evidence.
-_Avoid_: Network address, Training Session identity, Session Continuity Claim
+_Avoid_: Network address, Training Session identity
 
-**Session Continuity Claim**:
-Session-local evidence scoped to one Training Session and reserved Team Position that, together with Device Continuity Proof, permits a reconnecting client to reclaim that position without reauthenticating the human Trainee or re-evaluating identity authorization or revocation.
-_Avoid_: User identity, account, login, persistent credential
+**Session Evidence Set**:
+The immutable retained record set for one Training Session, binding its deterministic reconstruction records, terminal result, completeness or explicit loss classification, Runtime Content Release, build, configuration, and provenance under one verifiable identity.
+_Avoid_: Operational log, save game, mutable replay, After-Action Review
 
 **Simulation Engine**:
 The internal software foundation built only to support the Training Simulation's validated needs. It is not an independently reusable or general-purpose product.
 _Avoid_: Product, general-purpose engine
 
 **Simulated Time**:
-The authoritative Training Session time derived exactly from its simulation epoch and Canonical Tick; it advances only through committed Canonical Ticks and remains frozen throughout Technical Pause.
+The authoritative Training Session time derived exactly from its simulation epoch and Canonical Tick; it advances only through committed Canonical Ticks.
 _Avoid_: Operational Clock, Trusted Identity Time, render time, client clock
 
 **Spawn Transform**:
 The position and orientation owned by one versioned Map spatial anchor that a Scenario references and associates with one Team Position for initial entry into active simulation.
 _Avoid_: Loadout position, roster position, generic spawn point
-
-**State Restoration**:
-The reconnection state in which the Session Authority has established from current-state-bound evidence that a client satisfies the complete approved coverage of authoritative data needed to present and act from the paused canonical state.
-_Avoid_: Reconnection, content loading, Ready, client acknowledgement, snapshot protocol
-
-**State Restoration Coverage Catalogue**:
-The versioned and approved verification inventory of authoritative-state classes that a reconnecting client must satisfy for required presentation, available actions, and authoritative outcomes in each access mode.
-_Avoid_: Representative sample, synchronization protocol, state snapshot
 
 **Stress Load**:
 A simulated Trainee state derived from exposure to Scenario stressors such as intense combat, incoming fire, explosions, and injury. It may affect non-aim motor tasks but does not claim to measure the human Trainee's actual psychological stress.
@@ -480,9 +466,9 @@ _Avoid_: Spawn Transform, Loadout position, Carry Position
 Live Trainee voice transmitted through Scenario-assigned radio equipment to every functioning radio configured for the same Team channel, including a radio captured and used by an opposing Trainee.
 _Avoid_: Proximity Voice, global voice, voice chat
 
-**Technical Pause**:
-A Training Session-wide suspension caused by a technical failure, during which simulated time and all gameplay effects stop while connection recovery remains active.
-_Avoid_: Timeout, tactical pause, game pause
+**Technical Removal**:
+The irreversible canonical withdrawal of a Trainee and every associated live and physical item state after the Session Authority confirms loss of that Trainee's client connection or accepts that Trainee's explicit departure during active simulation, recorded with cause `Disconnected` and kept distinct from simulated injury or Fatal state.
+_Avoid_: Fatal, casualty, Technical Pause, reconnection
 
 **Trainee**:
 An armed-forces participant who takes part in a Training Session as a member of a Team.
@@ -506,7 +492,7 @@ _Avoid_: Competence decision, universal ranking, hidden score
 
 **Trainee Authentication Act**:
 A deliberate act performed by the human Trainee to authenticate that Trainee Identity for one initial admission attempt, without prescribing the authentication mechanism.
-_Avoid_: Automatic sign-in, Call Sign entry, Session Continuity Claim presentation
+_Avoid_: Automatic sign-in, Call Sign entry
 
 **Trainee Functional State**:
 The authoritative classification of a Trainee's ability to act after simulated exposure: Capable, Impaired, Incapacitated, or Fatal.
@@ -514,14 +500,14 @@ _Avoid_: Health, hit points, alive/dead flag
 
 **Trainee Identity**:
 The identity of the human Trainee operating a client, distinct from the client computer and the Training Session-local Call Sign.
-_Avoid_: Call Sign, Client Device Identity, Session Continuity Claim, persistent application account
+_Avoid_: Call Sign, Client Device Identity, persistent application account
 
 **Training Need Record**:
 An approved, versioned statement of a military training activity and intended training outcome that justifies admitting one or more Trainee actions.
 _Avoid_: Feature request, entertainment rationale, informal use case
 
 **Training Session**:
-A single coordinated execution of one Scenario by two Teams, including preparation, active simulation, Technical Pauses, and completion or termination.
+A single coordinated execution of one Scenario by two Teams, including preparation, active simulation, completion, and termination.
 _Avoid_: Match, game, server
 
 **Training Simulation**:
