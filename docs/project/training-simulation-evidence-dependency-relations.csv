@@ -1,0 +1,119 @@
+sequence,relation_identifier,source_node_identifier,target_node_identifier,relation_type,classification_basis
+1,EDI-REL-001,BART-ARC-012,EDI-PC-001,defines,ARCHSPEC-0004 responsibility-module registry.
+2,EDI-REL-002,BART-ARC-012,EDI-PC-002,defines,ARCHSPEC-0004 responsibility-module registry.
+3,EDI-REL-003,BART-ARC-012,EDI-PC-003,defines,ARCHSPEC-0004 responsibility-module registry.
+4,EDI-REL-004,BART-ARC-012,EDI-PC-004,defines,ARCHSPEC-0004 responsibility-module registry.
+5,EDI-REL-005,BART-ARC-012,EDI-PC-005,defines,ARCHSPEC-0004 responsibility-module registry.
+6,EDI-REL-006,BART-ARC-012,EDI-PC-006,defines,ARCHSPEC-0004 responsibility-module registry.
+7,EDI-REL-007,BART-ARC-012,EDI-PC-007,defines,ARCHSPEC-0004 responsibility-module registry.
+8,EDI-REL-008,BART-ARC-012,EDI-PC-008,defines,ARCHSPEC-0004 responsibility-module registry.
+9,EDI-REL-009,BART-ARC-012,EDI-PC-009,defines,ARCHSPEC-0004 responsibility-module registry.
+10,EDI-REL-010,BART-ARC-012,EDI-PC-010,defines,ARCHSPEC-0004 responsibility-module registry.
+11,EDI-REL-011,BART-ARC-012,EDI-PC-011,defines,ARCHSPEC-0004 responsibility-module registry.
+12,EDI-REL-012,BART-ARC-012,EDI-PC-012,defines,ARCHSPEC-0004 runtime-composition registry.
+13,EDI-REL-013,BART-ARC-012,EDI-PC-013,defines,ARCHSPEC-0004 runtime-composition registry.
+14,EDI-REL-014,BART-ARC-012,EDI-PC-014,defines,ARCHSPEC-0004 runtime-composition registry.
+15,EDI-REL-015,BART-ARC-012,EDI-PC-015,defines,ARCHSPEC-0004 runtime-composition registry.
+16,EDI-REL-016,BART-ARC-012,EDI-PC-016,defines,ARCHSPEC-0004 runtime-composition registry.
+17,EDI-REL-017,EDI-PC-004,EDI-PC-014,depends-on,Content Cooker depends on Runtime Package.
+18,EDI-REL-018,EDI-PC-004,EDI-PC-005,depends-on,Content Admission depends on Runtime Package.
+19,EDI-REL-019,EDI-PC-005,EDI-PC-001,depends-on,Simulation depends on Content Admission.
+20,EDI-REL-020,EDI-PC-006,EDI-PC-009,depends-on,Prediction depends on Protocol and Replication.
+21,EDI-REL-021,EDI-PC-009,EDI-PC-010,depends-on,Presentation depends on Prediction.
+22,EDI-REL-022,EDI-PC-006,EDI-PC-011,depends-on,Input and Interaction depends on Protocol and Replication.
+23,EDI-REL-023,BART-ARC-018,EDI-VIEW-001,defines,ARCHSPEC-0010 selected view set.
+24,EDI-REL-024,BART-ARC-018,EDI-VIEW-002,defines,ARCHSPEC-0010 selected view set.
+25,EDI-REL-025,BART-ARC-018,EDI-VIEW-003,defines,ARCHSPEC-0010 selected view set.
+26,EDI-REL-026,BART-ARC-018,EDI-VIEW-004,defines,ARCHSPEC-0010 selected view set.
+27,EDI-REL-027,BART-ARC-018,EDI-VIEW-005,defines,ARCHSPEC-0010 selected view set.
+28,EDI-REL-028,BART-ARC-018,EDI-VIEW-006,defines,ARCHSPEC-0010 selected view set.
+29,EDI-REL-029,BART-ARC-018,EDI-VIEW-007,defines,ARCHSPEC-0010 selected view set.
+30,EDI-REL-030,BART-ARC-018,EDI-VIEW-008,defines,ARCHSPEC-0010 selected view set.
+31,EDI-REL-031,BART-ARC-018,EDI-VIEW-009,defines,ARCHSPEC-0010 selected view set.
+32,EDI-REL-032,BART-VER-018,BART-VER-022,input-to,Evidence Dependency control is a validator input.
+33,EDI-REL-033,BART-VER-019,BART-VER-022,input-to,Supplemental node register is a validator input.
+34,EDI-REL-034,BART-VER-020,BART-VER-022,input-to,Supplemental relation register is a validator input.
+35,EDI-REL-035,BART-VER-021,BART-VER-022,input-to,Impact-case register is a validator input.
+36,EDI-REL-036,BART-VER-008,BART-VER-022,input-to,Baseline Artifact register is a validator input.
+37,EDI-REL-037,BART-VER-006,BART-VER-022,input-to,Architecture Claim trace register is a validator input.
+38,EDI-REL-038,BART-VER-010,BART-VER-022,input-to,Baseline Applicability register is a validator input.
+39,EDI-REL-039,EDI-ENV-001,BART-VER-022,input-to,Exact repository validation environment is a validator dependency.
+40,EDI-REL-040,BART-VER-018,EDI-VIEW-008,maps-to,Evidence Dependency control participates in the verification and traceability view.
+41,EDI-REL-041,PROCESS-EVIDENCE-DEPENDENCY-003,BART-VER-022,verified-by,Structural validator verifies category reconciliation.
+42,EDI-REL-042,PROCESS-EVIDENCE-DEPENDENCY-005,BART-VER-022,verified-by,Structural validator exercises conservative uncertainty.
+43,EDI-REL-043,PROCESS-EVIDENCE-DEPENDENCY-009,BART-VER-022,verified-by,Structural validator rejects pending unregistered outputs.
+44,EDI-REL-044,BART-VER-022,EDI-EVID-001,produces,Validator produces the pre-registered structural result.
+45,EDI-REL-045,BART-VER-022,EDI-EVID-002,produces,Validator produces the pre-registered impact-case result.
+46,EDI-REL-046,BART-VER-018,EDI-PROC-001,input-to,Standards review consumes the inventory control and fixed diff.
+47,EDI-REL-047,BART-VER-018,EDI-PROC-002,input-to,Spec review consumes the inventory control and fixed diff.
+48,EDI-REL-048,EDI-PROC-001,EDI-EVID-003,produces,Standards review produces its pre-registered result.
+49,EDI-REL-049,EDI-PROC-002,EDI-EVID-004,produces,Spec review produces its pre-registered result.
+50,EDI-REL-050,EDI-EVID-001,EDI-PROC-003,supports-approval,Structural validation supports exact-version approval.
+51,EDI-REL-051,EDI-EVID-002,EDI-PROC-003,supports-approval,Impact-case validation supports exact-version approval.
+52,EDI-REL-052,EDI-EVID-003,EDI-PROC-003,supports-approval,Standards review supports exact-version approval.
+53,EDI-REL-053,EDI-EVID-004,EDI-PROC-003,supports-approval,Spec review supports exact-version approval.
+54,EDI-REL-054,EDI-PROC-003,EDI-EVID-005,produces,Project owner produces the pre-registered exact-version approval result.
+55,EDI-REL-055,EDI-PC-007,EDI-PC-001,depends-on,Simulation emits through the Observability interface.
+56,EDI-REL-056,EDI-PC-007,EDI-PC-002,depends-on,Session Lifecycle emits through the Observability interface.
+57,EDI-REL-057,EDI-PC-007,EDI-PC-003,depends-on,AUTH and Admission emits through the Observability interface.
+58,EDI-REL-058,EDI-PC-007,EDI-PC-004,depends-on,Runtime Package emits through the Observability interface.
+59,EDI-REL-059,EDI-PC-007,EDI-PC-005,depends-on,Content Admission emits through the Observability interface.
+60,EDI-REL-060,EDI-PC-007,EDI-PC-006,depends-on,Protocol and Replication emits through the Observability interface.
+61,EDI-REL-061,EDI-PC-007,EDI-PC-008,depends-on,Trainee Performance Assessment emits through the Observability interface.
+62,EDI-REL-062,EDI-PC-007,EDI-PC-009,depends-on,Prediction emits through the Observability interface.
+63,EDI-REL-063,EDI-PC-007,EDI-PC-010,depends-on,Presentation emits through the Observability interface.
+64,EDI-REL-064,EDI-PC-007,EDI-PC-011,depends-on,Input and Interaction emits through the Observability interface.
+65,EDI-REL-065,EDI-PC-001,EDI-PC-012,depends-on,Session Authority Runtime composes Simulation.
+66,EDI-REL-066,EDI-PC-002,EDI-PC-012,depends-on,Session Authority Runtime composes Session Lifecycle.
+67,EDI-REL-067,EDI-PC-003,EDI-PC-012,depends-on,Session Authority Runtime composes AUTH and Admission.
+68,EDI-REL-068,EDI-PC-004,EDI-PC-012,depends-on,Session Authority Runtime composes Runtime Package.
+69,EDI-REL-069,EDI-PC-005,EDI-PC-012,depends-on,Session Authority Runtime composes Content Admission.
+70,EDI-REL-070,EDI-PC-006,EDI-PC-012,depends-on,Session Authority Runtime composes Protocol and Replication.
+71,EDI-REL-071,EDI-PC-007,EDI-PC-012,depends-on,Session Authority Runtime composes Observability.
+72,EDI-REL-072,EDI-PC-003,EDI-PC-013,depends-on,Trainee Client Runtime composes AUTH and Admission.
+73,EDI-REL-073,EDI-PC-004,EDI-PC-013,depends-on,Trainee Client Runtime composes Runtime Package.
+74,EDI-REL-074,EDI-PC-005,EDI-PC-013,depends-on,Trainee Client Runtime composes Content Admission.
+75,EDI-REL-075,EDI-PC-006,EDI-PC-013,depends-on,Trainee Client Runtime composes Protocol and Replication.
+76,EDI-REL-076,EDI-PC-009,EDI-PC-013,depends-on,Trainee Client Runtime composes Prediction.
+77,EDI-REL-077,EDI-PC-010,EDI-PC-013,depends-on,Trainee Client Runtime composes Presentation.
+78,EDI-REL-078,EDI-PC-011,EDI-PC-013,depends-on,Trainee Client Runtime composes Input and Interaction.
+79,EDI-REL-079,EDI-PC-007,EDI-PC-013,depends-on,Trainee Client Runtime composes Observability.
+80,EDI-REL-080,BART-ARC-012,EDI-VIEW-003,maps-to,ARCHSPEC-0004 supplies the Software Architecture Description module view.
+81,EDI-REL-081,EDI-PC-007,EDI-PC-014,depends-on,Content Cooker Runtime composes Observability.
+82,EDI-REL-082,EDI-PC-006,EDI-PC-016,depends-on,Synthetic Client Runtime exercises the protocol seam.
+83,EDI-REL-083,EDI-PC-007,EDI-PC-016,depends-on,Synthetic Client Runtime emits through Observability.
+84,EDI-REL-084,EDI-DATA-003,BART-VER-003,input-to,Local commit hook consumes the proposed commit message.
+85,EDI-REL-085,BART-VER-017,BART-VER-003,depends-on,Local commit hook invokes the canonical commit validator.
+86,EDI-REL-086,BART-VER-003,EDI-EVID-006,produces,Local commit hook produces its pre-registered result.
+87,EDI-REL-087,EDI-DATA-004,BART-VER-004,input-to,CodeQL workflow consumes the governed C++ validation closure.
+88,EDI-REL-088,EDI-ENV-001,BART-VER-004,input-to,CodeQL workflow depends on its declared repository environment.
+89,EDI-REL-089,BART-VER-004,EDI-EVID-007,produces,CodeQL workflow produces its pre-registered result.
+90,EDI-REL-090,EDI-DATA-003,BART-VER-005,input-to,Commit-policy workflow consumes commit messages.
+91,EDI-REL-091,EDI-DATA-008,BART-VER-005,input-to,Commit-policy workflow consumes the selected Git history.
+92,EDI-REL-092,BART-VER-017,BART-VER-005,depends-on,Commit-policy workflow invokes the canonical validator.
+93,EDI-REL-093,BART-VER-005,EDI-EVID-008,produces,Commit-policy workflow produces its pre-registered result.
+94,EDI-REL-094,EDI-DATA-005,BART-VER-013,input-to,Assignment generator consumes canonical requirement and verification sources.
+95,EDI-REL-095,EDI-ENV-001,BART-VER-013,input-to,Assignment generator depends on the repository validation environment.
+96,EDI-REL-096,BART-VER-013,EDI-DATA-006,produces,Assignment generator produces its pre-registered normalized output.
+97,EDI-REL-097,EDI-DATA-005,BART-VER-014,input-to,Baseline Applicability validator consumes canonical source requirements.
+98,EDI-REL-098,BART-VER-010,BART-VER-014,input-to,Baseline Applicability validator consumes the normalized register.
+99,EDI-REL-099,EDI-ENV-001,BART-VER-014,input-to,Baseline Applicability validator depends on the repository environment.
+100,EDI-REL-100,BART-VER-014,EDI-EVID-009,produces,Baseline Applicability validator produces its pre-registered result.
+101,EDI-REL-101,BART-VER-008,BART-VER-015,input-to,Baseline Artifact validator consumes the artifact register.
+102,EDI-REL-102,BART-VER-006,BART-VER-015,input-to,Baseline Artifact validator consumes Architecture Claim traces.
+103,EDI-REL-103,BART-VER-010,BART-VER-015,input-to,Baseline Artifact validator consumes Baseline Applicability rows.
+104,EDI-REL-104,EDI-ENV-001,BART-VER-015,input-to,Baseline Artifact validator depends on the repository environment.
+105,EDI-REL-105,BART-VER-015,EDI-EVID-010,produces,Baseline Artifact validator produces its pre-registered result.
+106,EDI-REL-106,BART-VER-009,BART-VER-016,input-to,Documentation validator consumes the Documentation Inventory.
+107,EDI-REL-107,EDI-DATA-007,BART-VER-016,input-to,Documentation validator consumes the retained document population.
+108,EDI-REL-108,EDI-ENV-001,BART-VER-016,input-to,Documentation validator depends on the repository environment.
+109,EDI-REL-109,BART-VER-016,EDI-EVID-011,produces,Documentation validator produces its pre-registered result.
+110,EDI-REL-110,EDI-DATA-003,BART-VER-017,input-to,Commit validator consumes one commit message.
+111,EDI-REL-111,EDI-ENV-001,BART-VER-017,input-to,Commit validator depends on the repository environment.
+112,EDI-REL-112,BART-VER-017,EDI-EVID-012,produces,Commit validator produces its pre-registered result.
+113,EDI-REL-113,EDI-DATA-001,EDI-PROC-001,input-to,Standards review consumes the fixed staged diff.
+114,EDI-REL-114,EDI-DATA-001,EDI-PROC-002,input-to,Spec review consumes the fixed staged diff.
+115,EDI-REL-115,EDI-DATA-002,EDI-PROC-002,input-to,Spec review consumes issue 42 as its authoritative specification.
+116,EDI-REL-116,BART-VER-007,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Artifact control identity.
+117,EDI-REL-117,BART-VER-011,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Applicability control identity.
+118,EDI-REL-118,BART-VER-009,BART-VER-022,input-to,Evidence Dependency validator consumes the Documentation Inventory identity.

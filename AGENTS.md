@@ -18,6 +18,11 @@ owner, requirement trace, or Architecture Claim mapping changes, update the [Bas
 Inventory](docs/project/training-simulation-baseline-artifact-inventory.md) and
 run its validator.
 
+Evidence impact: Before executing verification or inventory validation,
+accepting evidence, classifying change impact, or changing a registered node or
+relation, follow the [Evidence Dependency
+Inventory](docs/project/training-simulation-evidence-dependency-inventory.md).
+
 C++: Before changing first-party C++, CMake, dependencies, toolchains, builds,
 quality gates, or C++ CI, apply the
 [C++ Engineering Baseline](docs/standards/cpp-engineering.md).

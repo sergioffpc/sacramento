@@ -22,11 +22,20 @@ APPLICABILITY = (
 CLAIM_SOURCE = (
     ROOT / "docs/architecture/0010-cross-cutting-architecture-and-verification.md"
 )
+EVIDENCE_CONTROL = (
+    ROOT / "docs/project/training-simulation-evidence-dependency-inventory.md"
+)
 
 INVENTORY_PACKAGE = {
     CONTROL.relative_to(ROOT).as_posix(),
     ARTIFACTS.relative_to(ROOT).as_posix(),
     CLAIMS.relative_to(ROOT).as_posix(),
+}
+EVIDENCE_PACKAGE = {
+    "docs/project/training-simulation-evidence-dependency-inventory.md",
+    "docs/project/training-simulation-evidence-dependency-nodes.csv",
+    "docs/project/training-simulation-evidence-dependency-relations.csv",
+    "docs/project/training-simulation-evidence-impact-cases.csv",
 }
 ARTIFACT_HEADER = [
     "sequence",
@@ -241,11 +250,29 @@ def file_sha256(path: pathlib.Path) -> str:
     return f"sha256:{digest.hexdigest()}"
 
 
+def evidence_package_identity(errors: list[str]) -> str:
+    """Return the exact external Evidence Dependency Inventory identity."""
+    try:
+        text = EVIDENCE_CONTROL.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as error:
+        raise SystemExit(f"cannot read evidence inventory control: {error}") from error
+    versions = re.findall(r"^Inventory version: `([^`]+)`$", text, re.MULTILINE)
+    digests = re.findall(r"^Package SHA-256: `([^`]+)`$", text, re.MULTILINE)
+    if versions != ["EDI-001"] or len(digests) != 1:
+        errors.append("evidence inventory control: invalid package identity")
+        return "INVALID"
+    if PACKAGE_DIGEST_RE.fullmatch(digests[0]) is None:
+        errors.append("evidence inventory control: invalid package SHA-256")
+        return "INVALID"
+    return f"EDI-001@sha256:{digests[0]}"
+
+
 def validate_artifacts(
     artifacts: list[Artifact],
     dispositions: dict[str, str],
     population: dict[str, str],
     package_identity: str,
+    evidence_identity: str,
     errors: list[str],
 ) -> dict[str, Artifact]:
     """Validate artifact identities, metadata, versions, traces, and coverage."""
@@ -294,6 +321,9 @@ def validate_artifacts(
         elif artifact.location in INVENTORY_PACKAGE:
             if artifact.exact_version != package_identity:
                 errors.append(f"{label}: inventory-package version mismatch")
+        elif artifact.location in EVIDENCE_PACKAGE:
+            if artifact.exact_version != evidence_identity:
+                errors.append(f"{label}: evidence-package version mismatch")
         elif not SHA256_RE.fullmatch(artifact.exact_version):
             errors.append(f"{label}: invalid exact SHA-256 version")
         elif (ROOT / path).is_file():
@@ -589,6 +619,7 @@ def main() -> int:
     """Validate the complete inventory package and report every finding."""
     errors: list[str] = []
     control_text, inventory_version, package_identity = validate_control(errors)
+    evidence_identity = evidence_package_identity(errors)
     population = authoritative_population(control_text, errors)
     ordered_requirements, dispositions = applicability_registry(errors)
     artifacts = parse_artifacts(errors)
@@ -597,6 +628,7 @@ def main() -> int:
         dispositions,
         population,
         package_identity,
+        evidence_identity,
         errors,
     )
     expected_claims = canonical_claims(ordered_requirements, errors)
