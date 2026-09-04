@@ -113,7 +113,7 @@ sequence,relation_identifier,source_node_identifier,target_node_identifier,relat
 112,EDI-REL-112,BART-VER-017,EDI-EVID-012,produces,Commit validator produces its pre-registered result.
 113,EDI-REL-113,EDI-DATA-001,EDI-PROC-001,input-to,Standards review consumes the fixed staged diff.
 114,EDI-REL-114,EDI-DATA-001,EDI-PROC-002,input-to,Spec review consumes the fixed staged diff.
-115,EDI-REL-115,EDI-DATA-002,EDI-PROC-002,input-to,Spec review consumes issue 26 as its authoritative specification.
+115,EDI-REL-115,EDI-DATA-002,EDI-PROC-002,input-to,Spec review consumes issue 29 as its authoritative specification.
 116,EDI-REL-116,BART-VER-007,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Artifact control identity.
 117,EDI-REL-117,BART-VER-011,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Applicability control identity.
 118,EDI-REL-118,BART-VER-009,BART-VER-022,input-to,Evidence Dependency validator consumes the Documentation Inventory identity.
