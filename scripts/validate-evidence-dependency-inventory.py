@@ -100,11 +100,11 @@ class CaseClass(StrEnum):
 
 class InjectedCondition(StrEnum):
     NONE = "None"
-    STALE = "Source exact version differs from BARTINV-003"
+    STALE = "Source exact version differs from BARTINV-004"
     UNCLASSIFIED = "Relation type is empty"
     MISSING_RELATION = "Known validator input relation is removed"
     INVARIANCE = "Reproducible analysis retains exact obligation-level criterion and Pass"
-    PREDECESSOR = "Retained analysis names predecessor EDI-000"
+    PREDECESSOR = "Retained analysis names predecessor EDI-001"
 
 
 class Disposition(StrEnum):
@@ -195,15 +195,15 @@ def validate_controls(errors: list[str]) -> str:
     bart_digest = extract_unique_match(r"^Package SHA-256: `([^`]+)`$", bart, "BART digest", errors)
     bai_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", bai, "BAI version", errors)
     doc_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", docinv, "DOCINV version", errors)
-    if version != "EDI-001":
-        errors.append("EDI control: expected EDI-001")
-    if bart_version != "BARTINV-003":
-        errors.append("EDI control: expected BARTINV-003")
-    if bai_version != "BAI-002":
-        errors.append("EDI control: expected approved BAI-002")
-    if doc_version != "DOCINV-006":
-        errors.append("EDI control: expected DOCINV-006")
-    expected_bart_identity = f"BARTINV-003@sha256:{bart_digest}"
+    if version != "EDI-002":
+        errors.append("EDI control: expected EDI-002")
+    if bart_version != "BARTINV-004":
+        errors.append("EDI control: expected BARTINV-004")
+    if bai_version != "BAI-003":
+        errors.append("EDI control: expected BAI-003")
+    if doc_version != "DOCINV-007":
+        errors.append("EDI control: expected DOCINV-007")
+    expected_bart_identity = f"BARTINV-004@sha256:{bart_digest}"
     if expected_bart_identity not in edi:
         errors.append("EDI control: stale Baseline Artifact Inventory identity")
     if not PACKAGE_DIGEST_RE.fullmatch(digest):
@@ -256,7 +256,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[identifier] = Node(
             identifier,
             NodeClass.REQUIREMENT,
-            "BAI-002",
+            "BAI-003",
             BAI.relative_to(ROOT).as_posix(),
         )
 
@@ -287,7 +287,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[claim] = Node(
             claim,
             NodeClass.CLAIM,
-            "BARTINV-003",
+            "BARTINV-004",
             CLAIMS.relative_to(ROOT).as_posix(),
         )
         edges.append(
@@ -402,7 +402,7 @@ def validate_review_inputs(nodes: dict[str, Node], errors: list[str]) -> None:
     if diff_node is None or not SHA256_RE.fullmatch(diff_node.exact_version):
         errors.append("review inputs: fixed staged diff lacks an exact SHA-256")
     if issue_node is None or not SHA256_RE.fullmatch(issue_node.exact_version):
-        errors.append("review inputs: issue 42 lacks an exact body SHA-256")
+        errors.append("review inputs: issue 26 lacks an exact body SHA-256")
     result = subprocess.run(
         ["git", "diff", "--cached", "--binary"],
         cwd=ROOT,
@@ -643,7 +643,7 @@ def main() -> int:
     counts = Counter(node.node_class for node in nodes.values())
     nonzero = "; ".join(f"{name}={counts[name]}" for name in sorted(counts))
     print(f"Evidence dependency inventory valid: {version}: {len(nodes)} nodes; {len(edges)} relations; {nonzero}")
-    print("Impact cases valid: 9 cases; conservative uncertainty and successor re-evaluation enforced")
+    print("Impact cases valid: 10 cases; conservative uncertainty and successor re-evaluation enforced")
     return 0
 
 

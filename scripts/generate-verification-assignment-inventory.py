@@ -9,11 +9,17 @@ import pathlib
 import re
 
 
+VERIFICATION_PLAN = pathlib.Path(
+    "docs/requirements/training-simulation-verification-plan.md"
+)
 SOURCES = (
     pathlib.Path(
         "docs/requirements/training-simulation-initial-requirements.md"
     ),
-    pathlib.Path("docs/requirements/training-simulation-verification-plan.md"),
+    pathlib.Path(
+        "docs/requirements/training-simulation-autonomous-participant-requirements.md"
+    ),
+    VERIFICATION_PLAN,
 )
 OUTPUT = pathlib.Path(
     "docs/requirements/"
@@ -113,7 +119,7 @@ def main() -> None:
 
     rows: list[dict[str, str]] = []
     in_assignments = False
-    for line in content[SOURCES[1]].splitlines():
+    for line in content[VERIFICATION_PLAN].splitlines():
         if line == "## Requirement assignments":
             in_assignments = True
             continue

@@ -1,26 +1,24 @@
 # Training Simulation Verification Plan
 
-Status: Approved baseline; candidate normalized-assignment amendment
+Status: Approved baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Cross-cutting architecture and verification closure, project owner, 2026-09-03
-
-Candidate amendment: Compact reconstructible assignment inventory; project-owner approval pending
+Latest approved amendment: Autonomous Participant assignments and compact reconstructible assignment inventory, project owner, 2026-09-04
 
 Canonical language: English
 
 Canonical information owner: Project owner
 
-Review coverage: Accepted verification decisions through Q308 plus the complete independently reviewed Authentication and authorization delta beginning at AUTH-Q1 and the project-owner-confirmed issue #33, #35, #37, and #39 architecture grillings. Production-security assignments remain future; no current architecture-decision verification-assignment frontier remains open.
+Review coverage: Accepted verification decisions through Q308 plus the complete independently reviewed Authentication and authorization delta beginning at AUTH-Q1, the project-owner-confirmed issue #33, #35, #37, and #39 architecture grillings, and approved issue #26 Autonomous Participant assignments. Production-security and Autonomous Participant executions remain future.
 
-Purpose: Define how the accepted initial requirements are reviewed for ambiguity and assigned finite verification procedures, evidence, and responsibilities.
+Purpose: Define how governed requirement sets are reviewed for ambiguity and assigned finite verification procedures, evidence, and responsibilities.
 
 Scope: Verification of the approved functional baseline and common verification conventions referenced by separately governed requirement documents. Production-security assignment rows remain future verification design and do not contribute current-baseline Pass until the Production Security Baseline applies. This document does not add product behavior, select architecture, define implementation tasks, or replace the requirement-specific catalogues in the non-functional or Trainee Performance Assessment documents.
 
 Intended readers: Project owner, requirements reviewers, architects, designers, implementers, verification authors, and Representative Evaluators.
 
-Prerequisites: [Training Simulation Initial Requirements](training-simulation-initial-requirements.md), [Training Simulation context](../../CONTEXT.md), and [Initial Goals, Requirements, and Constraints Document Guidance](../research/initial-goals-requirements-and-constraints-guidance.md).
+Prerequisites: [Training Simulation Initial Requirements](training-simulation-initial-requirements.md), [Autonomous Participant Requirements](training-simulation-autonomous-participant-requirements.md), [Training Simulation context](../../CONTEXT.md), and [Initial Goals, Requirements, and Constraints Document Guidance](../research/initial-goals-requirements-and-constraints-guidance.md).
 
 ## Table of contents
 
@@ -372,13 +370,23 @@ For the current baseline, each assignment-table method cell is the reviewed accu
 | `REQ-TEAM-POSITION-CONCURRENCY-001`, `REQ-LOADOUT-CONCURRENCY-001`, `REQ-PREPARATION-REJECTION-001` | Automated Test, Inspection | None | Synchronized competing requests for the last Team Position and Loadout quantity showing no over-allocation, identifier-level accepted and rejected outcomes, preserved valid preceding selections, updated availability, continued preparation state, and no automatic alternative selection | Implementation team | Project owner |
 | `REQ-OPERATIONAL-CLOCK-001` through `REQ-OPERATIONAL-CLOCK-003`, `REQ-DEADLINE-ORDER-001`, `REQ-DEADLINE-ORDER-002`, `REQ-SESSION-ROSTER-001`, `REQ-INITIAL-START-CONDITIONS-001` through `REQ-INITIAL-START-CONDITIONS-004`, `REQ-SESSION-START-001`, `REQ-SESSION-COUNTDOWN-001` through `REQ-SESSION-COUNTDOWN-004` | Automated Test, Inspection | Demonstration | Approved closed start-condition inventory and requirement/configuration trace; one positive case and one isolated negative per condition; rejection of an unstated gate; deterministic Operational Clock traces covering start, just-before, exact-boundary and just-after events; client-clock rejection; invalidation precedence; and the exact five-second transition | Implementation team | Project owner |
 
+| `REQ-AUTONOMOUS-SCOPE-001` through `REQ-AUTONOMOUS-CONTROL-BOUNDARY-001` | Inspection | None | Exact baseline and role boundaries; distinction from Trainee and synthetic clients; one-controller/one-connection cardinality; separation of Autonomous Control, Prediction, and Presentation; and absence of an admitted module, interface, implementation, dependency, or product-evidence claim | Implementation team | Project owner |
+| `REQ-AUTONOMOUS-IDENTITY-001` through `REQ-AUTONOMOUS-RECOVERY-002` | Automated Test, Inspection | Demonstration for complete Admission and recovery flows | Role-specific identity and permission catalogues; Canonical Identity Key comparisons; assertion and trust-package versions; positive, missing, mismatched, duplicate, revoked, expired, restarted, replacement, pre-active recovery, and active-loss cases; atomic Admission and removal traces; separate AUTH and action-attribution records; and proof that no human identity or preceding Admission state is inferred | Implementation team and Qualified Specialists for identity-security evidence | Project owner |
+| `REQ-AUTONOMOUS-ACTION-SOURCE-001` through `REQ-AUTONOMOUS-SCENARIO-CLOSED-001` | Automated Test, Analysis, Inspection | Demonstration | Complete Team Position, roster-mixture, Loadout, action, readiness, Scenario-applicability and source-binding matrices; exact content and profile versions; same-state Trainee/Autonomous paired outcomes; capacity boundaries; concurrency and ordering traces; rejected authoritative fields; and absent-applicability negatives | Implementation team and Qualified Specialists for profile evidence | Project owner |
+| `REQ-AUTONOMOUS-PERCEPTION-001` through `REQ-AUTONOMOUS-PERCEPTION-FAILURE-001` | Automated Test, Analysis, Inspection | Demonstration | Versioned field-and-precision mapping for every controller-visible input; same-state Trainee perception comparisons across viewpoint, equipment, acoustic, environment, occlusion and hidden-state cases; missing/stale/duplicate/reordered inputs; tolerances fixed before results; and prohibited privileged-input negatives | Implementation team and Qualified Specialists for perception-profile evidence | Project owner |
+| `REQ-AUTONOMOUS-PERCEPTION-EQUIVALENCE-001` | Automated Test, Analysis, Inspection, Representative Evaluation | Demonstration | Complete technical perception mapping plus at least two independent in-scope evaluator results under a pre-approved protocol confirming that differences within each tolerance expose no tactically material information or precision advantage | Implementation team, Qualified Specialists, and Representative Evaluators | Project owner |
+| `REQ-AUTONOMOUS-OBSERVABILITY-001` through `REQ-AUTONOMOUS-REPLAY-003` | Automated Test, Analysis, Inspection | None | Exact Observability Contract and replay-environment versions; signal catalogue, cardinality, order, correlation, privacy and loss cases; immutable controller release, configuration, state, seed, perception and clock inputs; repeated output comparison; first-divergence records; and negatives for claims beyond controller-output repeatability | Implementation team | Project owner |
+| `NFR-AUTONOMOUS-WORKLOAD-001` through `REQ-AUTONOMOUS-SECURITY-003` | Automated Test, Analysis, Inspection | Demonstration for maximum-capacity and failure flows | Exact workload, hardware, controller and Scenario-profile versions; all-autonomous and mixed 16-position runs; action-response results; Session Authority resource and timing evidence; controller cadence boundaries; stall, malformed, excessive, isolation and uncertainty cases; immutable controller provenance and integrity; untrusted-input closure; and secret or privileged-data leakage negatives | Implementation team and Qualified Specialists for security and performance evidence | Project owner |
+| `REQ-AUTONOMOUS-ASSESSMENT-001` through `REQ-AUTONOMOUS-RECOVERY-SUBJECT-001` | Automated Test, Inspection | None | Output-recipient and identity matrices proving no Autonomous Participant assessment, Training Feedback, qualification or Leaderboard result; AAR and AUTH separation; and trace showing the distinct Autonomous Recovery Subject Baseline depends on but does not cover the general role | Implementation team | Project owner |
+| `PROCESS-AUTONOMOUS-APPLICABILITY-001` through `PROCESS-AUTONOMOUS-CHANGE-001` | Automated Test, Analysis, Inspection | None | Exact reconciled applicability, Scenario, perception, artifact and Evidence Dependency inventories; stable obligation keys and pre-registered outputs; objective-versus-representative method decisions; missing/stale/uncertain/failed/blocked acceptance negatives; exact-version approvals; and conservative successor impact traversal for every enumerated change class | Implementation team and Representative Evaluators where assigned | Project owner |
+
 ### Assignment Expansion Inventory
 
 The generated Assignment Expansion Inventory at
 `docs/requirements/training-simulation-verification-assignment-inventory.csv`
 is the canonical compact index for this plan version. It is a non-retained
-local output: regenerate it from the exact initial-requirements and
-verification-plan contents whenever it is needed. Each identifier retains its
+local output: regenerate it from the exact initial-requirements, Autonomous
+Participant requirements, and verification-plan contents whenever it is needed. Each identifier retains its
 canonical order, source document, matching `AR-nnn` rows, and evidence owners.
 
 The generator expands every range and validates accumulated methods, defaults, evidence, approvers, Representative Evaluation applicability and rationale, and obligation scope before writing the index. Those values remain in the bound canonical assignment rows and rules rather than being copied into every output row. There are no current Verification Method Exceptions. Each procedure replaces identifier-level applicability with stable obligation-key decisions before approval, preserving mixed decisions separately.
