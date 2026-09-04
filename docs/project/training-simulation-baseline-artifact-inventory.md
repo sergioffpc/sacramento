@@ -4,13 +4,13 @@ Status: Approved
 
 Approval: Project owner, 2026-09-04
 
-Inventory version: `BARTINV-006`
+Inventory version: `BARTINV-007`
 
-Package SHA-256: `bc23ff31ee3868e3a72f77fb191613d0fa3fbcc9c7ac00bf5b1189455e52bcd8`
+Package SHA-256: `5b49f1c057bfeb9c840fc388a5444cdc683b0a2bc8dd12215b783147934229dd`
 
-Approved package SHA-256: `bc23ff31ee3868e3a72f77fb191613d0fa3fbcc9c7ac00bf5b1189455e52bcd8`
+Approved package SHA-256: `5b49f1c057bfeb9c840fc388a5444cdc683b0a2bc8dd12215b783147934229dd`
 
-Approved predecessor: `BARTINV-005@sha256:05d2639bd506a4cd65a8b60a12f37ab7351f96c76652c446bfe021a46a32af6d`, project owner, 2026-09-04
+Approved predecessor: `BARTINV-006@sha256:bc23ff31ee3868e3a72f77fb191613d0fa3fbcc9c7ac00bf5b1189455e52bcd8`, project owner, 2026-09-04
 
 Version basis: The package SHA-256 and the per-artifact SHA-256 versions in the
 three inventory-package documents; any governed artifact, trace,
@@ -48,15 +48,15 @@ Canonical information owner: Project owner.
 - [Architecture Claim traces](#architecture-claim-traces)
 - [Reconciliation and validation](#reconciliation-and-validation)
 - [Current acceptance boundary](#current-acceptance-boundary)
-- [`BARTINV-006` impact analysis](#bartinv-006-impact-analysis)
+- [`BARTINV-007` impact analysis](#bartinv-007-impact-analysis)
 - [Change control](#change-control)
 
 ## Inventory package
 
-`BARTINV-006` is one atomic version comprising this control document, the
+`BARTINV-007` is one atomic version comprising this control document, the
 [artifact register](training-simulation-baseline-artifacts.csv), and the
 [Architecture Claim trace register](training-simulation-architecture-claim-traces.csv).
-Those three files use `BARTINV-006@sha256:<package-digest>` as their exact
+Those three files use `BARTINV-007@sha256:<package-digest>` as their exact
 version. The digest hashes their sorted paths and contents after replacing each
 embedded copy of the digest with 64 zeroes, avoiding a cyclic self-hash while
 binding the complete package content. Every other artifact version is its
@@ -185,7 +185,7 @@ review decisions.
 
 ## Current acceptance boundary
 
-Approved `BARTINV-006` reconciles 78 artifacts: 24 Architecture, 13 Design,
+Approved `BARTINV-007` reconciles 78 artifacts: 24 Architecture, 13 Design,
 18 Implementation, and 23 Verification. Every one of the 85 ADR-0010
 Architecture Claims resolves to its governing artifact and exact primary
 requirement identifiers.
@@ -193,22 +193,20 @@ requirement identifiers.
 The inventory records artifacts and trace relations; it does not claim product
 realization, verification evidence, Production Security Baseline or Platform
 Operations Baseline satisfaction, or Development Baseline acceptance. The
-approved Evidence Dependency Inventory successor is `EDI-004`. Neither inventory can
+approved Evidence Dependency Inventory successor is `EDI-005`. Neither inventory can
 support `Pass` or `Unaffected` without coverage validation, substantive review,
 and exact-version project-owner approval.
 
-## `BARTINV-006` impact analysis
+## `BARTINV-007` impact analysis
 
-This successor adds ADR-0011, ARCHSPEC-0011, ADR-0012, ARCHSPEC-0012, the
-Runtime Resource Type Inventory, the executable C++ style gate, and canonical
-`SAD-001` as `BART-ARC-024`. It adds 19 memory and runtime-resource Architecture
-Claims; updates exact versions for canonical responsibility, the claim
-register, glossaries, Documentation Inventory, and recursively affected
-inventory artifacts; and retains every product realization as `Not
-Implemented` and evidence state as `Blocked`. Every changed source identity
-and predecessor-bound validation or review result is `Affected` under approved
-`EDI-004`; no accepted product or Architecture Claim evidence exists to retain
-as `Unaffected`. Exact-version approval was granted by the project owner on
+This successor preserves the approved `BARTINV-006` population,
+classifications, owners, requirement traces, and Architecture Claim mappings.
+It changes the exact `BART-ARC-024` version from approved `SAD-001` to
+approved `SAD-002` and updates the recursively affected Documentation
+Inventory, inventory validators, and `EDI-005` package identities. Every
+changed source identity and predecessor-bound validation or review result is
+`Affected`; no accepted product or Architecture Claim evidence exists to
+retain as `Unaffected`. Exact-version project-owner approval was granted on
 2026-09-04.
 
 ## Change control

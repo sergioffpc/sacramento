@@ -4,13 +4,13 @@ Status: Approved
 
 Approval: Project owner, 2026-09-04
 
-Inventory version: `EDI-004`
+Inventory version: `EDI-005`
 
-Package SHA-256: `38ba4fd1a690ac47122424bbcf8a5f58d9bbd4f23dfbb57d78e560c7214eadde`
+Package SHA-256: `ef948873d66cc4fc10febb9ecbff6445980e35bfe188fddd9b9bac22a2e6faaa`
 
-Approved package SHA-256: `38ba4fd1a690ac47122424bbcf8a5f58d9bbd4f23dfbb57d78e560c7214eadde`
+Approved package SHA-256: `ef948873d66cc4fc10febb9ecbff6445980e35bfe188fddd9b9bac22a2e6faaa`
 
-Approved predecessor: `EDI-003@sha256:63b5b394d27126af1d045868ca9e0b92e4098a9082e0db7de0e9b37d8593f5cb`, project owner, 2026-09-04
+Approved predecessor: `EDI-004@sha256:38ba4fd1a690ac47122424bbcf8a5f58d9bbd4f23dfbb57d78e560c7214eadde`, project owner, 2026-09-04
 
 Version basis: The package SHA-256 and the exact approved predecessor
 inventory identities recorded below. A registered node, classification, or
@@ -33,9 +33,9 @@ authors, reviewers, evidence custodians, and repository agents.
 Prerequisites: Approved [Baseline Applicability Inventory
 `BAI-004`](../requirements/training-simulation-baseline-applicability.md),
 approved [Baseline Artifact Inventory
-`BARTINV-006`](training-simulation-baseline-artifact-inventory.md), approved
+`BARTINV-007`](training-simulation-baseline-artifact-inventory.md), approved
 [Documentation Inventory
-`DOCINV-009`](training-simulation-documentation-inventory.md),
+`DOCINV-010`](training-simulation-documentation-inventory.md),
 [ADR-0010](../adr/0010-close-cross-cutting-architecture-and-verification.md),
 and the [Verification
 Plan](../requirements/training-simulation-verification-plan.md).
@@ -54,12 +54,12 @@ Canonical information owner and approver: Project owner.
 - [Coverage validation](#coverage-validation)
 - [Demonstrated impact cases](#demonstrated-impact-cases)
 - [Current acceptance boundary](#current-acceptance-boundary)
-- [`EDI-004` impact analysis](#edi-004-impact-analysis)
+- [`EDI-005` impact analysis](#edi-005-impact-analysis)
 - [Change control](#change-control)
 
 ## Inventory package
 
-`EDI-004` is one atomic version comprising this control document, the
+`EDI-005` is one atomic version comprising this control document, the
 [supplemental node register](training-simulation-evidence-dependency-nodes.csv),
 the [supplemental directed-relation
 register](training-simulation-evidence-dependency-relations.csv), and the
@@ -69,7 +69,7 @@ imports described below; the supplemental files do not duplicate predecessor
 inventory rows.
 
 The digest hashes the four sorted paths and contents after replacing every
-embedded copy of its own digest and the cyclic `BARTINV-006` package digest
+embedded copy of its own digest and the cyclic `BARTINV-007` package digest
 with 64 zeroes. This makes the EDI and Baseline Artifact inventories mutually
 addressable without pretending that a cryptographic fixed point exists. Every
 non-package file version remains the exact version supplied by its authoritative
@@ -78,8 +78,8 @@ inventory.
 | Imported inventory | Exact identity |
 | --- | --- |
 | Baseline Applicability Inventory | Approved `BAI-004` |
-| Baseline Artifact Inventory | Approved `BARTINV-006@sha256:bc23ff31ee3868e3a72f77fb191613d0fa3fbcc9c7ac00bf5b1189455e52bcd8` |
-| Documentation Inventory | Approved `DOCINV-009` repository tree |
+| Baseline Artifact Inventory | Approved `BARTINV-007@sha256:5b49f1c057bfeb9c840fc388a5444cdc683b0a2bc8dd12215b783147934229dd` |
+| Documentation Inventory | Approved `DOCINV-010` repository tree |
 
 Repository discovery and graph traversal prove structural population and
 reachability only. They cannot decide semantic canonicality, completeness of a
@@ -116,7 +116,7 @@ The validator materializes one effective node for each exact source identity:
 
 1. every `BAI-004` row, using its requirement identifier as a `Requirement
    Identifier` node;
-2. every `BARTINV-006` row, using its stable artifact identifier and classifying
+2. every `BARTINV-007` row, using its stable artifact identifier and classifying
    it as a `Configuration Item`, `Verification Procedure`, `Input Data Set`, or
    `Governed Artifact` according to the reviewed path rules in the validator;
 3. every Architecture Claim trace row, using its `AC-*` key as an `Architecture
@@ -126,7 +126,7 @@ The validator materializes one effective node for each exact source identity:
 Description views, exact validation environment, procedure-specific data,
 review and approval procedures, and pre-registered outputs.
 
-The validator derives requirement-to-artifact traces from `BARTINV-006`, and
+The validator derives requirement-to-artifact traces from `BARTINV-007`, and
 requirement-to-claim plus governing-artifact-to-claim mappings from the exact
 Architecture Claim register. It adds the reviewed explicit relations from the
 supplemental relation register. No imported source row is silently copied or
@@ -134,23 +134,23 @@ renumbered.
 
 ## Node classes and reconciliation
 
-| Required class | Authoritative population | `EDI-004` reconciliation |
+| Required class | Authoritative population | `EDI-005` reconciliation |
 | --- | --- | --- |
 | `Requirement Identifier` | `BAI-004` | Every row imported exactly once. |
 | `Obligation Key` | Approved verification procedures | Zero current approved obligation keys; any procedure execution or `Pass` remains blocked until keys are registered in a successor. |
 | `Product Component` | ARCHSPEC-0004 responsibility-module and runtime-composition tables | Every current architecture-level module and runtime registered explicitly. |
-| `Configuration Item` | `BARTINV-006` Implementation artifacts | Every current row imported exactly once under the reviewed class mapping. |
+| `Configuration Item` | `BARTINV-007` Implementation artifacts | Every current row imported exactly once under the reviewed class mapping. |
 | `Scenario` | Approved Scenario inventory | Zero current approved Scenario versions; prose examples do not create an admitted instance. |
 | `Map` | Approved Map inventory | Zero current approved Map versions. |
 | `Content Item` | Approved content and catalogue inventories | Zero current admitted content items. |
 | `Approved Profile` | Approved Profile inventory | Zero current admitted Approved Profile versions; Reference Hardware and Performance Profiles retain their distinct governed-artifact identities. |
-| `Verification Procedure` | `BARTINV-006` executable verification artifacts and this inventory's explicit review/approval procedures | Every current executable or explicit procedure imported or registered exactly once, with declared inputs or dependencies and at least one pre-registered output. |
-| `Input Data Set` | `BARTINV-006` verification configuration and inventory datasets plus this inventory's supplemental procedure data | Every current row imported or registered exactly once under the reviewed class mapping. |
+| `Verification Procedure` | `BARTINV-007` executable verification artifacts and this inventory's explicit review/approval procedures | Every current executable or explicit procedure imported or registered exactly once, with declared inputs or dependencies and at least one pre-registered output. |
+| `Input Data Set` | `BARTINV-007` verification configuration and inventory datasets plus this inventory's supplemental procedure data | Every current row imported or registered exactly once under the reviewed class mapping. |
 | `Verification Environment` | This inventory's supplemental register | Exact repository validation environment registered before execution. |
 | `Evidence Record` | This inventory's pre-registered output population | Inventory validations, repository gates, Standards review, Spec review, and exact-version approval identities registered before production. |
-| `Architecture Claim` | `BARTINV-006` Architecture Claim trace register | Every `AC-*` row imported exactly once with its governing artifact mapping. |
-| `Software Architecture Description View` | ARCHSPEC-0010 view-set table and `SAD-001` | Every selected view registered under its surviving `EDI-VIEW-*` identity with the exact current SAD file version and section location. |
-| `Governed Artifact` | Remaining `BARTINV-006` rows | Every remaining architecture, design, and verification artifact imported exactly once. |
+| `Architecture Claim` | `BARTINV-007` Architecture Claim trace register | Every `AC-*` row imported exactly once with its governing artifact mapping. |
+| `Software Architecture Description View` | ARCHSPEC-0010 view-set table and `SAD-002` | Every selected view registered under its surviving `EDI-VIEW-*` identity with the exact current SAD file version and section location. |
+| `Governed Artifact` | Remaining `BARTINV-007` rows | Every remaining architecture, design, and verification artifact imported exactly once. |
 
 A zero population is a closed current result, not permission to omit a newly
 discovered item. The first item in any zero-population class requires its
@@ -241,7 +241,7 @@ can manufacture.
 
 ## Current acceptance boundary
 
-Approved `EDI-004` registers and coverage-validates the current graph without
+Approved `EDI-005` registers and coverage-validates the current graph without
 claiming product realization or accepted product evidence. The current zero
 populations and absence of approved obligation keys prohibit product evidence
 from receiving `Pass`. Architecture Claims and all nine current Software
@@ -254,27 +254,23 @@ Project-owner approval applies to this exact package identity. Structural
 validation cannot approve it, and approval cannot convert missing product
 instances, obligation keys, procedures, or evidence into a nonzero population.
 
-## `EDI-004` impact analysis
+## `EDI-005` impact analysis
 
-This successor preserves the approved `EDI-003` graph and imports approved
-`BARTINV-006` and `DOCINV-009`. It retains the C++ and memory additions,
-registers the runtime-resource architecture and type inventory, 19 Memory and
-Runtime Resource Architecture Claims, and the Scenario responsibility module.
-It also registers `BART-ARC-024`, changes `EDI-VIEW-001` through
-`EDI-VIEW-009` from selected `Planned` views to exact `SAD-001` `Current`
-realizations, and adds `EDI-REL-133` through `EDI-REL-226` for the realization
-and every additional claim-to-view mapping declared by the SAD. It does not
-admit a Scenario instance, Map, Content Item, Runtime Resource Type, Approved
-Profile, or obligation key.
+This successor preserves the approved `EDI-004` node and relation population.
+It changes the exact realization source and content version of
+`EDI-VIEW-001` through `EDI-VIEW-009` from approved `SAD-001` to approved
+`SAD-002`, and imports approved `BARTINV-007` and `DOCINV-010`. Stable view,
+artifact, claim, and relation identifiers survive unchanged; no Scenario, Map,
+Content Item, Runtime Resource Type, Approved Profile, or obligation key is
+admitted.
 
-The changed `NFR-OBSERVABILITY-CORE-001` definition, verification assignments,
-contract and glossary artifacts, `SAD-001`, imported source versions, fixed
-review input, and every predecessor-bound validation and review result are
-`Affected`. No
-accepted product or Architecture Claim evidence exists to retain as
-`Unaffected`. Every retained analysis bound to `EDI-003` requires
-re-evaluation; coverage validation and both independent reviews passed, and
-exact-version project-owner approval was granted on 2026-09-04.
+`BART-ARC-024`, all nine SAD views, the recursively affected inventory and
+validator artifacts, the fixed review input, and every predecessor-bound
+validation and review result are `Affected`. No accepted product or
+Architecture Claim evidence exists to retain as `Unaffected`. Every retained
+analysis bound to `EDI-004` requires re-evaluation; coverage validation and
+both independent reviews passed, and exact-version project-owner approval was
+granted on 2026-09-04.
 
 The conservative traversal was performed from the following complete changed-
 start populations. Sets shown after the arrow are the complete reachable sets

@@ -4,11 +4,13 @@ Status: Approved
 
 Approval: Project owner, 2026-09-04
 
-Description version: `SAD-001`
+Approved predecessor: `SAD-001`, project owner, 2026-09-04
 
-Version basis: The exact file version registered as `BART-ARC-024` in the
-approved Baseline Artifact Inventory; a governing input or view-content change
-creates a successor description version.
+Description version: `SAD-002`
+
+Version basis: The exact file version registered as `BART-ARC-024` in approved
+`BARTINV-007`; a governing input or view-content change creates a successor
+description version.
 
 Purpose: Present the accepted Development Baseline architecture of the
 Training Simulation as one lean, linked set of stakeholder views.
@@ -79,7 +81,7 @@ Text diagrams use these conventions:
 | Control | Value |
 | --- | --- |
 | Purpose | Establish the description identity, status boundary, audience routes, notation, ownership, and view map. |
-| Scope | This `SAD-001` description and navigation among its nine views. |
+| Scope | This `SAD-002` description, its architectural drivers and solution strategy, and navigation among its nine views. |
 | Stakeholders | All intended readers; especially the project owner, architecture maintainers, and reviewers. |
 | Notation | Markdown links and tables; the global text-diagram conventions above; `EDI-VIEW-*`, `AC-*`, `ADR-*`, `ARCHSPEC-*`, and requirement identifiers are stable references. |
 | Prerequisites | The document-level prerequisites and [ARCHSPEC-0010 view set](0010-cross-cutting-architecture-and-verification.md#software-architecture-description-view-set). |
@@ -101,6 +103,44 @@ Text diagrams use these conventions:
 | Configuration, outcomes, resources, security applicability, and Observability | [Cross-cutting policies](#edi-view-007-cross-cutting-policies) | [Verification and traceability](#edi-view-008-verification-and-traceability) |
 | Claims, evidence, acceptance, and change impact | [Verification and traceability](#edi-view-008-verification-and-traceability) | [Risks and open work](#edi-view-009-risks-debt-assumptions-and-open-work) |
 | Limitations, replacement triggers, and future baselines | [Risks, debt, assumptions, and open work](#edi-view-009-risks-debt-assumptions-and-open-work) | The view owning the affected concern |
+
+### System purpose and architectural drivers
+
+Sacramento is a multiplayer Training Simulation through which armed-forces
+Teams rehearse shooting Scenarios that are impractical to reproduce at full
+physical scale. The Development Baseline must support a complete Training
+Session in Desktop Mode while preserving the later Virtual-Reality Mode seam;
+the Simulation Engine is an internal means to that product outcome rather than
+an independently general-purpose product.
+
+The following small driver set explains the architecture. It is a navigation
+summary only; the linked requirement remains the normative criterion and owns
+its exact workload, threshold, evidence, and applicability.
+
+| Driver, precedence, and observable scenario | Architectural response | Canonical criterion |
+| --- | --- | --- |
+| Training validity and human safety outrank every other quality. Teams must rehearse coordination and tactics without non-diegetic assistance changing the represented outcome. | The Session Authority owns canonical Simulation and Scenario truth; Presentation consumes non-authoritative Prediction; the Reference Personnel Recovery Scenario anchors representative closure. | [`GOAL-TRAINING-001` and `GOAL-TEAM-TACTICS-001`](../requirements/training-simulation-initial-requirements.md#goals), plus the [NFR quality precedence](../requirements/training-simulation-non-functional-requirements.md#quality-precedence) |
+| Canonical consistency and retained-evidence completeness outrank latency. A candidate Canonical Tick must either commit with its reconstruction record or publish nothing. | Fixed-step authority, one exclusive mutable owner per state class, immutable revision-bound handoffs, and explicit commit/publication fences. | [`AC-RUNTIME-001` through `AC-RUNTIME-008`, `AC-CONCURRENCY-001` through `AC-CONCURRENCY-008`, and `AC-RETENTION-001` through `AC-RETENTION-006`](0010-cross-cutting-architecture-and-verification.md#architecture-claim-register) |
+| Desktop Mode must remain temporally stable and responsive for one five-minute `Typical` and `Stress` workload on exact reference hardware. | Authority and client cadences remain independent; Observability exposes final-image intervals and correlated action submission, receipt, and presentation without making measurement authoritative. | [`NFR-DESKTOP-SMOOTHNESS-001`, `NFR-DESKTOP-STALL-001`, and `NFR-ACTION-RESPONSE-001`](../requirements/training-simulation-non-functional-requirements.md#requirements), using [`RHP-DESKTOP-001` and `RHP-AUTHORITY-001`](../requirements/training-simulation-reference-hardware-profiles.md) |
+| Tactical visual and acoustic information must remain evaluable under fixed task, content, hardware, and workload versions. | Presentation keeps rendering and acoustic adapters private; Representative Evaluation and peak-load evidence verify the Sacramento-facing outcome rather than a vendor technique. | [`NFR-VISUAL-VALIDITY-001`, `NFR-VISUAL-COVER-INVERSION-001`, `NFR-ACOUSTIC-LOCALIZATION-001`, and `NFR-ACOUSTIC-PEAK-001`](../requirements/training-simulation-non-functional-requirements.md#requirements) |
+| The initial product must run on the accepted Windows client, headless Debian authority, and Controlled LAN while infrastructure remains external. | Role-specific Application Releases and immutable launch inputs cross orchestration-neutral seams; native executable closure is proved independently on each target. | [`CONSTRAINT-CLIENT-OS-001`, `CONSTRAINT-AUTHORITY-OS-001`, `CONSTRAINT-PLATFORM-MATRIX-001`, and `CONSTRAINT-NETWORK-MEDIUM-001`](../requirements/training-simulation-initial-requirements.md#platform-and-deployment-constraints) |
+| Ongoing first-party engineering and maintenance must fit no more than two concurrently assigned human generalists. | Deep Sacramento modules contain vendor coupling behind small interfaces; dependency admission and replacement triggers prevent the selected foundation from becoming an irreversible maintenance burden. | [`CONSTRAINT-NFR-TEAM-001`](../requirements/training-simulation-non-functional-requirements.md#requirements) and [ARCHSPEC-0003 consequences](0003-nvidia-oriented-foundation.md#consequences) |
+
+Numeric memory budgets and accepted Memory Snapshots remain unresolved current
+work rather than an implied quality claim. Production authentication,
+infrastructure availability, and Virtual-Reality Mode quality belong to their
+named future baselines and do not alter the Development Baseline driver set.
+
+### Solution strategy
+
+| Fundamental approach | Connection to the drivers | Deliberate trade-off |
+| --- | --- | --- |
+| Canonical responsibility decomposition | Each state, policy meaning, failure rule, and retained-data class has one semantic owner behind a small Sacramento interface. | More explicit contracts and coordination in exchange for locality, testability, and bounded vendor coupling. |
+| Fixed-step Session Authority | One authority orders Intentions, commits canonical state, and publishes immutable confirmed views independently of client presentation cadence. | Latency and availability cannot override canonical integrity; authority loss ends the Training Session rather than resuming ambiguous live state. |
+| Immutable, exact-version closure | Application Releases, Runtime Content Releases, Runtime Launch Specifications, profiles, and role packs are validated as complete exact combinations before readiness or Admission. | No dynamic discovery, compatible ranges, hot replacement, migration, or automatic fallback in the initial baseline. |
+| Exclusive ownership and immutable handoff | Mutable state never crosses an owner boundary; revision-bound values and visible fences carry results between execution domains. | Explicit handoffs, bounded queues, and backpressure are accepted to prevent shared-state races and hidden lifetime coupling. |
+| Private foundation adapters | C++23 product modules expose Sacramento types while selected rendering, physics, audio, transport, ECS, import, and profiling mechanisms remain private. | The NVIDIA-oriented foundation gains focused capability but stays conditionally admitted and replaceable at demonstrated seams. |
+| Cumulative verification and explicit evidence impact | Static closure, interface contracts, native executables, and representative sequences answer different questions; registered dependency paths govern re-verification. | Additional inventory and evidence maintenance prevents architecture approval from being mistaken for realization or product acceptance. |
 
 ## `EDI-VIEW-002`: System context and allocation
 
@@ -156,6 +196,34 @@ replication are not selected here. Production authentication and infrastructure
 availability likewise remain in the named future baselines identified in view
 9.
 
+### Build, packaging, and platform variants
+
+The build architecture requires C++23 role-specific artifacts to be produced
+from one pinned Ubuntu build root. Debian artifacts use Clang and the Debian
+target profile; Windows artifacts use Linux-hosted `clang-cl`, `llvm-lib`, and
+`lld-link` with immutable MSVC STL/CRT and Windows SDK sysroot inputs. Windows
+runtime, performance, signing, and formal acceptance still execute on native
+Windows, while Debian runtime closure is proved independently on Debian.
+
+An Application Release contains exactly one executable runtime and dependency
+closure for one role and platform. Initial variants are the Windows Trainee
+Client Runtime, headless Debian Session Authority Runtime, offline Content
+Cooker Runtime, and applicable Administrative Tool Runtimes. Their exact
+compatible combination with protocol, content, launch, Observability, and
+external-integration contracts must be admitted by the Deployment
+Compatibility Matrix before launch. Concrete installers, Debian archives,
+container images, filesystem layouts, and distribution mechanisms remain
+design or infrastructure choices.
+
+C++ dependencies enter product builds through vcpkg, except for Falcor's
+bounded offline vendor capsule. Vulkan is the sole initial graphics interface;
+Falcor and Steam Audio remain private client/cooker adapters, and source import
+remains offline behind the cooker. A custom graphical editor is a non-goal,
+Falcor Python scripting does not define a runtime seam, and Virtual-Reality
+Mode is a future variant. New optional modules or vendor features require a
+concrete requirement, qualification, and an admitted role-specific closure;
+build-time presence alone never creates product capability.
+
 ## `EDI-VIEW-003`: Module and dependency structure
 
 | Control | Value |
@@ -198,6 +266,24 @@ Module/dependency view — arrows point from caller to interface owner
 [Behavior-owning modules] -> [Observability]
 [Runtime compositions] ----> [Modules they compose]
 ```
+
+The diagram's named elements have these responsibilities; the canonical full
+population and runtime membership remain in ARCHSPEC-0004.
+
+| Diagram element | Responsibility at this seam |
+| --- | --- |
+| `Content Cooker` | Coordinates offline validation and production of complete candidate runtime content through `Runtime Package`. |
+| `Runtime Package` | Owns persistent runtime-package schema, deterministic codec, identity, integrity, version, and compatibility. |
+| `Content Admission` | Validates and atomically activates one exact immutable content view. |
+| `Simulation` | Owns canonical simulated state, Simulated Time transitions, and authoritative simulation results. |
+| `Scenario` | Owns configured objectives, progression, duration, and resolved terminal result. |
+| `Protocol & Replication` | Owns Sacramento wire schemas, ordering, replication, and compatibility independently of transport and Simulation internals. |
+| `Prediction` | Derives replaceable non-authoritative client state from confirmed updates and local Intentions. |
+| `Presentation` | Produces Trainee-facing visual and acoustic output from Prediction without owning canonical state. |
+| `Input & Interaction` | Interprets platform-device input and constructs local Intentions without deciding their canonical outcome. |
+| Behavior-owning modules | Denotes every module that emits its own stable signals through the `Observability` interface without transferring ownership of their meaning. |
+| `Observability` | Owns stable signal meaning, identity, correlation, loss semantics, and the emission interface. |
+| Runtime compositions | Coordinate process lifecycle, ordering, failure, and multi-owner workflows without acquiring module-private state. |
 
 The graph is acyclic and points toward the owner of meaning. Runtime
 compositions coordinate only whole-process lifecycle, ordering, and
