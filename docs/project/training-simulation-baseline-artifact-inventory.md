@@ -4,11 +4,11 @@ Status: Approved
 
 Approval: Project owner, 2026-09-04
 
-Inventory version: `BARTINV-002`
+Inventory version: `BARTINV-003`
 
-Package SHA-256: `ec0d34ab9d71a52d1c943f96324e3a440d8e44123cc305f6f3d5fc859f33e55c`
+Package SHA-256: `990d0026ac349b6ccc14ac2fa5211536271767a5a6b411638a667dc3666e3a70`
 
-Approved package SHA-256: `ec0d34ab9d71a52d1c943f96324e3a440d8e44123cc305f6f3d5fc859f33e55c`
+Approved package SHA-256: `990d0026ac349b6ccc14ac2fa5211536271767a5a6b411638a667dc3666e3a70`
 
 Version basis: The package SHA-256 and the per-artifact SHA-256 versions in the
 three inventory-package documents; any governed artifact, trace,
@@ -50,10 +50,10 @@ Canonical information owner: Project owner.
 
 ## Inventory package
 
-`BARTINV-002` is one atomic version comprising this control document, the
+`BARTINV-003` is one atomic version comprising this control document, the
 [artifact register](training-simulation-baseline-artifacts.csv), and the
 [Architecture Claim trace register](training-simulation-architecture-claim-traces.csv).
-Those three files use `BARTINV-002@sha256:<package-digest>` as their exact
+Those three files use `BARTINV-003@sha256:<package-digest>` as their exact
 version. The digest hashes their sorted paths and contents after replacing each
 embedded copy of the digest with 64 zeroes, avoiding a cyclic self-hash while
 binding the complete package content. Every other artifact version is its
@@ -100,6 +100,8 @@ must resolve to at least one artifact. Overlap is invalid.
 | `docs/project/training-simulation-baseline-artifact-inventory.md` | `Verification` | Baseline Artifact Inventory control |
 | `docs/project/training-simulation-baseline-artifacts.csv` | `Verification` | Baseline Artifact register |
 | `docs/project/training-simulation-architecture-claim-traces.csv` | `Verification` | Architecture Claim trace register |
+| `docs/project/training-simulation-evidence-dependency-inventory.md` | `Verification` | Evidence Dependency Inventory control |
+| `docs/project/training-simulation-evidence-*.csv` | `Verification` | Evidence Dependency supplemental registers and impact cases |
 | `docs/requirements/training-simulation-baseline-applicability-inventory.csv` | `Verification` | Baseline Applicability register |
 | `docs/requirements/training-simulation-baseline-applicability.md` | `Verification` | Baseline Applicability control |
 | `docs/requirements/training-simulation-verification-plan.md` | `Verification` | Canonical Verification Plan |
@@ -179,16 +181,17 @@ review decisions.
 
 ## Current acceptance boundary
 
-`BARTINV-002` is structurally reconciled for 65 artifacts: 18 Architecture, 12
-Design, 18 Implementation, and 17 Verification. Every one of the 66 ADR-0010
+`BARTINV-003` is structurally reconciled for 70 artifacts: 18 Architecture, 12
+Design, 18 Implementation, and 22 Verification. Every one of the 66 ADR-0010
 Architecture Claims resolves to its governing artifact and exact primary
 requirement identifiers.
 
 The inventory records artifacts and trace relations; it does not claim product
 realization, verification evidence, Production Security Baseline or Platform
 Operations Baseline satisfaction, or Development Baseline acceptance. The
-Evidence Dependency Inventory remains a separate blocker. This exact successor
-version is approved by the project owner.
+Evidence Dependency Inventory is now the coverage-validated and
+project-owner-approved `EDI-001`. Neither inventory can support `Pass` or
+`Unaffected` without satisfying the inventory's substantive rules.
 
 ## Change control
 
