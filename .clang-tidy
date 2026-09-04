@@ -7,7 +7,7 @@ Checks: >-
   bugprone-signed-char-misuse,
   bugprone-sizeof-expression,
   bugprone-use-after-move,
-  cert-dcl21-cpp,
+  cert-dcl51-cpp,
   cert-dcl58-cpp,
   cert-err58-cpp,
   cert-oop11-cpp,
@@ -32,10 +32,39 @@ Checks: >-
   readability-avoid-return-with-void-value,
   readability-const-return-type,
   readability-container-size-empty,
+  readability-identifier-naming,
   readability-redundant-control-flow,
   readability-redundant-string-cstr
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*/(include|src|tests|probes|fuzz)/'
 FormatStyle: file
 SystemHeaders: false
+CheckOptions:
+  readability-identifier-naming.ClassCase: CamelCase
+  readability-identifier-naming.ConceptCase: CamelCase
+  readability-identifier-naming.ConstantCase: CamelCase
+  readability-identifier-naming.ConstantPrefix: k
+  readability-identifier-naming.ConstexprFunctionCase: CamelCase
+  readability-identifier-naming.ConstexprMethodCase: CamelCase
+  readability-identifier-naming.EnumCase: CamelCase
+  readability-identifier-naming.EnumConstantCase: CamelCase
+  readability-identifier-naming.EnumConstantPrefix: k
+  readability-identifier-naming.FunctionCase: CamelCase
+  readability-identifier-naming.MacroDefinitionCase: UPPER_CASE
+  readability-identifier-naming.MacroDefinitionPrefix: SACRAMENTO_
+  readability-identifier-naming.MethodCase: CamelCase
+  readability-identifier-naming.NamespaceCase: lower_case
+  readability-identifier-naming.ParameterCase: lower_case
+  readability-identifier-naming.PrivateMemberCase: lower_case
+  readability-identifier-naming.PrivateMemberSuffix: _
+  readability-identifier-naming.ScopedEnumConstantCase: CamelCase
+  readability-identifier-naming.ScopedEnumConstantPrefix: k
+  readability-identifier-naming.StructCase: CamelCase
+  readability-identifier-naming.TemplateTemplateParameterCase: CamelCase
+  readability-identifier-naming.TypeAliasCase: CamelCase
+  readability-identifier-naming.TypedefCase: CamelCase
+  readability-identifier-naming.TypeTemplateParameterCase: CamelCase
+  readability-identifier-naming.UnionCase: CamelCase
+  readability-identifier-naming.ValueTemplateParameterCase: lower_case
+  readability-identifier-naming.VariableCase: lower_case
 ...

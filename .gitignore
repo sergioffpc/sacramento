@@ -4,4 +4,5 @@ __pycache__/
 /.cache/
 /build/
 /CMakeUserPresets.json
+/.scratch/
 /docs/requirements/training-simulation-verification-assignment-inventory.csv

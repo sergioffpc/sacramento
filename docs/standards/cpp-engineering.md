@@ -1,14 +1,14 @@
 # C++ Engineering Baseline
 
-Status: Approved
+Status: Approved decision; executable configuration update pending
 
-Approval: Project owner, 2026-09-01
+Approval: Project owner, 2026-09-04
 
-Review: Completed and confirmed by the project owner, 2026-09-01
+Review: Completed and confirmed by the project owner, 2026-09-04
 
-Baseline identifier: `CPP-ENGINEERING-BASELINE-003`
+Baseline identifier: `CPP-ENGINEERING-BASELINE-004`
 
-Supersedes: `CPP-ENGINEERING-BASELINE-002`
+Supersedes: `CPP-ENGINEERING-BASELINE-003`
 
 Purpose: Define the complete first-party C++ engineering rules, toolchain,
 build, dependency, verification, hardening, and release-quality baseline for
@@ -37,6 +37,12 @@ profile, build policy, and automatic-quality-gate policy required by the initial
 requirements. Its approval records engineering decisions. Toolchain readiness
 and the admission gates for real product targets are described in
 [Readiness and change control](#readiness-and-change-control).
+
+Operational readiness note: the current machine-readable C++ configuration
+artifacts still identify `CPP-ENGINEERING-BASELINE-003`. This documentation-only
+decision does not update them. `CPP-ENGINEERING-BASELINE-004` is not
+operationally ready until those artifacts and their applicable gates implement
+and verify the Measured Real-Time Hot Loop rule.
 
 ## Table of contents
 
@@ -393,6 +399,15 @@ their dedicated sections rather than by C++ naming rules.
 - Dynamic allocation is not globally prohibited. Relevant paths MUST instrument
   allocation count and volume and receive subsystem budgets when evidence makes
   them necessary.
+- After `Ready`, a Measured Real-Time Hot Loop MUST NOT allocate from the
+  general-purpose heap, grow allocator backing storage, or use an upstream
+  fallback that does either. Required capacity MUST be reserved before the loop.
+  Allocation from a previously provisioned bounded scratch arena or pool MAY
+  occur only when it cannot grow or fall back to the general-purpose heap.
+- Outside Measured Real-Time Hot Loops, implementations MUST minimize
+  general-purpose heap allocation by measuring count and volume and removing
+  unjustified churn; this rule does not impose an unmeasurable global
+  zero-allocation target.
 - Arenas, pools, custom allocators, and `std::pmr` require a measured problem and
   MUST preserve explicit ownership.
 - `-march=native` and equivalent host-derived code generation are prohibited.
@@ -739,6 +754,12 @@ the following exist and pass:
 5. bootstrap verification of the Ubuntu build root and both immutable target
    sysroots; and
 6. documented outstanding exceptions, if any.
+
+For `CPP-ENGINEERING-BASELINE-004`, the machine-readable configurations and
+gates must additionally identify this successor and detect general-purpose heap
+allocation, backing-storage growth, and upstream fallback in every declared
+Measured Real-Time Hot Loop. Until then, readiness remains pending without
+weakening the approved rule.
 
 The sealed toolchain establishes the identity, integrity, and admitted
 capabilities of the build environment. Standalone prototype, proof, or fixture

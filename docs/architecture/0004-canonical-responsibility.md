@@ -22,6 +22,8 @@ Amendment: ADR-0008 adds the Trainee Performance Assessment Module and retained-
 
 Amendment: ADR-0009 preserves the `AUTH & Admission` interface while moving its production-security adapters to the future Production Security Baseline.
 
+Amendment: ADR-0012 adds `Scenario` as the explicit owner already required by ARCHSPEC-0006 and closes Runtime Resource ownership without introducing a generic manager.
+
 Sacramento is decomposed into deep modules that own canonical product
 responsibilities, not into process layers or public wrappers around selected
 vendors. Process-specific runtimes compose those modules and coordinate
@@ -36,6 +38,7 @@ owned.
 | Module | Architecture-level ownership |
 | --- | --- |
 | `Simulation` | Canonical simulated state, simulated-time transitions, and authoritative simulation results. |
+| `Scenario` | Objective progression, configured duration, empty-Team and other Scenario result rules, and resolved terminal result. |
 | `Session Lifecycle` | Training Session lifecycle state, Operational Clock decisions, Technical Removal coordination, completion, termination, and terminal results. |
 | `AUTH & Admission` | Authentication, authorization, Admission lifecycle, host-scoped AUTH audit state, and the invariant that applicable AUTH Audit Commit Units become durable before granting effects. |
 | `Runtime Package` | Persistent runtime-package schema, deterministic codec, identity, integrity, version, and compatibility. |
@@ -56,14 +59,14 @@ client state derivation.
 
 | Runtime | Composed modules |
 | --- | --- |
-| `Session Authority Runtime` | Simulation, Session Lifecycle, AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, and Observability. |
+| `Session Authority Runtime` | Simulation, Scenario, Session Lifecycle, AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, and Observability. |
 | `Trainee Client Runtime` | AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, Prediction, Presentation, Input & Interaction, and Observability. |
 | `Content Cooker Runtime` | Runtime Package and Observability, with private source-import adapters. |
 | Administrative Tool Runtimes | Offline content, Approved Profile, catalogue, trust-package, and provisioning operations; later data and deployment decisions select the concrete executables. |
 | `Synthetic Client Runtime` | Test-only protocol, deterministic action replay, authoritative-result receipt, and Observability; neither Presentation nor Prediction is mandatory. |
 
-Only the Session Authority Runtime composes the owners of canonical Simulation
-and Session Lifecycle state. A Trainee Client never determines authoritative
+Only the Session Authority Runtime composes the owners of canonical Simulation,
+Scenario, and Session Lifecycle state. A Trainee Client never determines authoritative
 positions, impacts, injury, Scenario progression, or results.
 
 ADR-0008 leaves the deployment location of `Trainee Performance Assessment Module`
@@ -81,6 +84,7 @@ not mean ownership transfer or direct access to B's state.
 Content Cooker ----------------> Runtime Package
 Content Admission -------------> Runtime Package
 Simulation --------------------> Content Admission
+Scenario ----------------------> Content Admission
 Prediction --------------------> Protocol & Replication
 Presentation ------------------> Prediction
 Input & Interaction -----------> Protocol & Replication
@@ -100,9 +104,9 @@ owners.
 
 Content Admission uses Runtime Package to validate and expose one immutable,
 identified Sacramento content view. The Session Authority Runtime coordinates
-activation of an exact version, and Simulation consults only that immutable
-view during the Training Session. Source formats, importers, and vendor types
-never enter the runtime package interface.
+activation of an exact version, and Simulation and Scenario consult only their
+responsibility-owned immutable views during the Training Session. Source
+formats, importers, and vendor types never enter the runtime package interface.
 
 There is no generic `Common` module. Stable types belong to the module whose
 interface defines their meaning and are imported explicitly. Shared technical

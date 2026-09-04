@@ -100,11 +100,11 @@ class CaseClass(StrEnum):
 
 class InjectedCondition(StrEnum):
     NONE = "None"
-    STALE = "Source exact version differs from BARTINV-005"
+    STALE = "Source exact version differs from BARTINV-006"
     UNCLASSIFIED = "Relation type is empty"
     MISSING_RELATION = "Known validator input relation is removed"
     INVARIANCE = "Reproducible analysis retains exact obligation-level criterion and Pass"
-    PREDECESSOR = "Retained analysis names predecessor EDI-002"
+    PREDECESSOR = "Retained analysis names predecessor EDI-003"
 
 
 class Disposition(StrEnum):
@@ -195,15 +195,15 @@ def validate_controls(errors: list[str]) -> str:
     bart_digest = extract_unique_match(r"^Package SHA-256: `([^`]+)`$", bart, "BART digest", errors)
     bai_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", bai, "BAI version", errors)
     doc_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", docinv, "DOCINV version", errors)
-    if version != "EDI-003":
-        errors.append("EDI control: expected EDI-003")
-    if bart_version != "BARTINV-005":
-        errors.append("EDI control: expected BARTINV-005")
+    if version != "EDI-004":
+        errors.append("EDI control: expected EDI-004")
+    if bart_version != "BARTINV-006":
+        errors.append("EDI control: expected BARTINV-006")
     if bai_version != "BAI-004":
         errors.append("EDI control: expected BAI-004")
-    if doc_version != "DOCINV-008":
-        errors.append("EDI control: expected DOCINV-008")
-    expected_bart_identity = f"BARTINV-005@sha256:{bart_digest}"
+    if doc_version != "DOCINV-009":
+        errors.append("EDI control: expected DOCINV-009")
+    expected_bart_identity = f"BARTINV-006@sha256:{bart_digest}"
     if expected_bart_identity not in edi:
         errors.append("EDI control: stale Baseline Artifact Inventory identity")
     if not PACKAGE_DIGEST_RE.fullmatch(digest):
@@ -277,6 +277,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         "AC-TOOLCHAIN-": "EDI-VIEW-003", "AC-FOUNDATION-": "EDI-VIEW-003",
         "AC-DECOMPOSITION-": "EDI-VIEW-003", "AC-RUNTIME-": "EDI-VIEW-004",
         "AC-CONCURRENCY-": "EDI-VIEW-005", "AC-CONTENT-": "EDI-VIEW-006",
+        "AC-MEMORY-": "EDI-VIEW-007", "AC-RESOURCE-": "EDI-VIEW-006",
         "AC-RETENTION-": "EDI-VIEW-006", "AC-DEPLOYMENT-": "EDI-VIEW-002",
         "AC-CROSSCUTTING-": "EDI-VIEW-007",
     }
@@ -287,7 +288,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[claim] = Node(
             claim,
             NodeClass.CLAIM,
-            "BARTINV-005",
+            "BARTINV-006",
             CLAIMS.relative_to(ROOT).as_posix(),
         )
         edges.append(
@@ -338,7 +339,7 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
     rows = validated_rows(NODES, NODE_HEADER, "supplemental nodes", errors)
     expected_sources = {
         *(f"ARCHSPEC-0004:{name}" for name in (
-            "Simulation", "Session Lifecycle", "AUTH & Admission", "Runtime Package",
+            "Simulation", "Scenario", "Session Lifecycle", "AUTH & Admission", "Runtime Package",
             "Content Admission", "Protocol & Replication", "Observability",
             "Trainee Performance Assessment Module", "Prediction", "Presentation",
             "Input & Interaction", "Session Authority Runtime", "Trainee Client Runtime",
@@ -372,7 +373,7 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
     if actual_sources != expected_sources:
         errors.append("supplemental nodes: component or SAD view population mismatch")
     evidence = sorted(identifier for identifier, node in nodes.items() if node.node_class == "Evidence Record")
-    if evidence != [f"EDI-EVID-{number:03d}" for number in range(1, 13)]:
+    if evidence != [f"EDI-EVID-{number:03d}" for number in range(1, 14)]:
         errors.append("supplemental nodes: planned evidence population mismatch")
 
 
@@ -402,7 +403,7 @@ def validate_review_inputs(nodes: dict[str, Node], errors: list[str]) -> None:
     if diff_node is None or not SHA256_RE.fullmatch(diff_node.exact_version):
         errors.append("review inputs: fixed staged diff lacks an exact SHA-256")
     if issue_node is None or not SHA256_RE.fullmatch(issue_node.exact_version):
-        errors.append("review inputs: issue 29 lacks an exact body SHA-256")
+        errors.append("review inputs: issue 54 lacks an exact body SHA-256")
     result = subprocess.run(
         ["git", "diff", "--cached", "--binary"],
         cwd=ROOT,
@@ -454,7 +455,7 @@ def validate_graph(nodes: dict[str, Node], edges: list[Edge], errors: list[str])
         edge.target for edge in edges
         if edge.relation_type == RelationType.PRODUCES
     }
-    expected_evidence = {f"EDI-EVID-{number:03d}" for number in range(1, 13)}
+    expected_evidence = {f"EDI-EVID-{number:03d}" for number in range(1, 14)}
     if produced & expected_evidence != expected_evidence:
         errors.append("effective relations: every planned evidence record needs a producer")
     validator_inputs = {

@@ -1,16 +1,16 @@
 # Training Simulation Baseline Artifact Inventory
 
-Status: Approved
+Status: Candidate; approval pending
 
-Approval: Project owner, 2026-09-04
+Approval: Pending project-owner approval
 
-Inventory version: `BARTINV-005`
+Inventory version: `BARTINV-006`
 
-Package SHA-256: `05d2639bd506a4cd65a8b60a12f37ab7351f96c76652c446bfe021a46a32af6d`
+Package SHA-256: `b2c1b1265dfe1c007bb307a294ec6a58ef9982318452d8eabea9023a9e1cb537`
 
-Approved package SHA-256: `05d2639bd506a4cd65a8b60a12f37ab7351f96c76652c446bfe021a46a32af6d`
+Approved package SHA-256: Pending project-owner approval
 
-Approved predecessor: `BARTINV-004@sha256:eeab6af3afe87676e202031a4cdebf71619caf82beb781e8ed44913904baf75d`, project owner, 2026-09-04
+Approved predecessor: `BARTINV-005@sha256:05d2639bd506a4cd65a8b60a12f37ab7351f96c76652c446bfe021a46a32af6d`, project owner, 2026-09-04
 
 Version basis: The package SHA-256 and the per-artifact SHA-256 versions in the
 three inventory-package documents; any governed artifact, trace,
@@ -48,15 +48,15 @@ Canonical information owner: Project owner.
 - [Architecture Claim traces](#architecture-claim-traces)
 - [Reconciliation and validation](#reconciliation-and-validation)
 - [Current acceptance boundary](#current-acceptance-boundary)
-- [`BARTINV-005` impact analysis](#bartinv-005-impact-analysis)
+- [`BARTINV-006` impact analysis](#bartinv-006-impact-analysis)
 - [Change control](#change-control)
 
 ## Inventory package
 
-`BARTINV-005` is one atomic version comprising this control document, the
+`BARTINV-006` is one atomic version comprising this control document, the
 [artifact register](training-simulation-baseline-artifacts.csv), and the
 [Architecture Claim trace register](training-simulation-architecture-claim-traces.csv).
-Those three files use `BARTINV-005@sha256:<package-digest>` as their exact
+Those three files use `BARTINV-006@sha256:<package-digest>` as their exact
 version. The digest hashes their sorted paths and contents after replacing each
 embedded copy of the digest with 64 zeroes, avoiding a cyclic self-hash while
 binding the complete package content. Every other artifact version is its
@@ -75,8 +75,8 @@ must resolve to at least one artifact. Overlap is invalid.
 
 | Source selector | Artifact class | Authority |
 | --- | --- | --- |
-| `docs/adr/*.md` | `Architecture` | Documentation Inventory `ADR-0001` through `ADR-0010` mapping |
-| `docs/architecture/*.md` | `Architecture` | Documentation Inventory `ARCHSPEC-0003` through `ARCHSPEC-0010` mapping |
+| `docs/adr/*.md` | `Architecture` | Documentation Inventory `ADR-0001` through `ADR-0012` mapping |
+| `docs/architecture/*.md` | `Architecture` | Documentation Inventory `ARCHSPEC-0003` through `ARCHSPEC-0012` and `RRTI-001` mappings |
 | `CONTEXT.md` | `Design` | Documentation Inventory `DOCINFO-DOMAIN-LANGUAGE-001` mapping |
 | `docs/glossary/*.md` | `Design` | Documentation Inventory technical and governance language mappings |
 | `docs/requirements/training-simulation-initial-requirements.md` | `Design` | Canonical functional and process requirement source |
@@ -185,29 +185,30 @@ review decisions.
 
 ## Current acceptance boundary
 
-Approved `BARTINV-005` is structurally reconciled for 71 artifacts: 18
-Architecture, 13 Design, 18 Implementation, and 22 Verification. Every one of the 66 ADR-0010
+Candidate `BARTINV-006` reconciles 77 artifacts: 23 Architecture, 13 Design,
+18 Implementation, and 23 Verification. Every one of the 85 ADR-0010
 Architecture Claims resolves to its governing artifact and exact primary
 requirement identifiers.
 
 The inventory records artifacts and trace relations; it does not claim product
 realization, verification evidence, Production Security Baseline or Platform
 Operations Baseline satisfaction, or Development Baseline acceptance. The
-approved Evidence Dependency Inventory is `EDI-003`. Neither inventory can
+candidate Evidence Dependency Inventory successor is `EDI-004`. Neither inventory can
 support `Pass` or `Unaffected` without coverage validation, substantive review,
 and exact-version project-owner approval.
 
-## `BARTINV-005` impact analysis
+## `BARTINV-006` impact analysis
 
-This successor changes no artifact population, stable identifier, class, owner,
-status, requirement trace, or Architecture Claim mapping. It updates the exact
-versions of the technical glossary, non-functional requirements,
-Observability Contract, Verification Plan, Documentation Inventory, Baseline
-Applicability control and validator, and every recursively affected inventory
-or validator artifact. Every changed source identity and predecessor-bound
-validation or review result is `Affected` under approved `EDI-003`; no
-accepted product or Architecture Claim evidence exists to retain as
-`Unaffected`. The project owner approved this exact package on 2026-09-04.
+This successor adds ADR-0011, ARCHSPEC-0011, ADR-0012, ARCHSPEC-0012, the
+Runtime Resource Type Inventory, and the executable C++ style gate. It adds 19
+memory and runtime-resource Architecture Claims; updates exact versions for
+canonical responsibility, the claim register, glossaries, Documentation
+Inventory, and recursively affected inventory artifacts; and retains every
+realization as `Not Implemented` and evidence state as `Blocked`. Every changed
+source identity and predecessor-bound validation or review result is `Affected`
+under candidate `EDI-004`; no accepted product or Architecture Claim evidence
+exists to retain as `Unaffected`.
+Exact-version project-owner approval remains pending.
 
 ## Change control
 
