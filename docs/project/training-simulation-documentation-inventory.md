@@ -1,10 +1,10 @@
 # Training Simulation Documentation Inventory
 
-Status: Candidate successor; project-owner approval pending
+Status: Approved
 
-Approval: Pending project-owner approval
+Approval: Project owner, 2026-09-04
 
-Inventory version: `DOCINV-003`
+Inventory version: `DOCINV-005`
 
 Version basis: The exact repository tree containing this inventory version;
 any listed-document or information-map change creates a successor inventory
@@ -38,7 +38,7 @@ Canonical information owner: Project owner.
 - [Document inventory](#document-inventory)
 - [Reconciliation and validation](#reconciliation-and-validation)
 - [Current acceptance boundary](#current-acceptance-boundary)
-- [`DOCINV-003` impact analysis](#docinv-003-impact-analysis)
+- [`DOCINV-005` impact analysis](#docinv-005-impact-analysis)
 - [Change control](#change-control)
 
 ## Classification rules
@@ -90,6 +90,9 @@ Markdown; the current repository contains no persistent generated document.
 | `DOCINFO-VERIFICATION-PLAN-001` | `docs/requirements/training-simulation-verification-plan.md` | Project owner | Verification methods, assignments, evidence process, and acceptance gates |
 | `BAI-CONTROL-002` | `docs/requirements/training-simulation-baseline-applicability.md` | Project owner | Global identity, provenance, schema, and approval state for the normalized applicability inventory |
 | `BAI-002` | `docs/requirements/training-simulation-baseline-applicability-inventory.csv` | Project owner | Exact disposition, milestone or justification, and owner for every current normative identifier |
+| `BARTINV-CONTROL-001` | `docs/project/training-simulation-baseline-artifact-inventory.md` | Project owner | Global identity, population boundary, schema, reconciliation rules, and approval state for the Baseline Artifact Inventory |
+| `BARTINV-002` | `docs/project/training-simulation-baseline-artifacts.csv` | Project owner | Exact identity, class, version, location, status, owner, and requirement traces for every governed artifact |
+| `DOCINFO-ARCHITECTURE-CLAIM-TRACE-001` | `docs/project/training-simulation-architecture-claim-traces.csv` | Project owner | Exact state, claim and per-requirement dispositions, governing artifact, and requirement-trace expansion for every ADR-0010 Architecture Claim |
 | `DOCINFO-DOCUMENTATION-INVENTORY-001` | `docs/project/training-simulation-documentation-inventory.md` | Project owner | Documentation population, classifications, and canonical information mappings |
 | `CPP-ENGINEERING-BASELINE-003` | `docs/standards/cpp-engineering.md` | Project owner | C++ engineering and toolchain baseline |
 | `DOCINFO-CONVENTIONAL-COMMITS-001` | `docs/standards/conventional-commits.md` | Project owner | Conventional Commit Profile |
@@ -101,7 +104,7 @@ not a replacement for identifier-level traceability.
 
 ## Document inventory
 
-Every row has version basis `DOCINV-003 repository tree`. `Control tier` selects
+Every row has version basis `DOCINV-005 repository tree`. `Control tier` selects
 the information hierarchy. `Metadata` states whether document control is
 embedded or inventory-held. `ToC` is `Not Applicable` for manually maintained
 Markdown and non-Markdown formats; manual documents may still provide one.
@@ -133,7 +136,7 @@ Markdown and non-Markdown formats; manual documents may still provide one.
 | `DOC-023` | `docs/requirements/training-simulation-performance-profile-engagement-target-001.md` | Persistent | Markdown | Manual | Canonical: `ENGAGEMENT-TARGET-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved but not admitted until its validation passes |
 | `DOC-024` | `docs/requirements/training-simulation-reference-hardware-profiles.md` | Persistent | Markdown | Manual | Canonical: `RHP-SET-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved |
 | `DOC-025` | `docs/requirements/training-simulation-verification-plan.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-VERIFICATION-PLAN-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Candidate successor; approval pending |
-| `DOC-026` | `docs/project/training-simulation-documentation-inventory.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-DOCUMENTATION-INVENTORY-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Candidate `DOCINV-003` |
+| `DOC-026` | `docs/project/training-simulation-documentation-inventory.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-DOCUMENTATION-INVENTORY-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `DOCINV-005` |
 | `DOC-027` | `docs/research/cpp-engineering-toolchain-and-quality-guidance.md` | Persistent | Markdown | Manual | Non-canonical research informing `CPP-ENGINEERING-BASELINE-003`; title `C++ Engineering Toolchain and Quality Guidance`; purpose and scope: evaluate toolchain, quality, portability, and reproducibility options; intended readers: architects, implementers, build operators, dependency reviewers, and verification authors | Project owner | Reference / Inventory / Not Applicable | `DOC-002`, `DOC-019`, `DOC-020`, `DOC-024`, `DOC-025` | Retained research, 2026-09-01 |
 | `DOC-028` | `docs/research/initial-goals-requirements-and-constraints-guidance.md` | Persistent | Markdown | Manual | Non-canonical research informing `DOC-019`; title `Initial Goals, Requirements, and Constraints Document Guidance`; purpose and scope: guide requirement types, structure, quality, and ambiguity review; intended readers: requirements authors, architects, reviewers, and verification authors | Project owner | Reference / Inventory / Not Applicable | None | Retained research guidance |
 | `DOC-029` | `docs/research/software-architecture-document-guidance.md` | Persistent | Markdown | Manual | Non-canonical research informing `ARCHSPEC-0010`; title `What a Software Architecture Document Should—and Should Not—Contain`; purpose and scope: guide lean architecture descriptions and game-engine-specific views; intended readers: architects, design authors, reviewers, and implementers | Project owner | Reference / Inventory / Not Applicable | None | Retained research guidance |
@@ -143,7 +146,7 @@ Markdown and non-Markdown formats; manual documents may still provide one.
 | `DOC-033` | `docs/standards/conventional-commits.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-CONVENTIONAL-COMMITS-001` | Project owner | Controlled / Embedded / Not Applicable | `DOC-019` | Approved initial profile |
 | `DOC-034` | `docs/standards/cpp-engineering.md` | Persistent | Markdown | Manual | Canonical: `CPP-ENGINEERING-BASELINE-003` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved |
 | `DOC-035` | `docs/standards/git-flow.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-GIT-FLOW-001` | Project owner | Controlled / Embedded / Not Applicable | `DOC-033` | Approved initial profile |
-| `DOC-036` | `docs/requirements/training-simulation-baseline-applicability-inventory.csv` | Persistent | CSV | Manual | Canonical: `BAI-002`; title `Training Simulation Baseline Applicability Inventory`; purpose and scope: store normalized per-identifier Development Baseline dispositions and owners; intended readers: project owner, requirements reviewers, architects, implementers, verification authors, and tooling; structurally validated by `scripts/validate-baseline-applicability-inventory.sh` | Project owner | Controlled / Inventory / Not Applicable | `DOC-019`, `DOC-020`, `DOC-021`, `DOC-022`, `DOC-023`, `DOC-024`, `DOC-025`, `DOC-045` | Candidate `BAI-002`; approval pending |
+| `DOC-036` | `docs/requirements/training-simulation-baseline-applicability-inventory.csv` | Persistent | CSV | Manual | Canonical: `BAI-002`; title `Training Simulation Baseline Applicability Inventory`; purpose and scope: store normalized per-identifier Development Baseline dispositions and owners; intended readers: project owner, requirements reviewers, architects, implementers, verification authors, and tooling; structurally validated by `scripts/validate-baseline-applicability-inventory.sh` | Project owner | Controlled / Inventory / Not Applicable | `DOC-019`, `DOC-020`, `DOC-021`, `DOC-022`, `DOC-023`, `DOC-024`, `DOC-025`, `DOC-045` | Approved `BAI-002` |
 | `DOC-037` | `docs/architecture/0003-nvidia-oriented-foundation.md` | Persistent | Markdown | Manual | Canonical: `ARCHSPEC-0003`, governed by `ADR-0003` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted detail; organization changed only |
 | `DOC-038` | `docs/architecture/0004-canonical-responsibility.md` | Persistent | Markdown | Manual | Canonical: `ARCHSPEC-0004`, governed by `ADR-0004` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted detail; organization changed only |
 | `DOC-039` | `docs/architecture/0005-fixed-step-authoritative-runtime.md` | Persistent | Markdown | Manual | Canonical: `ARCHSPEC-0005`, governed by `ADR-0005` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted detail; organization changed only |
@@ -152,17 +155,20 @@ Markdown and non-Markdown formats; manual documents may still provide one.
 | `DOC-042` | `docs/architecture/0008-evidence-and-ephemeral-state.md` | Persistent | Markdown | Manual | Canonical: `ARCHSPEC-0008`, governed by `ADR-0008` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted detail; organization changed only |
 | `DOC-043` | `docs/architecture/0009-runtime-deployment-contracts.md` | Persistent | Markdown | Manual | Canonical: `ARCHSPEC-0009`, governed by `ADR-0009` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted detail; organization changed only |
 | `DOC-044` | `docs/architecture/0010-cross-cutting-architecture-and-verification.md` | Persistent | Markdown | Manual | Canonical: `ARCHSPEC-0010` and every registered `AC-*` claim | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted detail; organization changed only |
-| `DOC-045` | `docs/requirements/training-simulation-baseline-applicability.md` | Persistent | Markdown | Manual | Canonical: `BAI-CONTROL-002` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Candidate `BAI-002` control; approval pending |
+| `DOC-045` | `docs/requirements/training-simulation-baseline-applicability.md` | Persistent | Markdown | Manual | Canonical: `BAI-CONTROL-002` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `BAI-002` control |
 | `DOC-046` | `docs/glossary/technical.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-TECHNICAL-LANGUAGE-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Candidate; approval pending |
 | `DOC-047` | `docs/glossary/governance.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-GOVERNANCE-LANGUAGE-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Candidate; approval pending |
+| `DOC-048` | `docs/project/training-simulation-baseline-artifact-inventory.md` | Persistent | Markdown | Manual | Canonical: `BARTINV-CONTROL-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `BARTINV-002` |
+| `DOC-049` | `docs/project/training-simulation-baseline-artifacts.csv` | Persistent | CSV | Manual | Canonical: `BARTINV-002`; title `Training Simulation Baseline Artifact Register`; purpose and scope: store normalized artifact identity, class, exact version, location, status, owner, and trace rows; intended readers: project owner, architects, designers, implementers, verification authors, reviewers, and tooling; structurally validated by `scripts/validate-baseline-artifact-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-019`, `DOC-036`, `DOC-044`, `DOC-045`, `DOC-048` | Approved `BARTINV-002` |
+| `DOC-050` | `docs/project/training-simulation-architecture-claim-traces.csv` | Persistent | CSV | Manual | Canonical: `DOCINFO-ARCHITECTURE-CLAIM-TRACE-001`; title `Training Simulation Architecture Claim Trace Register`; purpose and scope: map every canonical ADR-0010 Architecture Claim state, claim disposition, and per-requirement disposition to one governing artifact and exact requirements; intended readers: project owner, architects, implementers, verification authors, reviewers, and tooling; structurally validated by `scripts/validate-baseline-artifact-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-036`, `DOC-044`, `DOC-048`, `DOC-049` | Approved `BARTINV-002` |
 
 ## Reconciliation and validation
 
 The authoritative population is the union of root `AGENTS.md`, `CONTEXT.md`,
-`README.md`, `SECURITY.md`, `LICENSE`, every `*.md` below `docs/`, and generated
-documentation datasets below `docs/`. `DOCINV-003` contains 47 documents: 45
+`README.md`, `SECURITY.md`, `LICENSE`, every `*.md` below `docs/`, and retained
+documentation datasets below `docs/`. `DOCINV-005` contains 50 documents: 46
 manually maintained Markdown documents, one external-standard plain-text legal
-document, and one manually maintained CSV inventory. It contains no retained
+document, and three manually maintained CSV inventories. It contains no retained
 `Non-persistent` or `Generated` document.
 
 Run the structural validator from the repository root:
@@ -179,8 +185,8 @@ evidence impact remain review decisions rather than facts a script can infer.
 
 ## Current acceptance boundary
 
-The candidate inventory and its document population are structurally reconciled
-for `DOCINV-003`; project-owner approval of this exact successor is pending.
+The inventory and its document population are structurally reconciled for exact
+version `DOCINV-005`, approved by the project owner on 2026-09-04.
 `SECURITY.md` remains an explicitly non-authoritative future placeholder and
 cannot support a security claim. The generated verification-assignment
 inventory is a compact canonical index and cannot substitute for the Baseline
@@ -188,33 +194,30 @@ Artifact or Evidence Dependency Inventory.
 
 Architecture decisions remain closed by ADR-0010; their detailed specifications
 now live separately under `docs/architecture/`. Product realization and
-architecture evidence remain incomplete. Candidate `BAI-002` contains 1,148
+architecture evidence remain incomplete. Approved `BAI-002` contains 1,148
 exactly-once entries: 928 `Included`, 201 `Future`, and 19 `Not Applicable`.
 It makes no realization, evidence, or baseline-approval claim. Baseline approval
-remains blocked by the missing Baseline Artifact and Evidence Dependency
-Inventories and every other unresolved requirement or evidence dependency
-identified by the approved baselines and architecture decisions.
+remains blocked by the missing Evidence Dependency Inventory and every other
+unresolved requirement or evidence dependency identified by the approved
+baselines and architecture decisions.
 
-## `DOCINV-003` impact analysis
+## `DOCINV-005` impact analysis
 
-This successor separates eight concise decisions from their unchanged detailed
-architecture specifications, partitions the former glossary into domain,
-technical, and governance vocabularies, introduces control tiers, and normalizes
-the applicability and assignment inventories. Every former glossary term and
-every per-row inventory disposition and owner remains present exactly once.
-Canonical owners are unchanged; only document boundaries and representations
-change.
+This successor records project-owner approval of `BAI-002` and the resulting
+`BARTINV-002` exact-version successor. Existing document boundaries, canonical
+owners, applicability dispositions, and Architecture Claim relations are
+unchanged.
 
 Evidence impact is conservative: no accepted product-baseline or Architecture
 Claim evidence exists to retain or invalidate. Existing prototype evidence and
 the generated verification-assignment view cannot acquire an acceptance
-disposition from `BAI-002`. The applicability inventory assigns
-no realization or evidence state and cannot turn `Future` or `Not Applicable`
-into `Pass`. Its dispositions become inputs to the ordered Baseline Artifact
-and Evidence Dependency Inventories; those inventories remain absent and
-baseline approval remains blocked. Any source, disposition, milestone,
-ownership, or dependency change requires a successor `BAI-*` and `DOCINV-*`
-version and fresh impact analysis.
+disposition from `BAI-002` or `BARTINV-002`. Neither inventory assigns
+realization or evidence state or turns `Future` or `Not Applicable` into
+`Pass`. `BARTINV-002` becomes an input to the ordered Evidence Dependency
+Inventory; that inventory remains absent and baseline approval remains blocked.
+Any source, classification, trace, disposition, milestone, ownership, or
+dependency change requires the applicable successor inventory and fresh impact
+analysis.
 
 ## Change control
 

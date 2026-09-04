@@ -13,6 +13,11 @@ canonical ownership of a retained document, update the
 [Documentation Inventory](docs/project/training-simulation-documentation-inventory.md)
 and run its validator.
 
+Traceability: When a governed artifact's population, version, class, status,
+owner, requirement trace, or Architecture Claim mapping changes, update the [Baseline Artifact
+Inventory](docs/project/training-simulation-baseline-artifact-inventory.md) and
+run its validator.
+
 C++: Before changing first-party C++, CMake, dependencies, toolchains, builds,
 quality gates, or C++ CI, apply the
 [C++ Engineering Baseline](docs/standards/cpp-engineering.md).
