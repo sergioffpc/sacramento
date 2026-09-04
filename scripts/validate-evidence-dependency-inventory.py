@@ -101,11 +101,11 @@ class CaseClass(StrEnum):
 
 class InjectedCondition(StrEnum):
     NONE = "None"
-    STALE = "Source exact version differs from BARTINV-006"
+    STALE = "Source exact version differs from BARTINV-007"
     UNCLASSIFIED = "Relation type is empty"
     MISSING_RELATION = "Known validator input relation is removed"
     INVARIANCE = "Reproducible analysis retains exact obligation-level criterion and Pass"
-    PREDECESSOR = "Retained analysis names predecessor EDI-003"
+    PREDECESSOR = "Retained analysis names predecessor EDI-004"
 
 
 class Disposition(StrEnum):
@@ -196,15 +196,15 @@ def validate_controls(errors: list[str]) -> str:
     bart_digest = extract_unique_match(r"^Package SHA-256: `([^`]+)`$", bart, "BART digest", errors)
     bai_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", bai, "BAI version", errors)
     doc_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", docinv, "DOCINV version", errors)
-    if version != "EDI-004":
-        errors.append("EDI control: expected EDI-004")
-    if bart_version != "BARTINV-006":
-        errors.append("EDI control: expected BARTINV-006")
+    if version != "EDI-005":
+        errors.append("EDI control: expected EDI-005")
+    if bart_version != "BARTINV-007":
+        errors.append("EDI control: expected BARTINV-007")
     if bai_version != "BAI-004":
         errors.append("EDI control: expected BAI-004")
-    if doc_version != "DOCINV-009":
-        errors.append("EDI control: expected DOCINV-009")
-    expected_bart_identity = f"BARTINV-006@sha256:{bart_digest}"
+    if doc_version != "DOCINV-010":
+        errors.append("EDI control: expected DOCINV-010")
+    expected_bart_identity = f"BARTINV-007@sha256:{bart_digest}"
     if expected_bart_identity not in edi:
         errors.append("EDI control: stale Baseline Artifact Inventory identity")
     if not PACKAGE_DIGEST_RE.fullmatch(digest):
@@ -289,7 +289,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[claim] = Node(
             claim,
             NodeClass.CLAIM,
-            "BARTINV-006",
+            "BARTINV-007",
             CLAIMS.relative_to(ROOT).as_posix(),
         )
         edges.append(
@@ -348,7 +348,7 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
         )),
     }
     expected_view_sources = {
-        f"SAD-001:EDI-VIEW-{number:03d}" for number in range(1, 10)
+        f"SAD-002:EDI-VIEW-{number:03d}" for number in range(1, 10)
     }
     actual_sources: set[str] = set()
     for row in rows:
@@ -365,7 +365,7 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
         if row[6] not in {"Current", "Planned"} or not row[7] or not row[8]:
             errors.append(f"supplemental nodes:{identifier}: incomplete classification")
         nodes[identifier] = Node(identifier, parsed_class, exact_version, location)
-        if source.startswith(("ARCHSPEC-0004:", "SAD-001:")):
+        if source.startswith(("ARCHSPEC-0004:", "SAD-002:")):
             actual_sources.add(source)
         if parsed_class == NodeClass.VIEW:
             expected_fragment = f"#edi-view-{int(identifier[-3:]):03d}-"

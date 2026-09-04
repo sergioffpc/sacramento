@@ -4,9 +4,9 @@ Status: Approved
 
 Approval: Project owner, 2026-09-04
 
-Inventory version: `DOCINV-009`
+Inventory version: `DOCINV-010`
 
-Approved predecessor: `DOCINV-008`, project owner, 2026-09-04
+Approved predecessor: `DOCINV-009`, project owner, 2026-09-04
 
 Version basis: The exact repository tree containing this inventory version;
 any listed-document or information-map change creates a successor inventory
@@ -40,7 +40,7 @@ Canonical information owner: Project owner.
 - [Document inventory](#document-inventory)
 - [Reconciliation and validation](#reconciliation-and-validation)
 - [Current acceptance boundary](#current-acceptance-boundary)
-- [`DOCINV-009` impact analysis](#docinv-009-impact-analysis)
+- [`DOCINV-010` impact analysis](#docinv-010-impact-analysis)
 - [Change control](#change-control)
 
 ## Classification rules
@@ -80,7 +80,7 @@ Markdown; the current repository contains no persistent generated document.
 | `ADR-0001` through `ADR-0012` | Corresponding file under `docs/adr/` | Project owner | Accepted or conditionally accepted architecture decision and concise rationale |
 | `ARCHSPEC-0003` through `ARCHSPEC-0012` | Corresponding file under `docs/architecture/` | Project owner | Detailed contracts, views, alternatives, consequences, and traces governed by ADR-0003 through ADR-0012 |
 | `RRTI-001` | `docs/architecture/training-simulation-runtime-resource-type-inventory.md` | Project owner | Candidate Runtime Resource type population, semantic owners, role applicability, dependencies, admission state, and closure rules |
-| `SAD-001` | `docs/architecture/software-architecture-description.md` | Project owner | Linked realization of `EDI-VIEW-001` through `EDI-VIEW-009` without duplicating normative requirements or accepted decisions |
+| `SAD-002` | `docs/architecture/software-architecture-description.md` | Project owner | Linked realization of `EDI-VIEW-001` through `EDI-VIEW-009` without duplicating normative requirements or accepted decisions |
 | `AC-TOOLCHAIN-001` through `AC-RESOURCE-010` | `docs/architecture/0010-cross-cutting-architecture-and-verification.md` | Project owner | Stable Architecture Claim register pointing to the governing decisions and specifications |
 | `DOCINFO-AGENT-DOMAIN-001` | `docs/agents/domain.md` | Project owner | Agent workflow for domain documentation |
 | `DOCINFO-ISSUE-TRACKER-001` | `docs/agents/issue-tracker.md` | Project owner | Agent workflow for GitHub Issues |
@@ -96,12 +96,12 @@ Markdown; the current repository contains no persistent generated document.
 | `BAI-CONTROL-004` | `docs/requirements/training-simulation-baseline-applicability.md` | Project owner | Global identity, provenance, schema, and approval state for the normalized applicability inventory |
 | `BAI-004` | `docs/requirements/training-simulation-baseline-applicability-inventory.csv` | Project owner | Exact disposition, milestone or justification, and owner for every current normative identifier |
 | `BARTINV-CONTROL-001` | `docs/project/training-simulation-baseline-artifact-inventory.md` | Project owner | Global identity, population boundary, schema, reconciliation rules, and approval state for the Baseline Artifact Inventory |
-| `BARTINV-006` | `docs/project/training-simulation-baseline-artifacts.csv` | Project owner | Exact identity, class, version, location, status, owner, and requirement traces for every governed artifact |
+| `BARTINV-007` | `docs/project/training-simulation-baseline-artifacts.csv` | Project owner | Exact identity, class, version, location, status, owner, and requirement traces for every governed artifact |
 | `DOCINFO-ARCHITECTURE-CLAIM-TRACE-001` | `docs/project/training-simulation-architecture-claim-traces.csv` | Project owner | Exact state, claim and per-requirement dispositions, governing artifact, and requirement-trace expansion for every ADR-0010 Architecture Claim |
 | `EDI-CONTROL-001` | `docs/project/training-simulation-evidence-dependency-inventory.md` | Project owner | Global identity, effective population, graph semantics, reconciliation rules, impact procedure, and approval state for the Evidence Dependency Inventory |
-| `EDI-004-NODES` | `docs/project/training-simulation-evidence-dependency-nodes.csv` | Project owner | Supplemental current nodes not imported from approved predecessor inventories |
-| `EDI-004-RELATIONS` | `docs/project/training-simulation-evidence-dependency-relations.csv` | Project owner | Reviewed explicit directed and typed dependency relations not derived from predecessor traces |
-| `EDI-004-IMPACT-CASES` | `docs/project/training-simulation-evidence-impact-cases.csv` | Project owner | Direct, transitive, multiple-path, absent-path, stale, unclassified, uncertain, invariance, and successor impact cases |
+| `EDI-005-NODES` | `docs/project/training-simulation-evidence-dependency-nodes.csv` | Project owner | Supplemental current nodes not imported from approved predecessor inventories |
+| `EDI-005-RELATIONS` | `docs/project/training-simulation-evidence-dependency-relations.csv` | Project owner | Reviewed explicit directed and typed dependency relations not derived from predecessor traces |
+| `EDI-005-IMPACT-CASES` | `docs/project/training-simulation-evidence-impact-cases.csv` | Project owner | Direct, transitive, multiple-path, absent-path, stale, unclassified, uncertain, invariance, and successor impact cases |
 | `DOCINFO-DOCUMENTATION-INVENTORY-001` | `docs/project/training-simulation-documentation-inventory.md` | Project owner | Documentation population, classifications, and canonical information mappings |
 | `CPP-ENGINEERING-BASELINE-004` | `docs/standards/cpp-engineering.md` | Project owner | C++ engineering and toolchain baseline |
 | `DOCINFO-CONVENTIONAL-COMMITS-001` | `docs/standards/conventional-commits.md` | Project owner | Conventional Commit Profile |
@@ -113,7 +113,7 @@ not a replacement for identifier-level traceability.
 
 ## Document inventory
 
-Every row has version basis `DOCINV-009 repository tree`. `Control tier` selects
+Every row has version basis `DOCINV-010 repository tree`. `Control tier` selects
 the information hierarchy. `Metadata` states whether document control is
 embedded or inventory-held. `ToC` is `Not Applicable` for manually maintained
 Markdown and non-Markdown formats; manual documents may still provide one.
@@ -145,7 +145,7 @@ Markdown and non-Markdown formats; manual documents may still provide one.
 | `DOC-023` | `docs/requirements/training-simulation-performance-profile-engagement-target-001.md` | Persistent | Markdown | Manual | Canonical: `ENGAGEMENT-TARGET-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved but not admitted until its validation passes |
 | `DOC-024` | `docs/requirements/training-simulation-reference-hardware-profiles.md` | Persistent | Markdown | Manual | Canonical: `RHP-SET-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved |
 | `DOC-025` | `docs/requirements/training-simulation-verification-plan.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-VERIFICATION-PLAN-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `OBS-CONTRACT-004` assignment amendment, 2026-09-04 |
-| `DOC-026` | `docs/project/training-simulation-documentation-inventory.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-DOCUMENTATION-INVENTORY-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `DOCINV-009`, project owner, 2026-09-04 |
+| `DOC-026` | `docs/project/training-simulation-documentation-inventory.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-DOCUMENTATION-INVENTORY-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `DOCINV-010`, project owner, 2026-09-04 |
 | `DOC-027` | `docs/research/cpp-engineering-toolchain-and-quality-guidance.md` | Persistent | Markdown | Manual | Non-canonical research informing `CPP-ENGINEERING-BASELINE-003`; title `C++ Engineering Toolchain and Quality Guidance`; purpose and scope: evaluate toolchain, quality, portability, and reproducibility options; intended readers: architects, implementers, build operators, dependency reviewers, and verification authors | Project owner | Reference / Inventory / Not Applicable | `DOC-002`, `DOC-019`, `DOC-020`, `DOC-024`, `DOC-025` | Retained research, 2026-09-01 |
 | `DOC-028` | `docs/research/initial-goals-requirements-and-constraints-guidance.md` | Persistent | Markdown | Manual | Non-canonical research informing `DOC-019`; title `Initial Goals, Requirements, and Constraints Document Guidance`; purpose and scope: guide requirement types, structure, quality, and ambiguity review; intended readers: requirements authors, architects, reviewers, and verification authors | Project owner | Reference / Inventory / Not Applicable | None | Retained research guidance |
 | `DOC-029` | `docs/research/software-architecture-document-guidance.md` | Persistent | Markdown | Manual | Non-canonical research informing `ARCHSPEC-0010`; title `What a Software Architecture Document Should—and Should Not—Contain`; purpose and scope: guide lean architecture descriptions and game-engine-specific views; intended readers: architects, design authors, reviewers, and implementers | Project owner | Reference / Inventory / Not Applicable | None | Retained research guidance |
@@ -167,13 +167,13 @@ Markdown and non-Markdown formats; manual documents may still provide one.
 | `DOC-045` | `docs/requirements/training-simulation-baseline-applicability.md` | Persistent | Markdown | Manual | Canonical: `BAI-CONTROL-004` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `BAI-004` control |
 | `DOC-046` | `docs/glossary/technical.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-TECHNICAL-LANGUAGE-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved amendment, 2026-09-04 |
 | `DOC-047` | `docs/glossary/governance.md` | Persistent | Markdown | Manual | Canonical: `DOCINFO-GOVERNANCE-LANGUAGE-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Candidate; approval pending |
-| `DOC-048` | `docs/project/training-simulation-baseline-artifact-inventory.md` | Persistent | Markdown | Manual | Canonical: `BARTINV-CONTROL-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `BARTINV-006`, project owner, 2026-09-04 |
-| `DOC-049` | `docs/project/training-simulation-baseline-artifacts.csv` | Persistent | CSV | Manual | Canonical: `BARTINV-006`; title `Training Simulation Baseline Artifact Register`; purpose and scope: store normalized artifact identity, class, exact version, location, status, owner, and requirement traces for every governed artifact; intended readers: project owner, architects, designers, implementers, verification authors, reviewers, and tooling; structurally validated by `scripts/validate-baseline-artifact-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-019`, `DOC-036`, `DOC-044`, `DOC-045`, `DOC-048`, `DOC-055`, `DOC-064` | Approved `BARTINV-006`, project owner, 2026-09-04 |
-| `DOC-050` | `docs/project/training-simulation-architecture-claim-traces.csv` | Persistent | CSV | Manual | Canonical: `DOCINFO-ARCHITECTURE-CLAIM-TRACE-001`; title `Training Simulation Architecture Claim Trace Register`; purpose and scope: map every canonical ADR-0010 Architecture Claim state, claim disposition, and per-requirement disposition to one governing artifact and exact requirements; intended readers: project owner, architects, implementers, verification authors, reviewers, and tooling; structurally validated by `scripts/validate-baseline-artifact-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-036`, `DOC-044`, `DOC-048`, `DOC-049` | Approved `BARTINV-006`, project owner, 2026-09-04 |
-| `DOC-051` | `docs/project/training-simulation-evidence-dependency-inventory.md` | Persistent | Markdown | Manual | Canonical: `EDI-CONTROL-001`; global identity, effective population, graph semantics, reconciliation rules, impact procedure, and approval state | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `EDI-004`, project owner, 2026-09-04 |
-| `DOC-052` | `docs/project/training-simulation-evidence-dependency-nodes.csv` | Persistent | CSV | Manual | Canonical: `EDI-004-NODES`; title `Training Simulation Evidence Dependency Supplemental Node Register`; purpose and scope: store current nodes not imported from predecessor inventories; intended readers: project owner, architects, implementers, verification authors, reviewers, evidence custodians, and tooling; structurally validated by `scripts/validate-evidence-dependency-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-044`, `DOC-051`, `DOC-064` | Approved `EDI-004`, project owner, 2026-09-04 |
-| `DOC-053` | `docs/project/training-simulation-evidence-dependency-relations.csv` | Persistent | CSV | Manual | Canonical: `EDI-004-RELATIONS`; title `Training Simulation Evidence Dependency Supplemental Relation Register`; purpose and scope: store reviewed explicit directed typed relations not derived from predecessor traces; intended readers: project owner, architects, implementers, verification authors, reviewers, evidence custodians, and tooling; structurally validated by `scripts/validate-evidence-dependency-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-044`, `DOC-048`, `DOC-049`, `DOC-050`, `DOC-051`, `DOC-052`, `DOC-064` | Approved `EDI-004`, project owner, 2026-09-04 |
-| `DOC-054` | `docs/project/training-simulation-evidence-impact-cases.csv` | Persistent | CSV | Manual | Canonical: `EDI-004-IMPACT-CASES`; title `Training Simulation Evidence Impact Case Register`; purpose and scope: retain finite conservative traversal and fault-case expectations for `EDI-004`; intended readers: project owner, implementers, verification authors, reviewers, evidence custodians, and tooling; structurally validated by `scripts/validate-evidence-dependency-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-025`, `DOC-051`, `DOC-052`, `DOC-053` | Approved `EDI-004`, project owner, 2026-09-04 |
+| `DOC-048` | `docs/project/training-simulation-baseline-artifact-inventory.md` | Persistent | Markdown | Manual | Canonical: `BARTINV-CONTROL-001` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `BARTINV-007`, project owner, 2026-09-04 |
+| `DOC-049` | `docs/project/training-simulation-baseline-artifacts.csv` | Persistent | CSV | Manual | Canonical: `BARTINV-007`; title `Training Simulation Baseline Artifact Register`; purpose and scope: store normalized artifact identity, class, exact version, location, status, owner, and requirement traces for every governed artifact; intended readers: project owner, architects, designers, implementers, verification authors, reviewers, and tooling; structurally validated by `scripts/validate-baseline-artifact-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-019`, `DOC-036`, `DOC-044`, `DOC-045`, `DOC-048`, `DOC-055`, `DOC-064` | Approved `BARTINV-007`, project owner, 2026-09-04 |
+| `DOC-050` | `docs/project/training-simulation-architecture-claim-traces.csv` | Persistent | CSV | Manual | Canonical: `DOCINFO-ARCHITECTURE-CLAIM-TRACE-001`; title `Training Simulation Architecture Claim Trace Register`; purpose and scope: map every canonical ADR-0010 Architecture Claim state, claim disposition, and per-requirement disposition to one governing artifact and exact requirements; intended readers: project owner, architects, implementers, verification authors, reviewers, and tooling; structurally validated by `scripts/validate-baseline-artifact-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-036`, `DOC-044`, `DOC-048`, `DOC-049` | Approved `BARTINV-007`, project owner, 2026-09-04 |
+| `DOC-051` | `docs/project/training-simulation-evidence-dependency-inventory.md` | Persistent | Markdown | Manual | Canonical: `EDI-CONTROL-001`; global identity, effective population, graph semantics, reconciliation rules, impact procedure, and approval state | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `EDI-005`, project owner, 2026-09-04 |
+| `DOC-052` | `docs/project/training-simulation-evidence-dependency-nodes.csv` | Persistent | CSV | Manual | Canonical: `EDI-005-NODES`; title `Training Simulation Evidence Dependency Supplemental Node Register`; purpose and scope: store current nodes not imported from predecessor inventories; intended readers: project owner, architects, implementers, verification authors, reviewers, evidence custodians, and tooling; structurally validated by `scripts/validate-evidence-dependency-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-044`, `DOC-051`, `DOC-064` | Approved `EDI-005`, project owner, 2026-09-04 |
+| `DOC-053` | `docs/project/training-simulation-evidence-dependency-relations.csv` | Persistent | CSV | Manual | Canonical: `EDI-005-RELATIONS`; title `Training Simulation Evidence Dependency Supplemental Relation Register`; purpose and scope: store reviewed explicit directed typed relations not derived from predecessor traces; intended readers: project owner, architects, implementers, verification authors, reviewers, evidence custodians, and tooling; structurally validated by `scripts/validate-evidence-dependency-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-044`, `DOC-048`, `DOC-049`, `DOC-050`, `DOC-051`, `DOC-052`, `DOC-064` | Approved `EDI-005`, project owner, 2026-09-04 |
+| `DOC-054` | `docs/project/training-simulation-evidence-impact-cases.csv` | Persistent | CSV | Manual | Canonical: `EDI-005-IMPACT-CASES`; title `Training Simulation Evidence Impact Case Register`; purpose and scope: retain finite conservative traversal and fault-case expectations for `EDI-005`; intended readers: project owner, implementers, verification authors, reviewers, evidence custodians, and tooling; structurally validated by `scripts/validate-evidence-dependency-inventory.py` | Project owner | Controlled / Inventory / Not Applicable | `DOC-025`, `DOC-051`, `DOC-052`, `DOC-053` | Approved `EDI-005`, project owner, 2026-09-04 |
 | `DOC-055` | `docs/requirements/training-simulation-autonomous-participant-requirements.md` | Persistent | Markdown | Manual | Canonical: `AUTONOMOUS-PARTICIPANT-BASELINE-001` and its stable requirements; purpose and scope: define the future Autonomous Participant role and acceptance boundary without admitting implementation | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved future requirements, 2026-09-04 |
 | `DOC-056` | `docs/research/game-engine-memory-allocation-and-tracking.md` | Persistent | Markdown | Manual | Non-canonical research informing `ADR-0011`; title `Game Engine Memory Allocation and Tracking Guidance`; purpose and scope: evaluate memory measurement, accounting, allocation, and tracking options; intended readers: architects, implementers, performance engineers, and verification authors | Project owner | Reference / Inventory / Not Applicable | `DOC-002`, `DOC-020`, `DOC-024`, `DOC-034` | Retained research, 2026-09-04 |
 | `DOC-057` | `docs/adr/0011-establish-memory-accounting-and-allocation-boundaries.md` | Persistent | Markdown | Manual | Canonical: `ADR-0011`; links to detailed memory specification and `AC-MEMORY-*` register | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted decision; realization and evidence incomplete |
@@ -183,13 +183,13 @@ Markdown and non-Markdown formats; manual documents may still provide one.
 | `DOC-061` | `docs/adr/0012-establish-runtime-resource-and-role-pack-architecture.md` | Persistent | Markdown | Manual | Canonical: `ADR-0012` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted decision; realization and evidence incomplete |
 | `DOC-062` | `docs/architecture/0012-runtime-resource-and-role-pack-architecture.md` | Persistent | Markdown | Manual | Canonical: `ARCHSPEC-0012`, governed by `ADR-0012` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Accepted detail; realization and evidence incomplete |
 | `DOC-063` | `docs/architecture/training-simulation-runtime-resource-type-inventory.md` | Persistent | Markdown | Manual | Canonical: `RRTI-001`, governed by `ADR-0012` and `ARCHSPEC-0012` | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Candidate; zero admitted types and approval pending |
-| `DOC-064` | `docs/architecture/software-architecture-description.md` | Persistent | Markdown | Manual | Canonical: `SAD-001`; linked realization of `EDI-VIEW-001` through `EDI-VIEW-009` without duplicating normative requirements or ADR decisions | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `SAD-001`, project owner, 2026-09-04 |
+| `DOC-064` | `docs/architecture/software-architecture-description.md` | Persistent | Markdown | Manual | Canonical: `SAD-002`; linked realization of `EDI-VIEW-001` through `EDI-VIEW-009` without duplicating normative requirements or ADR decisions | Project owner | Controlled / Embedded / Not Applicable | Declared; links validated | Approved `SAD-002`, project owner, 2026-09-04 |
 
 ## Reconciliation and validation
 
 The authoritative population is the union of root `AGENTS.md`, `CONTEXT.md`,
 `README.md`, `SECURITY.md`, `LICENSE`, every `*.md` below `docs/`, and retained
-documentation datasets below `docs/`. `DOCINV-009` contains 64 documents: 57
+documentation datasets below `docs/`. `DOCINV-010` contains 64 documents: 57
 manually maintained Markdown documents, one external-standard plain-text legal
 document, and six manually maintained CSV inventories. It contains no retained
 `Non-persistent` or `Generated` document.
@@ -208,8 +208,8 @@ evidence impact remain review decisions rather than facts a script can infer.
 
 ## Current acceptance boundary
 
-Approved `DOCINV-009` reconciles a 64-document population against approved
-`DOCINV-008`; project-owner approval was granted on 2026-09-04.
+Approved `DOCINV-010` reconciles the unchanged 64-document population against
+approved `DOCINV-009`; project-owner approval was granted on 2026-09-04.
 `SECURITY.md` remains an explicitly non-authoritative future placeholder and
 cannot support a security claim. The generated verification-assignment
 inventory is a compact canonical index and cannot substitute for the Baseline
@@ -223,14 +223,13 @@ It makes no realization, evidence, or baseline-approval claim. Baseline approval
 remains blocked by every other unresolved requirement or evidence dependency
 identified by the approved baselines and architecture decisions.
 
-## `DOCINV-009` impact analysis
+## `DOCINV-010` impact analysis
 
-This successor adds two architecture decisions, two detailed architecture
-specifications, one candidate Runtime Resource Type Inventory, three
-non-canonical research notes, and the canonical `SAD-001`. It records the
-candidate C++ engineering baseline, maps the new `AC-MEMORY-*` and
-`AC-RESOURCE-*` claim sets, and realizes the nine selected SAD views without
-promoting implementation or product-evidence state.
+This successor preserves the approved `DOCINV-009` population and ownership.
+It changes the canonical description identity from `SAD-001` to approved
+`SAD-002`, and records approved `BARTINV-007` and `EDI-005` identities after
+the SAD content version changed. No document was added, removed, renamed, or
+reclassified, and no canonical information owner changed.
 
 Evidence impact is conservative: every changed content identity and every
 predecessor-bound validation or review result is `Affected`. No accepted
@@ -238,9 +237,9 @@ product-baseline or Architecture Claim evidence exists to retain or invalidate.
 The generated verification-assignment view cannot acquire an acceptance
 disposition from `BAI-004` or its Baseline Artifact Inventory successor;
 neither inventory assigns realization or evidence state. The corresponding
-Evidence Dependency Inventory successor records the changed artifact, claim,
-component, view, and document population; exact-version approval was granted
-by the project owner on 2026-09-04.
+Evidence Dependency Inventory successor records the changed artifact and all
+nine affected view versions; exact-version approval was granted by the project
+owner on 2026-09-04.
 Any source, classification, trace, disposition, milestone, ownership, or
 dependency change requires the applicable successor inventory and fresh impact
 analysis.
