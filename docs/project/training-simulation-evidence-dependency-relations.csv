@@ -113,10 +113,21 @@ sequence,relation_identifier,source_node_identifier,target_node_identifier,relat
 112,EDI-REL-112,BART-VER-017,EDI-EVID-012,produces,Commit validator produces its pre-registered result.
 113,EDI-REL-113,EDI-DATA-001,EDI-PROC-001,input-to,Standards review consumes the fixed staged diff.
 114,EDI-REL-114,EDI-DATA-001,EDI-PROC-002,input-to,Spec review consumes the fixed staged diff.
-115,EDI-REL-115,EDI-DATA-002,EDI-PROC-002,input-to,Spec review consumes issue 29 as its authoritative specification.
+115,EDI-REL-115,EDI-DATA-002,EDI-PROC-002,input-to,Spec review consumes issue 54 as its authoritative specification.
 116,EDI-REL-116,BART-VER-007,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Artifact control identity.
 117,EDI-REL-117,BART-VER-011,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Applicability control identity.
 118,EDI-REL-118,BART-VER-009,BART-VER-022,input-to,Evidence Dependency validator consumes the Documentation Inventory identity.
 119,EDI-REL-119,BART-DES-013,EDI-DATA-005,defines,Autonomous Participant requirements extend the canonical verification-assignment source set.
 120,EDI-REL-120,BART-DES-004,EDI-DATA-005,defines,Initial requirements define part of the canonical verification-assignment source set.
 121,EDI-REL-121,BART-VER-012,EDI-DATA-005,defines,Verification Plan ranges define part of the canonical verification-assignment source set.
+122,EDI-REL-122,EDI-DATA-004,BART-VER-023,input-to,C++ validation closure defines the changed-file style gate.
+123,EDI-REL-123,EDI-ENV-001,BART-VER-023,input-to,C++ style gate depends on the repository environment and pinned LLVM tools.
+124,EDI-REL-124,BART-VER-001,BART-VER-023,input-to,C++ style gate consumes the authoritative clang-format configuration.
+125,EDI-REL-125,BART-VER-002,BART-VER-023,input-to,C++ style gate consumes the authoritative clang-tidy configuration.
+126,EDI-REL-126,BART-IMP-010,BART-VER-023,input-to,C++ style gate consumes the approved exception registry.
+127,EDI-REL-127,BART-VER-023,EDI-EVID-013,produces,C++ style gate produces its pre-registered result.
+128,EDI-REL-128,BART-ARC-012,EDI-PC-017,defines,Canonical responsibility architecture defines the Scenario module.
+129,EDI-REL-129,EDI-PC-005,EDI-PC-017,depends-on,Scenario consumes admitted session content from Content Admission.
+130,EDI-REL-130,EDI-PC-007,EDI-PC-017,depends-on,Scenario emits operational signals through Observability.
+131,EDI-REL-131,BART-ARC-022,EDI-VIEW-006,maps-to,Runtime resource and role-pack architecture maps to the data and persistence view.
+132,EDI-REL-132,BART-ARC-023,EDI-VIEW-006,maps-to,Runtime Resource Type Inventory maps to the data and persistence view.

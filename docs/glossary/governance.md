@@ -192,6 +192,10 @@ _Avoid_: Minimum requirements, recommended PC, hardware class
 A versioned acceptance definition that fixes one reproducible `Typical`, `Stress`, or `Rejection Boundary` load used to verify applicable Training Simulation quality requirements.
 _Avoid_: Ad hoc benchmark, unspecified worst case, duplicated per-requirement workload
 
+**Runtime Resource Type Inventory**:
+The approved, versioned, and closed inventory of every admitted Runtime Resource type, its stable type identity, semantic owner, admitted schema versions, dependency rules, structural limits, validation and materialization contract, alignment, and stable failure outcomes.
+_Avoid_: Dynamic type registry, plugin discovery, manifest-defined type, implementation-only dispatch table
+
 **Runtime Timing Profile**:
 An Approved Profile that fixes the runtime cadence and finite operating bounds for authoritative Simulation, client Prediction, Presentation, catch-up, replication retention, and connection-loss detection.
 _Avoid_: Frame-rate setting, vendor scheduler configuration, implicit timeout defaults

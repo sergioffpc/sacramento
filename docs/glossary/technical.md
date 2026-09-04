@@ -100,6 +100,10 @@ _Avoid_: Authority Pack, source assets, downloadable content
 An independently provisioned, versioned statement that assigns authorized content-signing keys to the exact pack roles and runtime content contracts they may sign.
 _Avoid_: Pack-contained trust root, unrestricted signing key, runtime version negotiation
 
+**Content Signing Key Identity**:
+The complete SHA-256 fingerprint derived from the content-signing scheme identity and raw public key under the Sacramento content-signing domain, used only for exact trust-reference lookup and evidence correlation.
+_Avoid_: Trust root, authorization credential, truncated key hint, signer-selected trust
+
 **Controlled LAN**:
 The private, dedicated wired local network whose participants, local services, permitted traffic, and measurement conditions are closed by an exact deployment profile, with no route to an external network during a Training Session.
 _Avoid_: Wide-area network, shared office network, unspecified LAN
@@ -120,6 +124,30 @@ _Avoid_: Client command, authoritative action, client-authored outcome, timestam
 The monotonically increasing Session Lifecycle owner revision fixed by one committed Training Session lifecycle transition; it is distinct from the Canonical Tick index and every observability sequence or timestamp.
 _Avoid_: Canonical Tick, process lifecycle signal, Operational Clock instant, observability sequence
 
+**Measured Real-Time Hot Loop**:
+One design-identified and profiling-confirmed repeated runtime path after `Ready` whose general-purpose heap access could affect a Canonical Tick, Presentation Frame, real-time audio processing, or another approved temporal obligation.
+_Avoid_: Every syntactic loop, unmeasured code path, startup materialization
+
+**Memory Accounting Owner**:
+The one canonical responsibility module, or runtime composition for a resource it genuinely owns, to which one Sacramento memory allocation is charged independently of its lifetime or allocation mechanism.
+_Avoid_: Consumer list, executing thread, allocator name, Third Party, Untracked
+
+**Memory Budget Configuration**:
+The immutable, identified launch-selected set of measured soft and hard memory limits, headroom rationales, owners, scopes, and exact exceed actions for one runtime execution.
+_Avoid_: Reference Hardware Profile capacity, current driver budget, mutable default, allocator capacity
+
+**Memory Lifetime Domain**:
+The explicit Sacramento boundary that groups memory sharing one release condition and fence without changing its Memory Accounting Owner.
+_Avoid_: C++ type, subsystem tag, executing thread, implicit scope
+
+**Memory Resource Context**:
+The immutable allocation context carrying the exact Memory Accounting Owner, Memory Lifetime Domain, memory resource, and applicable budget identity across synchronous and asynchronous work.
+_Avoid_: Thread-local owner, worker identity, global current subsystem
+
+**Memory Snapshot**:
+An identified point-in-time record of Sacramento allocation counters and applicable process or GPU samples with their exact runtime, phase, configuration, profile, provenance, and loss state.
+_Avoid_: Heap dump, single RAM-used value, unversioned profiler capture
+
 **Offline Revocation Status**:
 A time-bounded statement from the Identity Authority that identifies an exact identity-evidence item or Authorization Assertion and classifies it as `Current` or `Revoked` for offline validation.
 _Avoid_: Cached admission decision, unbounded revocation list, inferred validity
@@ -136,9 +164,33 @@ _Avoid_: Simulated time, Scenario timer, client clock, calendar clock
 The externally provisioned, project-owner-approved bootstrap reference by which a host verifies the identity, version, role, and integrity of the current Identity Validation Package manifest without trusting that package to validate itself.
 _Avoid_: Self-declared package integrity, Session Authority download, live identity lookup
 
+**Pack Core Digest**:
+The SHA-256 digest of the exact deterministic Pack Manifest and complete stored payload region of one role pack, excluding its Pack Envelope and detached signature so reciprocal role-pack binding is non-circular.
+_Avoid_: Runtime Content Release identity, complete-file distribution hash, signature, Resource Identity
+
+**Pack Envelope**:
+The signed role-pack structure that binds the exact release, Scenario, role, runtime content contract, signing scheme and key identity, and the identities and Pack Core Digests of both reciprocal role packs.
+_Avoid_: Pack Manifest, unsigned header, trust root, recursive complete-file hash
+
+**Pack Manifest**:
+The deterministic authenticated package representation that declares the bounded Runtime Resource entries, stored extents, type and schema identities, dependencies, integrity digests, and physical locations admitted by one role pack.
+_Avoid_: Catalogue, source directory, dynamic registry, mutable index
+
 **Platform Parity**:
 The preference that shared Simulation Engine capabilities and technologies remain functionally portable between Windows and Linux. It does not imply that every product executable is supported or accepted on both operating systems.
 _Avoid_: Full platform matrix, identical deployment support
+
+**Resource Identity**:
+The stable opaque UUIDv4 identity of one independently referenced Runtime Resource, stored as 16 bytes in a role pack and preserved through moves, renames, and compatible edits but replaced when that resource is duplicated or semantically replaced.
+_Avoid_: Source path, content digest, manifest location, runtime handle
+
+**Resource Identity Metadata**:
+The versioned authoring-side record that preserves canonical-source identity and maps stable semantic product and subresource keys to their Resource and Subresource Identities across compatible edits.
+_Avoid_: Pack Manifest, cooker-generated identity, source path as identity, silent duplicate repair
+
+**Resource Reference**:
+A persistent Sacramento value naming one Resource Identity, an optional Subresource Identity, and the expected Runtime Resource type for validation and resolution during materialization.
+_Avoid_: Runtime Resource Handle, source path, pointer, untyped identifier
 
 **Runtime Content Release**:
 One immutable, signed release for an exact Scenario version, comprising exactly one Authority Pack and one Client Pack under a common identity that binds their roles, runtime content contracts, integrity hashes, dependencies, and processing provenance.
@@ -147,6 +199,14 @@ _Avoid_: Loose asset directory, independently selected packs, live content set
 **Runtime Launch Specification**:
 The immutable, versioned, role-specific selection that completely binds one process execution to its exact Application Release, runtime content, profiles, endpoint, capacities, operating mode, and applicable external integrations.
 _Avoid_: Mutable environment defaults, directory discovery, newest version, runtime download
+
+**Runtime Resource**:
+An immutable unit of Sacramento semantic content identified independently of its source location and package representation and completely materialized from an admitted role pack for use by one or more runtime responsibility modules. Its meaning and lifetime remain owned by the applicable responsibility module.
+_Avoid_: Source asset, manifest entry, encoded payload, memory allocation, runtime handle
+
+**Runtime Resource Handle**:
+A typed, execution-local, borrowed reference to one completely materialized Runtime Resource in the process's single immutable published view.
+_Avoid_: Resource Reference, persistent identity, owning pointer, reload generation
 
 **Session Authority**:
 The trusted part of the Training Simulation that determines the canonical state and outcomes of one active Training Session.
@@ -171,6 +231,14 @@ _Avoid_: Operational Clock, Trusted Identity Time, render time, client clock
 **Synthetic Identity**:
 An explicitly non-production, launch-declared stand-in for exactly one Trainee, Client Device, or Session Authority identity class, used only to exercise runtime Admission interfaces without claiming authentication, authorization, or a Canonical Identity Key.
 _Avoid_: Trainee Identity, Client Device Identity, Session Authority Identity, authenticated identity, production account
+
+**Subresource Identity**:
+The stable opaque UUIDv4 identity of one independently addressable part within a Runtime Resource, stored as 16 bytes in a role pack and preserved independently of storage order but replaced when that part is semantically replaced.
+_Avoid_: Array index, byte offset, source path, execution-local object identity
+
+**Stored Extent**:
+One bounded contiguous region of exact bytes stored in a role pack and covered by one authenticated digest before decompression or decoding.
+_Avoid_: Unauthenticated gap, decoded object, filesystem extent, runtime allocation
 
 **Trusted Identity Time**:
 The independently established time used by a validating host to evaluate identity-evidence validity without accepting time from the identity or endpoint being validated; it is distinct from the Operational Clock and simulated time.

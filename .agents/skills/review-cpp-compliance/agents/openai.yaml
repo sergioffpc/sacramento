@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review C++ compliance"
+  short_description: "Review C++ against the Sacramento baseline"
+  default_prompt: "Use $review-cpp-compliance to review the requested C++ changes against the Sacramento C++ Engineering Baseline."
