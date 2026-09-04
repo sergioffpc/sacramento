@@ -26,6 +26,7 @@ BAI_CONTROL = ROOT / "docs/requirements/training-simulation-baseline-applicabili
 BAI = ROOT / "docs/requirements/training-simulation-baseline-applicability-inventory.csv"
 DOCINV = ROOT / "docs/project/training-simulation-documentation-inventory.md"
 SAD = ROOT / "docs/architecture/software-architecture-description.md"
+DESIGN_COMMITMENTS = ROOT / "docs/design/training-simulation-design-commitments.csv"
 
 PACKAGE = (CONTROL, NODES, RELATIONS, CASES)
 NODE_HEADER = [
@@ -56,6 +57,12 @@ BAI_HEADER = [
     "sequence", "requirement_identifier", "disposition",
     "milestone_or_justification", "responsible_owner",
 ]
+DESIGN_HEADER = [
+    "sequence", "design_commitment_id", "governing_sdd", "decision_state",
+    "applicability_state", "realization_state", "evidence_state",
+    "disposition", "requirement_traces", "architecture_claim_traces",
+    "sad_view_traces", "responsible_owner", "verification_approach",
+]
 
 
 class NodeClass(StrEnum):
@@ -73,6 +80,8 @@ class NodeClass(StrEnum):
     EVIDENCE = "Evidence Record"
     CLAIM = "Architecture Claim"
     VIEW = "Software Architecture Description View"
+    SDD = "Software Design Document"
+    COMMITMENT = "Design Commitment"
     ARTIFACT = "Governed Artifact"
 
 
@@ -101,11 +110,11 @@ class CaseClass(StrEnum):
 
 class InjectedCondition(StrEnum):
     NONE = "None"
-    STALE = "Source exact version differs from BARTINV-007"
+    STALE = "Source exact version differs from BARTINV-008"
     UNCLASSIFIED = "Relation type is empty"
     MISSING_RELATION = "Known validator input relation is removed"
     INVARIANCE = "Reproducible analysis retains exact obligation-level criterion and Pass"
-    PREDECESSOR = "Retained analysis names predecessor EDI-004"
+    PREDECESSOR = "Retained analysis names predecessor EDI-005"
 
 
 class Disposition(StrEnum):
@@ -196,15 +205,15 @@ def validate_controls(errors: list[str]) -> str:
     bart_digest = extract_unique_match(r"^Package SHA-256: `([^`]+)`$", bart, "BART digest", errors)
     bai_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", bai, "BAI version", errors)
     doc_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", docinv, "DOCINV version", errors)
-    if version != "EDI-005":
-        errors.append("EDI control: expected EDI-005")
-    if bart_version != "BARTINV-007":
-        errors.append("EDI control: expected BARTINV-007")
-    if bai_version != "BAI-004":
-        errors.append("EDI control: expected BAI-004")
-    if doc_version != "DOCINV-010":
-        errors.append("EDI control: expected DOCINV-010")
-    expected_bart_identity = f"BARTINV-007@sha256:{bart_digest}"
+    if version != "EDI-006":
+        errors.append("EDI control: expected EDI-006")
+    if bart_version != "BARTINV-008":
+        errors.append("EDI control: expected BARTINV-008")
+    if bai_version != "BAI-005":
+        errors.append("EDI control: expected BAI-005")
+    if doc_version != "DOCINV-011":
+        errors.append("EDI control: expected DOCINV-011")
+    expected_bart_identity = f"BARTINV-008@sha256:{bart_digest}"
     if expected_bart_identity not in edi:
         errors.append("EDI control: stale Baseline Artifact Inventory identity")
     if not PACKAGE_DIGEST_RE.fullmatch(digest):
@@ -238,6 +247,10 @@ def artifact_node_class(artifact_class: str, location: str) -> NodeClass:
     if artifact_class == "Implementation":
         return NodeClass.CONFIGURATION
     if artifact_class != "Verification":
+        if artifact_class == "Design" and re.fullmatch(
+            r"docs/design/[0-9]{4}-.+\.md", location
+        ):
+            return NodeClass.SDD
         return NodeClass.ARTIFACT
     if location.startswith(("scripts/", ".github/workflows/", ".githooks/")):
         return NodeClass.PROCEDURE
@@ -257,7 +270,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[identifier] = Node(
             identifier,
             NodeClass.REQUIREMENT,
-            "BAI-004",
+            "BAI-005",
             BAI.relative_to(ROOT).as_posix(),
         )
 
@@ -280,7 +293,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         "AC-CONCURRENCY-": "EDI-VIEW-005", "AC-CONTENT-": "EDI-VIEW-006",
         "AC-MEMORY-": "EDI-VIEW-007", "AC-RESOURCE-": "EDI-VIEW-006",
         "AC-RETENTION-": "EDI-VIEW-006", "AC-DEPLOYMENT-": "EDI-VIEW-002",
-        "AC-CROSSCUTTING-": "EDI-VIEW-007",
+        "AC-CROSSCUTTING-": "EDI-VIEW-007", "AC-TOOLING-": "EDI-VIEW-006",
     }
     for row in claim_rows:
         claim, artifact = row[1], row[2]
@@ -289,7 +302,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[claim] = Node(
             claim,
             NodeClass.CLAIM,
-            "BARTINV-007",
+            "BARTINV-008",
             CLAIMS.relative_to(ROOT).as_posix(),
         )
         edges.append(
@@ -333,6 +346,52 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
                 RelationType.MAPS,
             )
         )
+    design_rows = validated_rows(
+        DESIGN_COMMITMENTS, DESIGN_HEADER, "design commitments", errors
+    )
+    sdd_artifacts = {
+        "SDD-0001": "BART-DES-016",
+        "SDD-0002": "BART-DES-017",
+        "SDD-0003": "BART-DES-018",
+        "SDD-0004": "BART-DES-019",
+    }
+    for row in design_rows:
+        commitment, sdd = row[1], row[2]
+        nodes[commitment] = Node(
+            commitment,
+            NodeClass.COMMITMENT,
+            "SDB-001",
+            DESIGN_COMMITMENTS.relative_to(ROOT).as_posix(),
+        )
+        target = sdd_artifacts.get(sdd)
+        if target is None or target not in nodes:
+            errors.append(f"design commitments:{commitment}: unknown governing SDD")
+        else:
+            edges.append(Edge(
+                f"EDI-DERIVED-DC-SDD-{commitment}", commitment, target,
+                RelationType.MAPS,
+            ))
+        for requirement in row[8].split("|"):
+            if requirement not in nodes:
+                errors.append(f"design commitments:{commitment}: unknown requirement")
+            else:
+                edges.append(Edge(
+                    f"EDI-DERIVED-DC-REQ-{commitment}-{requirement}",
+                    requirement, commitment, RelationType.GOVERNS,
+                ))
+        for claim in row[9].split("|"):
+            if claim not in nodes:
+                errors.append(f"design commitments:{commitment}: unknown claim")
+            else:
+                edges.append(Edge(
+                    f"EDI-DERIVED-DC-CLAIM-{commitment}-{claim}",
+                    claim, commitment, RelationType.GOVERNS,
+                ))
+        for view in row[10].split("|"):
+            edges.append(Edge(
+                f"EDI-DERIVED-DC-VIEW-{commitment}-{view}",
+                view, commitment, RelationType.GOVERNS,
+            ))
     return nodes, edges
 
 
@@ -344,11 +403,11 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
             "Content Admission", "Protocol & Replication", "Observability",
             "Trainee Performance Assessment Module", "Prediction", "Presentation",
             "Input & Interaction", "Session Authority Runtime", "Trainee Client Runtime",
-            "Content Cooker Runtime", "Administrative Tool Runtimes", "Synthetic Client Runtime",
+            "Content Cooker Tool", "Administrative Tools", "Synthetic Client Runtime",
         )),
     }
     expected_view_sources = {
-        f"SAD-002:EDI-VIEW-{number:03d}" for number in range(1, 10)
+        f"SAD-003:EDI-VIEW-{number:03d}" for number in range(1, 10)
     }
     actual_sources: set[str] = set()
     for row in rows:
@@ -365,7 +424,7 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
         if row[6] not in {"Current", "Planned"} or not row[7] or not row[8]:
             errors.append(f"supplemental nodes:{identifier}: incomplete classification")
         nodes[identifier] = Node(identifier, parsed_class, exact_version, location)
-        if source.startswith(("ARCHSPEC-0004:", "SAD-002:")):
+        if source.startswith(("ARCHSPEC-0004:", "SAD-003:")):
             actual_sources.add(source)
         if parsed_class == NodeClass.VIEW:
             expected_fragment = f"#edi-view-{int(identifier[-3:]):03d}-"

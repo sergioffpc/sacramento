@@ -9,7 +9,7 @@ Purpose: Define how Sacramento measures, attributes, budgets, allocates, and
 releases CPU and GPU memory without selecting a concrete allocator library.
 
 Scope: The real-time `Trainee Client Runtime` and `Session Authority Runtime`.
-The Content Cooker Runtime, Administrative Tool Runtimes, concrete APIs,
+The Content Cooker Tool, Administrative Tools, concrete APIs,
 source layout, libraries, numeric limits, and operational dashboards remain
 outside this decision.
 
@@ -153,7 +153,7 @@ of a core signal or create an acceptance `Pass`.
 
 ## Sampling, snapshots, and reconciliation
 
-Process samples and Memory Snapshots occur at process start, after `Ready`, at
+Process samples and Memory Snapshots occur at process start, after `ProcessReady`, at
 relevant Training Session transitions, during terminal settling, and during
 shutdown. Configurable periodic sampling is Diagnostic only.
 
@@ -191,7 +191,7 @@ Failure follows the resource class:
 | --- | --- |
 | Soft budget exceeded | Diagnostic and Memory Snapshot; an owner may begin eviction only for a resource already classified as elastic |
 | Hard budget exceeded | Reject the new operation with a stable Sacramento outcome |
-| Required startup capacity unavailable | `Not Ready`, complete cleanup, and non-zero exit |
+| Required startup capacity unavailable | `ProcessNotReady`, complete cleanup, and non-zero exit |
 | Admission capacity exhausted | Reject the new Admission without changing existing Admissions |
 | Candidate canonical work cannot reserve its required capacity before commit | Reject the candidate without exposing a partial result |
 | Complete reconstruction record cannot be preserved | Prevent result visibility and terminate the Training Session as the existing canonical-path integrity failure requires |
@@ -227,7 +227,7 @@ graphics dependency.
 The first increment adds visibility only to the Trainee Client Runtime and
 Session Authority Runtime. It introduces no new budget enforcement or
 specialized allocator beyond capacity behavior already required by accepted
-architecture. Content Cooker and Administrative Tool Runtimes are outside this
+architecture. Content Cooker and Administrative Tools are outside this
 increment.
 
 That increment is a characterization step, not admission of a runtime that
@@ -236,7 +236,7 @@ a Measured Real-Time Hot Loop, the affected runtime remains nonconforming. The
 trace then supplies the measured problem required to design and evaluate
 pre-sizing, a bounded resource, or another subsequent remedy.
 
-After `Ready`, no Measured Real-Time Hot Loop may allocate from the
+After `ProcessReady`, no Measured Real-Time Hot Loop may allocate from the
 general-purpose heap, grow allocator backing storage, or reach an upstream
 fallback that does either. This includes the design-identified and
 profiling-confirmed inner processing paths for Canonical Ticks, Presentation

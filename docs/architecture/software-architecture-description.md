@@ -4,12 +4,12 @@ Status: Approved
 
 Approval: Project owner, 2026-09-04
 
-Approved predecessor: `SAD-001`, project owner, 2026-09-04
+Approved predecessor: `SAD-002`, project owner, 2026-09-04
 
-Description version: `SAD-002`
+Description version: `SAD-003`
 
-Version basis: The exact file version registered as `BART-ARC-024` in approved
-`BARTINV-007`; a governing input or view-content change creates a successor
+Version basis: The exact file version registered in the successor Baseline
+Artifact Inventory; a governing input or view-content change creates a successor
 description version.
 
 Purpose: Present the accepted Development Baseline architecture of the
@@ -26,8 +26,8 @@ Intended readers: Project owner, architects, designers, implementers,
 verification authors, operators, security reviewers, Qualified Specialists,
 and Representative Evaluators.
 
-Prerequisites: `CONTEXT.md`, ADR-0001 through ADR-0012, ARCHSPEC-0003 through
-ARCHSPEC-0012, and the approved requirements, Verification Plan,
+Prerequisites: `CONTEXT.md`, ADR-0001 through ADR-0013, ARCHSPEC-0003 through
+ARCHSPEC-0013, and the approved requirements, Verification Plan,
 Documentation Inventory, Baseline Applicability Inventory, Baseline Artifact
 Inventory, and Evidence Dependency Inventory.
 
@@ -81,7 +81,7 @@ Text diagrams use these conventions:
 | Control | Value |
 | --- | --- |
 | Purpose | Establish the description identity, status boundary, audience routes, notation, ownership, and view map. |
-| Scope | This `SAD-002` description, its architectural drivers and solution strategy, and navigation among its nine views. |
+| Scope | This `SAD-003` description, its architectural drivers and solution strategy, and navigation among its nine views. |
 | Stakeholders | All intended readers; especially the project owner, architecture maintainers, and reviewers. |
 | Notation | Markdown links and tables; the global text-diagram conventions above; `EDI-VIEW-*`, `AC-*`, `ADR-*`, `ARCHSPEC-*`, and requirement identifiers are stable references. |
 | Prerequisites | The document-level prerequisites and [ARCHSPEC-0010 view set](0010-cross-cutting-architecture-and-verification.md#software-architecture-description-view-set). |
@@ -168,12 +168,12 @@ Context/allocation view — initial accepted architecture
                 : assigned endpoint over the Controlled LAN
 
 [Content author/operator: person]
-    --> [Content Cooker Runtime: offline process per job]
+    --> [Content Cooker Tool: one finite offline job]
             ==> [External provisioning: neighboring system]
                 : immutable Runtime Content Release
 
 [Operator/test harness: person or neighboring system]
-    --> [Administrative Tool Runtimes: offline, on demand]
+    --> [Administrative Tools: offline, on demand]
     --> [External provisioning: neighboring system]
         ==> [Client and Authority Runtimes] : immutable launch inputs
 
@@ -208,7 +208,7 @@ Windows, while Debian runtime closure is proved independently on Debian.
 An Application Release contains exactly one executable runtime and dependency
 closure for one role and platform. Initial variants are the Windows Trainee
 Client Runtime, headless Debian Session Authority Runtime, offline Content
-Cooker Runtime, and applicable Administrative Tool Runtimes. Their exact
+Cooker Tool, and applicable Administrative Tools. Their exact
 compatible combination with protocol, content, launch, Observability, and
 external-integration contracts must be admitted by the Deployment
 Compatibility Matrix before launch. Concrete installers, Debian archives,
@@ -255,7 +255,7 @@ architecture-level dependency subset is:
 ```text
 Module/dependency view — arrows point from caller to interface owner
 
-[Content Cooker] ---------> [Runtime Package]
+[Content Cooker Tool] ----> [Runtime Package]
 [Content Admission] ------> [Runtime Package]
 [Simulation] -------------> [Content Admission]
 [Scenario] ---------------> [Content Admission]
@@ -272,7 +272,7 @@ population and runtime membership remain in ARCHSPEC-0004.
 
 | Diagram element | Responsibility at this seam |
 | --- | --- |
-| `Content Cooker` | Coordinates offline validation and production of complete candidate runtime content through `Runtime Package`. |
+| `Content Cooker Tool` | Coordinates one finite offline validation and production job through `Runtime Package`; it exposes no runtime lifecycle. |
 | `Runtime Package` | Owns persistent runtime-package schema, deterministic codec, identity, integrity, version, and compatibility. |
 | `Content Admission` | Validates and atomically activates one exact immutable content view. |
 | `Simulation` | Owns canonical simulated state, Simulated Time transitions, and authoritative simulation results. |
@@ -293,8 +293,8 @@ resource, testing, or evidence module.
 
 The Session Authority Runtime alone composes `Simulation`, `Scenario`, and
 `Session Lifecycle`. The Trainee Client Runtime composes non-authoritative `Prediction`,
-`Presentation`, and `Input & Interaction`. The Content Cooker Runtime composes
-`Runtime Package` with private import adapters. Administrative Tool Runtimes
+`Presentation`, and `Input & Interaction`. The Content Cooker Tool composes
+`Runtime Package` with private import adapters. Administrative Tools
 perform approved offline work, and the Synthetic Client Runtime exercises the
 protocol without becoming a product role.
 
@@ -327,16 +327,16 @@ Lifecycle view — one Session Authority process owns one Training Session
 
 Process start
   -> validate one immutable Runtime Launch Specification and complete closure
-  -> reserve capacity, bind endpoint, publish Ready
+  -> reserve capacity, bind endpoint, publish ProcessReady
   -> accept connections and perform mode-applicable Admission
   -> Preparation and explicit Trainee readiness
   -> Active fixed-step Simulation
   -> completion or non-normal termination fixes terminal truth
   -> seal retained evidence and attempt required durable receipt
-  -> release resources, publish Terminated and exit classification
+  -> release resources, publish ProcessTerminated and exit classification
 ```
 
-A process that fails before `Ready` accepts no connection or Admission. The
+A process that fails before `ProcessReady` accepts no connection or Admission. The
 Development Baseline exercises the same AUTH and Admission interface using only
 launch-declared Synthetic Identities and explicitly unauthenticated evidence.
 It does not perform or prove production authentication or authorization.
@@ -433,7 +433,7 @@ shutdown releases in reverse order within the admitted bound.
 | Notation | Data-flow text diagrams. `==>` carries an immutable identified artifact or record; `|commit|` is the owner-defined point after which a retained candidate may survive process loss. |
 | Prerequisites | ADR-0007 through ADR-0010 and ADR-0012, with their named content, identity, evidence, deployment, and Runtime Resource terms. |
 | Authoritative inputs | [ARCHSPEC-0007](0007-runtime-content-releases.md), [ARCHSPEC-0008](0008-evidence-and-ephemeral-state.md), [ARCHSPEC-0009](0009-runtime-deployment-contracts.md), [ARCHSPEC-0010](0010-cross-cutting-architecture-and-verification.md), and [ARCHSPEC-0012](0012-runtime-resource-and-role-pack-architecture.md). |
-| Architecture Claim mappings | `AC-CONTENT-001` through `AC-CONTENT-007`, `AC-RETENTION-001` through `AC-RETENTION-006`, `AC-DEPLOYMENT-006` through `AC-DEPLOYMENT-008`, and `AC-RESOURCE-*`; exact requirement relations are in the [claim trace register](../project/training-simulation-architecture-claim-traces.csv). |
+| Architecture Claim mappings | `AC-CONTENT-001` through `AC-CONTENT-007`, `AC-RETENTION-001` through `AC-RETENTION-006`, `AC-DEPLOYMENT-006` through `AC-DEPLOYMENT-008`, `AC-RESOURCE-*`, and `AC-TOOLING-001` through `AC-TOOLING-005`; exact requirement relations are in the [claim trace register](../project/training-simulation-architecture-claim-traces.csv). |
 | Relationships to other views | Supplies immutable runtime inputs to views 2 and 4, follows the ownership rules in view 5, applies policies from view 7, and exposes evidence dependencies to view 8. |
 | Owner | Project owner; `Runtime Package`, `Content Admission`, and each retained data class's semantic owner maintain their source contracts. |
 | Update triggers | Runtime-content identity, cook gate, pairing, signing, compatibility, activation, trust-domain, retained-data owner, commit, custody, retention, recovery, export, or cleanup changes. |
@@ -444,7 +444,7 @@ shutdown releases in reverse order within the admitted bound.
 Content/data-flow view — one all-or-nothing pair for one exact Scenario
 
 [Versioned authoring inputs]
-  ==> [Content Cooker Runtime: deterministic validate/cook/package/sign]
+  ==> [Content Cooker Tool: finite deterministic validate/cook/package/sign job]
       ==> [Authority Pack] + [Client Pack]
           : reciprocal identities, role contracts, hashes, provenance, trust
       ==> [Runtime Content Release]
@@ -455,7 +455,7 @@ Content/data-flow view — one all-or-nothing pair for one exact Scenario
 ```
 
 Any cooking-gate failure produces no usable successor. Each runtime validates
-one explicit role pack completely before `Ready`; peers prove the expected pack
+one explicit role pack completely before `ProcessReady`; peers prove the expected pack
 pair before Admission. There is no directory discovery, newest-version lookup,
 runtime import, download, hot replacement, fallback, migration, compatible
 range, or automatic downgrade. Update and rollback select complete releases
@@ -564,7 +564,7 @@ SAD, or inventory approval changes none of the others by implication.
 | --- | --- | --- |
 | Static closure | Is each claim explicit, applicable, owned, traced, and structurally consistent? | Claims, SAD views, dependency rules, inventories, compatibility declarations, and prohibited-dependency inspection |
 | Interface contract | Does every adapter preserve its Sacramento seam under success and controlled failure? | Shared adapter contract suites and owner-interface tests |
-| Native executable closure | Does each runtime execute on its real target using only its declared immutable closure? | Windows Trainee Client, Debian Session Authority, offline Content Cooker, and applicable administrative tools |
+| Native executable closure | Does each executable run on its admitted native target using only its declared immutable closure? | Windows Trainee Client, Debian Session Authority, the Content Cooker Tool after platform admission, and applicable administrative tools |
 | Representative sequences | Do independently valid seams compose into the required end-to-end outcomes? | Reference Personnel Recovery success and the six architecture-dominating success/failure sequences selected by ARCHSPEC-0010 |
 
 No layer substitutes for another. Structural validators establish population,

@@ -125,7 +125,7 @@ The monotonically increasing Session Lifecycle owner revision fixed by one commi
 _Avoid_: Canonical Tick, process lifecycle signal, Operational Clock instant, observability sequence
 
 **Measured Real-Time Hot Loop**:
-One design-identified and profiling-confirmed repeated runtime path after `Ready` whose general-purpose heap access could affect a Canonical Tick, Presentation Frame, real-time audio processing, or another approved temporal obligation.
+One design-identified and profiling-confirmed repeated runtime path after `ProcessReady` whose general-purpose heap access could affect a Canonical Tick, Presentation Frame, real-time audio processing, or another approved temporal obligation.
 _Avoid_: Every syntactic loop, unmeasured code path, startup materialization
 
 **Memory Accounting Owner**:
@@ -159,6 +159,18 @@ _Avoid_: Cached admission decision, local account, unverifiable identity claim
 **Operational Clock**:
 The Session Authority's monotonic time source for Training Session lifecycle deadlines and countdowns, independent from simulated time.
 _Avoid_: Simulated time, Scenario timer, client clock, calendar clock
+
+**Process Control Contract**:
+The versioned, orchestration-neutral contract through which a Session Authority or Trainee Client process publishes its Process Lifecycle State and accepts a bounded graceful-shutdown request without exposing platform or orchestrator types.
+_Avoid_: Observability, supervisor API, runtime log, Content Cooker interface
+
+**Process Execution Identity**:
+The immutable identity assigned to one operating-system process execution before it interprets its Runtime Launch Specification; a replacement process always receives a new identity.
+_Avoid_: Application Release identity, Training Session identity, endpoint identity
+
+**Process Lifecycle State**:
+The external lifecycle classification of one Session Authority or Trainee Client process: `ProcessStarting`, `ProcessReady`, `ProcessNotReady`, `ProcessStopping`, or `ProcessTerminated`.
+_Avoid_: TraineeReady, Training Session lifecycle state, Observability event
 
 **Package Trust Reference**:
 The externally provisioned, project-owner-approved bootstrap reference by which a host verifies the identity, version, role, and integrity of the current Identity Validation Package manifest without trusting that package to validate itself.
@@ -197,8 +209,8 @@ One immutable, signed release for an exact Scenario version, comprising exactly 
 _Avoid_: Loose asset directory, independently selected packs, live content set
 
 **Runtime Launch Specification**:
-The immutable, versioned, role-specific selection that completely binds one process execution to its exact Application Release, runtime content, profiles, endpoint, capacities, operating mode, and applicable external integrations.
-_Avoid_: Mutable environment defaults, directory discovery, newest version, runtime download
+The immutable, versioned, role-specific selection that completely binds one Session Authority or Trainee Client process execution to its exact Application Release, runtime content, profiles, endpoint, capacities, operating mode, and applicable external integrations.
+_Avoid_: Cooking Job Specification, mutable environment defaults, directory discovery, newest version, runtime download
 
 **Runtime Resource**:
 An immutable unit of Sacramento semantic content identified independently of its source location and package representation and completely materialized from an admitted role pack for use by one or more runtime responsibility modules. Its meaning and lifetime remain owned by the applicable responsibility module.
@@ -223,6 +235,18 @@ _Avoid_: Operational log, save game, mutable replay, After-Action Review
 **Simulation Engine**:
 The internal software foundation built only to support the Training Simulation's validated needs. It is not an independently reusable or general-purpose product.
 _Avoid_: Product, general-purpose engine
+
+**Cooking Job Specification**:
+The immutable, versioned input selecting one Content Cooker Tool execution, its exact authoring-source closure, processing gate, tools and configuration, output identities, signing-key reference, publication destination, capacities, and provenance.
+_Avoid_: Runtime Launch Specification, command-line options, implicit directory scan
+
+**Cooking Job Result**:
+The immutable terminal result of one Content Cooker Tool execution, classifying success or failure and identifying a Runtime Content Release only after its complete atomic publication.
+_Avoid_: Process Lifecycle State, progress log, partially written pack
+
+**Tool Release**:
+An immutable, identified release containing one complete offline tool executable and its dependency closure for one exact tool role and platform.
+_Avoid_: Application Release, Runtime Content Release, source tree
 
 **Simulated Time**:
 The authoritative Training Session time derived exactly from its simulation epoch and Canonical Tick; it advances only through committed Canonical Ticks.

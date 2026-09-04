@@ -1,6 +1,11 @@
 # Training Simulation Governance Glossary
 
-Status: Candidate; project-owner approval pending
+Status: Approved
+
+Approval: Project owner, 2026-09-04
+
+Latest approved amendment: Software Design Baseline, Software Design Document,
+and Design Commitment terminology, project owner, 2026-09-04
 
 Purpose: Define canonical terminology for baselines, profiles, catalogues, inventories, evidence roles, and project controls.
 
@@ -71,6 +76,18 @@ _Avoid_: Implicit scope, omitted requirement, future promise without milestone
 **Baseline Artifact Inventory**:
 The approved, versioned list of architecture, design, implementation, and verification artifacts governed by one candidate baseline.
 _Avoid_: Repository file listing, informal document list, section index
+
+**Design Commitment**:
+One stable, atomic, responsibility-owned and verifiable software-design obligation that traces to its governing requirements, Architecture Claims, Software Architecture Description views, Software Design Document, and planned verification.
+_Avoid_: Requirement, Architecture Claim, implementation task, untracked design note
+
+**Software Design Baseline**:
+The approved, versioned package that fixes the exact Software Design Document and Design Commitment population for one increment without implying implementation or verification.
+_Avoid_: Software Architecture Description, implementation plan, source tree snapshot
+
+**Software Design Document**:
+One controlled document in a Software Design Baseline that defines detailed responsibilities, interfaces, ownership, behavior, failure handling, rationale, acceptance criteria, and Design Commitments for one coherent design scope.
+_Avoid_: Component catalogue, code forecast, implementation task list
 
 **Carrying Catalogue**:
 The approved, versioned, and closed inventory of carryable item types, Carry Position types, capacities, interfaces, compatibility results, load contributions, and deterministic automatic-stow ordering admitted to one product baseline.

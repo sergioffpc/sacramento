@@ -4,6 +4,9 @@ Status: Accepted
 
 Approval: Project owner, 2026-09-03
 
+Latest approved amendment: ADR-0013 removes the offline Content Cooker Tool
+from runtime lifecycle scope, project owner, 2026-09-04
+
 Purpose: Record the runtime deployment boundary.
 
 Scope: Deployable units, launch, readiness, compatibility, handoffs, and shutdown.
@@ -21,6 +24,10 @@ and exit contracts while external infrastructure owns scheduling and
 supervision. One authority process serves one Training Session; replacement
 always creates a new session. Platform capabilities remain private
 responsibility-owned adapters rather than one Platform module.
+
+This runtime contract applies to the Session Authority and Trainee Client. The
+offline Content Cooker Tool is governed by ADR-0013 and has a finite job/result
+contract instead of a Runtime Launch Specification or Process Lifecycle State.
 
 Production security and platform operations remain named future baselines. The
 Development Baseline preserves the AUTH seam through an explicitly permissive,

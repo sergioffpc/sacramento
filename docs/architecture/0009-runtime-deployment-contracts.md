@@ -4,6 +4,9 @@ Status: Accepted
 
 Approval: Project owner, 2026-09-03
 
+Latest approved amendment: ARCHSPEC-0013 removes the Content Cooker Tool from
+runtime lifecycle scope, project owner, 2026-09-04
+
 Purpose: Define the platform abstraction, deployable units, immutable launch,
 placement, packaging, compatibility, supervision, failure, and verification
 contracts of the initial Training Simulation runtime without selecting its
@@ -14,7 +17,8 @@ platform seams, Application Releases, launch and readiness, Controlled LAN
 connection, external operational handoffs, update and rollback, shutdown, and
 architecture-level verification. Kubernetes resources, infrastructure high
 availability, production security mechanisms, credentials, storage products,
-and concrete package formats remain outside this decision.
+and concrete package formats remain outside this decision. Offline Content
+Cooker Tool execution is governed by ARCHSPEC-0013.
 
 Canonical information owner: Project owner
 
@@ -42,14 +46,15 @@ security.
 
 ## Deployment context and allocation
 
-The initial runtime has four deployable-unit classes:
+The deployment model has two product-runtime classes and separate offline
+tooling:
 
 | Deployable unit | Allocation and lifetime | Responsibility |
 | --- | --- | --- |
 | `Session Authority Runtime` | One headless Debian process for exactly one Scenario and one Training Session | Composes the authoritative modules, publishes one endpoint after readiness, settles terminal truth, and exits |
 | `Trainee Client Runtime` | One Windows process for exactly one Training Session | Materializes one Client Pack, connects to one assigned endpoint, submits Intentions, predicts, and presents |
-| `Content Cooker Runtime` | One offline process per cooking job, outside the operational Controlled LAN | Produces one complete Runtime Content Release or no usable successor |
-| Administrative Tool Runtimes | Offline, invoked on demand | Perform approved content, profile, catalogue, trust-package, provisioning, and recovery operations |
+| `Content Cooker Tool` | One finite offline invocation per Cooking Job Specification | Produces one complete Runtime Content Release or no usable successor; governed by ARCHSPEC-0013 |
+| Administrative Tools | Offline, invoked on demand | Perform approved profile, catalogue, trust-package, provisioning, and recovery operations |
 
 The Trainee Performance Assessment Module and the custody recipients for AUTH
 Audit Checkpoints, Session Evidence Sets, and Observability remain neighboring
@@ -110,7 +115,8 @@ operating-system call.
 
 ## Immutable launch and readiness
 
-Every runtime receives exactly one Runtime Launch Specification. It identifies
+Every Session Authority and Trainee Client runtime receives exactly one Runtime
+Launch Specification. It identifies
 the exact role-applicable:
 
 - Application Release and configuration;
@@ -140,12 +146,12 @@ Process start
   -> recover only the runtime owner's retained candidates, when applicable
   -> materialize one immutable runtime view
   -> authority: bind the exact endpoint
-  -> publish Ready and the endpoint
+  -> publish ProcessReady and the endpoint
   -> accept connection or begin the assigned client connection
 ```
 
-Before `Ready`, the externally visible state is `Starting`. Any failed
-precondition produces `Not Ready`, one stable non-sensitive failure
+Before `ProcessReady`, the externally visible state is `ProcessStarting`. Any failed
+precondition produces `ProcessNotReady`, one stable non-sensitive failure
 classification, cleanup, and a non-zero exit. A partially initialized authority
 accepts no connection or Admission and never enters Preparation. A client
 materializes its content and required devices before connecting.
@@ -168,8 +174,8 @@ identity classes.
 The orchestration-neutral external process contract contains only:
 
 - immutable launch-specification and process-execution identities;
-- `Starting`, `Ready`, `Not Ready`, `Stopping`, and `Terminated` states;
-- the endpoint, published only with `Ready`;
+- `ProcessStarting`, `ProcessReady`, `ProcessNotReady`, `ProcessStopping`, and `ProcessTerminated` states;
+- the endpoint, published only with `ProcessReady`;
 - reserved-capacity disposition;
 - runtime and Training Session identities;
 - stable readiness, terminal-settlement, and exit classifications; and

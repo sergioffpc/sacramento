@@ -281,7 +281,7 @@ reserves:
 - the largest admitted decode and materialization scratch requirement; and
 - applicable GPU upload staging and descriptors.
 
-Required-capacity failure produces `Not Ready`, complete cleanup, and non-zero
+Required-capacity failure produces `ProcessNotReady`, complete cleanup, and non-zero
 exit without Payload reads or partially visible materialization. Numerical
 limits remain evidence gaps until approved Memory Budget Configurations close
 them.

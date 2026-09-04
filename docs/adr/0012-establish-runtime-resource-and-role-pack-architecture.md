@@ -5,6 +5,9 @@ dependency qualification, evidence, and baseline acceptance remain incomplete
 
 Approval: Project owner, 2026-09-04
 
+Latest approved amendment: ADR-0013 separates the offline Content Cooker Tool
+from runtime lifecycle, project owner, 2026-09-04
+
 Purpose: Record the runtime-resource identity, role-pack format, validation,
 materialization, ownership, and publication decision.
 

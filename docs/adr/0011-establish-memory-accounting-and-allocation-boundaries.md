@@ -34,7 +34,7 @@ addresses, source locations, callstacks, and detailed profiling remain
 Diagnostic. Memory budgets are immutable launch-selected configuration owned
 by the responsibility module whose resources they govern. Specialized CPU or
 GPU allocators require representative native evidence and no library is
-selected by this decision. After `Ready`, a Measured Real-Time Hot Loop never
+selected by this decision. After `ProcessReady`, a Measured Real-Time Hot Loop never
 reaches the general-purpose heap, grows backing storage, or uses a fallback
 that does either; any permitted scratch or pool allocation is already
 provisioned and bounded.

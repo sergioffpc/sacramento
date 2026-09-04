@@ -2,6 +2,9 @@
 
 Status: Accepted
 
+Latest approved amendment: ADR-0013 separates the offline Content Cooker Tool
+from runtime compositions, project owner, 2026-09-04
+
 Purpose: Record the module-decomposition decision.
 
 Scope: Architecture-level responsibility, dependency direction, and runtime composition.
@@ -19,6 +22,10 @@ product responsibilities. Runtime processes compose those modules and
 coordinate multi-owner workflows without becoming owners of module-private
 state. Dependencies point towards the canonical owner and remain acyclic;
 vendor and platform integrations stay private adapters.
+
+The Content Cooker is an offline finite tool composition governed by ADR-0013,
+not a product-runtime composition. The Session Authority and Trainee Client
+remain the product-runtime compositions in this decision.
 
 ## Rationale and consequences
 

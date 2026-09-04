@@ -2,6 +2,9 @@
 
 Status: Accepted
 
+Latest approved amendment: ADR-0013 classifies cooking as an offline finite
+tool job, project owner, 2026-09-04
+
 Purpose: Record the runtime-content identity and activation decision.
 
 Scope: Cooking, signing, pairing, compatibility, activation, and process lifetime.
@@ -21,6 +24,10 @@ readiness, and never replaces it during that process.
 
 Compatibility is an exact pre-approved relation: there is no runtime download,
 format negotiation, migration, directory discovery, or automatic fallback.
+
+The Content Cooker Tool produces the release through one immutable Cooking Job
+Specification and finite invocation. It is not a runtime and exposes none of
+the runtime launch, readiness, endpoint, Admission, or supervision contracts.
 
 ## Rationale and consequences
 

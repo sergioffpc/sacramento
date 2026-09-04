@@ -1,14 +1,15 @@
 # Training Simulation Initial Requirements
 
-Status: Approved Functional Baseline; candidate documentation-control amendment
+Status: Approved
 
 Baseline: Development Baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Autonomous Recovery Subject reconciliation, project owner, 2026-09-04
+Latest approved amendment: Tiered document control, project owner, 2026-09-04
 
-Candidate amendment: Tiered document control; project-owner approval pending
+Latest approved design amendment: Software-design foundation and offline
+Content Cooker Tool correction, project owner, 2026-09-04
 
 Canonical language: English
 
@@ -59,7 +60,7 @@ Verification plan: [training-simulation-verification-plan.md](training-simulatio
 - [Assumptions](#assumptions)
 - [Teams, identity, and preparation](#teams-identity-and-preparation)
 - [Loadouts and starting state](#loadouts-and-starting-state)
-- [Ready and initial start](#ready-and-initial-start)
+- [Ready and initial start](#traineeready-and-initial-start)
 - [Connection and admission](#connection-and-admission)
 - [Disconnection and Technical Removal](#disconnection-and-technical-removal)
 - [Voluntary departure and process completion](#voluntary-departure-and-process-completion)
@@ -119,6 +120,16 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 **PROCESS-TRACEABILITY-INVENTORY-002** — Before a candidate baseline is approved, the implementation team MUST reconcile the Baseline Artifact Inventory against the complete current authoritative repositories or registries for all four artifact classes, and the project owner MUST approve the exact inventory version.
 
 **PROCESS-TRACEABILITY-INVENTORY-003** — Every registered artifact MUST have complete stable-identifier traces or an explicit non-applicability or intentional-deferral record; a missing artifact, missing trace, stale inventory entry, or unclassified artifact MUST block baseline approval.
+
+**PROCESS-SOFTWARE-DESIGN-BASELINE-001** — Each Software Design Baseline MUST identify one exact versioned package containing its control document and Design Commitment register, and that register MUST bind every included Software Design Document to its exact version.
+
+**PROCESS-SOFTWARE-DESIGN-COMMITMENT-001** — Every normative software-design obligation MUST have one stable `DC-*` key, one responsible owner, one principal `MUST` or `MUST NOT` obligation, separate rationale, and an objective verification approach.
+
+**PROCESS-SOFTWARE-DESIGN-STATE-001** — Every Design Commitment MUST record independent decision, baseline-applicability, realization, and evidence states, and no state MUST imply another.
+
+**PROCESS-SOFTWARE-DESIGN-TRACE-001** — Every Design Commitment MUST trace to exact governing requirement identifiers, Architecture Claims, Software Architecture Description views, its Software Design Document, responsible owner, and planned verification approach; a missing requirement MUST remain a visible gap resolved at the canonical requirement source rather than becoming an untraced derived requirement.
+
+**PROCESS-SOFTWARE-DESIGN-APPROVAL-001** — A Software Design Document MUST NOT be approved while an included internal design decision is open, an interface omits ownership, lifetime, ordering, blocking or failure semantics, a normative statement lacks objective verification, or two independent reviewers can derive materially different behavior from the same commitment; external realization and evidence blockers MAY remain explicit without implying implementation or verification.
 
 **PROCESS-ARCHITECTURE-CLAIM-001** — Every normative architecture claim MUST have one stable Architecture Claim key that remains unchanged while that claim's meaning remains unchanged and MUST remain distinct from requirement identifiers and verification-obligation keys.
 
@@ -188,7 +199,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-IDENTITY-001** — A Trainee MUST be able to join without a persistent user account.
 
-**REQ-CALL-SIGN-001** — Before entering `Ready`, each Trainee MUST choose a Call Sign unique within the current Training Session.
+**REQ-CALL-SIGN-001** — Before entering `TraineeReady`, each Trainee MUST choose a Call Sign unique within the current Training Session.
 
 **REQ-TEAM-JOIN-001** — During preparation, a Trainee MUST be able to select an available Team Position in either Team.
 
@@ -214,7 +225,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-PREPARATION-REJECTION-001** — Rejection of a Team Position or Loadout request MUST leave the requesting Trainee in preparation, preserve that Trainee's preceding selection if it remains valid, expose the updated availability state, and MUST NOT select an alternative automatically.
 
-**REQ-READY-LOADOUT-001** — A Trainee MUST NOT enter `Ready` without a valid Loadout selection.
+**REQ-READY-LOADOUT-001** — A Trainee MUST NOT enter `TraineeReady` without a valid Loadout selection.
 
 **REQ-LOADOUT-LOCK-001** — The selected Loadout MUST become locked in the canonical transition that starts the initial countdown and MUST remain locked until a canonical transition enters Preparation.
 
@@ -232,7 +243,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SPAWN-GEOMETRY-003** — Spawn-validation evidence MUST bind its placed volumes, region geometry, Spawn Transforms, current Team Position assignments, selected Loadouts, Map content, Scenario content, and Approved Profiles to their exact identifiers and versions.
 
-## Ready and initial start
+## TraineeReady and initial start
 
 **REQ-OPERATIONAL-CLOCK-001** — The Session Authority MUST be the sole authority for the Operational Clock used by initial countdowns and runtime lifecycle deadlines.
 
@@ -246,7 +257,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SESSION-ROSTER-001** — Before a Training Session can start, its configuration MUST specify the required number of Trainees for each Team.
 
-**REQ-INITIAL-START-CONDITIONS-001** — The initial Initial Start Condition Set MUST contain exactly: a configured two-Team roster satisfying `REQ-TEAM-001`, `REQ-CAPACITY-002`, and `REQ-CAPACITY-003`; each Team filled to its independently configured required size; every assigned Trainee in `Ready`; the Session Authority's exact Authority Pack and immutable Runtime Content Release view loaded with verified identity, signature, role, content contract, pair binding, integrity, and completeness; and successful validation of `REQ-LOADOUT-001`, `REQ-LOADOUT-CAPACITY-001`, `REQ-SPAWN-001`, `REQ-SPAWN-VALIDATION-001`, `REQ-SCENARIO-MAP-001`, `REQ-SCENARIO-END-001`, and `REQ-SCENARIO-DURATION-001`.
+**REQ-INITIAL-START-CONDITIONS-001** — The initial Initial Start Condition Set MUST contain exactly: a configured two-Team roster satisfying `REQ-TEAM-001`, `REQ-CAPACITY-002`, and `REQ-CAPACITY-003`; each Team filled to its independently configured required size; every assigned Trainee in `TraineeReady`; the Session Authority's exact Authority Pack and immutable Runtime Content Release view loaded with verified identity, signature, role, content contract, pair binding, integrity, and completeness; and successful validation of `REQ-LOADOUT-001`, `REQ-LOADOUT-CAPACITY-001`, `REQ-SPAWN-001`, `REQ-SPAWN-VALIDATION-001`, `REQ-SCENARIO-MAP-001`, `REQ-SCENARIO-END-001`, and `REQ-SCENARIO-DURATION-001`.
 
 **REQ-INITIAL-START-CONDITIONS-002** — The Initial Start Condition Set MUST be versioned and MUST trace every condition to its governing stable identifiers and exact configuration evidence.
 
@@ -254,7 +265,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-INITIAL-START-CONDITIONS-004** — The initial baseline MUST NOT prevent countdown or start because of a condition absent from the approved Initial Start Condition Set.
 
-**REQ-READINESS-001** — A Trainee MUST satisfy every applicable requirement from `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006` and explicitly declare readiness before entering `Ready`.
+**REQ-READINESS-001** — A Trainee MUST satisfy every applicable requirement from `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006` and explicitly declare readiness before entering `TraineeReady`.
 
 **REQ-READINESS-PRECONDITION-001** — The Trainee's client MUST have an admitted active connection to the Session Authority.
 
@@ -268,9 +279,9 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-READINESS-PRECONDITION-006** — The client MUST have one current Admission whose mode-applicable Trainee and Client Device identity bindings match that client connection and whose mode-applicable Session Authority identity binding matches the current Session Authority. Synthetic Identity bindings satisfy this precondition only under the explicitly non-production permissive development mode.
 
-**REQ-READINESS-CLOSED-001** — The initial baseline MUST NOT prevent a Trainee from entering `Ready` because of a condition not stated by `REQ-READINESS-001` or `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006`.
+**REQ-READINESS-CLOSED-001** — The initial baseline MUST NOT prevent a Trainee from entering `TraineeReady` because of a condition not stated by `REQ-READINESS-001` or `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006`.
 
-**REQ-READINESS-002** — The system MUST revoke `Ready` if any readiness precondition stops being true before start.
+**REQ-READINESS-002** — The system MUST revoke `TraineeReady` if any readiness precondition stops being true before start.
 
 **REQ-SESSION-START-001** — A Training Session MUST NOT start unless every condition in the approved Initial Start Condition Set holds.
 
@@ -278,7 +289,7 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **REQ-SESSION-COUNTDOWN-002** — Active simulation MUST start when that countdown completes while every condition in the approved Initial Start Condition Set still holds.
 
-**REQ-SESSION-COUNTDOWN-003** — If any condition in the approved Initial Start Condition Set becomes false during the countdown, including a Trainee losing `Ready` or disconnecting, the system MUST cancel the countdown immediately and enter Preparation in that canonical transition.
+**REQ-SESSION-COUNTDOWN-003** — If any condition in the approved Initial Start Condition Set becomes false during the countdown, including a Trainee losing `TraineeReady` or disconnecting, the system MUST cancel the countdown immediately and enter Preparation in that canonical transition.
 
 **REQ-SESSION-COUNTDOWN-004** — A cancelled countdown MUST restart from five seconds only after every condition in the approved Initial Start Condition Set holds again.
 
@@ -294,6 +305,8 @@ authenticated identities and durable audit references required only when the
 Production Security Baseline applies.
 
 **REQ-SESSION-CONNECTION-001** — A Trainee Client process MUST receive exactly one Session Authority endpoint through its immutable Runtime Launch Specification and MUST connect only to that endpoint; it MUST NOT discover, select, negotiate, or fall back to another Session Authority.
+
+**REQ-CLIENT-RECONNECT-001** — Before active simulation, a Trainee Client MAY repeat connection to the same launch-selected Session Authority endpoint and begin a new Admission only under one exact finite immutable retry policy selected by its Runtime Launch Specification; after active simulation begins or after Technical Removal, that client process MUST NOT reconnect, restore, or begin another Admission.
 
 **REQ-SESSION-ACCESS-001** — Under the Production Security Baseline, any Controlled LAN device that knows the address MUST be allowed to initiate Session Authority validation, but knowledge of the address MUST NOT authenticate an identity, authorize use, create an Admission, or reserve Training Session capacity. Under the permissive development mode, the exact endpoint and Synthetic Identities MUST instead come from the Runtime Launch Specification.
 
@@ -430,9 +443,9 @@ Production Security Baseline applies.
 **REQ-AUTH-VALIDATION-PACKAGE-IMPACT-001** — Candidate-package admission MUST prove that replacement preserves every dependency required by retained records and checkpoints or supplies an approved exact successor mapping without changing their historical interpretation or validation result.
 
 
-**REQ-AUTH-REVALIDATION-001** — Identity-evidence validity, authorization, and Offline Revocation Status MUST be evaluated as conditions of initial admission and MUST NOT be re-evaluated as conditions for retaining that admission, entering `Ready`, starting active simulation, or continuing active simulation.
+**REQ-AUTH-REVALIDATION-001** — Identity-evidence validity, authorization, and Offline Revocation Status MUST be evaluated as conditions of initial admission and MUST NOT be re-evaluated as conditions for retaining that admission, entering `TraineeReady`, starting active simulation, or continuing active simulation.
 
-**REQ-AUTH-POST-ADMISSION-001** — Expiry of previously accepted evidence or receipt of a later `Revoked` status after successful initial admission MUST NOT by itself remove the admitted client, revoke `Ready`, release its Team Position, interrupt participation, or terminate the Training Session.
+**REQ-AUTH-POST-ADMISSION-001** — Expiry of previously accepted evidence or receipt of a later `Revoked` status after successful initial admission MUST NOT by itself remove the admitted client, revoke `TraineeReady`, release its Team Position, interrupt participation, or terminate the Training Session.
 
 **REQ-AUTHORIZATION-SUBJECT-001** — Before admitting a client to Preparation, the Session Authority MUST establish that both the authenticated Trainee Identity and the authenticated Client Device Identity are individually authorized to use the Training Simulation.
 
@@ -528,7 +541,7 @@ Production Security Baseline applies.
 
 **REQ-AUTH-AUDIT-WRITE-FAILURE-001** — If an AUTH Audit Commit Unit cannot be committed completely, the governed AUTH Operation MUST produce no access-, privilege-, or Admission-granting AUTH effect; it MUST still reach its inventory-defined failure or cancellation result, invalidate its challenges and partial results, perform the applicable transient cleanup, and disclose the applicable generic denial only when a protected response channel remains; the host MUST classify every partial artifact as an incomplete commit rather than a final AUTH Audit Record or valid checkpoint and MUST reject new AUTH Operations until audit-write capability is restored and validated.
 
-**REQ-AUTH-AUDIT-WRITE-FAILURE-002** — Loss of audit-write capability MUST NOT by itself remove an admitted client, revoke `Ready`, interrupt an active Trainee, or terminate a Training Session, but any new Admission requiring an AUTH Operation while that capability is unavailable MUST be rejected under `REQ-AUTH-AUDIT-WRITE-FAILURE-001`.
+**REQ-AUTH-AUDIT-WRITE-FAILURE-002** — Loss of audit-write capability MUST NOT by itself remove an admitted client, revoke `TraineeReady`, interrupt an active Trainee, or terminate a Training Session, but any new Admission requiring an AUTH Operation while that capability is unavailable MUST be rejected under `REQ-AUTH-AUDIT-WRITE-FAILURE-001`.
 
 **REQ-AUTH-AUDIT-WRITE-RECOVERY-001** — Before accepting AUTH Operations again, the host MUST validate retained integrity continuity, disposition incomplete commit artifacts, and successfully commit the inventory-required recovery AUTH Audit Commit Unit bound to the last valid retained state or to an explicitly authenticated new continuity scope that identifies the preceding scope, unavoidable gap, and discontinuity without claiming that a missing artifact existed.
 
@@ -666,6 +679,8 @@ Production Security Baseline applies.
 
 **REQ-VOLUNTARY-LEAVE-003** — Explicit departure MUST NOT be represented as Fatal, injury, incapacity, casualty, or task error; any resulting last-participant Scenario outcome MUST follow `REQ-TECHNICAL-REMOVAL-005`.
 
+**REQ-VOLUNTARY-LEAVE-CONFIRMATION-001** — During active simulation, a Trainee Client requesting explicit departure MUST stop new Intentions, submit exactly one idempotently identified departure request, and wait only for the immutable launch-selected finite bound for confirmed Technical Removal; expiry or connection loss MUST terminate the client without claiming that the Session Authority committed the removal.
+
 **REQ-AUTHORITY-SINGLE-SESSION-001** — One Session Authority process MUST be bound at launch to exactly one Scenario and MUST own exactly one Training Session over its complete process lifetime.
 
 **REQ-AUTHORITY-TERMINAL-SETTLEMENT-001** — After normal completion or termination, the Session Authority MUST fix the terminal result, close every Admission, finalize the Session Evidence Set, complete its required durable handoff, settle mode-applicable AUTH audit and bounded Observability work, and accept no second Training Session.
@@ -734,7 +749,7 @@ Production Security Baseline applies.
 
 ## Briefing, navigation, and identification
 
-**REQ-BRIEFING-001** — Before entering `Ready`, every Trainee MUST be able to review the mission, Map, Team role, provided Recovery Proxy location information, extraction area, completion conditions, and maximum duration.
+**REQ-BRIEFING-001** — Before entering `TraineeReady`, every Trainee MUST be able to review the mission, Map, Team role, provided Recovery Proxy location information, extraction area, completion conditions, and maximum duration.
 
 **REQ-RECOVERY-INTELLIGENCE-001** — The recovering Team's briefing MUST present a stable, versioned search area formed by the exact union of Map-owned region identities referenced by the Scenario; that geometry MUST contain the selected Recovery Proxy position and leave at least two distinct Scenario-valid initial positions consistent with all briefing information, and MUST NOT present or make the selected exact position deductively unique.
 
@@ -760,7 +775,7 @@ Production Security Baseline applies.
 
 **CONSTRAINT-DIEGETIC-002** — Active simulation MUST NOT display a crosshair, state bars, ammunition counters, hit markers, objective markers, minimap, floating names, threat indicators, or gameplay messages.
 
-**REQ-OPERATIONAL-UI-001** — Non-diegetic interface MAY be used during connection, preparation, Team selection, `Ready`, and initial countdowns.
+**REQ-OPERATIONAL-UI-001** — Non-diegetic interface MAY be used during connection, preparation, Team selection, `TraineeReady`, and initial countdowns.
 
 **REQ-OPERATIONAL-UI-002** — Non-diegetic operational interface MUST NOT remain visible after active simulation starts or resumes.
 
@@ -1944,6 +1959,12 @@ Production Security Baseline applies.
 
 **REQ-CONTENT-PROCESSING-GATE-001** — Before execution, the project owner MUST approve an exact versioned content-processing gate defining every validation criterion, procedure, input and output schema, tool/configuration constraint, disposition rule, and admission effect.
 
+**REQ-CONTENT-COOKER-TOOL-001** — The Content Cooker Tool MUST execute offline as one finite invocation for one Cooking Job Specification and MUST NOT expose a Runtime Launch Specification, Process Lifecycle State, runtime endpoint, Admission, or resident supervision interface.
+
+**REQ-COOKING-JOB-SPECIFICATION-001** — Each Content Cooker Tool invocation MUST receive exactly one immutable versioned Cooking Job Specification identifying its exact Tool Release, authoring root and complete source closure, processing gate, catalogue and profile versions, tool and configuration versions, output identities, signing-key reference, publication destination, capacities, provenance, and Cooking Job Result destination; command-line options, environment variables, working-directory state, directory discovery, or mutable defaults MUST NOT override that specification.
+
+**REQ-COOKING-JOB-PROVENANCE-001** — The Cooking Job Specification MUST identify the executor and execution instant together with each value's source, authority, format, and trust classification; the Content Cooker Tool MUST validate and copy those values into the processing record and MUST NOT infer them from an operating-system account or uncontrolled wall clock.
+
 **REQ-CONTENT-PROCESSING-RECORD-001** — Every content-processing execution MUST produce a versioned record identifying the exact approved gate version; Scenario and every canonical source, Approved Profile, catalogue, dependency and version; processing pipeline, tool and configuration versions; Runtime Content Release and role-pack identities, roles, runtime content contracts, integrity hashes, pair binding and signatures; source-to-output mappings; criterion-level validation results; executor; and date.
 
 **REQ-CONTENT-PROCESSING-001** — One exact Scenario and its complete canonical-source closure MUST complete the approved processing pipeline and every identity, dependency, integrity, traceability and validation gate before the Content Cooker can sign or publish its Runtime Content Release.
@@ -1996,7 +2017,7 @@ Production Security Baseline applies.
 
 **REQ-RUNTIME-LAUNCH-SPECIFICATION-001** — Every Trainee Client and Session Authority process MUST receive exactly one immutable Runtime Launch Specification that completely selects its role-applicable Application Release, Runtime Content Release role pack, profiles, configuration, endpoint, capacities, AUTH mode, Observability Contract, and enabled external-integration contracts before startup validation begins.
 
-**REQ-RUNTIME-LAUNCH-SPECIFICATION-002** — Startup MUST atomically accept and materialize every applicable launch input or reject the complete launch with a stable non-sensitive classification, `Not Ready`, cleanup, and non-zero exit; a partially initialized process MUST NOT publish `Ready`, accept a connection or Admission, or enter Preparation.
+**REQ-RUNTIME-LAUNCH-SPECIFICATION-002** — Startup MUST atomically accept and materialize every applicable launch input or reject the complete launch with a stable non-sensitive classification, `ProcessNotReady`, cleanup, and non-zero exit; a partially initialized process MUST NOT publish `ProcessReady`, accept a connection or Admission, or enter Preparation.
 
 **REQ-RUNTIME-PROVISIONING-001** — An external deployment action MUST place every launch-selected immutable artifact before process start; a runtime MUST NOT scan for a version, choose a newest artifact, download, patch, replace, or fall back to another artifact or mutable default.
 
@@ -2004,9 +2025,11 @@ Production Security Baseline applies.
 
 **REQ-DEPLOYMENT-COMPATIBILITY-002** — A process or peer combination absent from the approved Deployment Compatibility Matrix MUST fail before Admission and MUST NOT negotiate a range, migrate, translate, downgrade, or select an alternative at runtime.
 
-**REQ-RUNTIME-READINESS-001** — A Session Authority MUST publish its assigned endpoint and `Ready` only after complete launch validation, capacity reservation, required adapter and destination validation, retained-candidate classification where applicable, immutable-view materialization, and endpoint binding succeed.
+**REQ-RUNTIME-READINESS-001** — A Session Authority MUST publish its assigned endpoint and `ProcessReady` only after complete launch validation, capacity reservation, required adapter and destination validation, retained-candidate classification where applicable, immutable-view materialization, and endpoint binding succeed.
 
-**REQ-RUNTIME-EXTERNAL-LIFECYCLE-001** — Each runtime MUST expose its exact launch and execution identities, `Starting`, `Ready`, `Not Ready`, `Stopping`, and `Terminated` states, stable readiness and exit classifications, reserved-capacity disposition, and applicable Training Session and terminal-settlement identities without exposing native platform or orchestrator types.
+**REQ-RUNTIME-EXTERNAL-LIFECYCLE-001** — Each Session Authority and Trainee Client runtime MUST expose its exact launch and Process Execution identities, `ProcessStarting`, `ProcessReady`, `ProcessNotReady`, `ProcessStopping`, and `ProcessTerminated` states, stable readiness and exit classifications, reserved-capacity disposition, and applicable Training Session and terminal-settlement identities without exposing native platform or orchestrator types.
+
+**REQ-RUNTIME-CONTROL-LOSS-001** — Loss, corruption, incompatible framing, or bounded-write failure of the required Process Control Contract before `ProcessReady` MUST produce cleanup and startup rejection; after `ProcessReady` it MUST initiate non-normal role-specific termination, MUST NOT reopen or replace the channel, and MUST NOT revise a terminal Training Session result already committed.
 
 **REQ-RUNTIME-SUPERVISION-001** — The Training Simulation MUST NOT require or provide a resident Sacramento launcher or supervisor; an external executor MAY start, observe, request graceful shutdown of, and replace a process only through the runtime external-lifecycle contract.
 
@@ -2126,6 +2149,7 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 
 - **DEFERRED-PRODUCTION-SECURITY-001** — The Production Security Baseline: real mutual authentication and authorization, offline identity validation, AUTH Protected Exchange, revocation, durable-before-effect AUTH audit and recovery, operational trust, authenticated evidence custody, and production qualification of their adapters.
 - **DEFERRED-PLATFORM-OPERATIONS-001** — The Platform Operations Baseline: Kubernetes resources and configuration, infrastructure scheduling and supervision, capability availability and its measurable target, redundancy, failover, cluster and network topology, power resilience, hardening, secrets, operational credentials, and alert routing.
+- **DEFERRED-CONTENT-COOKER-PLATFORM-001** — Selection and acceptance of the Content Cooker Tool execution platform, Reference Hardware Profile, native runtime environment, packaging, and Tool Release distribution mechanism.
 
 - **DEFERRED-INSTRUCTOR-001** — Instructor control of Training Sessions.
 - **DEFERRED-AAR-001** — Full After-Action Review, including Training Session reconstruction, tactical timeline, and detailed post-action analysis. Session performance metrics, Formal Assessment, and Leaderboards are governed separately and are not deferred by this entry.
