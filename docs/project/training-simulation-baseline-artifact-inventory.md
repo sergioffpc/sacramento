@@ -6,7 +6,7 @@ Approval: Pending project-owner approval
 
 Inventory version: `BARTINV-006`
 
-Package SHA-256: `b2c1b1265dfe1c007bb307a294ec6a58ef9982318452d8eabea9023a9e1cb537`
+Package SHA-256: `f003aa1b068d558d5729f3eb44965f797929abe3930e7c21a1e94803f3068181`
 
 Approved package SHA-256: Pending project-owner approval
 

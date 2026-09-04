@@ -6,7 +6,7 @@ Approval: Pending project-owner approval
 
 Inventory version: `EDI-004`
 
-Package SHA-256: `b0697e76b0f376d5f9fe194adef5d03c03c13e4d2f3112316d3d282642d0dffc`
+Package SHA-256: `18c115c39f9381c45bdc8f4321b8d90ddc2630851f9bdf1143fa5aa85f9f6001`
 
 Approved package SHA-256: Pending project-owner approval
 
@@ -78,7 +78,7 @@ inventory.
 | Imported inventory | Exact identity |
 | --- | --- |
 | Baseline Applicability Inventory | Approved `BAI-004` |
-| Baseline Artifact Inventory | Candidate `BARTINV-006@sha256:b2c1b1265dfe1c007bb307a294ec6a58ef9982318452d8eabea9023a9e1cb537` |
+| Baseline Artifact Inventory | Candidate `BARTINV-006@sha256:f003aa1b068d558d5729f3eb44965f797929abe3930e7c21a1e94803f3068181` |
 | Documentation Inventory | Candidate `DOCINV-009` repository tree |
 
 Repository discovery and graph traversal prove structural population and

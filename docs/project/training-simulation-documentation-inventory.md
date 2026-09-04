@@ -6,8 +6,7 @@ Approval: Pending project-owner approval
 
 Inventory version: `DOCINV-009`
 
-Approved predecessor: `DOCINV-008`, project owner, 2026-09-04; candidate
-predecessor `DOCINV-009`
+Approved predecessor: `DOCINV-008`, project owner, 2026-09-04
 
 Version basis: The exact repository tree containing this inventory version;
 any listed-document or information-map change creates a successor inventory
