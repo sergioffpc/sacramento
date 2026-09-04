@@ -2,6 +2,8 @@
 
 Status: Accepted
 
+Approval: Project owner, 2026-09-04
+
 Purpose: Define Sacramento's responsibility modules, runtime compositions, and
 dependency direction.
 
@@ -146,9 +148,10 @@ variation or controlled failure injection.
 An Autonomous Participant is a future role, not a Trainee and not a synthetic
 acceptance client. It is outside the initial Desktop Mode and Session Authority
 baseline and belongs to the separately named `Autonomous Participant baseline`.
-That future baseline must define its requirements, identity, AUTH Permission,
-Admission behavior, observability, verification, and applicability before the
-role is admitted.
+Approved `AUTONOMOUS-PARTICIPANT-BASELINE-001` defines the role's requirements,
+identity, AUTH Permission, Admission behavior, observability, verification,
+and applicability. Those requirements and every later architecture and
+implementation artifact require their own approval before the role is admitted.
 
 The future composition assigns one Autonomous Participant to one controlling
 client connection, applies the same represented actions, physical rules,
@@ -185,7 +188,7 @@ This decision resolves issue #24 and traces principally to
 `REQ-AUTHORITY-001`, `REQ-CLIENT-TRUST-001`,
 `REQ-STATE-CONSISTENCY-001`, `SCOPE-AUTH-001`,
 `REQ-CONTENT-PROCESSING-GATE-001`, `NFR-OBSERVABILITY-CORE-001`, and
-`CONSTRAINT-NFR-TEAM-001`. The Autonomous Participant baseline has no approved
-requirement identifiers yet; its terminology and applicability decision do not
-admit the capability until a separately approved requirements change supplies
-them.
+`CONSTRAINT-NFR-TEAM-001`. Approved future requirement identifiers
+`REQ-AUTONOMOUS-SCOPE-001` through `PROCESS-AUTONOMOUS-CHANGE-001` define the
+future baseline without admitting the capability; architecture, implementation,
+and verification evidence remain absent.

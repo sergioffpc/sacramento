@@ -1,9 +1,11 @@
 # Architecture specification: cross-cutting architecture and verification
 
-Status: Accepted architecture decision; implementation, evidence, and baseline
-acceptance remain incomplete
+Status: Accepted architecture decision; implementation,
+evidence, and baseline acceptance remain incomplete
 
 Approval: Project owner, 2026-09-03
+
+Latest approved amendment: Autonomous Participant decomposition trace, project owner, 2026-09-04
 
 Purpose: Define the remaining cross-cutting contracts, architecture-level
 verification strategy, claim traceability, evidence-impact behavior, and
@@ -250,7 +252,7 @@ normative claims.
 | `AC-DECOMPOSITION-003` — module dependencies are acyclic and point toward canonical owners | ARCHSPEC-0004 dependency view | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | Responsibility modules | Static dependency and mutation-path negatives | `D` |
 | `AC-DECOMPOSITION-004` — vendor/platform integrations remain private adapters at real seams | ARCHSPEC-0004 adapter rules | `PREFERENCE-PLATFORM-PARITY-001` | Each interface owner | Common adapter contracts and public-type inspection | `D` |
 | `AC-DECOMPOSITION-005` — Prediction and Presentation cannot author canonical outcomes | ARCHSPEC-0004 failure rules | `REQ-CLIENT-TRUST-001`, `REQ-STATE-CONSISTENCY-001` | `Prediction`, `Presentation` | Authority and client-failure sequences; state versions | `D` |
-| `AC-DECOMPOSITION-006` — Autonomous Participants require a future named baseline | ARCHSPEC-0004 future baseline | `SCOPE-ROLE-001` | Future Autonomous Participant baseline | Scope inspection and issue #26 | `F` |
+| `AC-DECOMPOSITION-006` — Autonomous Participants require a future named baseline | ARCHSPEC-0004 future baseline | `SCOPE-ROLE-001`, `REQ-AUTONOMOUS-SCOPE-001`, `REQ-AUTONOMOUS-SCOPE-002`, `REQ-AUTONOMOUS-CONTROL-BOUNDARY-001` | Future Autonomous Participant baseline | Scope and requirement inspection | `F` |
 | `AC-RUNTIME-001` — authoritative Simulation advances in fixed Canonical Ticks | ARCHSPEC-0005 time profiles | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | `Simulation` | Tick index, Simulated Time, state version | `D` |
 | `AC-RUNTIME-002` — Operational Clock, Simulated Time, presentation time, and Trusted Identity Time remain distinct | ARCHSPEC-0005 time profiles | `REQ-OPERATIONAL-CLOCK-001`, `REQ-OPERATIONAL-CLOCK-002` | Owning responsibility modules | Clock-source and equal-boundary tests | `D` |
 | `AC-RUNTIME-003` — one process owns one complete Training Session lifecycle | ARCHSPEC-0005 lifecycle | `REQ-SERVER-SESSION-001`, `REQ-AUTHORITY-SINGLE-SESSION-001` | `Session Lifecycle` | Lifecycle transitions and process/session identities | `D` |

@@ -14,7 +14,7 @@ check_hash() {
     expected_hash=$2
     actual_hash=$(sha256sum "${repository_root}/${source_path}" | awk '{print $1}')
     if [ "${actual_hash}" != "${expected_hash}" ]; then
-        echo "source changed: ${source_path}; create and reconcile a successor to BAI-002" >&2
+        echo "source changed: ${source_path}; create and reconcile a successor to BAI-003" >&2
         exit 1
     fi
 }
@@ -43,14 +43,15 @@ extract_identifiers() {
 }
 
 cat > "${scratch_path}/sources" <<'EOF'
-docs/requirements/training-simulation-initial-requirements.md|Development Baseline; candidate documentation-control amendment|706938fbe3cb4ee616cd882e5981c3c9f519357a19114e4c48a6827e518fe574|registry
+docs/requirements/training-simulation-initial-requirements.md|Development Baseline; approved Autonomous Recovery Subject reconciliation|85909f1016a3eb89e3c1eb25370eea8872dccdf5389feb5613f5f5a1b575f9de|registry
 docs/requirements/training-simulation-non-functional-requirements.md|NFR-BASELINE-001; approved 2026-09-01; amended 2026-09-03|8a024d6b7538f04e19df6dcae66c68160b2b6b474423d5d52f43a9fbee6ae092|registry
 docs/requirements/training-simulation-observability-contract.md|OBS-CONTRACT-003; approved 2026-09-01|45c5392ca799388eac588ad54a5aa9e980ff4261de3b2b90fa0ba524f4a1f592|supporting
 docs/requirements/training-simulation-performance-assessment-requirements.md|PERF-BASELINE-001; approved 2026-09-01; amended 2026-09-03|4d036de0500b7d0161dcf988fc40c2c0a53f9cfc69288c7c2c9f805755df01f9|registry
 docs/requirements/training-simulation-performance-profile-engagement-target-001.md|ENGAGEMENT-TARGET-001; approved 2026-09-01|cc5f2fb21b692452d7fa12e34d05bfd83baded1eaf325f3c7bb754a79baae493|registry
 docs/requirements/training-simulation-reference-hardware-profiles.md|RHP-SET-001; approved 2026-09-01|074dc42d25cf44800198b4207b8b90a2897ebe7109dadab4c3766e3cbc644095|supporting
-docs/requirements/training-simulation-verification-plan.md|Candidate normalized assignment amendment|aa366423a0f6f6a469765491ee2c2d822b7c7eb8f977f9efe20ae62caa09e59e|registry
-docs/requirements/training-simulation-baseline-applicability.md|BAI-CONTROL-002; approved 2026-09-03|b2f6cd0f18e75cb25908a288163f357131beae0c7c6514da6ce41fdbb459c636|supporting
+docs/requirements/training-simulation-verification-plan.md|Approved Autonomous Participant assignments|1310a09886771ae2552b968ac8f32856ec9f6f66e058566af91f0c9bb19b26fb|registry
+docs/requirements/training-simulation-autonomous-participant-requirements.md|AUTONOMOUS-PARTICIPANT-BASELINE-001; approved 2026-09-04|58acf4f8b6065f45903e198ca28fd326a971067272930ff0f6cb192515ee477d|registry
+docs/requirements/training-simulation-baseline-applicability.md|BAI-CONTROL-003; approved 2026-09-04|3f611f512962fec23af3d4e16fe3a495dde1415cb3c6305a1c66b3a824e3cf43|supporting
 EOF
 
 while IFS='|' read -r source_path source_version source_hash source_role
@@ -66,7 +67,7 @@ find "${repository_root}/docs/requirements" -maxdepth 1 -type f -name '*.md' \
     -printf '%f\n' | sort > "${scratch_path}/actual-markdown"
 sort -o "${scratch_path}/expected-markdown" "${scratch_path}/expected-markdown"
 if ! cmp -s "${scratch_path}/expected-markdown" "${scratch_path}/actual-markdown"; then
-    echo 'requirement-source population changed; reconcile a successor to BAI-002' >&2
+    echo 'requirement-source population changed; reconcile a successor to BAI-003' >&2
     diff -u "${scratch_path}/expected-markdown" "${scratch_path}/actual-markdown" >&2 || true
     exit 1
 fi
@@ -135,7 +136,7 @@ awk -F ',' -v expected_header="${expected_header}" '
                 failed = 1
             }
         }
-        if (length(seen) != expected_count || dispositions["Included"] != 928 || dispositions["Future"] != 201 || dispositions["Not Applicable"] != 19) {
+        if (length(seen) != expected_count || dispositions["Included"] != 928 || dispositions["Future"] != 268 || dispositions["Not Applicable"] != 19) {
             print "inventory population or disposition totals changed" > "/dev/stderr"
             failed = 1
         }
@@ -150,6 +151,9 @@ awk -F '\t' '
     $1 == "REQ-AUTH-EXCHANGE-006" {security = 0}
     $1 == "REQ-AUTH-TRANSIENT-DATA-003" {security = 0}
 ' "${scratch_path}/registry" > "${scratch_path}/future-ranges"
+
+awk -F '\t' '$2 == "docs/requirements/training-simulation-autonomous-participant-requirements.md" {print $1 "|Autonomous Participant baseline"}' \
+    "${scratch_path}/registry" > "${scratch_path}/autonomous-future"
 
 cat > "${scratch_path}/future-explicit" <<'EOF'
 DEFERRED-AAR-001|After-Action Review Baseline
@@ -201,14 +205,15 @@ REQ-WINDOW-INPUT-PARITY-001|First Virtual-Reality Mode Baseline
 REQ-WINDOW-INPUT-VR-001|First Virtual-Reality Mode Baseline
 EOF
 
-cat "${scratch_path}/future-ranges" "${scratch_path}/future-explicit" | \
+cat "${scratch_path}/future-ranges" "${scratch_path}/future-explicit" \
+    "${scratch_path}/autonomous-future" | \
     sort > "${scratch_path}/expected-future"
 
 awk -F ',' 'NR > 1 && $3 == "Future" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-future"
 
 if ! cmp -s "${scratch_path}/expected-future" "${scratch_path}/actual-future"; then
-    echo 'future classification or milestone differs from approved BAI-002 policy' >&2
+    echo 'future classification or milestone differs from approved BAI-003 policy' >&2
     diff -u "${scratch_path}/expected-future" "${scratch_path}/actual-future" >&2 || true
     exit 1
 fi
@@ -218,9 +223,9 @@ awk -F '\t' '$1 ~ /^NON-GOAL-/ {print $1 "|Approved objective scope exclusion re
 awk -F ',' 'NR > 1 && $3 == "Not Applicable" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-not-applicable"
 if ! cmp -s "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable"; then
-    echo 'Not Applicable classification or justification differs from approved BAI-002 policy' >&2
+    echo 'Not Applicable classification or justification differs from approved BAI-003 policy' >&2
     diff -u "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable" >&2 || true
     exit 1
 fi
 
-echo 'Baseline applicability inventory valid: BAI-002: 1148 entries; Included=928, Future=201, Not Applicable=19'
+echo 'Baseline applicability inventory valid: BAI-003: 1215 entries; Included=928, Future=268, Not Applicable=19'

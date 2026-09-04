@@ -1,6 +1,8 @@
 # Training Simulation Domain Glossary
 
-Status: Candidate successor; project-owner approval pending
+Status: Approved
+
+Approval: Project owner, 2026-09-04
 
 Purpose: Define the canonical language of the Training Simulation product and represented training world.
 
@@ -21,7 +23,7 @@ The simulated travel of sound from any represented source, including perceived d
 _Avoid_: Blast Overpressure, non-spatial audio, source-independent sound effect
 
 **Admission**:
-The authoritative runtime acceptance with one stable Admission identifier that atomically binds exactly one current client connection to either authenticated and authorized Trainee, Client Device, and Session Authority Identities or, only under the explicitly non-production permissive development mode, their declared Synthetic Identities until an exact admission-ending event occurs.
+The authoritative runtime acceptance with one stable Admission identifier that atomically binds exactly one current client connection to its role-applicable subject, Client Device, and Session Authority Identities, or only under an explicitly permitted non-production mode their declared Synthetic Identities, until an exact admission-ending event occurs.
 _Avoid_: Network connection, authentication result, production acceptance of Synthetic Identity, Team Position assignment, Ready
 
 **Admitted Client**:
@@ -57,8 +59,8 @@ A represented place in the Trainee's hands, worn equipment, or a carried contain
 _Avoid_: Inventory slot, unlimited storage, abstract inventory
 
 **Client Device Identity**:
-The identity of the computer operating a Trainee client, distinct from the identity of the human Trainee using it.
-_Avoid_: Trainee Identity, connection, network address
+The identity of the computer operating a Trainee or Autonomous Participant client, distinct from the human Trainee or software controller using it.
+_Avoid_: Trainee Identity, Autonomous Controller Identity, connection, network address
 
 **Desktop Mode**:
 The mandatory Trainee access mode that provides every required Training Session capability through a conventional monitor, keyboard, and mouse without virtual-reality equipment.
@@ -145,11 +147,11 @@ A simulated Trainee state derived from exposure to Scenario stressors such as in
 _Avoid_: Player stress, fear meter, aim penalty
 
 **Team**:
-A configured group of Trainees that cooperates against another Team during a Training Session.
+A configured group of Trainees and, only under the Autonomous Participant baseline, Autonomous Participants that cooperates against another Team during a Training Session.
 _Avoid_: Side, faction, squad
 
 **Team Position**:
-A configured place in one Team's Training Session roster that can be occupied by at most one Trainee and has its own Spawn Transform independently of the selected Loadout.
+A configured place in one Team's Training Session roster that can be occupied by at most one Trainee or Autonomous Participant and has its own Spawn Transform independently of the selected Loadout.
 _Avoid_: Spawn Transform, Loadout position, Carry Position
 
 **Team Radio**:

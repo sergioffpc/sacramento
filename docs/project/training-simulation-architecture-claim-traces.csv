@@ -13,7 +13,7 @@ sequence,architecture_claim_key,governing_artifact_identifier,decision_state,bas
 12,AC-DECOMPOSITION-003,BART-ARC-012,Accepted,Included,Not Implemented,Blocked,Satisfies,Satisfies:REQ-AUTHORITY-001;Satisfies:REQ-STATE-CONSISTENCY-001
 13,AC-DECOMPOSITION-004,BART-ARC-012,Accepted,Included,Not Implemented,Blocked,Satisfies,Satisfies:PREFERENCE-PLATFORM-PARITY-001
 14,AC-DECOMPOSITION-005,BART-ARC-012,Accepted,Included,Not Implemented,Blocked,Satisfies,Satisfies:REQ-CLIENT-TRUST-001;Satisfies:REQ-STATE-CONSISTENCY-001
-15,AC-DECOMPOSITION-006,BART-ARC-012,Deferred,Future,Not Implemented,Blocked,Intentional Deferral,Satisfies:SCOPE-ROLE-001
+15,AC-DECOMPOSITION-006,BART-ARC-012,Deferred,Future,Not Implemented,Blocked,Intentional Deferral,Satisfies:SCOPE-ROLE-001;Intentional Deferral:REQ-AUTONOMOUS-SCOPE-001;Intentional Deferral:REQ-AUTONOMOUS-SCOPE-002;Intentional Deferral:REQ-AUTONOMOUS-CONTROL-BOUNDARY-001
 16,AC-RUNTIME-001,BART-ARC-013,Accepted,Included,Not Implemented,Blocked,Satisfies,Satisfies:REQ-AUTHORITY-001;Satisfies:REQ-STATE-CONSISTENCY-001
 17,AC-RUNTIME-002,BART-ARC-013,Accepted,Included,Not Implemented,Blocked,Satisfies,Satisfies:REQ-OPERATIONAL-CLOCK-001;Satisfies:REQ-OPERATIONAL-CLOCK-002
 18,AC-RUNTIME-003,BART-ARC-013,Accepted,Included,Not Implemented,Blocked,Satisfies,Satisfies:REQ-SERVER-SESSION-001;Satisfies:REQ-AUTHORITY-SINGLE-SESSION-001

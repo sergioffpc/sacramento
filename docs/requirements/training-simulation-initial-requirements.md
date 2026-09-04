@@ -6,7 +6,7 @@ Baseline: Development Baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Cross-cutting architecture and verification closure, project owner, 2026-09-03
+Latest approved amendment: Autonomous Recovery Subject reconciliation, project owner, 2026-09-04
 
 Candidate amendment: Tiered document control; project-owner approval pending
 
@@ -2129,7 +2129,7 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 
 - **DEFERRED-INSTRUCTOR-001** — Instructor control of Training Sessions.
 - **DEFERRED-AAR-001** — Full After-Action Review, including Training Session reconstruction, tactical timeline, and detailed post-action analysis. Session performance metrics, Formal Assessment, and Leaderboards are governed separately and are not deferred by this entry.
-- **DEFERRED-RECOVERY-SUBJECT-001** — Replacing the Recovery Proxy with an autonomously controlled Recovery Subject.
+- **DEFERRED-RECOVERY-SUBJECT-001** — Replacing the Recovery Proxy with an autonomously controlled Recovery Subject under a distinct `Autonomous Recovery Subject Baseline`; that narrower capability may depend on the Autonomous Participant baseline but does not define or satisfy the general Autonomous Participant role.
 - **DEFERRED-SCENARIO-001** — Sabotage missions.
 - **DEFERRED-VR-DEVICE-001** — Standalone virtual-reality devices.
 - **DEFERRED-LIGHTING-001** — Dynamic time of day, dynamic weather, and night operations.

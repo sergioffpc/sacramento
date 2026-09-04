@@ -1,6 +1,8 @@
 # Training Simulation Technical Glossary
 
-Status: Candidate; project-owner approval pending
+Status: Approved
+
+Approval: Project owner, 2026-09-04
 
 Purpose: Define canonical runtime, identity, packaging, timing, and deployment terminology.
 
@@ -49,7 +51,7 @@ One independently resolved runtime authentication, authorization, admission, lif
 _Avoid_: Entire network connection, implicit validation step, gameplay action
 
 **AUTH Permission**:
-One closed authorization value issued in an Authorization Assertion: `Use Training Simulation`, `Operate Trainee Client`, or `Operate Session Authority`.
+One closed authorization value issued in an Authorization Assertion: `Use Training Simulation`, `Operate Trainee Client`, `Operate Autonomous Participant`, or `Operate Session Authority`.
 _Avoid_: Role, Team permission, Scenario permission, free-form entitlement
 
 **AUTH Protected Exchange**:
@@ -65,8 +67,12 @@ Evidence that the presenter controls the authenticator bound by the Identity Aut
 _Avoid_: Copied identity record, Authorization Assertion, Call Sign, possession of public evidence
 
 **Authorization Assertion**:
-A verifiable statement from the Identity Authority that assigns one or more AUTH Permissions to one identified Trainee Identity, Client Device Identity, or Session Authority Identity.
+A verifiable statement from the Identity Authority that assigns one or more AUTH Permissions to one identified Trainee Identity, Autonomous Controller Identity, Client Device Identity, or Session Authority Identity.
 _Avoid_: Authentication evidence, local account, Team assignment
+
+**Autonomous Controller Identity**:
+The externally governed identity of the software subject controlling one Autonomous Participant, distinct from the controlled role, its Client Device Identity, and every human Trainee Identity.
+_Avoid_: Autonomous Participant, Trainee Identity, Client Device Identity, controller process identifier
 
 **Authority Pack**:
 The signed, immutable, role-specific half of one Runtime Content Release containing the complete runtime content required by one Session Authority for its exact Scenario and Training Session.
@@ -93,15 +99,15 @@ The private, dedicated wired local network whose participants, local services, p
 _Avoid_: Wide-area network, shared office network, unspecified LAN
 
 **Identity Authority**:
-The system outside the Training Simulation that owns the authoritative lifecycle of Trainee Identities, Client Device Identities, and Session Authority Identities.
+The system outside the Training Simulation that owns the authoritative lifecycle of Trainee Identities, Autonomous Controller Identities, Client Device Identities, and Session Authority Identities.
 _Avoid_: Training Simulation account store, Call Sign registry
 
 **Identity Validation Package**:
-The externally provisioned, versioned release defining one closed Trainee Client manifest and one closed Session Authority manifest plus shared approved non-sensitive artifacts, from which each host receives and retains only its applicable role manifest and those shared artifacts.
+The externally provisioned, versioned release defining one closed manifest for each admitted client and authority role plus shared approved non-sensitive artifacts, from which each host receives and retains only its applicable role manifest and those shared artifacts.
 _Avoid_: Server-downloaded trust data, dynamic validation dependency, local identity database
 
 **Intention**:
-A client request proposing a Trainee action for authoritative evaluation; it cannot prescribe its Canonical Tick, canonical ordering, result, or resulting state.
+A client request proposing a Trainee or Autonomous Participant action for authoritative evaluation; it cannot prescribe its Canonical Tick, canonical ordering, result, or resulting state.
 _Avoid_: Client command, authoritative action, client-authored outcome, timestamped event
 
 **Offline Revocation Status**:
