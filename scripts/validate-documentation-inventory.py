@@ -12,6 +12,7 @@ from dataclasses import dataclass
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 INVENTORY = ROOT / "docs/project/training-simulation-documentation-inventory.md"
+SAD = ROOT / "docs/architecture/software-architecture-description.md"
 DOCUMENT_ID_RE = re.compile(r"DOC-[0-9]{3}")
 LINK_RE = re.compile(r"(?<!!)\[[^]]*\]\(([^)]+)\)")
 HEADING_RE = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
@@ -24,6 +25,18 @@ CONTROL_FIELDS = (
     "Canonical information owner",
 )
 CONTROL_TIERS = {"Controlled", "Routed", "Reference", "Generated"}
+SAD_VIEW_CONTROLS = (
+    "Purpose",
+    "Scope",
+    "Stakeholders",
+    "Notation",
+    "Prerequisites",
+    "Authoritative inputs",
+    "Architecture Claim mappings",
+    "Relationships to other views",
+    "Owner",
+    "Update triggers",
+)
 
 
 @dataclass(frozen=True)
@@ -320,6 +333,34 @@ def validate_markdown(document: Document, errors: list[str]) -> None:
             errors.append(f"{document.path}: expected one ToC link for {heading!r}")
 
 
+def validate_sad(errors: list[str]) -> None:
+    """Validate the selected SAD view population and per-view controls."""
+    try:
+        text = SAD.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as error:
+        errors.append(f"SAD: cannot read canonical description: {error}")
+        return
+    matches = list(
+        re.finditer(
+            r"^## `EDI-VIEW-([0-9]{3})`: .+$",
+            text,
+            flags=re.MULTILINE,
+        )
+    )
+    identifiers = [match.group(1) for match in matches]
+    if identifiers != [f"{number:03d}" for number in range(1, 10)]:
+        errors.append("SAD: expected EDI-VIEW-001 through EDI-VIEW-009 in order")
+        return
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        section = text[match.end():end]
+        for control in SAD_VIEW_CONTROLS:
+            if len(re.findall(rf"^\| {re.escape(control)} \|", section, re.MULTILINE)) != 1:
+                errors.append(
+                    f"SAD: EDI-VIEW-{match.group(1)} expected one {control} control"
+                )
+
+
 def main() -> int:
     """Validate inventory and print one deterministic summary."""
     errors: list[str] = []
@@ -328,6 +369,7 @@ def main() -> int:
     for document in documents:
         if document.format == "Markdown" and (ROOT / document.path).is_file():
             validate_markdown(document, errors)
+    validate_sad(errors)
 
     if errors:
         for error in errors:

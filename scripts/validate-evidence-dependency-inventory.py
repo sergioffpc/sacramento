@@ -25,6 +25,7 @@ CLAIMS = ROOT / "docs/project/training-simulation-architecture-claim-traces.csv"
 BAI_CONTROL = ROOT / "docs/requirements/training-simulation-baseline-applicability.md"
 BAI = ROOT / "docs/requirements/training-simulation-baseline-applicability-inventory.csv"
 DOCINV = ROOT / "docs/project/training-simulation-documentation-inventory.md"
+SAD = ROOT / "docs/architecture/software-architecture-description.md"
 
 PACKAGE = (CONTROL, NODES, RELATIONS, CASES)
 NODE_HEADER = [
@@ -337,7 +338,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
 
 def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
     rows = validated_rows(NODES, NODE_HEADER, "supplemental nodes", errors)
-    expected_sources = {
+    expected_component_sources = {
         *(f"ARCHSPEC-0004:{name}" for name in (
             "Simulation", "Scenario", "Session Lifecycle", "AUTH & Admission", "Runtime Package",
             "Content Admission", "Protocol & Replication", "Observability",
@@ -345,13 +346,9 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
             "Input & Interaction", "Session Authority Runtime", "Trainee Client Runtime",
             "Content Cooker Runtime", "Administrative Tool Runtimes", "Synthetic Client Runtime",
         )),
-        *(f"ARCHSPEC-0010:{name}" for name in (
-            "Document control and reading guide", "System context and allocation",
-            "Module and dependency structure", "Runtime lifecycle and sequences",
-            "Concurrency and ownership", "Content, trust, and retained-evidence paths",
-            "Cross-cutting policies", "Verification and traceability",
-            "Risks, debt, assumptions, and open work",
-        )),
+    }
+    expected_view_sources = {
+        f"SAD-001:EDI-VIEW-{number:03d}" for number in range(1, 10)
     }
     actual_sources: set[str] = set()
     for row in rows:
@@ -368,9 +365,22 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
         if row[6] not in {"Current", "Planned"} or not row[7] or not row[8]:
             errors.append(f"supplemental nodes:{identifier}: incomplete classification")
         nodes[identifier] = Node(identifier, parsed_class, exact_version, location)
-        if source.startswith(("ARCHSPEC-0004:", "ARCHSPEC-0010:")):
+        if source.startswith(("ARCHSPEC-0004:", "SAD-001:")):
             actual_sources.add(source)
-    if actual_sources != expected_sources:
+        if parsed_class == NodeClass.VIEW:
+            expected_fragment = f"#edi-view-{int(identifier[-3:]):03d}-"
+            if (
+                row[6] != "Current"
+                or SHA256_RE.fullmatch(exact_version) is None
+                or not location.startswith(
+                    "docs/architecture/software-architecture-description.md"
+                )
+                or expected_fragment not in location
+            ):
+                errors.append(
+                    f"supplemental nodes:{identifier}: invalid SAD realization"
+                )
+    if actual_sources != expected_component_sources | expected_view_sources:
         errors.append("supplemental nodes: component or SAD view population mismatch")
     evidence = sorted(identifier for identifier, node in nodes.items() if node.node_class == "Evidence Record")
     if evidence != [f"EDI-EVID-{number:03d}" for number in range(1, 14)]:
@@ -379,21 +389,51 @@ def supplemental_nodes(nodes: dict[str, Node], errors: list[str]) -> None:
 
 def canonical_review_diff(raw_diff: bytes) -> bytes:
     """Normalize recursive digests and approval-only lines in a review diff."""
-    approval_markers = (
-        b"Status:", b"Approval:", b"Approved package SHA-256:",
-        b"approval pending", b"approval is pending", b"candidate version",
-        b"Candidate `", b"candidate.", b"before the project owner approves",
-        b"before their exact-version approval", b"until their exact-version approval",
-    )
-    kept = [
-        line for line in raw_diff.splitlines(keepends=True)
-        if not line.startswith(b"index ")
-        and not (
-            line.startswith((b"+", b"-"))
-            and any(marker in line for marker in approval_markers)
-        )
-    ]
-    return re.sub(rb"[0-9a-f]{64}", b"0" * 64, b"".join(kept))
+    normalized: list[bytes] = []
+    markdown = False
+    for line in raw_diff.splitlines(keepends=True):
+        if line.startswith(b"+++ "):
+            markdown = line.startswith(b"+++ b/") and line.rstrip().endswith(b".md")
+        if line.startswith(b"index "):
+            continue
+        changed = line.startswith((b"+", b"-")) and not line.startswith((b"+++", b"---"))
+        if changed and markdown:
+            if re.match(rb"^[+-]Approved package SHA-256:", line):
+                continue
+            line = re.sub(
+                rb"^([+-](?:Status|Approval):) .+(\r?\n)$",
+                rb"\1 <approval-state>\2",
+                line,
+            )
+            if re.match(rb"^[+-]\| `DOC-[0-9]{3}` \|", line):
+                line = re.sub(
+                    rb"\| (?:Candidate|Approved)[^|]*\|(\r?\n)$",
+                    rb"| <approval-state> |\1",
+                    line,
+                )
+            line = re.sub(
+                rb"\b(?:Candidate|Approved) (`(?:DOCINV|BARTINV|EDI|SAD)-[0-9]{3})",
+                rb"Controlled \1",
+                line,
+            )
+            line = re.sub(
+                rb"\b(?:candidate|approved) (Baseline Artifact Inventory|Evidence Dependency Inventory)",
+                rb"controlled \1",
+                line,
+            )
+            line = re.sub(
+                rb"\b(?:candidate|approved) (\[(?:Baseline Artifact|Documentation) Inventory successor)",
+                rb"controlled \1",
+                line,
+            )
+            line = re.sub(rb"imports (?:candidate|approved)", b"imports controlled", line)
+            line = re.sub(
+                rb"(?:exact-version )?approval (?:remains pending|was granted(?: by the project owner)?(?: on [0-9]{4}-[0-9]{2}-[0-9]{2})?)",
+                b"exact-version approval <state>",
+                line,
+            )
+        normalized.append(line)
+    return re.sub(rb"[0-9a-f]{64}", b"0" * 64, b"".join(normalized))
 
 
 def validate_review_inputs(nodes: dict[str, Node], errors: list[str]) -> None:
@@ -403,7 +443,7 @@ def validate_review_inputs(nodes: dict[str, Node], errors: list[str]) -> None:
     if diff_node is None or not SHA256_RE.fullmatch(diff_node.exact_version):
         errors.append("review inputs: fixed staged diff lacks an exact SHA-256")
     if issue_node is None or not SHA256_RE.fullmatch(issue_node.exact_version):
-        errors.append("review inputs: issue 54 lacks an exact body SHA-256")
+        errors.append("review inputs: issue 53 lacks an exact body SHA-256")
     result = subprocess.run(
         ["git", "diff", "--cached", "--binary"],
         cwd=ROOT,
@@ -434,6 +474,52 @@ def explicit_edges(nodes: dict[str, Node], edges: list[Edge], errors: list[str])
         edges.append(Edge(identifier, source, target, parsed_type))
 
 
+def declared_claim_view_mappings(
+    claims: set[str], errors: list[str]
+) -> set[tuple[str, str]]:
+    """Expand the SAD's controlled claim expressions into exact graph edges."""
+    text = SAD.read_text(encoding="utf-8")
+    headings = list(re.finditer(r"^## `(?P<view>EDI-VIEW-\d{3})`:", text, re.MULTILINE))
+    if [match.group("view") for match in headings] != [
+        f"EDI-VIEW-{number:03d}" for number in range(1, 10)
+    ]:
+        errors.append("SAD mappings: expected ordered view population missing")
+        return set()
+
+    mappings: set[tuple[str, str]] = set()
+    range_pattern = re.compile(r"`(AC-[A-Z]+-)(\d{3})` through `(AC-[A-Z]+-)(\d{3})`")
+    for index, heading in enumerate(headings):
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(text)
+        section = text[heading.end():end]
+        row = re.search(r"^\| Architecture Claim mappings \| (?P<value>.+) \|$", section, re.MULTILINE)
+        if row is None:
+            errors.append(f"SAD mappings:{heading.group('view')}: mapping field missing")
+            continue
+        value = row.group("value")
+        declared: set[str] = set(re.findall(r"`(AC-[A-Z]+-\d{3})`", value))
+        for start_prefix, start_number, end_prefix, end_number in range_pattern.findall(value):
+            if start_prefix != end_prefix or int(start_number) > int(end_number):
+                errors.append(f"SAD mappings:{heading.group('view')}: invalid claim range")
+                continue
+            declared.update(
+                f"{start_prefix}{number:03d}"
+                for number in range(int(start_number), int(end_number) + 1)
+            )
+        for prefix in re.findall(r"`(AC-[A-Z]+-)\*`", value):
+            declared.update(claim for claim in claims if claim.startswith(prefix))
+        if "`AC-*`" in value:
+            declared.update(claims)
+        unknown = declared - claims
+        if unknown:
+            errors.append(
+                f"SAD mappings:{heading.group('view')}: unknown claims {sorted(unknown)}"
+            )
+        mappings.update(
+            (claim, heading.group("view")) for claim in declared if claim in claims
+        )
+    return mappings
+
+
 def validate_graph(nodes: dict[str, Node], edges: list[Edge], errors: list[str]) -> None:
     edge_ids = [edge.identifier for edge in edges]
     if len(edge_ids) != len(set(edge_ids)):
@@ -451,6 +537,37 @@ def validate_graph(nodes: dict[str, Node], edges: list[Edge], errors: list[str])
     for empty in EMPTY_CLASSES:
         if counts[empty] != 0:
             errors.append(f"effective nodes: {empty} must match closed zero population")
+    sad = nodes.get("BART-ARC-024")
+    expected_views = {f"EDI-VIEW-{number:03d}" for number in range(1, 10)}
+    realized_views = {
+        edge.target
+        for edge in edges
+        if edge.source == "BART-ARC-024"
+        and edge.relation_type == RelationType.DEFINES
+    }
+    if sad is None or realized_views != expected_views:
+        errors.append("effective relations: SAD view realization mismatch")
+    elif any(nodes[view].exact_version != sad.exact_version for view in expected_views):
+        errors.append("effective nodes: SAD view exact version mismatch")
+    claims = {
+        identifier for identifier, node in nodes.items()
+        if node.node_class == NodeClass.CLAIM
+    }
+    declared_mappings = declared_claim_view_mappings(claims, errors)
+    registered_mappings = {
+        (edge.source, edge.target)
+        for edge in edges
+        if edge.relation_type == RelationType.MAPS
+        and edge.source in claims
+        and edge.target in expected_views
+    }
+    if registered_mappings != declared_mappings:
+        missing = sorted(declared_mappings - registered_mappings)
+        extra = sorted(registered_mappings - declared_mappings)
+        errors.append(
+            "effective relations: SAD claim-to-view mapping mismatch "
+            f"(missing={missing}, extra={extra})"
+        )
     produced = {
         edge.target for edge in edges
         if edge.relation_type == RelationType.PRODUCES
