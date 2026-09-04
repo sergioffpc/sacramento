@@ -4,6 +4,8 @@ Status: Approved
 
 Approval: Project owner, 2026-09-04
 
+Latest approved amendment: Composite Confirmed-State Identity and Lifecycle Revision, project owner, 2026-09-04
+
 Purpose: Define canonical runtime, identity, packaging, timing, and deployment terminology.
 
 Scope: Technical concepts used by requirements, architecture, design, implementation, and verification.
@@ -86,6 +88,10 @@ _Avoid_: Display name, evidence document identity, network address, implementati
 One indivisible authoritative advancement of simulated time and canonical simulated state within a Training Session, identified by a monotonically increasing integer in one simulation epoch.
 _Avoid_: Render frame, network update, Operational Clock interval, variable time step
 
+**Composite Confirmed-State Identity**:
+The exact tuple of canonical state version, Canonical Tick index, Simulation revision, Scenario revision, and Lifecycle Revision fixed by the authoritative owners for one committed state; equality requires equality of every member.
+_Avoid_: Observability sequence, replication acknowledgement, client prediction version, timestamp
+
 **Client Pack**:
 The signed, immutable, role-specific half of one Runtime Content Release containing the complete Prediction and Presentation content required by one Trainee client for its exact Scenario and Training Session.
 _Avoid_: Authority Pack, source assets, downloadable content
@@ -109,6 +115,10 @@ _Avoid_: Server-downloaded trust data, dynamic validation dependency, local iden
 **Intention**:
 A client request proposing a Trainee or Autonomous Participant action for authoritative evaluation; it cannot prescribe its Canonical Tick, canonical ordering, result, or resulting state.
 _Avoid_: Client command, authoritative action, client-authored outcome, timestamped event
+
+**Lifecycle Revision**:
+The monotonically increasing Session Lifecycle owner revision fixed by one committed Training Session lifecycle transition; it is distinct from the Canonical Tick index and every observability sequence or timestamp.
+_Avoid_: Canonical Tick, process lifecycle signal, Operational Clock instant, observability sequence
 
 **Offline Revocation Status**:
 A time-bounded statement from the Identity Authority that identifies an exact identity-evidence item or Authorization Assertion and classifies it as `Current` or `Revoked` for offline validation.

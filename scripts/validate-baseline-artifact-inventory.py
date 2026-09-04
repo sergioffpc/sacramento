@@ -258,13 +258,13 @@ def evidence_package_identity(errors: list[str]) -> str:
         raise SystemExit(f"cannot read evidence inventory control: {error}") from error
     versions = re.findall(r"^Inventory version: `([^`]+)`$", text, re.MULTILINE)
     digests = re.findall(r"^Package SHA-256: `([^`]+)`$", text, re.MULTILINE)
-    if versions != ["EDI-002"] or len(digests) != 1:
+    if versions != ["EDI-003"] or len(digests) != 1:
         errors.append("evidence inventory control: invalid package identity")
         return "INVALID"
     if PACKAGE_DIGEST_RE.fullmatch(digests[0]) is None:
         errors.append("evidence inventory control: invalid package SHA-256")
         return "INVALID"
-    return f"EDI-002@sha256:{digests[0]}"
+    return f"EDI-003@sha256:{digests[0]}"
 
 
 def validate_artifacts(
@@ -554,7 +554,7 @@ def validate_claim_traces(
                 errors.append(f"{label}: unknown requirement trace {trace}")
             elif relation != expected_relations[applicability]:
                 errors.append(
-                    f"{label}: trace disposition differs from BAI-003: {trace}"
+                    f"{label}: trace disposition differs from BAI-004: {trace}"
                 )
     expected_keys = {claim[0] for claim in expected}
     for missing in sorted(expected_keys - seen):

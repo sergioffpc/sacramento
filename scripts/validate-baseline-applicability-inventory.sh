@@ -14,7 +14,7 @@ check_hash() {
     expected_hash=$2
     actual_hash=$(sha256sum "${repository_root}/${source_path}" | awk '{print $1}')
     if [ "${actual_hash}" != "${expected_hash}" ]; then
-        echo "source changed: ${source_path}; create and reconcile a successor to BAI-003" >&2
+        echo "source changed: ${source_path}; create and reconcile a successor to BAI-004" >&2
         exit 1
     fi
 }
@@ -44,14 +44,14 @@ extract_identifiers() {
 
 cat > "${scratch_path}/sources" <<'EOF'
 docs/requirements/training-simulation-initial-requirements.md|Development Baseline; approved Autonomous Recovery Subject reconciliation|85909f1016a3eb89e3c1eb25370eea8872dccdf5389feb5613f5f5a1b575f9de|registry
-docs/requirements/training-simulation-non-functional-requirements.md|NFR-BASELINE-001; approved 2026-09-01; amended 2026-09-03|8a024d6b7538f04e19df6dcae66c68160b2b6b474423d5d52f43a9fbee6ae092|registry
-docs/requirements/training-simulation-observability-contract.md|OBS-CONTRACT-003; approved 2026-09-01|45c5392ca799388eac588ad54a5aa9e980ff4261de3b2b90fa0ba524f4a1f592|supporting
+docs/requirements/training-simulation-non-functional-requirements.md|NFR-BASELINE-001; candidate OBS-CONTRACT-004 reconciliation|5bef2f87282a4eb8575d4766edde9319ad494a3dbfb725c041b504518b07294c|registry
+docs/requirements/training-simulation-observability-contract.md|OBS-CONTRACT-004; candidate successor|eaa4c2088f4ca9cfc9636a847ace54cdc03d41da54f45e6605ddce68888d316b|supporting
 docs/requirements/training-simulation-performance-assessment-requirements.md|PERF-BASELINE-001; approved 2026-09-01; amended 2026-09-03|4d036de0500b7d0161dcf988fc40c2c0a53f9cfc69288c7c2c9f805755df01f9|registry
 docs/requirements/training-simulation-performance-profile-engagement-target-001.md|ENGAGEMENT-TARGET-001; approved 2026-09-01|cc5f2fb21b692452d7fa12e34d05bfd83baded1eaf325f3c7bb754a79baae493|registry
 docs/requirements/training-simulation-reference-hardware-profiles.md|RHP-SET-001; approved 2026-09-01|074dc42d25cf44800198b4207b8b90a2897ebe7109dadab4c3766e3cbc644095|supporting
-docs/requirements/training-simulation-verification-plan.md|Approved Autonomous Participant assignments|1310a09886771ae2552b968ac8f32856ec9f6f66e058566af91f0c9bb19b26fb|registry
+docs/requirements/training-simulation-verification-plan.md|Candidate OBS-CONTRACT-004 evidence assignments|fe9d83257d3093a9555249d2c440069676e99c7fe52a5335738b00454ddce45a|registry
 docs/requirements/training-simulation-autonomous-participant-requirements.md|AUTONOMOUS-PARTICIPANT-BASELINE-001; approved 2026-09-04|58acf4f8b6065f45903e198ca28fd326a971067272930ff0f6cb192515ee477d|registry
-docs/requirements/training-simulation-baseline-applicability.md|BAI-CONTROL-003; approved 2026-09-04|3f611f512962fec23af3d4e16fe3a495dde1415cb3c6305a1c66b3a824e3cf43|supporting
+docs/requirements/training-simulation-baseline-applicability.md|BAI-CONTROL-004; candidate successor|f3605a132f5959a9a73929b05125280d05f80e0e5a6626bee67670518de324d4|supporting
 EOF
 
 while IFS='|' read -r source_path source_version source_hash source_role
@@ -67,7 +67,7 @@ find "${repository_root}/docs/requirements" -maxdepth 1 -type f -name '*.md' \
     -printf '%f\n' | sort > "${scratch_path}/actual-markdown"
 sort -o "${scratch_path}/expected-markdown" "${scratch_path}/expected-markdown"
 if ! cmp -s "${scratch_path}/expected-markdown" "${scratch_path}/actual-markdown"; then
-    echo 'requirement-source population changed; reconcile a successor to BAI-003' >&2
+    echo 'requirement-source population changed; reconcile a successor to BAI-004' >&2
     diff -u "${scratch_path}/expected-markdown" "${scratch_path}/actual-markdown" >&2 || true
     exit 1
 fi
@@ -213,7 +213,7 @@ awk -F ',' 'NR > 1 && $3 == "Future" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-future"
 
 if ! cmp -s "${scratch_path}/expected-future" "${scratch_path}/actual-future"; then
-    echo 'future classification or milestone differs from approved BAI-003 policy' >&2
+    echo 'future classification or milestone differs from candidate BAI-004 policy' >&2
     diff -u "${scratch_path}/expected-future" "${scratch_path}/actual-future" >&2 || true
     exit 1
 fi
@@ -223,9 +223,9 @@ awk -F '\t' '$1 ~ /^NON-GOAL-/ {print $1 "|Approved objective scope exclusion re
 awk -F ',' 'NR > 1 && $3 == "Not Applicable" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-not-applicable"
 if ! cmp -s "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable"; then
-    echo 'Not Applicable classification or justification differs from approved BAI-003 policy' >&2
+    echo 'Not Applicable classification or justification differs from candidate BAI-004 policy' >&2
     diff -u "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable" >&2 || true
     exit 1
 fi
 
-echo 'Baseline applicability inventory valid: BAI-003: 1215 entries; Included=928, Future=268, Not Applicable=19'
+echo 'Baseline applicability inventory valid: BAI-004: 1215 entries; Included=928, Future=268, Not Applicable=19'
