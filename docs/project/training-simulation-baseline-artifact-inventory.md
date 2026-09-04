@@ -1,14 +1,14 @@
 # Training Simulation Baseline Artifact Inventory
 
-Status: Candidate; approval pending
+Status: Approved
 
-Approval: Pending project-owner approval
+Approval: Project owner, 2026-09-04
 
 Inventory version: `BARTINV-006`
 
-Package SHA-256: `f003aa1b068d558d5729f3eb44965f797929abe3930e7c21a1e94803f3068181`
+Package SHA-256: `bc23ff31ee3868e3a72f77fb191613d0fa3fbcc9c7ac00bf5b1189455e52bcd8`
 
-Approved package SHA-256: Pending project-owner approval
+Approved package SHA-256: `bc23ff31ee3868e3a72f77fb191613d0fa3fbcc9c7ac00bf5b1189455e52bcd8`
 
 Approved predecessor: `BARTINV-005@sha256:05d2639bd506a4cd65a8b60a12f37ab7351f96c76652c446bfe021a46a32af6d`, project owner, 2026-09-04
 
@@ -185,7 +185,7 @@ review decisions.
 
 ## Current acceptance boundary
 
-Candidate `BARTINV-006` reconciles 77 artifacts: 23 Architecture, 13 Design,
+Approved `BARTINV-006` reconciles 78 artifacts: 24 Architecture, 13 Design,
 18 Implementation, and 23 Verification. Every one of the 85 ADR-0010
 Architecture Claims resolves to its governing artifact and exact primary
 requirement identifiers.
@@ -193,22 +193,23 @@ requirement identifiers.
 The inventory records artifacts and trace relations; it does not claim product
 realization, verification evidence, Production Security Baseline or Platform
 Operations Baseline satisfaction, or Development Baseline acceptance. The
-candidate Evidence Dependency Inventory successor is `EDI-004`. Neither inventory can
+approved Evidence Dependency Inventory successor is `EDI-004`. Neither inventory can
 support `Pass` or `Unaffected` without coverage validation, substantive review,
 and exact-version project-owner approval.
 
 ## `BARTINV-006` impact analysis
 
 This successor adds ADR-0011, ARCHSPEC-0011, ADR-0012, ARCHSPEC-0012, the
-Runtime Resource Type Inventory, and the executable C++ style gate. It adds 19
-memory and runtime-resource Architecture Claims; updates exact versions for
-canonical responsibility, the claim register, glossaries, Documentation
-Inventory, and recursively affected inventory artifacts; and retains every
-realization as `Not Implemented` and evidence state as `Blocked`. Every changed
-source identity and predecessor-bound validation or review result is `Affected`
-under candidate `EDI-004`; no accepted product or Architecture Claim evidence
-exists to retain as `Unaffected`.
-Exact-version project-owner approval remains pending.
+Runtime Resource Type Inventory, the executable C++ style gate, and canonical
+`SAD-001` as `BART-ARC-024`. It adds 19 memory and runtime-resource Architecture
+Claims; updates exact versions for canonical responsibility, the claim
+register, glossaries, Documentation Inventory, and recursively affected
+inventory artifacts; and retains every product realization as `Not
+Implemented` and evidence state as `Blocked`. Every changed source identity
+and predecessor-bound validation or review result is `Affected` under approved
+`EDI-004`; no accepted product or Architecture Claim evidence exists to retain
+as `Unaffected`. Exact-version approval was granted by the project owner on
+2026-09-04.
 
 ## Change control
 
