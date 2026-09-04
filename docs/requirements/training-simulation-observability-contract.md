@@ -46,7 +46,7 @@ An inapplicable conditional field is absent rather than populated with an invent
 
 | Signal identifier | Source | Signal-specific meaning and fields | Primary trace |
 | --- | --- | --- | --- |
-| `OBS-PROCESS-LIFECYCLE-001` | Desktop Mode or Session Authority process | Lifecycle transition: `Started`, `Stopping`, or `Terminated`; termination classification when known | `NFR-OBSERVABILITY-CORE-001` |
+| `OBS-PROCESS-LIFECYCLE-001` | Trainee Client or Session Authority process | Lifecycle transition: `ProcessStarting`, `ProcessReady`, `ProcessNotReady`, `ProcessStopping`, or `ProcessTerminated`; termination classification when known | `NFR-OBSERVABILITY-CORE-001` |
 | `OBS-FINAL-IMAGE-001` | Rendered Desktop Mode client | One-second final-image aggregate defined below | `NFR-DESKTOP-SMOOTHNESS-001`, `NFR-DESKTOP-STALL-001` |
 | `OBS-ACTION-SUBMITTED-001` | Originating rendered or synthetic client | Script step and event correlation identifying submission of a valid action without its gameplay payload | `NFR-ACTION-RESPONSE-001` |
 | `OBS-ACTION-RESULT-RECEIVED-001` | Each rendered or synthetic client | Correlated first authoritative-result receipt | `NFR-ACTION-RESPONSE-001` |
@@ -84,7 +84,7 @@ The following records belong to the acceptance environment rather than the conti
 
 | Signal | Signal-specific fields and cardinality |
 | --- | --- |
-| `OBS-PROCESS-LIFECYCLE-001` | `lifecycle_state`, exactly `Started`, `Stopping`, or `Terminated`, plus optional `termination_class`, exactly `Clean`, `Unexpected`, or `Unknown`; one `Started`, at most one `Stopping`, and at most one `Terminated` per source instance |
+| `OBS-PROCESS-LIFECYCLE-001` | `lifecycle_state`, exactly `ProcessStarting`, `ProcessReady`, `ProcessNotReady`, `ProcessStopping`, or `ProcessTerminated`, plus optional `termination_class`, exactly `Clean`, `Unexpected`, or `Unknown`; one `ProcessStarting`, at most one of `ProcessReady` or `ProcessNotReady`, at most one `ProcessStopping`, and at most one `ProcessTerminated` per source instance |
 | `OBS-RUNTIME-IDENTITY-001` | `observability_detail_level`, exactly `CoreOnly` or `Diagnostic`, exact `role_pack_id`, `role_pack_hash`, `content_contract_id`, and `content_signing_trust_reference_id`; emitted once immediately after `Started` and before other product signals |
 | `OBS-SIGNAL-LOSS-001` | `affected_signal_id`, `loss_location`, exactly `Producer`, `Transport`, or `Collector`, and monotonically increasing `cumulative_lost_or_discarded_count`; emitted on every increase |
 | `OBS-OPERATIONAL-ALERT-001` | `trigger_signal_id`, opaque trigger-record correlation, and `alert_created_reference_timestamp_ns`; emitted exactly once for each signal-loss trigger required by `NFR-OBSERVABILITY-ALERTING-001` |
@@ -98,7 +98,7 @@ The following records belong to the acceptance environment rather than the conti
 | `OBS-RECONSTRUCTION-LOSS-001` | `loss_classification`, exactly `ReservationExhausted`, `BufferedRecordLost`, `ExportAbandoned`, or `AuthorityLossBoundary`; `record_class`, exactly `CanonicalTick`, `Lifecycle`, or `Terminal`; unsigned `first_affected_record_sequence` and `last_affected_record_sequence`; `canonical_disposition`, exactly `CommitPrevented`, `SessionTerminating`, `IncompleteEvidence`, or `AuthorityLost`; and opaque `session_evidence_set_id` when one has been assigned. Emitted exactly once when each maximal contiguous affected range is classified; an unknown end is represented by `last_affected_record_sequence` equal to the greatest sequence known affected, never by an invented complete range. |
 | `OBS-SESSION-EVIDENCE-HANDOFF-001` | Opaque `session_evidence_set_id`; `terminal_session_lifecycle_revision`; `completeness`, exactly `Complete` or `Incomplete`; unsigned `classified_loss_range_count`; `handoff_result`, exactly `Durable` or `Failed`; and an opaque non-secret `handoff_receipt_reference` only when durable. Emitted exactly once when the bounded terminal handoff reaches its final disposition and before Session Authority exit. This retains and extends `OBS-SESSION-EVIDENCE-HANDOFF-001`; it does not supersede the identifier. |
 
-Absence of `Stopping` or `Terminated` after an unexpected process loss does not invent a lifecycle transition. Process-launch outcomes, sequence gaps, and loss counters provide the applicable observable failure evidence.
+Absence of `ProcessStopping` or `ProcessTerminated` after an unexpected process loss does not invent a lifecycle transition. Process-launch outcomes, sequence gaps, and loss counters provide the applicable observable failure evidence.
 
 ### Runtime-state signal semantics
 

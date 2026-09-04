@@ -61,8 +61,8 @@ client state derivation.
 | --- | --- |
 | `Session Authority Runtime` | Simulation, Scenario, Session Lifecycle, AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, and Observability. |
 | `Trainee Client Runtime` | AUTH & Admission, Runtime Package, Content Admission, Protocol & Replication, Prediction, Presentation, Input & Interaction, and Observability. |
-| `Content Cooker Runtime` | Runtime Package and Observability, with private source-import adapters. |
-| Administrative Tool Runtimes | Offline content, Approved Profile, catalogue, trust-package, and provisioning operations; later data and deployment decisions select the concrete executables. |
+| `Content Cooker Tool` | Runtime Package with private source-import, signing, result, and Release Publisher adapters; governed by ARCHSPEC-0013. |
+| Administrative Tools | Offline Approved Profile, catalogue, trust-package, and provisioning operations; later data and deployment decisions select the concrete executables. |
 | `Synthetic Client Runtime` | Test-only protocol, deterministic action replay, authoritative-result receipt, and Observability; neither Presentation nor Prediction is mandatory. |
 
 Only the Session Authority Runtime composes the owners of canonical Simulation,

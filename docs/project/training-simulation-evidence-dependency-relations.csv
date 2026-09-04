@@ -79,149 +79,148 @@ sequence,relation_identifier,source_node_identifier,target_node_identifier,relat
 78,EDI-REL-078,EDI-PC-011,EDI-PC-013,depends-on,Trainee Client Runtime composes Input and Interaction.
 79,EDI-REL-079,EDI-PC-007,EDI-PC-013,depends-on,Trainee Client Runtime composes Observability.
 80,EDI-REL-080,BART-ARC-012,EDI-VIEW-003,maps-to,ARCHSPEC-0004 supplies the Software Architecture Description module view.
-81,EDI-REL-081,EDI-PC-007,EDI-PC-014,depends-on,Content Cooker Runtime composes Observability.
-82,EDI-REL-082,EDI-PC-006,EDI-PC-016,depends-on,Synthetic Client Runtime exercises the protocol seam.
-83,EDI-REL-083,EDI-PC-007,EDI-PC-016,depends-on,Synthetic Client Runtime emits through Observability.
-84,EDI-REL-084,EDI-DATA-003,BART-VER-003,input-to,Local commit hook consumes the proposed commit message.
-85,EDI-REL-085,BART-VER-017,BART-VER-003,depends-on,Local commit hook invokes the canonical commit validator.
-86,EDI-REL-086,BART-VER-003,EDI-EVID-006,produces,Local commit hook produces its pre-registered result.
-87,EDI-REL-087,EDI-DATA-004,BART-VER-004,input-to,CodeQL workflow consumes the governed C++ validation closure.
-88,EDI-REL-088,EDI-ENV-001,BART-VER-004,input-to,CodeQL workflow depends on its declared repository environment.
-89,EDI-REL-089,BART-VER-004,EDI-EVID-007,produces,CodeQL workflow produces its pre-registered result.
-90,EDI-REL-090,EDI-DATA-003,BART-VER-005,input-to,Commit-policy workflow consumes commit messages.
-91,EDI-REL-091,EDI-DATA-008,BART-VER-005,input-to,Commit-policy workflow consumes the selected Git history.
-92,EDI-REL-092,BART-VER-017,BART-VER-005,depends-on,Commit-policy workflow invokes the canonical validator.
-93,EDI-REL-093,BART-VER-005,EDI-EVID-008,produces,Commit-policy workflow produces its pre-registered result.
-94,EDI-REL-094,EDI-DATA-005,BART-VER-013,input-to,Assignment generator consumes canonical requirement and verification sources.
-95,EDI-REL-095,EDI-ENV-001,BART-VER-013,input-to,Assignment generator depends on the repository validation environment.
-96,EDI-REL-096,BART-VER-013,EDI-DATA-006,produces,Assignment generator produces its pre-registered normalized output.
-97,EDI-REL-097,EDI-DATA-005,BART-VER-014,input-to,Baseline Applicability validator consumes canonical source requirements.
-98,EDI-REL-098,BART-VER-010,BART-VER-014,input-to,Baseline Applicability validator consumes the normalized register.
-99,EDI-REL-099,EDI-ENV-001,BART-VER-014,input-to,Baseline Applicability validator depends on the repository environment.
-100,EDI-REL-100,BART-VER-014,EDI-EVID-009,produces,Baseline Applicability validator produces its pre-registered result.
-101,EDI-REL-101,BART-VER-008,BART-VER-015,input-to,Baseline Artifact validator consumes the artifact register.
-102,EDI-REL-102,BART-VER-006,BART-VER-015,input-to,Baseline Artifact validator consumes Architecture Claim traces.
-103,EDI-REL-103,BART-VER-010,BART-VER-015,input-to,Baseline Artifact validator consumes Baseline Applicability rows.
-104,EDI-REL-104,EDI-ENV-001,BART-VER-015,input-to,Baseline Artifact validator depends on the repository environment.
-105,EDI-REL-105,BART-VER-015,EDI-EVID-010,produces,Baseline Artifact validator produces its pre-registered result.
-106,EDI-REL-106,BART-VER-009,BART-VER-016,input-to,Documentation validator consumes the Documentation Inventory.
-107,EDI-REL-107,EDI-DATA-007,BART-VER-016,input-to,Documentation validator consumes the retained document population.
-108,EDI-REL-108,EDI-ENV-001,BART-VER-016,input-to,Documentation validator depends on the repository environment.
-109,EDI-REL-109,BART-VER-016,EDI-EVID-011,produces,Documentation validator produces its pre-registered result.
-110,EDI-REL-110,EDI-DATA-003,BART-VER-017,input-to,Commit validator consumes one commit message.
-111,EDI-REL-111,EDI-ENV-001,BART-VER-017,input-to,Commit validator depends on the repository environment.
-112,EDI-REL-112,BART-VER-017,EDI-EVID-012,produces,Commit validator produces its pre-registered result.
-113,EDI-REL-113,EDI-DATA-001,EDI-PROC-001,input-to,Standards review consumes the fixed staged diff.
-114,EDI-REL-114,EDI-DATA-001,EDI-PROC-002,input-to,Spec review consumes the fixed staged diff.
-115,EDI-REL-115,EDI-DATA-002,EDI-PROC-002,input-to,Spec review consumes issue 53 as its authoritative specification.
-116,EDI-REL-116,BART-VER-007,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Artifact control identity.
-117,EDI-REL-117,BART-VER-011,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Applicability control identity.
-118,EDI-REL-118,BART-VER-009,BART-VER-022,input-to,Evidence Dependency validator consumes the Documentation Inventory identity.
-119,EDI-REL-119,BART-DES-013,EDI-DATA-005,defines,Autonomous Participant requirements extend the canonical verification-assignment source set.
-120,EDI-REL-120,BART-DES-004,EDI-DATA-005,defines,Initial requirements define part of the canonical verification-assignment source set.
-121,EDI-REL-121,BART-VER-012,EDI-DATA-005,defines,Verification Plan ranges define part of the canonical verification-assignment source set.
-122,EDI-REL-122,EDI-DATA-004,BART-VER-023,input-to,C++ validation closure defines the changed-file style gate.
-123,EDI-REL-123,EDI-ENV-001,BART-VER-023,input-to,C++ style gate depends on the repository environment and pinned LLVM tools.
-124,EDI-REL-124,BART-VER-001,BART-VER-023,input-to,C++ style gate consumes the authoritative clang-format configuration.
-125,EDI-REL-125,BART-VER-002,BART-VER-023,input-to,C++ style gate consumes the authoritative clang-tidy configuration.
-126,EDI-REL-126,BART-IMP-010,BART-VER-023,input-to,C++ style gate consumes the approved exception registry.
-127,EDI-REL-127,BART-VER-023,EDI-EVID-013,produces,C++ style gate produces its pre-registered result.
-128,EDI-REL-128,BART-ARC-012,EDI-PC-017,defines,Canonical responsibility architecture defines the Scenario module.
-129,EDI-REL-129,EDI-PC-005,EDI-PC-017,depends-on,Scenario consumes admitted session content from Content Admission.
-130,EDI-REL-130,EDI-PC-007,EDI-PC-017,depends-on,Scenario emits operational signals through Observability.
-131,EDI-REL-131,BART-ARC-022,EDI-VIEW-006,maps-to,Runtime resource and role-pack architecture maps to the data and persistence view.
-132,EDI-REL-132,BART-ARC-023,EDI-VIEW-006,maps-to,Runtime Resource Type Inventory maps to the data and persistence view.
-133,EDI-REL-133,BART-ARC-024,EDI-VIEW-001,defines,SAD-002 realizes the selected document-control and reading-guide view.
-134,EDI-REL-134,BART-ARC-024,EDI-VIEW-002,defines,SAD-002 realizes the selected system-context and allocation view.
-135,EDI-REL-135,BART-ARC-024,EDI-VIEW-003,defines,SAD-002 realizes the selected module and dependency view.
-136,EDI-REL-136,BART-ARC-024,EDI-VIEW-004,defines,SAD-002 realizes the selected runtime lifecycle and sequence view.
-137,EDI-REL-137,BART-ARC-024,EDI-VIEW-005,defines,SAD-002 realizes the selected concurrency and ownership view.
-138,EDI-REL-138,BART-ARC-024,EDI-VIEW-006,defines,SAD-002 realizes the selected content trust and retained-evidence view.
-139,EDI-REL-139,BART-ARC-024,EDI-VIEW-007,defines,SAD-002 realizes the selected cross-cutting policy view.
-140,EDI-REL-140,BART-ARC-024,EDI-VIEW-008,defines,SAD-002 realizes the selected verification and traceability view.
-141,EDI-REL-141,BART-ARC-024,EDI-VIEW-009,defines,SAD-002 realizes the selected risks debt assumptions and open-work view.
-142,EDI-REL-142,AC-CROSSCUTTING-001,EDI-VIEW-001,maps-to,SAD-002 declares this claim in the document-control and reading-guide view.
-143,EDI-REL-143,AC-CROSSCUTTING-011,EDI-VIEW-001,maps-to,SAD-002 declares this claim in the document-control and reading-guide view.
-144,EDI-REL-144,AC-CROSSCUTTING-012,EDI-VIEW-001,maps-to,SAD-002 declares this claim in the document-control and reading-guide view.
-145,EDI-REL-145,AC-RETENTION-001,EDI-VIEW-002,maps-to,SAD-002 declares this claim in the system-context and allocation view.
-146,EDI-REL-146,AC-RETENTION-002,EDI-VIEW-002,maps-to,SAD-002 declares this claim in the system-context and allocation view.
-147,EDI-REL-147,AC-RETENTION-004,EDI-VIEW-002,maps-to,SAD-002 declares this claim in the system-context and allocation view.
-148,EDI-REL-148,AC-CROSSCUTTING-003,EDI-VIEW-003,maps-to,SAD-002 declares this claim in the module and dependency view.
-149,EDI-REL-149,AC-CROSSCUTTING-004,EDI-VIEW-003,maps-to,SAD-002 declares this claim in the module and dependency view.
-150,EDI-REL-150,AC-CROSSCUTTING-005,EDI-VIEW-003,maps-to,SAD-002 declares this claim in the module and dependency view.
-151,EDI-REL-151,AC-CONTENT-004,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-152,EDI-REL-152,AC-CONTENT-005,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-153,EDI-REL-153,AC-CONTENT-006,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-154,EDI-REL-154,AC-RETENTION-001,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-155,EDI-REL-155,AC-RETENTION-003,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-156,EDI-REL-156,AC-DEPLOYMENT-003,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-157,EDI-REL-157,AC-DEPLOYMENT-004,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-158,EDI-REL-158,AC-DEPLOYMENT-005,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-159,EDI-REL-159,AC-DEPLOYMENT-008,EDI-VIEW-004,maps-to,SAD-002 declares this claim in the runtime lifecycle and sequence view.
-160,EDI-REL-160,AC-RUNTIME-004,EDI-VIEW-005,maps-to,SAD-002 declares this claim in the concurrency and ownership view.
-161,EDI-REL-161,AC-RUNTIME-005,EDI-VIEW-005,maps-to,SAD-002 declares this claim in the concurrency and ownership view.
-162,EDI-REL-162,AC-RUNTIME-006,EDI-VIEW-005,maps-to,SAD-002 declares this claim in the concurrency and ownership view.
-163,EDI-REL-163,AC-RETENTION-003,EDI-VIEW-005,maps-to,SAD-002 declares this claim in the concurrency and ownership view.
-164,EDI-REL-164,AC-RETENTION-004,EDI-VIEW-005,maps-to,SAD-002 declares this claim in the concurrency and ownership view.
-165,EDI-REL-165,AC-RETENTION-005,EDI-VIEW-005,maps-to,SAD-002 declares this claim in the concurrency and ownership view.
-166,EDI-REL-166,AC-DEPLOYMENT-006,EDI-VIEW-006,maps-to,SAD-002 declares this claim in the content trust and retained-evidence view.
-167,EDI-REL-167,AC-DEPLOYMENT-007,EDI-VIEW-006,maps-to,SAD-002 declares this claim in the content trust and retained-evidence view.
-168,EDI-REL-168,AC-DEPLOYMENT-008,EDI-VIEW-006,maps-to,SAD-002 declares this claim in the content trust and retained-evidence view.
-169,EDI-REL-169,AC-CONCURRENCY-001,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-170,EDI-REL-170,AC-CONCURRENCY-002,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-171,EDI-REL-171,AC-CONCURRENCY-003,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-172,EDI-REL-172,AC-CONCURRENCY-004,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-173,EDI-REL-173,AC-CONCURRENCY-005,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-174,EDI-REL-174,AC-CONCURRENCY-006,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-175,EDI-REL-175,AC-CONCURRENCY-007,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-176,EDI-REL-176,AC-CONCURRENCY-008,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-177,EDI-REL-177,AC-RETENTION-001,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-178,EDI-REL-178,AC-RETENTION-002,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-179,EDI-REL-179,AC-RETENTION-003,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-180,EDI-REL-180,AC-RETENTION-004,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-181,EDI-REL-181,AC-RETENTION-005,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-182,EDI-REL-182,AC-RETENTION-006,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-183,EDI-REL-183,AC-DEPLOYMENT-001,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-184,EDI-REL-184,AC-DEPLOYMENT-002,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-185,EDI-REL-185,AC-DEPLOYMENT-003,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-186,EDI-REL-186,AC-DEPLOYMENT-004,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-187,EDI-REL-187,AC-DEPLOYMENT-005,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-188,EDI-REL-188,AC-DEPLOYMENT-006,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-189,EDI-REL-189,AC-DEPLOYMENT-007,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-190,EDI-REL-190,AC-DEPLOYMENT-008,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-191,EDI-REL-191,AC-DEPLOYMENT-009,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-192,EDI-REL-192,AC-DEPLOYMENT-010,EDI-VIEW-007,maps-to,SAD-002 declares this claim in the cross-cutting policy view.
-193,EDI-REL-193,AC-DECOMPOSITION-006,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-194,EDI-REL-194,AC-DEPLOYMENT-010,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-195,EDI-REL-195,AC-FOUNDATION-001,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-196,EDI-REL-196,AC-FOUNDATION-002,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-197,EDI-REL-197,AC-FOUNDATION-003,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-198,EDI-REL-198,AC-FOUNDATION-004,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-199,EDI-REL-199,AC-FOUNDATION-005,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-200,EDI-REL-200,AC-FOUNDATION-006,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-201,EDI-REL-201,AC-FOUNDATION-007,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-202,EDI-REL-202,AC-CROSSCUTTING-001,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-203,EDI-REL-203,AC-CROSSCUTTING-006,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-204,EDI-REL-204,AC-CROSSCUTTING-007,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-205,EDI-REL-205,AC-CROSSCUTTING-008,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-206,EDI-REL-206,AC-CROSSCUTTING-009,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-207,EDI-REL-207,AC-CROSSCUTTING-010,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-208,EDI-REL-208,AC-MEMORY-001,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-209,EDI-REL-209,AC-MEMORY-002,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-210,EDI-REL-210,AC-MEMORY-003,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-211,EDI-REL-211,AC-MEMORY-004,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-212,EDI-REL-212,AC-MEMORY-005,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-213,EDI-REL-213,AC-MEMORY-006,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-214,EDI-REL-214,AC-MEMORY-007,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-215,EDI-REL-215,AC-MEMORY-008,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-216,EDI-REL-216,AC-MEMORY-009,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-217,EDI-REL-217,AC-RESOURCE-001,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-218,EDI-REL-218,AC-RESOURCE-002,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-219,EDI-REL-219,AC-RESOURCE-003,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-220,EDI-REL-220,AC-RESOURCE-004,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-221,EDI-REL-221,AC-RESOURCE-005,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-222,EDI-REL-222,AC-RESOURCE-006,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-223,EDI-REL-223,AC-RESOURCE-007,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-224,EDI-REL-224,AC-RESOURCE-008,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-225,EDI-REL-225,AC-RESOURCE-009,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
-226,EDI-REL-226,AC-RESOURCE-010,EDI-VIEW-009,maps-to,SAD-002 declares this claim in the risks debt assumptions and open-work view.
+81,EDI-REL-082,EDI-PC-006,EDI-PC-016,depends-on,Synthetic Client Runtime exercises the protocol seam.
+82,EDI-REL-083,EDI-PC-007,EDI-PC-016,depends-on,Synthetic Client Runtime emits through Observability.
+83,EDI-REL-084,EDI-DATA-003,BART-VER-003,input-to,Local commit hook consumes the proposed commit message.
+84,EDI-REL-085,BART-VER-017,BART-VER-003,depends-on,Local commit hook invokes the canonical commit validator.
+85,EDI-REL-086,BART-VER-003,EDI-EVID-006,produces,Local commit hook produces its pre-registered result.
+86,EDI-REL-087,EDI-DATA-004,BART-VER-004,input-to,CodeQL workflow consumes the governed C++ validation closure.
+87,EDI-REL-088,EDI-ENV-001,BART-VER-004,input-to,CodeQL workflow depends on its declared repository environment.
+88,EDI-REL-089,BART-VER-004,EDI-EVID-007,produces,CodeQL workflow produces its pre-registered result.
+89,EDI-REL-090,EDI-DATA-003,BART-VER-005,input-to,Commit-policy workflow consumes commit messages.
+90,EDI-REL-091,EDI-DATA-008,BART-VER-005,input-to,Commit-policy workflow consumes the selected Git history.
+91,EDI-REL-092,BART-VER-017,BART-VER-005,depends-on,Commit-policy workflow invokes the canonical validator.
+92,EDI-REL-093,BART-VER-005,EDI-EVID-008,produces,Commit-policy workflow produces its pre-registered result.
+93,EDI-REL-094,EDI-DATA-005,BART-VER-013,input-to,Assignment generator consumes canonical requirement and verification sources.
+94,EDI-REL-095,EDI-ENV-001,BART-VER-013,input-to,Assignment generator depends on the repository validation environment.
+95,EDI-REL-096,BART-VER-013,EDI-DATA-006,produces,Assignment generator produces its pre-registered normalized output.
+96,EDI-REL-097,EDI-DATA-005,BART-VER-014,input-to,Baseline Applicability validator consumes canonical source requirements.
+97,EDI-REL-098,BART-VER-010,BART-VER-014,input-to,Baseline Applicability validator consumes the normalized register.
+98,EDI-REL-099,EDI-ENV-001,BART-VER-014,input-to,Baseline Applicability validator depends on the repository environment.
+99,EDI-REL-100,BART-VER-014,EDI-EVID-009,produces,Baseline Applicability validator produces its pre-registered result.
+100,EDI-REL-101,BART-VER-008,BART-VER-015,input-to,Baseline Artifact validator consumes the artifact register.
+101,EDI-REL-102,BART-VER-006,BART-VER-015,input-to,Baseline Artifact validator consumes Architecture Claim traces.
+102,EDI-REL-103,BART-VER-010,BART-VER-015,input-to,Baseline Artifact validator consumes Baseline Applicability rows.
+103,EDI-REL-104,EDI-ENV-001,BART-VER-015,input-to,Baseline Artifact validator depends on the repository environment.
+104,EDI-REL-105,BART-VER-015,EDI-EVID-010,produces,Baseline Artifact validator produces its pre-registered result.
+105,EDI-REL-106,BART-VER-009,BART-VER-016,input-to,Documentation validator consumes the Documentation Inventory.
+106,EDI-REL-107,EDI-DATA-007,BART-VER-016,input-to,Documentation validator consumes the retained document population.
+107,EDI-REL-108,EDI-ENV-001,BART-VER-016,input-to,Documentation validator depends on the repository environment.
+108,EDI-REL-109,BART-VER-016,EDI-EVID-011,produces,Documentation validator produces its pre-registered result.
+109,EDI-REL-110,EDI-DATA-003,BART-VER-017,input-to,Commit validator consumes one commit message.
+110,EDI-REL-111,EDI-ENV-001,BART-VER-017,input-to,Commit validator depends on the repository environment.
+111,EDI-REL-112,BART-VER-017,EDI-EVID-012,produces,Commit validator produces its pre-registered result.
+112,EDI-REL-113,EDI-DATA-001,EDI-PROC-001,input-to,Standards review consumes the fixed staged diff.
+113,EDI-REL-114,EDI-DATA-001,EDI-PROC-002,input-to,Spec review consumes the fixed staged diff.
+114,EDI-REL-115,EDI-DATA-002,EDI-PROC-002,input-to,Spec review consumes issue 53 as its authoritative specification.
+115,EDI-REL-116,BART-VER-007,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Artifact control identity.
+116,EDI-REL-117,BART-VER-011,BART-VER-022,input-to,Evidence Dependency validator consumes the Baseline Applicability control identity.
+117,EDI-REL-118,BART-VER-009,BART-VER-022,input-to,Evidence Dependency validator consumes the Documentation Inventory identity.
+118,EDI-REL-119,BART-DES-013,EDI-DATA-005,defines,Autonomous Participant requirements extend the canonical verification-assignment source set.
+119,EDI-REL-120,BART-DES-004,EDI-DATA-005,defines,Initial requirements define part of the canonical verification-assignment source set.
+120,EDI-REL-121,BART-VER-012,EDI-DATA-005,defines,Verification Plan ranges define part of the canonical verification-assignment source set.
+121,EDI-REL-122,EDI-DATA-004,BART-VER-023,input-to,C++ validation closure defines the changed-file style gate.
+122,EDI-REL-123,EDI-ENV-001,BART-VER-023,input-to,C++ style gate depends on the repository environment and pinned LLVM tools.
+123,EDI-REL-124,BART-VER-001,BART-VER-023,input-to,C++ style gate consumes the authoritative clang-format configuration.
+124,EDI-REL-125,BART-VER-002,BART-VER-023,input-to,C++ style gate consumes the authoritative clang-tidy configuration.
+125,EDI-REL-126,BART-IMP-010,BART-VER-023,input-to,C++ style gate consumes the approved exception registry.
+126,EDI-REL-127,BART-VER-023,EDI-EVID-013,produces,C++ style gate produces its pre-registered result.
+127,EDI-REL-128,BART-ARC-012,EDI-PC-017,defines,Canonical responsibility architecture defines the Scenario module.
+128,EDI-REL-129,EDI-PC-005,EDI-PC-017,depends-on,Scenario consumes admitted session content from Content Admission.
+129,EDI-REL-130,EDI-PC-007,EDI-PC-017,depends-on,Scenario emits operational signals through Observability.
+130,EDI-REL-131,BART-ARC-022,EDI-VIEW-006,maps-to,Runtime resource and role-pack architecture maps to the data and persistence view.
+131,EDI-REL-132,BART-ARC-023,EDI-VIEW-006,maps-to,Runtime Resource Type Inventory maps to the data and persistence view.
+132,EDI-REL-133,BART-ARC-024,EDI-VIEW-001,defines,SAD-003 realizes the selected document-control and reading-guide view.
+133,EDI-REL-134,BART-ARC-024,EDI-VIEW-002,defines,SAD-003 realizes the selected system-context and allocation view.
+134,EDI-REL-135,BART-ARC-024,EDI-VIEW-003,defines,SAD-003 realizes the selected module and dependency view.
+135,EDI-REL-136,BART-ARC-024,EDI-VIEW-004,defines,SAD-003 realizes the selected runtime lifecycle and sequence view.
+136,EDI-REL-137,BART-ARC-024,EDI-VIEW-005,defines,SAD-003 realizes the selected concurrency and ownership view.
+137,EDI-REL-138,BART-ARC-024,EDI-VIEW-006,defines,SAD-003 realizes the selected content trust and retained-evidence view.
+138,EDI-REL-139,BART-ARC-024,EDI-VIEW-007,defines,SAD-003 realizes the selected cross-cutting policy view.
+139,EDI-REL-140,BART-ARC-024,EDI-VIEW-008,defines,SAD-003 realizes the selected verification and traceability view.
+140,EDI-REL-141,BART-ARC-024,EDI-VIEW-009,defines,SAD-003 realizes the selected risks debt assumptions and open-work view.
+141,EDI-REL-142,AC-CROSSCUTTING-001,EDI-VIEW-001,maps-to,SAD-003 declares this claim in the document-control and reading-guide view.
+142,EDI-REL-143,AC-CROSSCUTTING-011,EDI-VIEW-001,maps-to,SAD-003 declares this claim in the document-control and reading-guide view.
+143,EDI-REL-144,AC-CROSSCUTTING-012,EDI-VIEW-001,maps-to,SAD-003 declares this claim in the document-control and reading-guide view.
+144,EDI-REL-145,AC-RETENTION-001,EDI-VIEW-002,maps-to,SAD-003 declares this claim in the system-context and allocation view.
+145,EDI-REL-146,AC-RETENTION-002,EDI-VIEW-002,maps-to,SAD-003 declares this claim in the system-context and allocation view.
+146,EDI-REL-147,AC-RETENTION-004,EDI-VIEW-002,maps-to,SAD-003 declares this claim in the system-context and allocation view.
+147,EDI-REL-148,AC-CROSSCUTTING-003,EDI-VIEW-003,maps-to,SAD-003 declares this claim in the module and dependency view.
+148,EDI-REL-149,AC-CROSSCUTTING-004,EDI-VIEW-003,maps-to,SAD-003 declares this claim in the module and dependency view.
+149,EDI-REL-150,AC-CROSSCUTTING-005,EDI-VIEW-003,maps-to,SAD-003 declares this claim in the module and dependency view.
+150,EDI-REL-151,AC-CONTENT-004,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+151,EDI-REL-152,AC-CONTENT-005,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+152,EDI-REL-153,AC-CONTENT-006,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+153,EDI-REL-154,AC-RETENTION-001,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+154,EDI-REL-155,AC-RETENTION-003,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+155,EDI-REL-156,AC-DEPLOYMENT-003,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+156,EDI-REL-157,AC-DEPLOYMENT-004,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+157,EDI-REL-158,AC-DEPLOYMENT-005,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+158,EDI-REL-159,AC-DEPLOYMENT-008,EDI-VIEW-004,maps-to,SAD-003 declares this claim in the runtime lifecycle and sequence view.
+159,EDI-REL-160,AC-RUNTIME-004,EDI-VIEW-005,maps-to,SAD-003 declares this claim in the concurrency and ownership view.
+160,EDI-REL-161,AC-RUNTIME-005,EDI-VIEW-005,maps-to,SAD-003 declares this claim in the concurrency and ownership view.
+161,EDI-REL-162,AC-RUNTIME-006,EDI-VIEW-005,maps-to,SAD-003 declares this claim in the concurrency and ownership view.
+162,EDI-REL-163,AC-RETENTION-003,EDI-VIEW-005,maps-to,SAD-003 declares this claim in the concurrency and ownership view.
+163,EDI-REL-164,AC-RETENTION-004,EDI-VIEW-005,maps-to,SAD-003 declares this claim in the concurrency and ownership view.
+164,EDI-REL-165,AC-RETENTION-005,EDI-VIEW-005,maps-to,SAD-003 declares this claim in the concurrency and ownership view.
+165,EDI-REL-166,AC-DEPLOYMENT-006,EDI-VIEW-006,maps-to,SAD-003 declares this claim in the content trust and retained-evidence view.
+166,EDI-REL-167,AC-DEPLOYMENT-007,EDI-VIEW-006,maps-to,SAD-003 declares this claim in the content trust and retained-evidence view.
+167,EDI-REL-168,AC-DEPLOYMENT-008,EDI-VIEW-006,maps-to,SAD-003 declares this claim in the content trust and retained-evidence view.
+168,EDI-REL-169,AC-CONCURRENCY-001,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+169,EDI-REL-170,AC-CONCURRENCY-002,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+170,EDI-REL-171,AC-CONCURRENCY-003,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+171,EDI-REL-172,AC-CONCURRENCY-004,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+172,EDI-REL-173,AC-CONCURRENCY-005,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+173,EDI-REL-174,AC-CONCURRENCY-006,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+174,EDI-REL-175,AC-CONCURRENCY-007,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+175,EDI-REL-176,AC-CONCURRENCY-008,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+176,EDI-REL-177,AC-RETENTION-001,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+177,EDI-REL-178,AC-RETENTION-002,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+178,EDI-REL-179,AC-RETENTION-003,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+179,EDI-REL-180,AC-RETENTION-004,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+180,EDI-REL-181,AC-RETENTION-005,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+181,EDI-REL-182,AC-RETENTION-006,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+182,EDI-REL-183,AC-DEPLOYMENT-001,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+183,EDI-REL-184,AC-DEPLOYMENT-002,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+184,EDI-REL-185,AC-DEPLOYMENT-003,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+185,EDI-REL-186,AC-DEPLOYMENT-004,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+186,EDI-REL-187,AC-DEPLOYMENT-005,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+187,EDI-REL-188,AC-DEPLOYMENT-006,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+188,EDI-REL-189,AC-DEPLOYMENT-007,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+189,EDI-REL-190,AC-DEPLOYMENT-008,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+190,EDI-REL-191,AC-DEPLOYMENT-009,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+191,EDI-REL-192,AC-DEPLOYMENT-010,EDI-VIEW-007,maps-to,SAD-003 declares this claim in the cross-cutting policy view.
+192,EDI-REL-193,AC-DECOMPOSITION-006,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+193,EDI-REL-194,AC-DEPLOYMENT-010,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+194,EDI-REL-195,AC-FOUNDATION-001,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+195,EDI-REL-196,AC-FOUNDATION-002,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+196,EDI-REL-197,AC-FOUNDATION-003,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+197,EDI-REL-198,AC-FOUNDATION-004,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+198,EDI-REL-199,AC-FOUNDATION-005,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+199,EDI-REL-200,AC-FOUNDATION-006,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+200,EDI-REL-201,AC-FOUNDATION-007,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+201,EDI-REL-202,AC-CROSSCUTTING-001,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+202,EDI-REL-203,AC-CROSSCUTTING-006,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+203,EDI-REL-204,AC-CROSSCUTTING-007,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+204,EDI-REL-205,AC-CROSSCUTTING-008,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+205,EDI-REL-206,AC-CROSSCUTTING-009,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+206,EDI-REL-207,AC-CROSSCUTTING-010,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+207,EDI-REL-208,AC-MEMORY-001,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+208,EDI-REL-209,AC-MEMORY-002,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+209,EDI-REL-210,AC-MEMORY-003,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+210,EDI-REL-211,AC-MEMORY-004,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+211,EDI-REL-212,AC-MEMORY-005,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+212,EDI-REL-213,AC-MEMORY-006,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+213,EDI-REL-214,AC-MEMORY-007,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+214,EDI-REL-215,AC-MEMORY-008,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+215,EDI-REL-216,AC-MEMORY-009,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+216,EDI-REL-217,AC-RESOURCE-001,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+217,EDI-REL-218,AC-RESOURCE-002,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+218,EDI-REL-219,AC-RESOURCE-003,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+219,EDI-REL-220,AC-RESOURCE-004,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+220,EDI-REL-221,AC-RESOURCE-005,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+221,EDI-REL-222,AC-RESOURCE-006,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+222,EDI-REL-223,AC-RESOURCE-007,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+223,EDI-REL-224,AC-RESOURCE-008,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+224,EDI-REL-225,AC-RESOURCE-009,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.
+225,EDI-REL-226,AC-RESOURCE-010,EDI-VIEW-009,maps-to,SAD-003 declares this claim in the risks debt assumptions and open-work view.

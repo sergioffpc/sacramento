@@ -111,16 +111,16 @@ A Scenario mission in which one Team locates and recovers a Recovery Subject, or
 _Avoid_: Capture the Flag, hostage rescue
 
 **Preparation**:
-The pre-active Training Session lifecycle state in which no initial countdown is running and admitted Trainees may make or change selections and declare `Ready`, including after a cancelled initial countdown.
+The pre-active Training Session lifecycle state in which no initial countdown is running and admitted Trainees may make or change selections and declare `TraineeReady`, including after a cancelled initial countdown.
 _Avoid_: Active simulation, initial countdown
 
 **Proximity Voice**:
 Live Trainee speech emitted from the speaker's physical Scenario position and perceived by any nearby Trainee through Acoustic Propagation, regardless of Team.
 _Avoid_: Voice chat, Team Radio, global voice
 
-**Ready**:
+**TraineeReady**:
 A Training Session state indicating that a Trainee satisfies the complete approved readiness-precondition set and has explicitly declared readiness to begin.
-_Avoid_: Connected, loaded, waiting
+_Avoid_: Ready, ProcessReady, connected, loaded, waiting
 
 **Recovery Carrier**:
 The Trainee currently transporting the Recovery Proxy during a Personnel Recovery mission.

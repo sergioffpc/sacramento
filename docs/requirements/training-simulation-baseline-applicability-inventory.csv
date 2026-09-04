@@ -1214,3 +1214,15 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 1213,PROCESS-AUTONOMOUS-EVALUATION-001,Future,Autonomous Participant baseline,Implementation team
 1214,PROCESS-AUTONOMOUS-ACCEPTANCE-001,Future,Autonomous Participant baseline,Implementation team
 1215,PROCESS-AUTONOMOUS-CHANGE-001,Future,Autonomous Participant baseline,Implementation team
+1216,PROCESS-SOFTWARE-DESIGN-BASELINE-001,Included,Development Baseline,Project owner
+1217,PROCESS-SOFTWARE-DESIGN-COMMITMENT-001,Included,Development Baseline,Project owner
+1218,PROCESS-SOFTWARE-DESIGN-STATE-001,Included,Development Baseline,Project owner
+1219,PROCESS-SOFTWARE-DESIGN-TRACE-001,Included,Development Baseline,Project owner
+1220,PROCESS-SOFTWARE-DESIGN-APPROVAL-001,Included,Development Baseline,Project owner
+1221,REQ-CLIENT-RECONNECT-001,Included,Development Baseline,Implementation team
+1222,REQ-VOLUNTARY-LEAVE-CONFIRMATION-001,Included,Development Baseline,Implementation team
+1223,REQ-CONTENT-COOKER-TOOL-001,Included,Development Baseline,Implementation team
+1224,REQ-COOKING-JOB-SPECIFICATION-001,Included,Development Baseline,Implementation team
+1225,REQ-COOKING-JOB-PROVENANCE-001,Included,Development Baseline,Implementation team
+1226,REQ-RUNTIME-CONTROL-LOSS-001,Included,Development Baseline,Implementation team
+1227,DEFERRED-CONTENT-COOKER-PLATFORM-001,Future,Content Cooker Platform Baseline,Project owner
