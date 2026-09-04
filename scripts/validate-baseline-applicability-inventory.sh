@@ -50,7 +50,7 @@ docs/requirements/training-simulation-performance-assessment-requirements.md|PER
 docs/requirements/training-simulation-performance-profile-engagement-target-001.md|ENGAGEMENT-TARGET-001; approved 2026-09-01|cc5f2fb21b692452d7fa12e34d05bfd83baded1eaf325f3c7bb754a79baae493|registry
 docs/requirements/training-simulation-reference-hardware-profiles.md|RHP-SET-001; approved 2026-09-01|074dc42d25cf44800198b4207b8b90a2897ebe7109dadab4c3766e3cbc644095|supporting
 docs/requirements/training-simulation-verification-plan.md|Candidate normalized assignment amendment|aa366423a0f6f6a469765491ee2c2d822b7c7eb8f977f9efe20ae62caa09e59e|registry
-docs/requirements/training-simulation-baseline-applicability.md|BAI-CONTROL-002 candidate|350152393c8f4cdc8feec4c278c319c2fa9f040eef65d074098760428d81df6b|supporting
+docs/requirements/training-simulation-baseline-applicability.md|BAI-CONTROL-002; approved 2026-09-03|b2f6cd0f18e75cb25908a288163f357131beae0c7c6514da6ce41fdbb459c636|supporting
 EOF
 
 while IFS='|' read -r source_path source_version source_hash source_role
@@ -208,7 +208,7 @@ awk -F ',' 'NR > 1 && $3 == "Future" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-future"
 
 if ! cmp -s "${scratch_path}/expected-future" "${scratch_path}/actual-future"; then
-    echo 'future classification or milestone differs from candidate BAI-002 policy' >&2
+    echo 'future classification or milestone differs from approved BAI-002 policy' >&2
     diff -u "${scratch_path}/expected-future" "${scratch_path}/actual-future" >&2 || true
     exit 1
 fi
@@ -218,7 +218,7 @@ awk -F '\t' '$1 ~ /^NON-GOAL-/ {print $1 "|Approved objective scope exclusion re
 awk -F ',' 'NR > 1 && $3 == "Not Applicable" {print $2 "|" $4}' \
     "${inventory_path}" | sort > "${scratch_path}/actual-not-applicable"
 if ! cmp -s "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable"; then
-    echo 'Not Applicable classification or justification differs from candidate BAI-002 policy' >&2
+    echo 'Not Applicable classification or justification differs from approved BAI-002 policy' >&2
     diff -u "${scratch_path}/expected-not-applicable" "${scratch_path}/actual-not-applicable" >&2 || true
     exit 1
 fi

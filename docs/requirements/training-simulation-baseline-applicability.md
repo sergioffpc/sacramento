@@ -1,6 +1,8 @@
 # Baseline Applicability Inventory Control
 
-Status: Candidate successor; project-owner approval pending
+Status: Approved
+
+Approval: Project owner, 2026-09-03
 
 Inventory version: `BAI-002`
 
@@ -20,7 +22,7 @@ Canonical information owner: Project owner.
 | --- | --- |
 | Baseline | `Development Baseline` |
 | Entry identity | `BAI-<requirement_identifier>` |
-| Approval | Candidate — project-owner approval pending |
+| Approval | Approved — project owner, 2026-09-03 |
 | Change impact | Reconciled — no source or classification change pending |
 
 | Controlled source | Version basis | SHA-256 |
