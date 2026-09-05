@@ -12,8 +12,8 @@ language, requirements, architecture, or verification obligations.
 
    | Branch | Canonical source |
    | --- | --- |
-   | Product roles, sessions, scenarios, represented actions, entities, or outcomes | `CONTEXT.md` |
-   | Runtime, identity, packaging, timing, or deployment terminology | `docs/glossary/technical.md` |
+   | Product roles, sessions, scenarios, represented actions, entities, outcomes, or product-level identity and Admission meaning | `CONTEXT.md` |
+   | Runtime implementation, identity mechanism, packaging, timing, or deployment terminology | `docs/glossary/technical.md` |
    | Baselines, profiles, catalogues, inventories, evidence roles, or project controls | `docs/glossary/governance.md` |
    | Functional, process, scope, constraint, non-goal, or deferred entry | `docs/requirements/training-simulation-initial-requirements.md` |
    | Cross-cutting quality requirement | `docs/requirements/training-simulation-non-functional-requirements.md` |

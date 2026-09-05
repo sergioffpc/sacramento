@@ -5,6 +5,11 @@ Status: Accepted
 Latest approved amendment: ADR-0013 separates the offline Content Cooker Tool
 from runtime compositions, project owner, 2026-09-04
 
+Other amendments: ADR-0008 adds Trainee Performance Assessment and retained-
+evidence seams; ADR-0009 moves production-security adapters to the future
+Production Security Baseline; ADR-0012 makes Scenario and Runtime Resource
+ownership explicit. The detailed specification records their exact effects.
+
 Purpose: Record the module-decomposition decision.
 
 Scope: Architecture-level responsibility, dependency direction, and runtime composition.

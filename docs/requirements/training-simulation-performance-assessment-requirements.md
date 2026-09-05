@@ -122,6 +122,11 @@ The three outputs are independent:
 
 **PERF-VERIFICATION-001** — Every normative clause within a listed identifier MUST receive a separately attributable `Pass`, `Fail`, or `Blocked` result under the approved Verification Plan. Objective calculation evidence MUST NOT substitute for Representative Evaluation where `PERF-PROFILE-VALIDATION-001` requires it.
 
+The assignment table above is this baseline's requirement-specific assignment
+surface under the Verification Plan's common methods, evidence rules, and
+acceptance gates. The Verification Plan need not duplicate these rows for them
+to be governed by it.
+
 ## Ambiguity review
 
 The baseline has a closed output boundary, identity association, minimum event and metric inventory, comparison scope, retention rule, access model, aggregation rules, profile-version behavior, response-time threshold, verification method, evidence owner, and final approver. Exact task formulas and thresholds belong only to approved assessment profiles. Full After-Action Review and personnel decisions remain outside this baseline.

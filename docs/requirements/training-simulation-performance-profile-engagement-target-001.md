@@ -99,7 +99,12 @@ The classification of the current target MUST NOT be announced to the Trainee du
 
 ## Presentation and verification
 
-**ETP-PRESENTATION-001** — Training Feedback MAY present current metrics during execution. The proposed Formal Assessment and Leaderboard update MUST be available no later than five seconds after the tenth target closes.
+**ETP-PRESENTATION-001** — Training Feedback MAY present current metrics during
+execution. For a Training Session admitted under the Production Security
+Baseline, the proposed Formal Assessment and Leaderboard update MUST be
+available no later than five seconds after the Training Session ends, provided
+the tenth target closed with valid evidence. Permissive development AUTH MUST
+NOT produce those outputs.
 
 **ETP-VALIDATION-001** — Before this profile is admitted for Formal Assessment or Leaderboard use, at least two in-scope Representative Evaluators MUST independently confirm that its task, comparison conditions, metric interpretation, score weights, and Formal Assessment thresholds are appropriate for Rifleman training at Standard difficulty, and the project owner MUST approve the retained findings for this exact profile version.
 

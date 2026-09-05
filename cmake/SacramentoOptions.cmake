@@ -17,6 +17,9 @@ function(sacramento_apply_cpp_profile target)
       "${target}"
       PRIVATE "$<$<CONFIG:Debug>:/Od>" "$<$<CONFIG:RelWithDebInfo>:/O1>"
               "$<$<CONFIG:Release>:/O2>" "$<$<CONFIG:Release>:/Zi>")
+    if(SACRAMENTO_DEVELOPMENT_ASSERTIONS)
+      target_compile_options("${target}" PRIVATE /UNDEBUG)
+    endif()
   else()
     target_compile_options(
       "${target}"
@@ -28,6 +31,9 @@ function(sacramento_apply_cpp_profile target)
       "${target}"
       PRIVATE "$<$<CONFIG:Debug>:-O0>" "$<$<CONFIG:RelWithDebInfo>:-O1>"
               "$<$<CONFIG:Release>:-O2>" "$<$<CONFIG:Release>:-g>")
+    if(SACRAMENTO_DEVELOPMENT_ASSERTIONS)
+      target_compile_options("${target}" PRIVATE -UNDEBUG)
+    endif()
   endif()
 
   if(SACRAMENTO_SANITIZER STREQUAL "asan-ubsan")

@@ -1,19 +1,20 @@
 # Training Simulation Software Design Baseline
 
-Status: Approved design decisions; realization and evidence remain incomplete
+Status: Candidate successor; project-owner approval pending
 
-Approval: Project owner, 2026-09-04
+Last meaningful change: 2026-09-04
 
-Baseline version: `SDB-001`
+Baseline version: `SDB-002`
 
-Approved predecessor: None
+Approved predecessor: `SDB-001`, project owner, 2026-09-04
 
 Version basis: This control document, the Design Commitment register, and the
 four subordinate SDDs listed below. Any normative edit creates a successor
 Software Design Baseline.
 
-Purpose: Control the first implementation-facing design slice derived from the
-approved requirements and Software Architecture Description.
+Purpose: Control the implementation-facing design slice derived from the
+approved requirements and Software Architecture Description, including exact
+codecs, acceptance, rationale, and visible design risk.
 
 Scope: Process control, common runtime startup, Session Authority composition,
 Trainee Client composition, and the offline Content Cooker Tool.
@@ -21,31 +22,54 @@ Trainee Client composition, and the offline Content Cooker Tool.
 Intended readers: Project owner, designers, implementers, verification authors,
 architects, and reviewers.
 
+Required reviewers: One runtime-design reviewer and one verification-design
+reviewer acting independently, followed by the project owner.
+
 Prerequisites: Approved initial requirements, SAD-003, ADR-0013,
-ARCHSPEC-0013, and the approved governance inventories.
+ARCHSPEC-0013, approved governance inventories, and the retained Software
+Design Document Guidance.
 
 Canonical information owner: Project owner.
 
+## Goals, non-goals, assumptions, and constraints
+
+The goal is to leave no implementation-local choice about startup ordering,
+representation, ownership, failure containment, or acceptance. Success means
+that two independent reviewers derive the same observable behavior and a
+verification author can construct every acceptance case without inventing a
+schema, limit, order, or expected result.
+
+This baseline does not design Training Session gameplay, native adapters,
+orchestration, distribution, a resident launcher, a Content Cooker execution
+platform, or an implementation schedule. It assumes selected identities,
+profiles, catalogues, signing authorization, and destinations were provisioned
+by their owners; every applicable value is nevertheless validated before
+commit. English remains canonical. An upstream requirement, Approved Profile,
+catalogue, or architecture specification continues to own its values and
+meaning.
+
 ## Package and authority
 
-The canonical package is:
+The candidate package is:
 
 | Component | Identity | SHA-256 |
 | --- | --- | --- |
-| Design Commitment register | `SDB-001-DC` | `c3789df10d1a54d973e7a752956d01265ffb594fd215660a79e2e0a1753d28b0` |
-| Process Control Contract SDD | `SDD-0001` | `78e4469f9d18bc68a97d1b5d9718e1e34d5416c4b8d3af8157c59f227892bfa6` |
-| Session Authority Runtime SDD | `SDD-0002` | `62e0cac76b5dd6666b5b27d35328792a539338413da6d71d28f7b86c638a53c2` |
-| Trainee Client Runtime SDD | `SDD-0003` | `e73208d8ecd2142d5bba3df8aab75e8acf686f94639c4d0a551247a551721344` |
-| Content Cooker Tool SDD | `SDD-0004` | `4eb4bb988bd16cfa4b81f2f515cbaeaf75b9d167e9ebca6d77637cdbac15bfef` |
+| Design Commitment register | `SDB-002-DC` | `4a544e3c5eddd88fb8e7c942d9d3d9315dd72fba78e4889261578231b8bbd8df` |
+| Process Control Contract SDD | `SDD-0001` | `3a2e749510cd77e3bde780b8a267cc50c37415433fbdb9b33b1c08f458c75683` |
+| Session Authority Runtime SDD | `SDD-0002` | `d3f2d073e08fbc6e96963b65bedb6be5bcdee9c2e23764d42801cc3873a728d8` |
+| Trainee Client Runtime SDD | `SDD-0003` | `62b1b7d52822e8db2ecde1c71a8c17d9751d0a8c4a63d56bfbdf98c3f9586f7c` |
+| Content Cooker Tool SDD | `SDD-0004` | `34306a0e48cb7e6d295c27873c186502a1a28dac6261c8bc98d8d51ee5cc2c06` |
 
-The CSV register owns each Design Commitment's identity, four mutable states,
-disposition, traces, owner, and verification approach. An SDD owns normative
-obligation text, interface shape, ordering, failure semantics, and rationale;
-it does not restate mutable register state.
+The CSV register owns identity, state, disposition, traces, owner, and
+verification approach. Each SDD owns its obligation text, interface and codec
+tables, ordering, failure semantics, rationale, and acceptance criteria.
+
+Only text explicitly attached to a `DC-*` key, including a table or schema it
+incorporates, is normative software-design text. Other prose is explanatory.
+`MUST` and `MUST NOT` have their RFC 2119 meanings. This package uses no
+normative `SHOULD`, `SHOULD NOT`, `MAY`, or `WILL`.
 
 ## Design state model
-
-The dimensions are independent:
 
 | Dimension | Closed values |
 | --- | --- |
@@ -54,43 +78,84 @@ The dimensions are independent:
 | Realization | `Not Implemented`, `Partial`, `Implemented` |
 | Evidence | `Blocked`, `Planned`, `Pass`, `Fail` |
 
-`Accepted` means that the design decision governs. It never implies that code
-exists, evidence passed, or a baseline was accepted. Incremental approval is
-allowed when every included commitment is internally decided and its external
-blockers are explicit. A design-local unresolved choice blocks approval.
+The dimensions are independent. `Accepted` means only that a design decision
+governs. A design-local unresolved choice blocks approval; an external
+realization or evidence blocker may remain only when it is explicit.
 
-## Commitment rules
+## Commitment and acceptance rules
 
-Each `DC-*` has exactly one governing SDD, one responsible owner, and one
-principal `MUST` or `MUST NOT` obligation. Rationale is separate from the
-obligation. Requirements remain owned by their canonical requirement source;
-an SDD never invents `DREQ-*` identifiers. A missing product obligation must be
-corrected there before the design can trace it.
+Each `DC-*` has one governing SDD, owner, principal `MUST` or `MUST NOT`,
+separate rationale, canonical input trace, and objective `DAC-*` acceptance
+criterion. Requirements remain owned by their canonical sources; a missing
+product obligation is corrected there rather than invented as `DREQ-*`.
 
-Every interface design states ownership, lifetime, order, blocking behavior,
-capacity, and failure semantics. Verification planning covers success, failure,
-bounds, malformed input, interruption, idempotency, cleanup, native-type
-leakage, and adapter conformance where applicable. Doubles may reproduce
-prepared results and failures at real seams, but cannot replace product
-behavior for acceptance.
+Each `DAC-*` fixes preconditions, stimulus, result, prohibited result,
+measurement boundary, configuration, and retained evidence. It is an SDD-local
+criterion, not an Evidence Dependency Inventory `Obligation Key`; product
+`Pass` remains blocked until an approved procedure registers the corresponding
+key and evidence record. Doubles can inject results at real seams but cannot
+replace product behavior for acceptance.
 
-## Initial implementation boundary
+## Input coverage and inverse trace
 
-A partial executable may parse bootstrap input and reject an invalid launch.
-It must not publish `ProcessReady` until every real role-applicable module,
-content view, capacity, adapter, endpoint effect, and required destination is
-prepared and committed as defined by its SDD.
+The register is the canonical forward trace. This inverse index covers every
+authoritative input selected for this design slice. No derived requirement is
+needed because every commitment is governed directly by a canonical input.
 
-Implementation should use one library target per runtime/tool composition plus
-a thin executable composition root. Shared code may own Sacramento process
-types and the Process Control codec; it must not become a generic runtime
-framework, service locator, or owner of role behavior.
+| Input | Design allocation |
+| --- | --- |
+| `REQ-RUNTIME-EXTERNAL-LIFECYCLE-001` | `DC-PROCESS-001`, `DC-PROCESS-003`, `DC-PROCESS-005`, `DC-PROCESS-007`, `DC-PROCESS-008`, `DC-PROCESS-010`, `DC-CLIENT-002` |
+| `REQ-RUNTIME-CONTROL-LOSS-001` | `DC-PROCESS-001`, `DC-PROCESS-004`, `DC-PROCESS-009`; `DC-AUTHORITY-006`; `DC-CLIENT-006` |
+| `REQ-RUNTIME-LAUNCH-SPECIFICATION-001` | `DC-PROCESS-002`, `DC-PROCESS-008`, `DC-PROCESS-013`; `DC-AUTHORITY-002`, `DC-AUTHORITY-008`; `DC-CLIENT-001`, `DC-CLIENT-008` |
+| `REQ-RUNTIME-LAUNCH-SPECIFICATION-002` | `DC-PROCESS-002`, `DC-PROCESS-006`, `DC-PROCESS-009`, `DC-PROCESS-011`, `DC-PROCESS-012`, `DC-PROCESS-013`, `DC-PROCESS-014`, `DC-PROCESS-015`; `DC-AUTHORITY-002`, `DC-AUTHORITY-007`; `DC-CLIENT-001`, `DC-CLIENT-007`, `DC-CLIENT-010` |
+| `REQ-RUNTIME-READINESS-001` | `DC-PROCESS-006`, `DC-PROCESS-014`; `DC-AUTHORITY-001`, `DC-AUTHORITY-003`, `DC-AUTHORITY-007` |
+| `REQ-AUTHORITY-SINGLE-SESSION-001` | `DC-AUTHORITY-001`, `DC-AUTHORITY-008` |
+| `REQ-AUTHORITY-TERMINAL-SETTLEMENT-001` | `DC-AUTHORITY-004`, `DC-AUTHORITY-009` |
+| `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | `DC-AUTHORITY-004`, `DC-AUTHORITY-009` |
+| `REQ-STATE-CONSISTENCY-001` | `DC-AUTHORITY-005`; `DC-CLIENT-009` |
+| `NFR-OBSERVABILITY-INTEGRITY-001` | `DC-AUTHORITY-006` |
+| `REQ-CONTENT-ACTIVATION-001` | `DC-AUTHORITY-002`; `DC-CLIENT-001` |
+| `REQ-READINESS-001` | `DC-CLIENT-002` |
+| `REQ-SESSION-CONNECTION-001` | `DC-CLIENT-003`, `DC-CLIENT-008` |
+| `REQ-CLIENT-RECONNECT-001` | `DC-CLIENT-003` |
+| `REQ-ADMISSION-FAILURE-001` | `DC-CLIENT-004` |
+| `REQ-VOLUNTARY-LEAVE-CONFIRMATION-001` | `DC-CLIENT-005` |
+| `REQ-CONTENT-COOKER-TOOL-001` | `DC-COOKER-001`, `DC-COOKER-009` |
+| `REQ-COOKING-JOB-SPECIFICATION-001` | `DC-COOKER-002`, `DC-COOKER-008`, `DC-COOKER-010`, `DC-COOKER-012` |
+| `REQ-CONTENT-PROCESSING-001` | `DC-COOKER-003`, `DC-COOKER-010`, `DC-COOKER-012` |
+| `REQ-CONTENT-PAIR-ATOMIC-001` | `DC-COOKER-004`, `DC-COOKER-005`, `DC-COOKER-011`, `DC-COOKER-014` |
+| `REQ-CONTENT-RELEASE-001` | `DC-COOKER-004` |
+| `REQ-COOKING-JOB-PROVENANCE-001` | `DC-COOKER-006` |
+| `REQ-CONTENT-SIGNING-001` | `DC-COOKER-008`, `DC-COOKER-013` |
+| `DEFERRED-CONTENT-COOKER-PLATFORM-001` | `DC-COOKER-007`; `SDR-003` |
+
+## Design risks, assumptions, and deferred decisions
+
+| ID | State | Item and impact | Owner | Resolution criterion and due point | Blocking effect |
+| --- | --- | --- | --- | --- | --- |
+| `SDR-001` | Risk | Native pipes may violate complete-frame publication or terminal reserve under short writes. | Runtime composition | Native contract suite passes before adapter acceptance. | Blocks adapter `Implemented` and `Pass`. |
+| `SDR-002` | Risk | Native publication may report ambiguous durability after interruption. | Content Cooker Tool | Publisher suite proves `Committed` or `Not Committed` at every boundary before native acceptance. | Blocks native publisher `Implemented` and `Pass`. |
+| `SDR-003` | Deferred | Content Cooker platform, hardware profile, packaging, and distribution are unselected. | Project owner | Approve the baseline named by `DEFERRED-CONTENT-COOKER-PLATFORM-001`. | Blocks `DC-COOKER-007` evidence `Pass`. |
+| `SDR-004` | Assumption | Provisioned identity bytes and paths are canonical under their owning contracts. | Project and deployment owners | Re-evaluate when an identity or platform path model changes. | Trigger requires an SDB successor. |
+| `SDR-005` | Risk | The 64 KiB launch and 1 MiB cooking-job bounds may not fit the largest admitted closure. | Runtime composition and Content Cooker Tool | Prove the largest approved closure fits with 10% headroom before implementation planning, or revise the design. | Blocks planning for a failing input. |
+| `SDR-006` | Review gate | Different interpretations would invalidate approval. | Independent reviewers | Both restate every `DC-*` and derive its `DAC-*` with no unresolved difference. | Blocks SDB-002 approval. |
+
+## Decisions, rationale, and trade-offs
+
+| Decision | Choice and rationale | Rejected alternative | Reconsideration trigger |
+| --- | --- | --- | --- |
+| `SDD-DEC-001` | Fixed binary framing plus closed deterministic CBOR gives bounded, inspectable, portable contracts. | Native structs leak ABI; JSON varies; generic Protobuf/CBOR permits unknown behavior. | A required field cannot fit v1 or a platform lacks a conforming codec. |
+| `SDD-DEC-002` | Finish reversible endpoint effects before semantic-owner commit. | Post-commit bind may strand committed owners after endpoint failure. | An accepted requirement requires post-commit allocation. |
+| `SDD-DEC-003` | Keep lifecycle and ReleasePublisher interfaces deep and composition roots thin. | General filesystem/socket interfaces and service locators distribute policy. | A second real caller cannot use the seam without violating ownership. |
+| `SDD-DEC-004` | Use specification-selected finite capacities and document bounds. | Adaptive growth makes readiness depend on ambient state. | An approved profile proves a different finite bound is necessary. |
 
 ## Change and acceptance control
 
-A requirement, Architecture Claim, SAD view, SDD obligation, interface, or
-state change triggers conservative impact traversal through the Evidence
-Dependency Inventory. Editing any pinned SDD or the register creates an SDB
-successor and requires a new package review. Acceptance requires all included
-commitments to be `Accepted / Included / Implemented / Pass`; external future
-decisions remain explicit blockers and cannot be inferred away.
+A requirement, claim, SAD view, SDD obligation, interface, codec, criterion,
+risk, or state change triggers conservative Evidence Dependency Inventory
+impact traversal. Editing a pinned SDD or register creates an SDB successor.
+
+Candidate `SDB-002` cannot become approved until `SDR-006` passes and every
+included commitment is `Accepted / Included`. Product acceptance additionally
+requires `Implemented / Pass` and resolution of every applicable external
+decision.

@@ -54,6 +54,11 @@ A working branch is deleted after all required integrations complete.
 - Integration must preserve a linear permanent-branch history. Squash is the
   default for a single coherent change; rebase is permitted when every source
   commit is independently useful and conforming.
+- A multi-commit `release/*` or `hotfix/*` integration preserves each reviewed,
+  independently useful commit when entering `main`. The follow-up pull request
+  to `develop` replays those exact corrections with `cherry-pick -x`; each
+  resulting commit is revalidated, conforming, and signed, and the pull request
+  records the source-to-replayed commit mapping.
 - The pull-request title must be a valid Conventional Commit header because it
   becomes the commit header for squash integration.
 

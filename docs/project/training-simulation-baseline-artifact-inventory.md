@@ -1,16 +1,12 @@
 # Training Simulation Baseline Artifact Inventory
 
-Status: Approved
+Status: Candidate; project-owner approval pending
 
-Approval: Project owner, 2026-09-04
+Inventory version: `BARTINV-009`
 
-Inventory version: `BARTINV-008`
+Package SHA-256: `c2afc4ba1342d34e204f8db094c0eeea9e7f24329e2b93a7c597f9862ede6b0e`
 
-Package SHA-256: `313ab54da9b421b3f1d8846e63b7914ccad95c1e0c1b47df4e6fa8205f54637e`
-
-Approved package SHA-256: `313ab54da9b421b3f1d8846e63b7914ccad95c1e0c1b47df4e6fa8205f54637e`
-
-Approved predecessor: `BARTINV-007@sha256:5b49f1c057bfeb9c840fc388a5444cdc683b0a2bc8dd12215b783147934229dd`, project owner, 2026-09-04
+Approved predecessor: `BARTINV-008@sha256:313ab54da9b421b3f1d8846e63b7914ccad95c1e0c1b47df4e6fa8205f54637e`, project owner, 2026-09-04
 
 Version basis: The package SHA-256 and the per-artifact SHA-256 versions in the
 three inventory-package documents; any governed artifact, trace,
@@ -48,15 +44,15 @@ Canonical information owner: Project owner.
 - [Architecture Claim traces](#architecture-claim-traces)
 - [Reconciliation and validation](#reconciliation-and-validation)
 - [Current acceptance boundary](#current-acceptance-boundary)
-- [`BARTINV-008` impact analysis](#bartinv-008-impact-analysis)
+- [`BARTINV-009` impact analysis](#bartinv-008-impact-analysis)
 - [Change control](#change-control)
 
 ## Inventory package
 
-`BARTINV-008` is one atomic version comprising this control document, the
+`BARTINV-009` is one atomic version comprising this control document, the
 [artifact register](training-simulation-baseline-artifacts.csv), and the
 [Architecture Claim trace register](training-simulation-architecture-claim-traces.csv).
-Those three files use `BARTINV-008@sha256:<package-digest>` as their exact
+Those three files use `BARTINV-009@sha256:<package-digest>` as their exact
 version. The digest hashes their sorted paths and contents after replacing each
 embedded copy of the digest with 64 zeroes, avoiding a cyclic self-hash while
 binding the complete package content. Every other artifact version is its
@@ -77,8 +73,8 @@ must resolve to at least one artifact. Overlap is invalid.
 | --- | --- | --- |
 | `docs/adr/*.md` | `Architecture` | Documentation Inventory `ADR-0001` through `ADR-0013` mapping |
 | `docs/architecture/*.md` | `Architecture` | Documentation Inventory `ARCHSPEC-0003` through `ARCHSPEC-0013`, `RRTI-001`, and `SAD-003` mappings |
-| `docs/design/*.md` | `Design` | Documentation Inventory `SDB-001` and `SDD-0001` through `SDD-0004` mappings |
-| `docs/design/*.csv` | `Design` | Documentation Inventory `SDB-001-DC` mapping |
+| `docs/design/*.md` | `Design` | Documentation Inventory candidate `SDB-002` and `SDD-0001` through `SDD-0004` successor mappings |
+| `docs/design/*.csv` | `Design` | Documentation Inventory `SDB-002-DC` mapping |
 | `CONTEXT.md` | `Design` | Documentation Inventory `DOCINFO-DOMAIN-LANGUAGE-001` mapping |
 | `docs/glossary/*.md` | `Design` | Documentation Inventory technical and governance language mappings |
 | `docs/requirements/training-simulation-initial-requirements.md` | `Design` | Canonical functional and process requirement source |
@@ -146,7 +142,7 @@ The artifact register columns are normative:
 | `trace_basis` | Concise artifact-specific satisfaction, deferral, or objective non-applicability basis |
 
 `Satisfies` belongs to an `Included` artifact. `Intentional Deferral` belongs
-to a `Future` artifact and names only `Future` requirements from `BAI-005`.
+to a `Future` artifact and names only `Future` requirements from `BAI-006`.
 `Not Applicable` belongs to a `Not Applicable` artifact and states an objective
 basis. Ranges, wildcard-only traces, section names, and unknown identifiers are
 invalid.
@@ -157,10 +153,10 @@ The claim register maps every stable `AC-*` key in ADR-0010's canonical
 register to one governing architecture artifact, its exact four-dimensional
 state, a claim disposition, and the complete expansion of its primary
 requirement traces. Each trace records its own `Satisfies`, `Intentional
-Deferral`, or `Not Applicable` relation from the matching `BAI-005`
+Deferral`, or `Not Applicable` relation from the matching `BAI-006`
 disposition. The artifact supplies its exact version, location, class, status,
 and owner. A range in the architecture source is expanded according to the
-ordered `BAI-005` requirement population and is never retained as a wildcard
+ordered `BAI-006` requirement population and is never retained as a wildcard
 or textual range in this inventory.
 
 ## Reconciliation and validation
@@ -187,27 +183,30 @@ review decisions.
 
 ## Current acceptance boundary
 
-Approved `BARTINV-008` reconciles 86 artifacts: 26 Architecture, 19 Design,
+Candidate `BARTINV-009` reconciles 86 artifacts: 26 Architecture, 19 Design,
 18 Implementation, and 23 Verification. Every one of the 90 Architecture
-Claims resolves to its governing artifact and exact primary
-requirement identifiers.
+Claims resolves to its governing artifact and exact primary requirement
+identifiers. The six existing design-artifact identities now bind candidate
+`SDB-002`, its 48 proposed Design Commitments, exact codecs, acceptance
+criteria, visible risks, rationale, and inverse input traceability.
 
 The inventory records artifacts and trace relations; it does not claim product
 realization, verification evidence, Production Security Baseline or Platform
 Operations Baseline satisfaction, or Development Baseline acceptance. The
-approved Evidence Dependency Inventory successor is `EDI-006`. Neither inventory can
+candidate Evidence Dependency Inventory successor is `EDI-007`. Neither inventory can
 support `Pass` or `Unaffected` without coverage validation, substantive review,
 and exact-version project-owner approval.
 
-## `BARTINV-008` impact analysis
+## `BARTINV-009` impact analysis
 
-This successor preserves the approved `BARTINV-007` population and adds
-ADR-0013, ARCHSPEC-0013, the `SDB-001` package, and its five new Architecture
-Claims. It records `SAD-003`, `BAI-005`, the 72-document inventory, and all
-recursively changed exact versions. Every changed source identity and
-predecessor-bound validation or review result is `Affected`; no accepted
+This successor preserves the approved `BARTINV-008` artifact identities,
+classes, baseline status, and Architecture Claim population. It records the
+documentation-audit corrections, candidate `SDB-002`, expanded exact design
+traces, and all recursively changed exact versions. `BART-DES-014` through
+`BART-DES-019`, every new or changed Design Commitment relation, and every
+predecessor-bound validation or review result are `Affected`; no accepted
 product evidence is retained as `Unaffected`. Exact-version project-owner
-approval was granted on 2026-09-04.
+approval remains pending.
 
 ## Change control
 
