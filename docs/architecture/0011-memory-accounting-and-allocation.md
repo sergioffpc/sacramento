@@ -198,6 +198,11 @@ Failure follows the resource class:
 | Failure after canonical commitment prevents correctness | Apply the smallest accepted failure boundary that preserves canonical integrity |
 | Diagnostic event capacity exhausted | Discard detail and increment explicit loss accounting |
 
+An exceed action compares the budget's declared controlled quantity against its
+limit at the decision instant. A recorded peak is evidence for calibration and
+approval unless the budget explicitly declares peak value as that controlled
+quantity; it does not retroactively reject an earlier operation.
+
 Canonical state, mandatory reconstruction records, and required evidence are
 never elastic. A cache is evictable only when its owner declares it
 reconstructible and non-canonical with a bounded eviction contract. Memory

@@ -70,8 +70,11 @@ conflict, apply this precedence:
 
 1. approved Sacramento requirements and canonical domain vocabulary;
 2. this baseline and its current approved exception records;
-3. repository-owned executable configurations;
-4. formatter output for formatting it controls.
+3. repository-owned executable configurations.
+
+Formatter output is the deterministic result of applying the configuration; it
+is evidence of formatting compliance rather than a separate source of
+authority.
 
 The Google C++ Style Guide informed this profile but is not normative. Every
 adopted rule is stated here; a live external guide is never required to determine
@@ -268,7 +271,9 @@ their dedicated sections rather than by C++ naming rules.
 
 ### Formatting
 
-- The repository's pinned clang-format 22.1.2 configuration is authoritative.
+- The repository's pinned clang-format 22.1.2 configuration is the executable
+  realization of this baseline's formatting rules. If the two conflict, this
+  baseline prevails and the configuration MUST be corrected before use.
 - The style is based on Google formatting with an 80-column normal limit.
 - Spaces, indentation, brace placement, wrapping, pointer/reference alignment,
   include grouping, and include sorting are determined solely by that config.

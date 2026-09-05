@@ -2129,11 +2129,15 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 - **NON-GOAL-AUTH-AUDIT-INTERFACE-001** — An in-product AUTH audit administration, consultation, search, or export interface.
 - **NON-GOAL-AUTH-CREDENTIAL-ADMINISTRATION-001** — In-product identity or authenticator issuance, enrollment, replacement, recovery, reset, revocation, suspension, or unlocking.
 - **NON-GOAL-AUTH-RISK-ENGINE-001** — Adaptive, behavioral, location-based, reputation-based, or risk-scored authentication and authorization.
-- **NON-GOAL-AUTH-CROSS-AUTHORITY-SESSION-001** — Detection or prevention of concurrent use of one identity across different Session Authorities.
+- **NON-GOAL-AUTH-CROSS-AUTHORITY-SESSION-001** — Non-goal classification of
+  the Development Baseline boundary defined by `SCOPE-AUTH-CROSS-AUTHORITY-001`;
+  it adds no independent identity-use rule.
 - **NON-GOAL-MEDICAL-001** — First aid, stabilization, treatment, or medical recovery.
 - **NON-GOAL-SESSION-SAVE-001** — Durable save or checkpoint of active simulation state, resumption from persisted simulation state, or restoration of an Admission after client or Session Authority process loss; retained Session Evidence Sets are replay evidence and never live-session input.
 - **NON-GOAL-CUSTOM-EDITOR-001** — A custom graphical Map or Scenario editor.
-- **NON-GOAL-CONTENT-DOWNLOAD-001** — Distribution, download, patching, or streaming of content from Session Authority to clients.
+- **NON-GOAL-CONTENT-DOWNLOAD-001** — Non-goal classification of the content
+  distribution boundary defined by `CONSTRAINT-CONTENT-DISTRIBUTION-001`; it
+  adds no independent content-transfer rule.
 - **NON-GOAL-CONTENT-MIGRATION-001** — Content migration and backward or forward compatibility.
 - **NON-GOAL-AMMUNITION-POOL-001** — Shared abstract ammunition pools.
 - **NON-GOAL-AMMUNITION-REPACKING-001** — Manual transfer or repacking of cartridges between magazines.

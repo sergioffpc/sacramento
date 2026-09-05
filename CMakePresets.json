@@ -46,7 +46,10 @@
     {
       "name": "dev-debian",
       "inherits": "debian",
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SACRAMENTO_DEVELOPMENT_ASSERTIONS": "ON"
+      }
     },
     {
       "name": "debug-debian",
@@ -111,7 +114,10 @@
     {
       "name": "dev-windows",
       "inherits": "windows",
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SACRAMENTO_DEVELOPMENT_ASSERTIONS": "ON"
+      }
     },
     {
       "name": "debug-windows",

@@ -308,7 +308,8 @@ External destination becomes unavailable
 
 ## Non-production AUTH adapter and future security
 
-The Development Baseline may compose one permissive `AUTH & Admission`
+When selected by the Runtime Launch Specification, the Development Baseline
+may compose one permissive `AUTH & Admission`
 adapter that unconditionally grants the declared permissions to Synthetic
 Identities for the Trainee, Client Device, and Session Authority identity
 classes supplied by immutable launch configuration. It still exercises finite

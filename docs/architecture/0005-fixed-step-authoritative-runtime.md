@@ -120,8 +120,9 @@ session recovery.
 Prediction is presentation-only. Clients may predict their own eligible local
 actions, must reconcile to authoritative versions, and may never create
 Scenario results, injuries, item dispositions, or lifecycle outcomes.
-Presentation consumes only published committed views and may interpolate or
-omit rendered frames without changing Simulation.
+Presentation consumes Prediction's immutable presentation view, which is
+derived from published committed views, and may interpolate or omit rendered
+frames without changing Simulation.
 
 When a Trainee receives Technical Removal, the client discards prediction newer
 than the last committed view and receives no further playable state. Other

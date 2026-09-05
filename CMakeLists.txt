@@ -24,6 +24,10 @@ option(SACRAMENTO_COVERAGE "Enable LLVM source-based coverage" OFF)
 option(SACRAMENTO_FUZZING "Enable libFuzzer targets" OFF)
 option(SACRAMENTO_REPRODUCIBLE "Enable reproducible code generation" OFF)
 option(SACRAMENTO_ACCEPTANCE "Enable acceptance observability" OFF)
+option(
+  SACRAMENTO_DEVELOPMENT_ASSERTIONS
+  "Preserve development assertions even in optimized configurations"
+  OFF)
 set(SACRAMENTO_SANITIZER "" CACHE STRING "asan-ubsan, asan, or tsan")
 set_property(
   CACHE SACRAMENTO_SANITIZER

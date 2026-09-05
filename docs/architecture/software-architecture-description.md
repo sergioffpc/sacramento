@@ -336,9 +336,10 @@ Process start
   -> release resources, publish ProcessTerminated and exit classification
 ```
 
-A process that fails before `ProcessReady` accepts no connection or Admission. The
-Development Baseline exercises the same AUTH and Admission interface using only
-launch-declared Synthetic Identities and explicitly unauthenticated evidence.
+A process that fails before `ProcessReady` accepts no connection or Admission.
+When the permissive adapter is selected, the Development Baseline exercises the
+same AUTH and Admission interface using only launch-declared Synthetic
+Identities and explicitly unauthenticated evidence.
 It does not perform or prove production authentication or authorization.
 
 ### Canonical Tick and client pacing
@@ -346,14 +347,15 @@ It does not perform or prove production authentication or authorization.
 ```text
 Runtime sequence — authority and client cadences are independent
 
-Authority at 240 Hz:
+Authority at each configured fixed step:
   seal eligible ordered Intentions
   -> derive candidate state and effects
   -> preserve complete reconstruction record
   -> atomically commit one Canonical Tick and composite state version
   -> publish immutable replication and evidence views
 
-Client Prediction at 240 Hz || Presentation at 60 Hz:
+Client Prediction at its configured cadence || Presentation at its independent
+configured cadence:
   local Intention -> predicted view -> present
   confirmed immutable update -> correct/replace prediction -> present
 ```
@@ -469,9 +471,11 @@ its schema, representative resources, and evidence gates are approved.
 
 ### Trust and retained evidence
 
-Content signing, Application Release trust, identity/AUTH trust,
-administrative authority, and retained-evidence custody are separate trust
-domains with independent provisioning, rotation, and compromise scopes. A
+Content Signing Trust References, Package Trust References, the Identity
+Authority, and administrative custody trust are four separate trust domains
+with independent provisioning, rotation, and compromise scopes. Administrative
+custody covers audit checkpoints, evidence destinations, and durable handoff
+receipts without acquiring content, package, or identity authority. A
 credential or result from one domain cannot authorize another.
 
 ```text

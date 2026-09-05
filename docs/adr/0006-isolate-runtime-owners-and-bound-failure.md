@@ -12,6 +12,11 @@ Prerequisites: ADR-0004 and ADR-0005.
 
 Canonical information owner: Project owner.
 
+Amendments: ADR-0008 defines retained-evidence seams and replaces client
+recovery; ADR-0009 moves production AUTH durability and recovery to the future
+Production Security Baseline while preserving their interfaces and failure
+invariants.
+
 ## Decision
 
 Every mutable state class has one exclusive responsibility owner. Owners

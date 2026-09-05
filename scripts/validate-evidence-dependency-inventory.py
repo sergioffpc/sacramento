@@ -110,7 +110,7 @@ class CaseClass(StrEnum):
 
 class InjectedCondition(StrEnum):
     NONE = "None"
-    STALE = "Source exact version differs from BARTINV-008"
+    STALE = "Source exact version differs from BARTINV-009"
     UNCLASSIFIED = "Relation type is empty"
     MISSING_RELATION = "Known validator input relation is removed"
     INVARIANCE = "Reproducible analysis retains exact obligation-level criterion and Pass"
@@ -205,15 +205,15 @@ def validate_controls(errors: list[str]) -> str:
     bart_digest = extract_unique_match(r"^Package SHA-256: `([^`]+)`$", bart, "BART digest", errors)
     bai_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", bai, "BAI version", errors)
     doc_version = extract_unique_match(r"^Inventory version: `([^`]+)`$", docinv, "DOCINV version", errors)
-    if version != "EDI-006":
-        errors.append("EDI control: expected EDI-006")
-    if bart_version != "BARTINV-008":
-        errors.append("EDI control: expected BARTINV-008")
-    if bai_version != "BAI-005":
-        errors.append("EDI control: expected BAI-005")
-    if doc_version != "DOCINV-011":
-        errors.append("EDI control: expected DOCINV-011")
-    expected_bart_identity = f"BARTINV-008@sha256:{bart_digest}"
+    if version != "EDI-007":
+        errors.append("EDI control: expected EDI-007")
+    if bart_version != "BARTINV-009":
+        errors.append("EDI control: expected BARTINV-009")
+    if bai_version != "BAI-006":
+        errors.append("EDI control: expected BAI-006")
+    if doc_version != "DOCINV-012":
+        errors.append("EDI control: expected DOCINV-012")
+    expected_bart_identity = f"BARTINV-009@sha256:{bart_digest}"
     if expected_bart_identity not in edi:
         errors.append("EDI control: stale Baseline Artifact Inventory identity")
     if not PACKAGE_DIGEST_RE.fullmatch(digest):
@@ -270,7 +270,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[identifier] = Node(
             identifier,
             NodeClass.REQUIREMENT,
-            "BAI-005",
+            "BAI-006",
             BAI.relative_to(ROOT).as_posix(),
         )
 
@@ -302,7 +302,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[claim] = Node(
             claim,
             NodeClass.CLAIM,
-            "BARTINV-008",
+            "BARTINV-009",
             CLAIMS.relative_to(ROOT).as_posix(),
         )
         edges.append(
@@ -360,7 +360,7 @@ def import_nodes(errors: list[str]) -> tuple[dict[str, Node], list[Edge]]:
         nodes[commitment] = Node(
             commitment,
             NodeClass.COMMITMENT,
-            "SDB-001",
+            "SDB-002",
             DESIGN_COMMITMENTS.relative_to(ROOT).as_posix(),
         )
         target = sdd_artifacts.get(sdd)

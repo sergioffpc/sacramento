@@ -12,6 +12,9 @@ Prerequisites: ADR-0004.
 
 Canonical information owner: Project owner.
 
+Amendment: ADR-0008 replaces the former disconnected-client pause and recovery
+behavior with irreversible Technical Removal and non-restorable session state.
+
 ## Decision
 
 The Session Authority advances Simulation through deterministic, fixed-duration

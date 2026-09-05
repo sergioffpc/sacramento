@@ -36,10 +36,10 @@ and replaces client recovery with irreversible Technical Removal.
 
 The Session Authority process contains isolated execution domains for Session
 Lifecycle, Simulation, Scenario, Protocol & Replication, and AUTH & Admission.
-The Trainee Client process contains Presentation, Input & Interaction, and
-client-side Protocol & Replication domains. Durable audit, evidence export,
-observability, and the Trainee Performance Assessment Module operate outside the Canonical
-Tick through bounded adapters.
+The Trainee Client process contains Prediction, Presentation, Input &
+Interaction, and client-side Protocol & Replication domains. Durable audit,
+evidence export, observability, and the Trainee Performance Assessment Module
+operate outside the Canonical Tick through bounded adapters.
 
 These are responsibility and scheduling boundaries, not prescribed operating
 system processes, threads, services, databases, queues, or deployment products.
@@ -53,6 +53,7 @@ system processes, threads, services, databases, queues, or deployment products.
 | Scenario | Objective progression, configured duration, empty-Team and other Scenario result rules, and resolved terminal result |
 | Protocol & Replication | Connection state, ingress validation, intention envelopes, acknowledgement state, replication baselines, and delivery cursors |
 | AUTH & Admission | AUTH Attempt and Operation state, identity bindings, Admission lifecycle, and AUTH Audit Commit Units |
+| Prediction | Correctable non-authoritative client state derived from confirmed replication updates and local Intentions |
 | Presentation | Rendered and audio state derived from immutable published views |
 | Input & Interaction | Raw device input and client-local intention construction |
 | Trainee Performance Assessment Module | Identity-bound assessment events, measures, results, approvals, corrections, and retained history |
@@ -121,6 +122,7 @@ Each ingress path has an explicit capacity and overflow policy:
 | Raw pre-Admission traffic | Reject or discard before it creates canonical work |
 | Admitted intentions | Reject excess or late intentions under the Runtime Execution Profile; never reorder accepted work by arrival time |
 | Replication to a slow client | Coalesce obsolete unsent views or require a new baseline; confirmed connection loss invokes the phase-appropriate departure or Technical Removal rule |
+| Prediction | Discard an obsolete predicted revision, apply the latest confirmed correction, and never delay canonical progress |
 | Presentation | Drop obsolete unpublished frames; never mutate canonical state |
 | Observability | Buffer within bounds, then emit explicit loss accounting; never block the tick |
 | Assessment and ordinary evidence export | Buffer within bounds, retry idempotently, and expose lag or incomplete evidence without feeding back into Simulation |

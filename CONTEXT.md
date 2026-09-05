@@ -6,7 +6,9 @@ Approval: Project owner, 2026-09-04
 
 Purpose: Define the canonical language of the Training Simulation product and represented training world.
 
-Scope: Product roles, sessions, scenarios, actions, represented entities, and outcomes; technical mechanisms and project governance use the linked glossaries.
+Scope: Product roles, sessions, scenarios, actions, represented entities,
+outcomes, and the product-level meaning of identity and Admission concepts;
+implementation mechanisms and project governance use the linked glossaries.
 
 Intended readers: Project stakeholders, requirements reviewers, designers, implementers, and verification authors.
 
