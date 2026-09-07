@@ -6,15 +6,9 @@ Approval: Project owner, 2026-09-03
 
 Purpose: Define the architecture-level trust, persistence, retention, recovery, and Technical Removal boundaries for the initial baseline.
 
-Scope: Live session state, AUTH audit, reconstruction and terminal evidence, Observability, performance assessment, verification evidence, runtime artifacts, and their trust and custody seams; concrete storage, cryptography, orchestration, and deployment topology remain outside this decision.
-
 Amendment: ADR-0009 retains these semantic ownership and trust-domain seams but moves production authentication, authorization, durable AUTH audit, revocation, and operational trust mechanisms to the future Production Security Baseline.
 
-Canonical information owner: Project owner
-
-Intended readers: Architects, designers, implementers, security reviewers, verification authors, operators, Qualified Specialists, and Representative Evaluators.
-
-Prerequisites: `CONTEXT.md`, ADR-0004 through ADR-0007, and the approved functional, non-functional, observability, performance-assessment, and verification baselines.
+Owner: Project owner
 
 Sacramento keeps all live Training Session state inside its one ephemeral
 Session Authority process, removes a Trainee irreversibly when that Trainee's

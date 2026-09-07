@@ -7,15 +7,7 @@ Approval: Project owner, 2026-09-04
 Purpose: Record the CPU and GPU memory accounting, allocation, budget, and
 failure-boundary decision.
 
-Scope: Real-time Trainee Client and Session Authority runtime memory.
-
-Intended readers: Architects, designers, implementers, performance engineers,
-and verification authors.
-
-Prerequisites: ADR-0003 through ADR-0010 and the approved C++ engineering,
-non-functional, observability, and verification baselines.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 

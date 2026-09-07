@@ -11,24 +11,14 @@ from runtime lifecycle, project owner, 2026-09-04
 Purpose: Record the runtime-resource identity, role-pack format, validation,
 materialization, ownership, and publication decision.
 
-Scope: Content authoring identity metadata, cooking, role-pack representation,
-runtime validation and materialization, immutable resource access, and startup
-evidence.
-
-Intended readers: Architects, content-pipeline designers, engine implementers,
-security reviewers, performance engineers, and verification authors.
-
-Prerequisites: ADR-0003 through ADR-0011 and the approved C++ engineering,
-functional, non-functional, observability, and verification baselines.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 
 Sacramento identifies each independently referenced Runtime Resource with one
 opaque UUIDv4 Resource Identity, separates persistent Resource References from
 typed execution-local Runtime Resource Handles, and admits resources only
-through a closed Runtime Resource Type Inventory. Authority and Client
+through exact, approved responsibility-owned type contracts. Authority and Client
 projections have distinct resource identities and one semantic owner each;
 Content Admission coordinates one atomic publication without becoming a
 generic resource owner or manager.
@@ -59,7 +49,7 @@ already defined by ARCHSPEC-0006.
 Separating semantic identity, package location, exact bytes, and execution-local
 access keeps authoring changes from breaking references and keeps filesystem,
 crypto, vendor, and allocator representations out of behavior-owner seams. A
-closed type inventory and eager atomic publication make hostile-input failure,
+closed set of admitted types and eager atomic publication make hostile-input failure,
 capacity, cleanup, and ownership testable without a universal
 `ResourceManager`.
 
@@ -72,7 +62,8 @@ and no content-file dependency after runtime readiness.
 The complete contracts, format, validation order, failure precedence,
 materialization rules, evidence gates, alternatives, and traces are in the
 [runtime-resource architecture specification](../architecture/0012-runtime-resource-and-role-pack-architecture.md).
-The separately governed [Runtime Resource Type
-Inventory](../architecture/training-simulation-runtime-resource-type-inventory.md)
-remains a candidate until every admitted type has an exact schema, limits,
-dependencies, and materializer contract.
+The [type-admission contract](../architecture/0012-runtime-resource-and-role-pack-architecture.md#type-and-reference-model)
+requires exact schemas, limits, dependencies and materializers. No concrete type
+is currently admitted. The project owner removed the separate candidate inventory
+on 2026-09-07 under ADR-0014; this changes its documentary representation, not
+type admission or product behavior.

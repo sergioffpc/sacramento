@@ -1,0 +1,35 @@
+@startuml
+title Authority lifecycle — ownership and failure boundaries
+hide footbox
+autonumber
+actor "External provisioning" as P
+participant "Session Authority Runtime" as A
+participant "Trainee Client Runtime" as C
+participant "Evidence custody seam" as E
+P -> A : start with immutable launch closure
+A -> A : validate all inputs; materialize; reserve; bind
+alt startup rejected
+  A --> P : stable failure; cleanup; no ProcessReady / Admission
+else startup valid
+  A --> P : ProcessReady
+  C -> A : Admission using the selected adapter
+  A -> A : preparation; active Training Session
+  opt active client connection lost
+    A -> A : atomic Technical Removal; end Admission; withdraw items
+    note right of A : Others continue unless Scenario termination applies.
+  end
+  alt orderly terminal transition
+    A -> A : settle begun Tick; resolve result; close Admissions; seal evidence
+    A -> E : finite durable handoff
+    alt durable receipt
+      E --> A : attributable durable receipt
+      A --> P : cleanup; clean exit
+    else failed / expired receipt
+      A --> P : cleanup; non-clean terminal failure
+    end
+  else authority process lost
+    note over A,E : Ephemeral live session is not recoverable from evidence.
+    P -> A : new process, new Training Session from initial state
+  end
+end
+@enduml

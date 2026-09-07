@@ -84,9 +84,13 @@ The [Training Simulation Observability Contract](training-simulation-observabili
 
 **NFR-OBSERVABILITY-RETENTION-001** — In production, core operational signals MUST remain retrievable for at least 30 days after collection. Formal acceptance evidence remains governed by the verification plan rather than this operational retention period. A future Session Authority capability-availability target MUST define its own evidence and retention window.
 
+Scope for `NFR-OBSERVABILITY-RETENTION-001`: Future — Platform Operations Baseline.
+
 **NFR-OBSERVABILITY-INTEGRITY-001** — During acceptance, loss or discard of any core signal required by a measured obligation MUST make that obligation's result `Blocked` and MUST NOT produce `Pass`.
 
 **NFR-OBSERVABILITY-ALERTING-001** — In production, each increase in a core lost-or-discarded-signal counter MUST produce an operational alert no later than 60 seconds after the triggering observation. A future Session Authority capability-availability target MUST define any readiness or launch-failure alerting obligation.
+
+Scope for `NFR-OBSERVABILITY-ALERTING-001`: Future — Platform Operations Baseline.
 
 **NFR-OBSERVABILITY-TIME-001** — Throughout an acceptance run, timestamps used to calculate an interval between different machines MUST use clocks whose measured absolute offset remains no greater than 1 millisecond. If that bound cannot be established for any part of the applicable measurement window, every affected obligation MUST receive `Blocked` and MUST NOT receive `Pass`.
 
@@ -106,7 +110,11 @@ The [Training Simulation Observability Contract](training-simulation-observabili
 
 **NFR-AUTH-ADMISSION-001** — Under the future Production Security Baseline, after completion of the Trainee Authentication Act, when up to 16 initial Admission attempts execute concurrently on the exact approved Session Authority Reference Hardware Profile, at least 99 percent of those attempts MUST reach a terminal success or denial result, including the required AUTH Audit Commit Unit, within five seconds. This target does not apply to or become satisfied by the permissive development adapter.
 
+Scope for `NFR-AUTH-ADMISSION-001`: Future — Production Security Baseline.
+
 **DEFERRED-NFR-AUTHORITY-CAPABILITY-AVAILABILITY-001** — Availability of the capability to start and operate an assigned ephemeral Session Authority belongs to a separately approved Platform Operations Baseline defining its subject, stimulus, measurement window, exclusions, evidence and threshold. No process-lifetime, fleet, scheduler, Kubernetes, or cluster availability target applies to the Development Baseline.
+
+Scope for `DEFERRED-NFR-AUTHORITY-CAPABILITY-AVAILABILITY-001`: Future — Platform Operations Baseline.
 
 **CONSTRAINT-NFR-TEAM-001** — Ongoing first-party engineering and maintenance MUST require no more than two concurrently assigned human generalists; AI agents MAY support them and specialists MAY perform bounded reviews.
 

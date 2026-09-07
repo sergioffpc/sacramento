@@ -8,19 +8,10 @@ Purpose: Define the exact composition, startup, concurrency, readiness,
 shutdown, ownership, and acceptance design for one Session Authority process
 and its single Training Session.
 
-Scope: Role launch view, owner interfaces, preparation, endpoint publication,
-Training Session preparation, execution domains, and terminal settlement.
+Review focus: Changed runtime semantics and verification criteria under ADR-0014;
+no fixed reviewer count or full-package reread is required for a routine edit.
 
-Intended readers: Authority designers, implementers, verification authors,
-operators, and evidence custodians.
-
-Required reviewers: Runtime-design reviewer and verification-design reviewer.
-
-Prerequisites: SDB-002, SDD-0001, SAD-003, ARCHSPEC-0005, ARCHSPEC-0006,
-ARCHSPEC-0008, ARCHSPEC-0009, ARCHSPEC-0012, and the requirements traced by
-`DC-AUTHORITY-*` in `SDB-002-DC`.
-
-Canonical information owner: Session Authority composition.
+Owner: Session Authority composition.
 
 ## Goals, boundary, and ownership
 

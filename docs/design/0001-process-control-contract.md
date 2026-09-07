@@ -8,19 +8,10 @@ Purpose: Define the exact process-control, bootstrap, Runtime Launch
 Specification, startup, failure, and acceptance contracts shared by Session
 Authority and Trainee Client executables.
 
-Scope: Framing, schemas, states, commands, startup order, ownership,
-cancellation, shutdown, exit projection, and acceptance. Training Session
-behavior, Observability payloads, and offline tools are excluded.
+Review focus: Changed runtime semantics and verification criteria under ADR-0014;
+no fixed reviewer count or full-package reread is required for a routine edit.
 
-Intended readers: Runtime designers, implementers, verification authors,
-operators, and infrastructure owners.
-
-Required reviewers: Runtime-design reviewer and verification-design reviewer.
-
-Prerequisites: SDB-002, SAD-003, ARCHSPEC-0006, ARCHSPEC-0009, ARCHSPEC-0010,
-and the requirements traced by `DC-PROCESS-*` in `SDB-002-DC`.
-
-Canonical information owner: Runtime composition.
+Owner: Runtime composition.
 
 ## Boundary and ownership
 

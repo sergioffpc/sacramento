@@ -1,0 +1,27 @@
+@startuml
+!pragma layout smetana
+!include <C4/C4_Container>
+title Sacramento — applications (C4 containers, not deployment technology)
+Person(trainee, "Trainee")
+Person(author, "Content author / operator")
+System_Ext(provisioning, "External provisioning", "Immutable input selection / process supervision")
+System_Ext(custody, "Evidence custody / assessment", "External seams; topology unselected")
+System_Boundary(product, "Training Simulation — selected compositions") {
+  Container(client, "Trainee Client Runtime", "Windows / C++", "Input, Prediction and Presentation; no canonical outcome ownership")
+  Container(authority, "Session Authority Runtime", "Headless Debian / C++", "One Scenario and one Training Session; canonical state owner")
+  Container(cooker, "Content Cooker Tool", "Offline finite application / platform unselected", "Captures authoring snapshot; produces a signed paired Runtime Content Release")
+}
+Rel(trainee, client, "Interacts")
+BiRel(client, authority, "Intentions / committed views", "Controlled LAN / assigned endpoint")
+Rel(author, cooker, "Provides job and authoring input")
+Rel(cooker, provisioning, "Publishes paired role packs and processing record", "Offline release boundary")
+Rel(provisioning, client, "Launches client", "Immutable closure")
+Rel(provisioning, authority, "Launches authority", "Immutable closure")
+Rel(authority, custody, "Hands off evidence; receives durable receipt", "Bounded owner-specific seam")
+note bottom of product
+  Responsibility libraries are in-process modules, not services.
+  Administrative Tools topology is not selected.
+  A Synthetic Client is a test driver, not a product role.
+end note
+SHOW_LEGEND()
+@enduml

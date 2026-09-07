@@ -4,13 +4,7 @@ Status: Accepted as a conditional architectural direction; production dependency
 
 Purpose: Record the selected technology foundation and its principal trade-off.
 
-Scope: Initial C++ runtime and cooker technologies.
-
-Intended readers: Architects, implementers, and dependency reviewers.
-
-Prerequisites: ADR-0001 and ADR-0002.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 

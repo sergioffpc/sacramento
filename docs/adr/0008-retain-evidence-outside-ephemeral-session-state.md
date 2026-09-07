@@ -6,13 +6,7 @@ Approval: Project owner, 2026-09-03
 
 Purpose: Record the persistence, evidence, trust, and Technical Removal boundary.
 
-Scope: Live session state and every retained evidence class.
-
-Intended readers: Architects, implementers, security reviewers, and verification authors.
-
-Prerequisites: ADR-0004 through ADR-0007.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 

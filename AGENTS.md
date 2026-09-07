@@ -8,20 +8,13 @@ Project model: Before interpreting or changing product behavior, canonical
 language, requirements, architecture, or verification obligations, follow
 [Domain Documentation](docs/agents/domain.md).
 
-Documentation: When adding, removing, renaming, reclassifying, or changing the
-canonical ownership of a retained document, update the
-[Documentation Inventory](docs/project/training-simulation-documentation-inventory.md)
-and run its validator.
+Documentation: When changing documentation, follow the
+[Documentation Policy](docs/project/documentation-policy.md). Update affected
+canonical sources and links; Git records revisions.
 
-Traceability: When a governed artifact's population, version, class, status,
-owner, requirement trace, or Architecture Claim mapping changes, update the [Baseline Artifact
-Inventory](docs/project/training-simulation-baseline-artifact-inventory.md) and
-run its validator.
-
-Evidence impact: Before executing verification or inventory validation,
-accepting evidence, classifying change impact, or changing a registered node or
-relation, follow the [Evidence Dependency
-Inventory](docs/project/training-simulation-evidence-dependency-inventory.md).
+Acceptance: When changing behavior or accepting evidence, follow the
+[Acceptance Workflow](docs/requirements/training-simulation-verification-plan.md).
+The workflow also governs conservative re-testing and reuse of accepted evidence.
 
 C++: Before changing first-party C++, CMake, dependencies, toolchains, builds,
 quality gates, or C++ CI, apply the

@@ -4,13 +4,7 @@ Status: Accepted
 
 Purpose: Record the authoritative runtime model.
 
-Scope: Canonical time, state commitment, prediction, publication, and lifecycle.
-
-Intended readers: Architects, designers, implementers, and verification authors.
-
-Prerequisites: ADR-0004.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 Amendment: ADR-0008 replaces the former disconnected-client pause and recovery
 behavior with irreversible Technical Removal and non-restorable session state.

@@ -8,75 +8,36 @@ The repository contains an approved requirements baseline and an accepted
 Development Baseline architecture decision set. It does not yet contain a
 production implementation or architecture acceptance evidence.
 
-## Table of contents
+## Start here
 
-- [Documentation](#documentation)
-- [Verification inventory](#verification-inventory)
-- [Development constraints](#development-constraints)
-- [C++ build baseline](#c-build-baseline)
-- [Contribution workflow](#contribution-workflow)
-- [License](#license)
+Read the [architecture overview](docs/architecture/software-architecture-description.md)
+for the current C4/arc42 view, or the [requirements guide](docs/requirements/README.md)
+for one behavior. Open only the relevant contract and [ADR](docs/adr/README.md).
+[CONTEXT](CONTEXT.md) owns product language. Candidate design and unrun evidence
+remain explicit; an accepted diagram is not implemented software.
 
-## Documentation
+Use the [acceptance workflow](docs/requirements/training-simulation-verification-plan.md)
+for examples, TDD and applicable measurements/domain evaluation. There is no
+mandatory full-plan or inventory-package approval for ordinary changes.
 
-Repository agents start with [AGENTS.md](AGENTS.md). The
-[Documentation Inventory](docs/project/training-simulation-documentation-inventory.md)
-identifies the canonical owner, status, and control tier of every retained
-document.
-
-Product model:
-
-- [Domain language](CONTEXT.md)
-- [Technical language](docs/glossary/technical.md)
-- [Governance language](docs/glossary/governance.md)
-- [Initial requirements](docs/requirements/training-simulation-initial-requirements.md)
-- [Non-functional requirements](docs/requirements/training-simulation-non-functional-requirements.md)
-- [Verification plan](docs/requirements/training-simulation-verification-plan.md)
-- [Baseline Applicability Inventory](docs/requirements/training-simulation-baseline-applicability.md)
-
-Specialized baseline documents:
-
-- [Reference hardware profiles](docs/requirements/training-simulation-reference-hardware-profiles.md)
-- [Observability contract](docs/requirements/training-simulation-observability-contract.md)
-- [Trainee Performance Assessment requirements](docs/requirements/training-simulation-performance-assessment-requirements.md)
-- [Engagement Target performance profile](docs/requirements/training-simulation-performance-profile-engagement-target-001.md)
-- [C++ Engineering Baseline](docs/standards/cpp-engineering.md)
-- [Conventional Commit Profile](docs/standards/conventional-commits.md)
-- [Git Flow](docs/standards/git-flow.md)
-
-Architecture work starts with the relevant concise ADR. Each ADR links its
-detailed specification; the [cross-cutting ADR](docs/adr/0010-close-cross-cutting-architecture-and-verification.md)
-links the Architecture Claim register. Files under `docs/research/` are
-historical inputs rather than canonical project decisions.
-
-## Verification inventory
-
-The verification-assignment CSV is generated from the approved functional
-requirements and their verification plan. It is ignored by Git and regenerated
-locally with:
+## Documentation commands
 
 ```sh
-python3 scripts/generate-verification-assignment-inventory.py
+python3 scripts/render-diagrams.py
 ```
 
-The normalized Baseline Applicability Inventory keeps global control data in a
-small Markdown record and per-identifier decisions in CSV. Validate the pair
-against its frozen sources and explicit applicability policy with:
+Edit diagram `.puml` sources, never their SVG previews. The renderer downloads
+SHA-256-pinned PlantUML MIT and Temurin Java tools into `.cache/documentation/`
+on its first run; it targets Linux x86_64 (including the supported WSL environment)
+and renders locally with bundled C4/Smetana, without Graphviz or an online service.
+Python 3.12+ is required for the renderer's safe archive extraction.
+`python3 scripts/render-diagrams.py --check` checks provenance offline; it does
+not rerender. Rendering twice with the same tools/environment should leave no diff.
 
-```sh
-sh scripts/validate-baseline-applicability-inventory.sh
-```
-
-Do not edit the generated verification-assignment CSV manually. Applicability
-changes are reviewed semantic decisions and require a successor inventory
-version before the canonical Baseline Applicability Inventory is edited.
-
-Validate the canonical Documentation Inventory and its retained document
-population with:
-
-```sh
-python3 scripts/validate-documentation-inventory.py
-```
+The [documentation policy](docs/project/documentation-policy.md) owns maintenance.
+Requirements own scope and acceptance criteria; ADRs and contracts own design.
+Search a requirement identifier with `rg` and follow only its affected sources.
+Agents start at [AGENTS.md](AGENTS.md). Research is optional background.
 
 ## Development constraints
 

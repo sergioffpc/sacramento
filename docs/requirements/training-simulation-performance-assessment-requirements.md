@@ -98,6 +98,8 @@ The first approved profile is [`ENGAGEMENT-TARGET-001`](training-simulation-perf
 
 **PERF-AVAILABILITY-001** — For a Training Session admitted under the Production Security Baseline, the proposed Formal Assessment and updated applicable Leaderboard MUST be available no later than five seconds after the Training Session ends, measured under the approved reference hardware and workload profiles. This target does not apply to permissive development AUTH because those outputs are prohibited.
 
+Scope for `PERF-AVAILABILITY-001`: Future — Production Security Baseline.
+
 The three outputs are independent:
 
 - `Training Feedback` supports learning and improvement within or after a session;

@@ -8,24 +8,7 @@ Approval: Project owner, 2026-09-04
 Purpose: Define the stable identity, package, validation, materialization,
 ownership, lifetime, and verification contracts for Runtime Resources.
 
-Scope: Resource Identity Metadata, Content Cooker output, Authority and Client
-role-pack bytes, Runtime Package and Content Admission seams, responsibility-
-owned materialization, immutable runtime access, cleanup, and adoption evidence.
-
-Intended readers: Architects, designers, content-pipeline authors, C++
-implementers, security reviewers, performance engineers, and verification
-authors.
-
-Prerequisites: [ADR-0012](../adr/0012-establish-runtime-resource-and-role-pack-architecture.md),
-[ADR-0007](../adr/0007-use-signed-scenario-bound-runtime-content-releases.md),
-[runtime content releases](0007-runtime-content-releases.md),
-[cross-cutting architecture](0010-cross-cutting-architecture-and-verification.md),
-[memory architecture](0011-memory-accounting-and-allocation.md), the
-[technical glossary](../glossary/technical.md), and the approved C++
-engineering, functional, non-functional, observability, and verification
-baselines.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision boundary
 
@@ -65,7 +48,7 @@ Runtime-resource responsibilities are separated as follows:
 | --- | --- |
 | Runtime Package | Persistent package and identity schemas, deterministic codec, fixed format, crypto and integrity adapters, compatibility, private pack handle, bounded exact-range reads, and authenticated payload handoff |
 | Content Admission | Candidate graph, capacity-plan coordination, ordered materialization transaction, failure cleanup, and atomic composed-view publication |
-| Runtime Resource Type Inventory | Approved mapping from each type identity to its semantic owner, exact schemas, structural limits, dependency rules, materialization contract, and failures |
+| Runtime Resource type contract | Owning module's approved type identity, exact schemas, structural limits, dependencies, materialization and failures |
 | Applicable responsibility module | Semantic validation and decoding, final CPU or GPU object construction, immutable owner view, Memory Accounting Owner, and release fence |
 | Runtime composition | Complete launch compatibility, cross-owner ordering, aggregate readiness result, and process exit classification |
 
@@ -127,14 +110,26 @@ vertices, triangles, draw calls, and similar private details receive none.
 
 ## Type and reference model
 
-The [Runtime Resource Type
-Inventory](training-simulation-runtime-resource-type-inventory.md) is the sole
-closed type authority. A type identity denotes one stable semantic meaning and
-one owner. Any encoding change increments its exact schema version; a meaning,
+Each owning module's approved type contract is authoritative for its Runtime
+Resource type. A type identity denotes one stable semantic meaning and one owner.
+Any encoding change increments its exact schema version; a meaning,
 owner, or invariant change creates a new type identity. The runtime content
 contract enumerates exact admitted type/schema pairs. Unknown types, versions,
 fields, enums, or codecs fail rather than negotiate, migrate, ignore, or fall
 back.
+
+Before a type can enter a Pack Manifest, its contract must fix the stable unsigned
+type identity, role applicability, exact deterministic schema, required and
+nullable references, dependency types and acyclic closure, encoded/decoded and
+scratch/GPU limits, bounded capacity function, semantic validation, materializer,
+cleanup and stable failures. Golden, malformed, cross-platform, fuzz and
+representative-resource evidence must cover the exact contract and source trace.
+
+No concrete Runtime Resource type is currently admitted. This blocks claims of a
+usable role pack until the required type contracts and evidence exist; removing
+the candidate inventory admits none. Only semantic runtime projections enter a
+pack, not authoring sidecars, evidence, provisioned launch/trust inputs, profile
+documents as such, live session state or execution-local handles.
 
 A persistent Resource Reference contains a Resource Identity, optional
 Subresource Identity, and expected type identity. Every non-null reference
@@ -264,7 +259,7 @@ qualification by reuse.
 Manifest values report authenticated observed sizes; they never define their
 own trust limits. The format and runtime content contract fix absolute maxima
 for pack size, every section, resource count, references per resource, CBOR
-depth, integer values, and offsets. Each type-inventory row fixes its semantic,
+depth, integer values, and offsets. Each admitted type contract fixes its semantic,
 decoded, scratch, object, descriptor, and GPU bounds. Memory Budget
 Configuration may impose a smaller execution capacity but cannot enlarge a
 format or type limit.
@@ -369,7 +364,7 @@ or deleting the pack cannot affect the active view.
 
 ## Cooking, reproducibility, and atomic release publication
 
-The cooker validates the exact source closure, sidecars, type inventory,
+The cooker validates the exact source closure, sidecars, admitted type contracts,
 profiles, catalogues, tools, and configuration. Runtime Package owns identity
 and package policy; authoring tools create identities; cooking never does so.
 
@@ -463,13 +458,14 @@ that disposition.
 
 ## Architecture Claim contribution
 
-ARCHSPEC-0010 remains the canonical claim register. This specification governs
+This specification owns the following local resource obligations and their
+existing labels, without a separate claim register. It governs
 the following added claims there:
 
 | Claim | Governing contract |
 | --- | --- |
 | `AC-RESOURCE-001` | Semantic Resource Identity, role-specific projection, and authoring metadata |
-| `AC-RESOURCE-002` | Closed type inventory, local references, typed borrowed handles, and responsibility ownership |
+| `AC-RESOURCE-002` | Closed admitted type contracts, local references, typed borrowed handles, and responsibility ownership |
 | `AC-RESOURCE-003` | Exact deterministic version-one header, envelope, manifest, extent, and Pack Core format |
 | `AC-RESOURCE-004` | Ed25519, SHA-256, key identity, scoped trust, and no algorithm negotiation |
 | `AC-RESOURCE-005` | External limits, complete capacity reservation, and stable failure precedence |

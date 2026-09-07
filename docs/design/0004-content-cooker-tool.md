@@ -7,18 +7,10 @@ Last meaningful change: 2026-09-06
 Purpose: Define the exact finite offline tool that cooks one immutable authoring
 closure into one atomically published Runtime Content Release.
 
-Scope: CLI, deterministic-CBOR job and result codecs, source snapshot,
-workflow, publisher, retry, signing, provenance, cleanup, and acceptance.
+Review focus: Changed content semantics and verification criteria under ADR-0014;
+no fixed reviewer count or full-package reread is required for a routine edit.
 
-Intended readers: Content-pipeline designers, implementers, verification
-authors, release operators, and security reviewers.
-
-Required reviewers: Content-design reviewer and verification-design reviewer.
-
-Prerequisites: SDB-002, SAD-003, ADR-0013, ARCHSPEC-0007, ARCHSPEC-0012,
-ARCHSPEC-0013, and requirements traced by `DC-COOKER-*` in `SDB-002-DC`.
-
-Canonical information owner: Content Cooker Tool.
+Owner: Content Cooker Tool.
 
 ## Boundary and ownership
 

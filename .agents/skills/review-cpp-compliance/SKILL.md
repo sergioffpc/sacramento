@@ -12,8 +12,8 @@ The Google C++ Style Guide is background rather than an additional rule set.
 ## Review
 
 1. Read the repository `AGENTS.md` and follow its Domain Documentation and
-   Evidence Dependency Inventory routes before interpreting an obligation or
-   executing a registered verification.
+   Acceptance Workflow routes before interpreting an obligation or evaluating
+   verification evidence.
 2. Establish the requested scope. Classify generated and third-party files only
    from their explicit repository inventories; otherwise treat covered C++ as
    first-party.

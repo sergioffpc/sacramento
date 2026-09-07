@@ -7,18 +7,10 @@ Last meaningful change: 2026-09-05
 Purpose: Define the exact composition, startup, connection, Admission,
 departure, shutdown, ownership, and acceptance design for one Trainee Client.
 
-Scope: Role launch view, owner interface, ProcessReady semantics, finite retry,
-voluntary leave, execution domains, cleanup, and termination.
+Review focus: Changed runtime semantics and verification criteria under ADR-0014;
+no fixed reviewer count or full-package reread is required for a routine edit.
 
-Intended readers: Client designers, implementers, verification authors,
-operators, and device-adapter owners.
-
-Required reviewers: Runtime-design reviewer and verification-design reviewer.
-
-Prerequisites: SDB-002, SDD-0001, SAD-003, ARCHSPEC-0006, ARCHSPEC-0009,
-ARCHSPEC-0012, and the requirements traced by `DC-CLIENT-*` in `SDB-002-DC`.
-
-Canonical information owner: Trainee Client composition.
+Owner: Trainee Client composition.
 
 ## Goals, boundary, and ownership
 

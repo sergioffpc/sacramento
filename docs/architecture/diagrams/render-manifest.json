@@ -1,0 +1,19 @@
+{
+  "renderer": "plantuml-mit-1.2026.8.jar",
+  "renderer_sha256": "3629c9cd017c7f73e6450396eea0040216c7e1eef8473ce33cc1aad469dab2f9",
+  "java_distribution": "OpenJDK21U-jre_x64_linux_hotspot_21.0.12.1_1.tar.gz",
+  "java_archive_sha256": "2413149700df0f7d440500a84a8f764c535f21e5a5e87d38328b64eec2c5b500",
+  "render_script_sha256": "fd7cd68ff7d3f2dfec70280ac87187c07873bfdec2fc05d4a9f9f7c50e1f0217",
+  "files": {
+    "canonical-tick.puml": "f7746579972e6982980d69c5810b14454f481152b99b19ee9669daa8d8502760",
+    "containers.puml": "cd1a75a382f9925102cbb1b40b9139755cb59aedc8de1babc60f5e70194a8d8f",
+    "context.puml": "ec40c558b78963074bad4aa6c919d34c5f44eb2cf58605e19193f3810efd652b",
+    "cooking.puml": "55e9d0b050195e06fcef0895ba4d842df449cb8208495810af86a5ce18bfcb82",
+    "lifecycle.puml": "5ab65d296e1a3f81a8e448e99cb081e9be88cb83f7ab4b0e3f26cd164d62038a",
+    "canonical-tick.svg": "d78a5fb98f360428129374c279a288db94810825fd12e33c3a39aa2d1de3da20",
+    "containers.svg": "e6734596777c8b491ba21ce7c9c5afb25676121642775fe9d7b44509396e3e74",
+    "context.svg": "bfd2ad6d05d2083e69061efe9c817f985bd099712780c4a92b57820f9a632f6b",
+    "cooking.svg": "ae34f774fad601f17822b7db7dca1e8cb9956b0098e7dbe732cf4a07def5711b",
+    "lifecycle.svg": "fcd27a0b8ad3c9b61b2485b897c78a2f8eaa6bb9b3d62555d6169c8706c6f9f9"
+  }
+}
