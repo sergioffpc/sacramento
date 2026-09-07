@@ -10,6 +10,9 @@ production implementation or architecture acceptance evidence.
 
 ## Start here
 
+Read the [project overview](OVERVIEW.md) for the goals, intended training
+experience, system structure and current implementation status.
+
 Read the [architecture overview](docs/architecture/software-architecture-description.md)
 for the current C4/arc42 view, or the [requirements guide](docs/requirements/README.md)
 for one behavior. Open only the relevant contract and [ADR](docs/adr/README.md).
