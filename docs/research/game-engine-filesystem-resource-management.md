@@ -11,11 +11,11 @@ by [Domain Documentation](../agents/domain.md), that source is authoritative.
 Outcome: Project-owner review promoted the resulting decisions to
 [ADR-0012](../adr/0012-establish-runtime-resource-and-role-pack-architecture.md),
 the [runtime-resource architecture
-specification](../architecture/0012-runtime-resource-and-role-pack-architecture.md),
-and the candidate [Runtime Resource Type
-Inventory](../architecture/training-simulation-runtime-resource-type-inventory.md).
-Those controlled sources supersede every candidate recommendation here; this
-document remains retained historical input.
+specification](../architecture/0012-runtime-resource-and-role-pack-architecture.md).
+Its [type-admission contract](../architecture/0012-runtime-resource-and-role-pack-architecture.md#type-and-reference-model)
+now holds the admission rules; the removed candidate inventory remains in Git
+at `72456ee`. The current contracts supersede the recommendations here; this
+document remains historical input.
 
 ## Table of contents
 

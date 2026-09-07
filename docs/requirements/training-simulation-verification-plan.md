@@ -8,7 +8,7 @@ not required for an ordinary increment.
 
 ## Work one behavior at a time
 
-1. Select requirement IDs in the issue; query `python3 scripts/documentation.py requirement REQ-STATE-CONSISTENCY-001`.
+1. Select the requirement IDs for the change; read their definitions, scope and acceptance notes.
 2. Write a success example and relevant negative/boundary examples. State the expected observable outcome before implementation.
 3. For deterministic behavior, write a failing test at the public seam, implement the smallest passing slice, then refactor with green tests.
 4. Run affected contract/integration/native checks and required measurements or qualified evaluation. Attach the command, tested revision and results.
@@ -31,14 +31,13 @@ MUST be resolved at the canonical source before accepting the affected behavior.
 **VERIFY-METHOD-001** — Deterministic transitions MUST use automated tests;
 structural constraints MUST be inspected; physical outcomes MUST also use analysis
 against versioned Approved Profiles. Required methods and evidence explicitly
-assigned by the [catalogue](training-simulation-acceptance-examples.csv) or owning
-requirement MUST accumulate. Demonstrations support complete flows but cannot
+assigned by the owning requirement and its acceptance notes MUST accumulate. Demonstrations support complete flows but cannot
 replace objective checks. Military validity, tactical adequacy or perception that
 objective evidence cannot establish MUST use
 [qualified Representative Evaluation](domain-evaluation.md); uncertainty requires
 that evaluation. A documented owner-approved exception MAY remove only an
 objectively inapplicable default, never an explicitly required method.
-NFR/assessment catalogues retain their own assignments. Apply each method to the
+NFR/assessment requirements retain their own assignments. Apply each method to the
 clauses governed by its criteria; an objective clause does not require subjective
 evaluation merely because another clause shares its requirement identifier.
 
@@ -79,12 +78,16 @@ the required record.
 **VERIFY-ACCEPTANCE-001** — The implementation team MUST produce technical evidence;
 qualified evaluators MUST produce required domain judgments. The project owner
 accepts or rejects the changed increment and evidence; owner approval MUST NOT
-replace required specialist evidence. Unchanged catalogue entries need no repeat
+replace required specialist evidence. Unchanged requirements need no repeat
 approval. This workflow cannot imply approval of a complete product baseline.
 
 ## Scope and baseline acceptance
 
 **PROCESS-BASELINE-MANDATORY-001** — A baseline MUST NOT be approved unless every included `MUST` and `MUST NOT` obligation has an accepted `Pass` disposition and none has a `Blocked` disposition.
+
+<a id="acceptance-ar-025"></a>
+Acceptance for `PROCESS-BASELINE-MANDATORY-001`, `PROCESS-BASELINE-PREFERENCE-001`, `PROCESS-BASELINE-PERMISSION-001`, `PROCESS-BASELINE-SCOPE-001`. Required: Inspection, Analysis. Evidence: Implementation team and Representative Evaluators where the process assigns them.
+Clause-level process records, decision tables and mutation cases establishing method accumulation, evidence schema, obligation dispositions, dependency/change handling, evaluator controls, ambiguity coverage and baseline gates
 
 **PROCESS-BASELINE-PREFERENCE-001** — A `SHOULD` or `SHOULD NOT` obligation that does not have an accepted `Pass` disposition MUST have an explicitly justified project-owner-approved exception before baseline approval.
 
@@ -92,8 +95,17 @@ approval. This workflow cannot imply approval of a complete product baseline.
 
 **PROCESS-BASELINE-SCOPE-001** — Non-goals and deferred capabilities MUST be inspected to confirm that baseline approval does not treat them as required or claim them as accepted capabilities.
 
-Production-security assignments remain Future. The permissive development adapter
-cannot pass them. Current examples have no product execution evidence.
-The [migration map](../project/documentation-migration.csv) records retired process
-IDs and replacements; [historical findings](../research/verification-ambiguity-history.csv)
-are reference history, not new mandatory reviews.
+Production-security requirements remain Future. The permissive development
+adapter cannot pass them. Current acceptance notes have no product execution
+evidence. Historical process IDs, assignments and resolved findings are
+recoverable in Git at `72456ee`, not maintained as working-tree inventories.
+
+## Change impact and evidence reuse
+
+Identify the affected requirements, interfaces, tests, data, profiles,
+configurations and environments, including transitive dependencies. Run affected
+tests and required measurements/evaluations. Missing dependency information means
+rerun conservatively, not assume an old result is unaffected. Keep any accepted
+result only with reproducible reasoning that the exact criterion still holds
+against the changed baseline. Attach the tested revision, command and attributable
+results to the change; a separate graph, register or generated index is unnecessary.

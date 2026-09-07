@@ -216,9 +216,9 @@ are concrete examples requiring selective migration, not blanket deletion.
 
 Before the reform, process requirements imposed per-view controls and the old
 validator expected exactly nine `EDI-VIEW-*` sections with ten control rows each.
-ADR-0014 changes those requirements together with the format; the
-[replacement validator](../../scripts/documentation.py) checks canonical sources,
-links, traces and diagram provenance without enforcing the old layout. This
+ADR-0014 changed those requirements together with the format. Its later
+owner-authorized amendment removed the replacement inventory generator,
+validator and CI as well; Git retains the prior workflow at `72456ee`. This
 administrative amendment to [ADR-0010](../adr/0010-close-cross-cutting-architecture-and-verification.md)
 is an explicit policy decision, not an automatic consequence of adopting arc42.
 

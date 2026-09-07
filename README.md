@@ -23,14 +23,9 @@ mandatory full-plan or inventory-package approval for ordinary changes.
 ## Documentation commands
 
 ```sh
-python3 scripts/documentation.py requirement REQ-STATE-CONSISTENCY-001
-python3 scripts/documentation.py check
-python3 scripts/documentation.py generate
-python3 -m unittest discover -s tests/documentation -v
 python3 scripts/render-diagrams.py
 ```
 
-`generate` writes disposable document/artifact/reference CSVs to `build/docs/`.
 Edit diagram `.puml` sources, never their SVG previews. The renderer downloads
 SHA-256-pinned PlantUML MIT and Temurin Java tools into `.cache/documentation/`
 on its first run; it targets Linux x86_64 (including the supported WSL environment)
@@ -40,11 +35,9 @@ Python 3.12+ is required for the renderer's safe archive extraction.
 not rerender. Rendering twice with the same tools/environment should leave no diff.
 
 The [documentation policy](docs/project/documentation-policy.md) owns maintenance.
-[Applicability](docs/requirements/training-simulation-baseline-applicability.md)
-and claim/design registers retain semantic decisions; generated indexes do not.
-The [documentation inventory](docs/project/training-simulation-documentation-inventory.md)
-explains ownership and optional reading routes. Agents start at [AGENTS.md](AGENTS.md).
-Research and former administrative records are reference history, not active gates.
+Requirements own scope and acceptance criteria; ADRs and contracts own design.
+Search a requirement identifier with `rg` and follow only its affected sources.
+Agents start at [AGENTS.md](AGENTS.md). Research is optional background.
 
 ## Development constraints
 

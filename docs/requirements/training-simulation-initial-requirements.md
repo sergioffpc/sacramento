@@ -6,7 +6,8 @@ Baseline: Development Baseline
 
 Approval: Project owner, 2026-08-28
 
-Latest approved amendment: Tiered document control, project owner, 2026-09-04
+Latest approved administrative amendment: Remove document inventories and their
+register/validator obligations, project owner, 2026-09-07, under ADR-0014.
 
 Latest approved design amendment: Software-design foundation and offline
 Content Cooker Tool correction, project owner, 2026-09-04
@@ -27,13 +28,14 @@ Intended readers: Project owner, requirements reviewers, architects, designers,
 implementers, verification authors, Qualified Specialists, and Representative
 Evaluators.
 
-Prerequisites: [Training Simulation context](../../CONTEXT.md) and [Initial
-Goals, Requirements, and Constraints Document
-Guidance](../research/initial-goals-requirements-and-constraints-guidance.md).
+Read the [Training Simulation context](../../CONTEXT.md) and affected requirement.
+The research rubric below is optional background.
 
 Priority convention: `MUST` and `MUST NOT` are required for the accepted initial baseline; `SHOULD` records an approved preference; `MAY` records permitted behavior. Deferred capabilities and non-goals are outside that baseline.
 
-Acceptance convention: Unless a separate acceptance condition is stated, the normative sentence attached to an identifier is its pass/fail criterion. The verification plan assigns the procedure, evidence, evidence owner, and final approver for every identifier.
+Scope convention: Requirements are Included in the Development Baseline unless a local Future milestone or an explicit non-goal states otherwise. Retired administrative rules are historical, not current scope.
+
+Acceptance convention: Unless a separate acceptance condition is stated, the normative sentence attached to an identifier is its pass/fail criterion. Local acceptance notes retain required methods, criteria and evidence ownership; the acceptance workflow governs execution and results. The project owner is the final approver.
 
 Canonical-ordering convention: In a functional requirement, `immediately` means within the same canonical state transition that accepts the triggering event and before any subsequent event or simulation advancement is processed. It does not define a wall-clock latency target; latency belongs to the separate NFR baseline.
 
@@ -102,6 +104,10 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **GOAL-TRAINING-001** — Enable armed-forces Teams to rehearse shooting Scenarios that are impractical to reproduce at full physical scale through a multiplayer Training Simulation accessible from conventional PCs and, later, optional virtual-reality equipment.
 
+<a id="acceptance-ar-001"></a>
+Acceptance for `GOAL-TRAINING-001`, `GOAL-TEAM-TACTICS-001`. Required: Inspection.
+Goal wording, scope boundary and traceability to supporting requirement and reference-evidence identifiers without treating goals as standalone implementation acceptance criteria
+
 **GOAL-TEAM-TACTICS-001** — Enable Teams to practise coordination and team tactics, with communication, movement, use of cover, and response to threats as supporting training outcomes.
 
 ## Goal traceability
@@ -109,9 +115,9 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 Document administration now follows
 [DOC-MAINTENANCE-001](../project/documentation-policy.md); incremental acceptance
 follows the [acceptance workflow](training-simulation-verification-plan.md).
-Retired process identifiers have explicit dispositions in the
-[migration map](../project/documentation-migration.csv). Product requirements,
-scope and specialist acceptance meanings are unchanged by ADR-0014.
+Retired process identifiers and their former dispositions remain in Git at
+`72456ee`. Product behavior, scope and specialist acceptance thresholds are
+unchanged by the administrative amendments in ADR-0014.
 
 | Goal or boundary | Requirement coverage | Concrete validation anchor |
 | --- | --- | --- |
@@ -120,17 +126,33 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 | `CONSTRAINT-ACTION-SCOPE-001` | Every included Trainee action, especially shooting, explosive use, breaching, Melee, and physical interaction | Each action must support an identified military training activity rather than entertainment or cinematic presentation alone |
 | Initial product boundary | Product, role, document, financial, platform, deployment, project, and documentation constraints | Non-goals and deferred capabilities identify behavior that must not be inferred as part of the accepted baseline |
 
-**PROCESS-TRACEABILITY-001** — Every architecture, design, implementation, and verification artifact registered in the Baseline Artifact Inventory MUST cite the stable identifiers it satisfies or intentionally defers; section names alone are not sufficient traceability.
+**PROCESS-TRACEABILITY-001** — Architecture, design, implementation and verification changes MUST cite the stable requirement identifiers they satisfy or intentionally defer in their owning source or change record; no global artifact inventory is required.
+
+<a id="acceptance-ar-028"></a>
+Acceptance for `PROCESS-TRACEABILITY-001`. Required: Inspection, Analysis.
+Direct stable-requirement traces in affected architecture, design, implementation and verification sources or change records; explicit scope exclusions or deferrals; missing or stale trace negatives; and project-owner approval of changed meaning.
+
+<a id="acceptance-ar-002"></a>
+Acceptance for `PROCESS-TRACEABILITY-001`, `PROCESS-SOFTWARE-DESIGN-COMMITMENT-001`, `PROCESS-SOFTWARE-DESIGN-STATE-001`, `PROCESS-ARCHITECTURE-CLAIM-001`–`PROCESS-ARCHITECTURE-CLAIM-004`, `PROCESS-ARCHITECTURE-VERIFICATION-001`, `PROCESS-ARCHITECTURE-CONTRACT-001`, `PROCESS-ARCHITECTURE-EXECUTABLE-001`, `SCOPE-PRODUCT-001`, `SCOPE-ROLE-001`, `SCOPE-REQUIREMENTS-DOCUMENT-001`–`SCOPE-REQUIREMENTS-DOCUMENT-002`, `SCOPE-FINANCE-001`, `CONSTRAINT-ACTION-SCOPE-001`, `PROCESS-ACTION-INVENTORY-001`–`PROCESS-ACTION-INVENTORY-003`, `SCOPE-AUTH-001`, `REQ-AUTH-DEVELOPMENT-ADAPTER-001`–`REQ-AUTH-DEVELOPMENT-ADAPTER-003`, `SCOPE-MELEE-001`. Required: Inspection.
+Identifier-level scope, boundary and traceability review showing that product, role, document ownership, AUTH and action-scope statements are represented without adding an unstated product or capability
 
 **PROCESS-SOFTWARE-DESIGN-COMMITMENT-001** — Every normative software-design obligation MUST have one stable `DC-*` key, one responsible owner, one principal `MUST` or `MUST NOT` obligation, separate rationale, and an objective verification approach.
 
-**PROCESS-SOFTWARE-DESIGN-STATE-001** — Every Design Commitment MUST record independent decision, baseline-applicability, realization, and evidence states, and no state MUST imply another.
+<a id="acceptance-ar-030"></a>
+Acceptance for `PROCESS-SOFTWARE-DESIGN-COMMITMENT-001`, `PROCESS-SOFTWARE-DESIGN-STATE-001`. Required: Automated Test, Analysis, Inspection.
+Exact SDB package and SDD hashes; exactly-once `DC-*` identities; closed and independent decision/applicability/realization/evidence states; exact requirement, Architecture Claim, SAD-view, SDD, owner, and verification traces; one principal obligation per commitment; interface ownership/lifetime/order/blocking/failure inspection; two-reviewer interpretation comparison; and explicit rejection of derived untraced requirements or implied implementation/evidence
 
-**PROCESS-ARCHITECTURE-CLAIM-001** — Every normative architecture claim MUST have one stable Architecture Claim key that remains unchanged while that claim's meaning remains unchanged and MUST remain distinct from requirement identifiers and verification-obligation keys.
+**PROCESS-SOFTWARE-DESIGN-STATE-001** — The owning Software Design Document MUST distinguish decision, applicability, realization and evidence status. A shared document status MAY cover its commitments unless a commitment explicitly differs; no separate state register is required and no state MUST imply another.
 
-**PROCESS-ARCHITECTURE-CLAIM-002** — Every Architecture Claim MUST identify its governing requirement identifiers, canonical ADR or Software Architecture Description view, responsible module or owner, architecture-level verification surface, required evidence hooks, and current decision, baseline-applicability, realization, and evidence states.
+**PROCESS-ARCHITECTURE-CLAIM-001** — Every normative architectural decision MUST have an identifiable owning ADR or contract and cite its governing requirements. Existing Architecture Claim keys remain stable historical references; no separate claim population or register is required.
 
-**PROCESS-ARCHITECTURE-CLAIM-003** — Architecture Claim decision state MUST be exactly `Accepted`, `Deferred`, or `Superseded`; baseline-applicability state MUST be exactly `Included`, `Future`, or `Not Applicable`; realization state MUST be exactly `Not Implemented`, `Partial`, or `Implemented`; and evidence state MUST be exactly `Not Run`, `Blocked`, `Fail`, or `Pass`.
+<a id="acceptance-ar-029"></a>
+Acceptance for `PROCESS-ARCHITECTURE-CLAIM-001`–`PROCESS-ARCHITECTURE-CLAIM-004`, `PROCESS-ARCHITECTURE-VERIFICATION-001`, `PROCESS-ARCHITECTURE-CONTRACT-001`, `PROCESS-ARCHITECTURE-EXECUTABLE-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration for representative end-to-end sequences.
+Stable claim keys distinct from requirements and obligation keys; exact governing requirement, ADR/view, owner, verification-surface and evidence-hook mappings; all decision/applicability/realization/evidence state combinations and prohibited inference cases; static dependency and public-type closure; common contract suites for every adapter class with bypass negatives; native executable launch, readiness, representative exercise and shutdown from only the declared closure; missing, unexpected, incompatible and undeclared dependency negatives; the six ADR-0010 success/failure sequences; view metadata and inter-view mappings; and current-inventory impact traversal, uncertainty and invariance cases
+
+**PROCESS-ARCHITECTURE-CLAIM-002** — The owning architecture contract MUST identify its responsibility owner, verification surfaces and relevant evidence hooks, with decision, scope, implementation and evidence status explicit in the source or affected change record.
+
+**PROCESS-ARCHITECTURE-CLAIM-003** — Architecture status MUST distinguish accepted, deferred and superseded decisions; included, future and inapplicable scope; implemented and unimplemented behavior; and passed, failed, blocked or unrun evidence. These facts MUST NOT be inferred from document or diagram existence.
 
 **PROCESS-ARCHITECTURE-CLAIM-004** — Closing or accepting an architecture decision MUST NOT by itself change its realization or evidence state, satisfy a requirement, admit a dependency, establish production security or platform availability, or approve a product baseline.
 
@@ -150,11 +172,27 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 
 **SCOPE-REQUIREMENTS-DOCUMENT-002** — Before approval of an overall product baseline, non-functional requirements MUST be defined in the separately identified canonical [Training Simulation Non-Functional Requirements](training-simulation-non-functional-requirements.md); interview notes and other transient elicitation material MUST NOT be treated as requirements.
 
+<a id="acceptance-ar-097"></a>
+Acceptance for `SCOPE-REQUIREMENTS-DOCUMENT-002`. Required: Inspection.
+Confirmation that the team-size/maintainability target is absent as a normative functional constraint, remains captured only as non-normative NFR input, and cannot receive functional-baseline acceptance before the separate NFR process
+
+<a id="acceptance-ar-033"></a>
+Acceptance for `SCOPE-REQUIREMENTS-DOCUMENT-002`. Required: Inspection.
+Identification and status of the canonical NFR document before overall product-baseline approval, plus confirmation that transient elicitation material is not treated as requirements
+
 **SCOPE-FINANCE-001** — Financial limits, expenditure analysis, licensing cost, and budget planning are outside this requirements effort.
 
 **CONSTRAINT-ACTION-SCOPE-001** — A Trainee action MUST be admitted to the baseline only when the Action Inventory traces it to an approved Training Need Record; entertainment or cinematic value alone MUST NOT justify admission.
 
+<a id="acceptance-ar-031"></a>
+Acceptance for `CONSTRAINT-ACTION-SCOPE-001`. Required: Inspection, Analysis, Representative Evaluation. Evidence: Implementation team and Representative Evaluators.
+Complete exposed-action inventory reconciliation; stable action metadata and requirement traces; approved pre-admission Training Need Records with activity, outcome, scope and rationale; structured findings that each admitted action has a valid military training purpose; and rejection of missing, unapproved, untraced or entertainment-only actions
+
 **PROCESS-ACTION-INVENTORY-001** — The Action Inventory MUST enumerate every Trainee action admitted to the candidate baseline with a stable action identifier, action name, behavior scope, applicable requirement identifiers, and Training Need Record trace.
+
+<a id="acceptance-ar-032"></a>
+Acceptance for `PROCESS-ACTION-INVENTORY-001`–`PROCESS-ACTION-INVENTORY-003`. Required: Inspection, Analysis.
+Complete exposed-action inventory reconciliation; stable action metadata and requirement traces; approved pre-admission Training Need Records with activity, outcome, scope and rationale; and rejection of missing, unapproved, untraced or entertainment-only actions
 
 **PROCESS-ACTION-INVENTORY-002** — Each Training Need Record MUST state a stable identifier and version, the military training activity, intended training outcome, applicability scope, rationale, and project-owner approval recorded before the traced action is admitted.
 
@@ -163,6 +201,10 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 **SCOPE-AUTH-001** — The Development Baseline includes the `AUTH & Admission` interface, finite Admission and lifecycle behavior, and one explicitly non-production permissive adapter; mutual identity authentication, real authorization, offline validation, protected exchange, durable AUTH auditing, revocation, and operational trust are requirements of the future Production Security Baseline and MUST block a production security or authenticated-assessment claim until that baseline is approved and satisfied.
 
 **REQ-AUTH-DEVELOPMENT-ADAPTER-001** — The permissive development adapter MUST grant the declared closed AUTH Permissions only to Synthetic Identities of the Trainee, Client Device, and Session Authority identity classes supplied by the immutable Runtime Launch Specification, MUST identify its mode as non-production, and MUST NOT claim to authenticate or authorize an identity or produce a Canonical Identity Key.
+
+<a id="acceptance-ar-093"></a>
+Acceptance for `REQ-AUTH-DEVELOPMENT-ADAPTER-001`–`REQ-AUTH-DEVELOPMENT-ADAPTER-003`, `REQ-SESSION-CONNECTION-001`, `REQ-APPLICATION-RELEASE-001`, `REQ-RUNTIME-LAUNCH-SPECIFICATION-001`–`REQ-RUNTIME-LAUNCH-SPECIFICATION-002`, `REQ-RUNTIME-PROVISIONING-001`, `REQ-DEPLOYMENT-COMPATIBILITY-001`–`REQ-DEPLOYMENT-COMPATIBILITY-002`, `REQ-RUNTIME-READINESS-001`, `REQ-RUNTIME-EXTERNAL-LIFECYCLE-001`, `REQ-RUNTIME-CONTROL-LOSS-001`, `REQ-RUNTIME-SUPERVISION-001`, `REQ-RUNTIME-REPLACEMENT-001`, `REQ-APPLICATION-UPDATE-001`, `REQ-APPLICATION-ROLLBACK-001`, `REQ-AUTHORITY-PLACEMENT-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration for complete launch and shutdown flows.
+Immutable application and launch identities; complete and failed startup; exact endpoint assignment without discovery; readiness ordering; compatibility admission and rejection; capacity disposition; external lifecycle states; absence of a Sacramento supervisor; replacement as a new Training Session; explicit update and rollback affecting only later processes; one-authority acceptance placement; permissive AUTH marking; final decision and mode-marked audit event before each granting effect; audit-event failure preventing that effect; prohibited production or assessment effects; native executable closure; and absence of platform, vendor or orchestrator types from canonical interfaces
 
 **REQ-AUTH-DEVELOPMENT-ADAPTER-002** — The permissive development adapter MUST exercise the same finite attempt, decision, Admission, lifecycle, correlation, ordering, cancellation, and failure interfaces reserved for a future production adapter. For every granting decision it MUST produce the final decision and corresponding non-durable, mode-marked audit test event before the Admission or other granting effect becomes visible; failure to produce that event MUST prevent the effect. Every record and result remains explicitly unauthenticated test evidence.
 
@@ -174,6 +216,10 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 
 **ASSUMPTION-AUTH-AUDIT-CHECKPOINT-001** — The external host environment collects and retains AUTH Audit Checkpoints outside the storage of their AUTH Audit Sequence; without a surviving externally retained checkpoint, the Training Simulation cannot guarantee detection of terminal-record or complete-sequence deletion by an actor controlling the host.
 
+<a id="acceptance-ar-003"></a>
+Acceptance for `ASSUMPTION-AUTH-AUDIT-CHECKPOINT-001`, `ASSUMPTION-AUTH-HUMAN-CONTROL-001`, `ASSUMPTION-AUTH-IDENTITY-AUTHORITY-001`. Required: Inspection.
+Assumption wording, exact audit-checkpoint, external-authority and admitted-computer control boundaries, accepted threat limitations, and traceability to governing identity, audit and Admission requirements without treating an assumption as a guaranteed security outcome
+
 **ASSUMPTION-AUTH-HUMAN-CONTROL-001** — After the initial Trainee Authentication Act, the Training Simulation does not continuously verify the physical human operating an Admitted Client and cannot distinguish the authenticated Trainee from another person who takes control of that admitted computer.
 
 **ASSUMPTION-AUTH-IDENTITY-AUTHORITY-001** — The Training Simulation relies on the Identity Authority to issue correct identity bindings, Authentication Assurance Profiles, Authorization Assertions, Offline Revocation Status values, issuer records, and validity intervals; evidence that is valid under the approved catalogue cannot reveal an Identity Authority mis-issuance by itself.
@@ -181,6 +227,10 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 ## Teams, identity, and preparation
 
 **REQ-TEAM-001** — A Training Session MUST contain exactly two opposing Teams.
+
+<a id="acceptance-ar-004"></a>
+Acceptance for `REQ-TEAM-001`, `REQ-CAPACITY-001`–`REQ-CAPACITY-003`, `REQ-IDENTITY-001`, `REQ-CALL-SIGN-001`, `REQ-TEAM-JOIN-001`, `REQ-TEAM-CHANGE-001`, `REQ-TEAM-LOCK-001`, `REQ-TEAM-RESET-001`, `REQ-TEAM-POSITION-CONCURRENCY-001`, `REQ-LOADOUT-001`, `REQ-LOADOUT-CAPACITY-001`–`REQ-LOADOUT-CAPACITY-002`, `REQ-LOADOUT-SELECTION-001`, `REQ-LOADOUT-CONCURRENCY-001`, `REQ-PREPARATION-REJECTION-001`, `REQ-READY-LOADOUT-001`, `REQ-LOADOUT-LOCK-001`, `REQ-SPAWN-001`, `REQ-SPAWN-LOADOUT-INDEPENDENCE-001`, `REQ-SPAWN-002`, `REQ-SPAWN-VALIDATION-001`, `REQ-SPAWN-GEOMETRY-001`–`REQ-SPAWN-GEOMETRY-003`, `REQ-OPERATIONAL-CLOCK-001`–`REQ-OPERATIONAL-CLOCK-003`, `REQ-DEADLINE-ORDER-001`–`REQ-DEADLINE-ORDER-002`, `REQ-SESSION-ROSTER-001`, `REQ-INITIAL-START-CONDITIONS-001`–`REQ-INITIAL-START-CONDITIONS-004`, `REQ-READINESS-001`, `REQ-READINESS-PRECONDITION-001`–`REQ-READINESS-PRECONDITION-006`, `REQ-READINESS-CLOSED-001`, `REQ-READINESS-002`, `REQ-SESSION-START-001`, `REQ-SESSION-COUNTDOWN-001`–`REQ-SESSION-COUNTDOWN-004`. Required: Automated Test, Inspection. Supporting: Demonstration for complete preparation/start flows.
+Obligation-level positive, negative, boundary and concurrency cases covering Teams, positions, Loadouts, Spawn Transforms, readiness, authoritative timing, cancellation and start; exact Scenario configuration and canonical transition traces
 
 **REQ-CAPACITY-001** — A Training Session with eight Trainees assigned to each Team MUST be a supported configuration.
 
@@ -194,13 +244,25 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 
 **REQ-TEAM-JOIN-001** — During preparation, a Trainee MUST be able to select an available Team Position in either Team.
 
+<a id="acceptance-ar-114"></a>
+Acceptance for `REQ-TEAM-JOIN-001`, `REQ-TEAM-CHANGE-001`, `REQ-SPAWN-001`, `REQ-SPAWN-LOADOUT-INDEPENDENCE-001`, `REQ-SPAWN-002`, `REQ-SPAWN-VALIDATION-001`, `REQ-SPAWN-GEOMETRY-001`–`REQ-SPAWN-GEOMETRY-003`. Required: Automated Test, Analysis, Inspection.
+Successful Team selection and destination negatives; old-position release and roster replacement; one transform per position; unchanged transform across Loadouts; exact Approved Profile volumes and versioned Blender-traced placement regions; complete assignment/Loadout/Map/Scenario/profile evidence binding; pairwise intersection and containment boundaries; and one canonical activation-and-placement transition with no earlier partial active state
+
 **REQ-TEAM-CHANGE-001** — During preparation, a Trainee MUST be able to change Team by selecting an available Team Position in the destination Team.
 
 **REQ-TEAM-LOCK-001** — Team assignments MUST become locked in the canonical transition that starts the initial countdown and MUST remain locked until a canonical transition enters Preparation.
 
+<a id="acceptance-ar-034"></a>
+Acceptance for `REQ-TEAM-LOCK-001`, `REQ-TEAM-RESET-001`, `REQ-LOADOUT-LOCK-001`, `REQ-SESSION-COUNTDOWN-003`–`REQ-SESSION-COUNTDOWN-004`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Canonical traces for countdown start, cancellation, entry to Preparation, active simulation, normal completion and termination; rejection of changes while locked; permitted Team/Loadout changes after Preparation; readiness effects; and a fresh five-second restart
+
 **REQ-TEAM-RESET-001** — After a canonical transition enters Preparation, Team assignments MUST be changeable again through the ordinary availability and concurrency rules.
 
 **REQ-TEAM-POSITION-CONCURRENCY-001** — When concurrent requests target the same final available Team Position, the Session Authority MUST accept no more than one request and MUST reject every request that cannot be satisfied without assigning that Team Position more than once.
+
+<a id="acceptance-ar-115"></a>
+Acceptance for `REQ-TEAM-POSITION-CONCURRENCY-001`, `REQ-LOADOUT-CONCURRENCY-001`, `REQ-PREPARATION-REJECTION-001`. Required: Automated Test, Inspection.
+Synchronized competing requests for the last Team Position and Loadout quantity showing no over-allocation, identifier-level accepted and rejected outcomes, preserved valid preceding selections, updated availability, continued preparation state, and no automatic alternative selection
 
 ## Loadouts and starting state
 
@@ -238,6 +300,10 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 
 **REQ-OPERATIONAL-CLOCK-001** — The Session Authority MUST be the sole authority for the Operational Clock used by initial countdowns and runtime lifecycle deadlines.
 
+<a id="acceptance-ar-116"></a>
+Acceptance for `REQ-OPERATIONAL-CLOCK-001`–`REQ-OPERATIONAL-CLOCK-003`, `REQ-DEADLINE-ORDER-001`–`REQ-DEADLINE-ORDER-002`, `REQ-SESSION-ROSTER-001`, `REQ-INITIAL-START-CONDITIONS-001`–`REQ-INITIAL-START-CONDITIONS-004`, `REQ-SESSION-START-001`, `REQ-SESSION-COUNTDOWN-001`–`REQ-SESSION-COUNTDOWN-004`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Approved closed start-condition inventory and requirement/configuration trace; one positive case and one isolated negative per condition; rejection of an unstated gate; deterministic Operational Clock traces covering start, just-before, exact-boundary and just-after events; client-clock rejection; invalidation precedence; and the exact five-second transition
+
 **REQ-OPERATIONAL-CLOCK-002** — The Operational Clock MUST advance monotonically and MUST remain independent from simulated time and Scenario timers.
 
 **REQ-OPERATIONAL-CLOCK-003** — A client clock or client-provided timestamp MUST NOT determine countdown completion, deadline expiry, or authoritative event ordering.
@@ -258,6 +324,10 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 
 **REQ-READINESS-001** — A Trainee MUST satisfy every applicable requirement from `REQ-READINESS-PRECONDITION-001` through `REQ-READINESS-PRECONDITION-006` and explicitly declare readiness before entering `TraineeReady`.
 
+<a id="acceptance-ar-113"></a>
+Acceptance for `REQ-READINESS-001`, `REQ-READINESS-PRECONDITION-001`–`REQ-READINESS-PRECONDITION-006`, `REQ-READINESS-CLOSED-001`, `REQ-READINESS-002`. Required: Automated Test, Inspection.
+One passing case with all listed preconditions and explicit declaration; one isolated failing case per precondition; revocation after each precondition loss; exact Admission and identity-binding checks; and an exhaustive gate inspection showing that no unstated condition can prevent `TraineeReady`
+
 **REQ-READINESS-PRECONDITION-001** — The Trainee's client MUST have an admitted active connection to the Session Authority.
 
 **REQ-READINESS-PRECONDITION-002** — The Trainee MUST have a Call Sign unique within the current Training Session and an assigned Team Position.
@@ -265,6 +335,10 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 **REQ-READINESS-PRECONDITION-003** — The Trainee MUST have a valid selected Loadout permitted for the assigned Team and available within its configured quantity.
 
 **REQ-READINESS-PRECONDITION-004** — Before connection, the client MUST validate and completely materialize the exact Client Pack selected for the process; before Admission, it MUST confirm that pack's Runtime Content Release identity, Scenario, role, content contract, pair binding, and integrity against the Session Authority.
+
+<a id="acceptance-ar-099"></a>
+Acceptance for `REQ-READINESS-PRECONDITION-004`, `REQ-READINESS-002`, `REQ-CONTENT-RELEASE-001`, `REQ-CONTENT-PACK-ROLE-001`, `REQ-CONTENT-PAIR-001`, `REQ-CONTENT-PAIR-ATOMIC-001`, `REQ-CONTENT-SIGNING-001`, `REQ-CONTENT-TRUST-001`, `REQ-CONTENT-COMPATIBILITY-001`, `CONSTRAINT-CONTENT-DISTRIBUTION-001`, `REQ-CONTENT-MISSING-001`, `REQ-CONTENT-IDENTITY-001`, `REQ-CONTENT-MISMATCH-001`, `REQ-CONTENT-VERSION-001`–`REQ-CONTENT-VERSION-002`, `REQ-CONTENT-STARTUP-001`, `REQ-CONTENT-ACTIVATION-001`, `REQ-CONTENT-IMMUTABILITY-001`, `REQ-CONTENT-OVERRIDE-001`, `REQ-CONTENT-ROLLBACK-001`, `REQ-CONTENT-RETENTION-001`. Required: Automated Test, Analysis, Inspection.
+Deterministic two-pack production and reciprocal binding; all-or-nothing signing/publication; missing, stale, corrupt, wrong-role, unauthorized-signer, wrong-contract, broken-pair, malformed and materialization failures; exact launch selection; eager activation; no runtime reread or override; pre-Admission pair match; explicit rollback; external retention ownership; and stable non-sensitive diagnostics
 
 **REQ-READINESS-PRECONDITION-005** — The client MUST have the required input, visual-output, and audio-input-and-output devices for the selected access mode available to the Training Simulation.
 
@@ -282,6 +356,10 @@ scope and specialist acceptance meanings are unchanged by ADR-0014.
 
 **REQ-SESSION-COUNTDOWN-003** — If any condition in the approved Initial Start Condition Set becomes false during the countdown, including a Trainee losing `TraineeReady` or disconnecting, the system MUST cancel the countdown immediately and enter Preparation in that canonical transition.
 
+<a id="acceptance-ar-048"></a>
+Acceptance for `REQ-SESSION-COUNTDOWN-003`, `REQ-TECHNICAL-REMOVAL-002`, `REQ-VOLUNTARY-LEAVE-002`, `REQ-ACTION-INTERRUPTION-001`, `REQ-RADIO-DAMAGE-004`, `REQ-HAND-SIGNAL-INTERRUPTION-001`, `REQ-STRESS-RECOVERY-003`, `REQ-WEAPON-ACCESSORY-EFFECT-001`, `REQ-RELOAD-INTERRUPTION-001`, `REQ-MALFUNCTION-CLEAR-INTERRUPTION-001`, `REQ-PORTABLE-LIGHT-DAMAGE-002`. Required: Automated Test, Inspection.
+Canonical event traces showing that each required immediate effect occurs in the state transition accepting its trigger, before any subsequent event or simulation advancement; inspection confirms that no functional pass criterion depends on wall-clock latency
+
 **REQ-SESSION-COUNTDOWN-004** — A cancelled countdown MUST restart from five seconds only after every condition in the approved Initial Start Condition Set holds again.
 
 ## Connection and admission
@@ -297,297 +375,597 @@ Production Security Baseline applies.
 
 **REQ-SESSION-CONNECTION-001** — A Trainee Client process MUST receive exactly one Session Authority endpoint through its immutable Runtime Launch Specification and MUST connect only to that endpoint; it MUST NOT discover, select, negotiate, or fall back to another Session Authority.
 
+<a id="acceptance-ar-005"></a>
+Acceptance for `REQ-SESSION-CONNECTION-001`, `REQ-CLIENT-RECONNECT-001`, `REQ-SESSION-ACCESS-001`, `REQ-AUTH-SUBJECT-001`, `REQ-AUTH-IDENTITY-AUTHORITY-001`, `REQ-AUTH-IDENTITY-OWNERSHIP-001`, `REQ-AUTHORITY-AUTHENTICATION-001`, `REQ-AUTHORITY-AUTHORIZATION-001`, `REQ-AUTHORITY-FAILURE-001`, `REQ-AUTH-TRAINEE-PRESENCE-001`, `REQ-AUTH-TRAINEE-REUSE-001`, `REQ-AUTH-OFFLINE-001`, `REQ-AUTH-OFFLINE-VALIDATION-001`, `REQ-AUTH-OFFLINE-CACHE-001`, `REQ-AUTH-EVIDENCE-VALIDITY-001`–`REQ-AUTH-EVIDENCE-VALIDITY-003`, `REQ-AUTH-TIME-001`–`REQ-AUTH-TIME-003`, `REQ-AUTH-REVOCATION-001`–`REQ-AUTH-REVOCATION-004`, `REQ-AUTH-REVOCATION-CARDINALITY-001`, `REQ-AUTH-CONTROL-PROOF-001`–`REQ-AUTH-CONTROL-PROOF-002`, `REQ-AUTHORIZATION-BINDING-001`, `REQ-AUTH-CONTROL-NONDISCLOSURE-001`, `REQ-AUTH-CHALLENGE-001`, `REQ-AUTH-CHALLENGE-BINDING-001`, `REQ-AUTH-CHALLENGE-USE-001`, `REQ-AUTH-REPLAY-001`, `REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-001`–`REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-002`, `REQ-AUTH-TRAINEE-ASSURANCE-001`, `REQ-AUTH-TRAINEE-ASSURANCE-REJECTION-001`, `REQ-AUTH-MACHINE-ASSURANCE-PROFILE-001`–`REQ-AUTH-MACHINE-ASSURANCE-PROFILE-002`, `REQ-AUTH-MACHINE-ASSURANCE-001`, `REQ-AUTH-MACHINE-ASSURANCE-REJECTION-001`, `REQ-AUTH-ASSURANCE-INDEPENDENCE-001`, `REQ-AUTH-EVIDENCE-CATALOGUE-001`–`REQ-AUTH-EVIDENCE-CATALOGUE-005`, `REQ-AUTH-IDENTITY-KEY-001`–`REQ-AUTH-IDENTITY-KEY-003`, `REQ-AUTH-VALIDATION-PACKAGE-001`–`REQ-AUTH-VALIDATION-PACKAGE-006`, `REQ-AUTH-VALIDATION-PACKAGE-CURRENT-001`, `REQ-AUTH-VALIDATION-PACKAGE-TRUST-001`, `REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-001`–`REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-002`, `REQ-AUTH-VALIDATION-PACKAGE-CURRENT-002`, `REQ-AUTH-VALIDATION-PACKAGE-MISMATCH-001`, `REQ-AUTH-VALIDATION-PACKAGE-COMPATIBILITY-001`, `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001`–`REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003`, `REQ-AUTH-VALIDATION-PACKAGE-HISTORY-001`, `REQ-AUTH-VALIDATION-DEPENDENCY-RETENTION-001`, `REQ-AUTH-VALIDATION-PACKAGE-IMPACT-001`, `REQ-AUTH-REVALIDATION-001`, `REQ-AUTH-POST-ADMISSION-001`, `REQ-AUTHORIZATION-SUBJECT-001`, `REQ-AUTHORIZATION-DENIAL-001`, `REQ-AUTHORIZATION-ASSERTION-001`, `REQ-AUTHORIZATION-ENFORCEMENT-001`, `REQ-AUTHORIZATION-CLIENT-ENFORCEMENT-001`, `REQ-AUTHORIZATION-RULE-001`, `REQ-AUTHORIZATION-LOCAL-LIST-001`, `REQ-AUTHORIZATION-TRAINEE-SCOPE-001`, `REQ-AUTHORIZATION-TRAINING-SELECTION-001`, `REQ-AUTHORIZATION-DEVICE-SCOPE-001`, `REQ-AUTHORIZATION-DEVICE-PAIRING-001`, `REQ-AUTH-IDENTITY-RETENTION-001`, `REQ-AUTH-IDENTITY-DISCLOSURE-001`, `REQ-AUTH-CALL-SIGN-001`, `REQ-AUTH-INTERNAL-USE-001`, `REQ-AUTH-AUDIT-COVERAGE-001`, `REQ-AUTH-AUDIT-DISPOSITION-001`, `REQ-AUTH-AUDIT-CONTENT-001`, `REQ-AUTH-AUDIT-SCHEMA-001`–`REQ-AUTH-AUDIT-SCHEMA-002`, `REQ-AUTH-AUDIT-SECRET-001`, `REQ-AUTH-AUDIT-SEPARATION-001`, `REQ-AUTH-AUDIT-POLICY-001`–`REQ-AUTH-AUDIT-POLICY-004`, `REQ-AUTH-AUDIT-POLICY-EXPIRY-001`, `REQ-AUTH-AUDIT-POLICY-005`, `REQ-AUTH-AUDIT-POLICY-CHANGE-001`–`REQ-AUTH-AUDIT-POLICY-CHANGE-003`, `REQ-AUTH-AUDIT-ACCESS-001`–`REQ-AUTH-AUDIT-ACCESS-002`, `SCOPE-AUTH-AUDIT-ACCESS-001`, `REQ-AUTH-AUDIT-INTEGRITY-001`–`REQ-AUTH-AUDIT-INTEGRITY-004`, `REQ-AUTH-AUDIT-EPOCH-001`–`REQ-AUTH-AUDIT-EPOCH-002`, `REQ-AUTH-AUDIT-CHECKPOINT-001`–`REQ-AUTH-AUDIT-CHECKPOINT-004`, `REQ-AUTH-AUDIT-WRITE-GATE-001`, `REQ-AUTH-AUDIT-COMMIT-001`, `REQ-AUTH-AUDIT-WRITE-FAILURE-001`–`REQ-AUTH-AUDIT-WRITE-FAILURE-002`, `REQ-AUTH-AUDIT-WRITE-RECOVERY-001`, `REQ-AUTH-DENIAL-CATEGORY-001`, `REQ-AUTH-DENIAL-MAPPING-001`–`REQ-AUTH-DENIAL-MAPPING-002`, `REQ-AUTH-DENIAL-DELIVERY-001`, `REQ-AUTH-DENIAL-DETAIL-001`, `REQ-AUTH-DENIAL-EQUIVALENCE-001`, `REQ-AUTH-IDENTITY-AUTHORITY-002`, `REQ-AUTHORIZATION-PERMISSION-001`–`REQ-AUTHORIZATION-PERMISSION-003`, `REQ-AUTHORIZATION-RULE-SET-001`, `REQ-AUTHORIZATION-RULE-SET-APPLICABILITY-001`, `REQ-AUTHORIZATION-RULE-SET-002`, `REQ-AUTH-OPERATION-INVENTORY-001`–`REQ-AUTH-OPERATION-INVENTORY-004`, `REQ-AUTH-OPERATION-INSTANCE-001`, `REQ-AUTH-ATTEMPT-LIFECYCLE-001`, `REQ-AUTH-ATTEMPT-SUPERSESSION-001`, `REQ-AUTH-EXCHANGE-001`–`REQ-AUTH-EXCHANGE-006`, `REQ-ADMISSION-PRECONDITION-001`, `REQ-ADMISSION-ATOMIC-001`, `REQ-ADMISSION-IDENTIFIER-001`, `REQ-ADMISSION-FAILURE-001`, `REQ-ADMISSION-UNIQUENESS-001`, `REQ-ADMISSION-DUPLICATE-001`, `SCOPE-AUTH-CROSS-AUTHORITY-001`, `REQ-ADMISSION-END-001`, `REQ-ADMISSION-PERSISTENCE-001`, `REQ-ADMISSION-END-EFFECT-001`, `REQ-ADMISSION-PREPARATION-DISCONNECT-001`, `REQ-ADMISSION-OPERATOR-CHANGE-001`, `REQ-ADMISSION-DEVICE-CHANGE-001`, `REQ-AUTH-LATE-JOIN-001`, `REQ-AUTH-ATTEMPT-CANCEL-001`, `REQ-AUTH-RETRY-001`, `REQ-AUTH-ATTEMPT-CONCURRENCY-001`, `REQ-AUTH-IDENTITY-LOCKOUT-001`, `REQ-AUTH-DATA-MINIMIZATION-001`, `REQ-AUTH-DATA-INVENTORY-001`–`REQ-AUTH-DATA-INVENTORY-003`, `REQ-AUTH-TRANSIENT-DATA-001`–`REQ-AUTH-TRANSIENT-DATA-003`, `SCOPE-AUTH-CREDENTIAL-RECOVERY-001`, `REQ-SESSION-ACCESS-002`, `REQ-LATE-JOIN-001`, `REQ-SESSION-DISCONNECT-001`–`REQ-SESSION-DISCONNECT-002`, `REQ-TECHNICAL-REMOVAL-001`–`REQ-TECHNICAL-REMOVAL-006`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Connection, Admission, pre-active departure and active Technical Removal matrices with exact canonical states, identities, item dispositions, Team-empty Scenario outcomes and proof that the simulation continues without the removed Trainee
+
 **REQ-CLIENT-RECONNECT-001** — Before active simulation, a Trainee Client MAY repeat connection to the same launch-selected Session Authority endpoint and begin a new Admission only under one exact finite immutable retry policy selected by its Runtime Launch Specification; after active simulation begins or after Technical Removal, that client process MUST NOT reconnect, restore, or begin another Admission.
+
+<a id="acceptance-ar-095"></a>
+Acceptance for `REQ-CLIENT-RECONNECT-001`, `REQ-VOLUNTARY-LEAVE-CONFIRMATION-001`. Required: Automated Test, Inspection. Supporting: Demonstration for connection and departure flows.
+Same-endpoint finite retry boundaries; new Admission per retry; no discovery or fallback; no retry after active simulation or Technical Removal; one idempotent departure identity; duplicate handling; authority confirmation at exact bounds; unconfirmed expiry and connection loss; and no false authority-commit claim
 
 **REQ-SESSION-ACCESS-001** — Under the Production Security Baseline, any Controlled LAN device that knows the address MUST be allowed to initiate Session Authority validation, but knowledge of the address MUST NOT authenticate an identity, authorize use, create an Admission, or reserve Training Session capacity. Under the permissive development mode, the exact endpoint and Synthetic Identities MUST instead come from the Runtime Launch Specification.
 
 **REQ-AUTH-SUBJECT-001** — Before admitting a client to Preparation, the Session Authority MUST successfully authenticate exactly one Trainee Identity and exactly one Client Device Identity and MUST bind both authenticated identities to that admitted client connection.
 
+<a id="acceptance-ar-006"></a>
+Acceptance for `REQ-AUTH-SUBJECT-001`, `REQ-AUTH-IDENTITY-AUTHORITY-001`, `REQ-AUTH-IDENTITY-OWNERSHIP-001`, `REQ-AUTHORITY-AUTHENTICATION-001`, `REQ-AUTHORITY-AUTHORIZATION-001`, `REQ-AUTHORITY-FAILURE-001`, `REQ-AUTH-TRAINEE-PRESENCE-001`, `REQ-AUTH-TRAINEE-REUSE-001`, `REQ-AUTH-OFFLINE-001`, `REQ-AUTH-OFFLINE-VALIDATION-001`, `REQ-AUTH-OFFLINE-CACHE-001`, `REQ-AUTH-EVIDENCE-VALIDITY-001`–`REQ-AUTH-EVIDENCE-VALIDITY-003`, `REQ-AUTH-TIME-001`–`REQ-AUTH-TIME-003`, `REQ-AUTH-REVOCATION-001`–`REQ-AUTH-REVOCATION-004`, `REQ-AUTH-REVOCATION-CARDINALITY-001`, `REQ-AUTH-CONTROL-PROOF-001`–`REQ-AUTH-CONTROL-PROOF-002`, `REQ-AUTHORIZATION-BINDING-001`, `REQ-AUTH-CONTROL-NONDISCLOSURE-001`, `REQ-AUTH-CHALLENGE-001`, `REQ-AUTH-CHALLENGE-BINDING-001`, `REQ-AUTH-CHALLENGE-USE-001`, `REQ-AUTH-REPLAY-001`, `REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-001`–`REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-002`, `REQ-AUTH-TRAINEE-ASSURANCE-001`, `REQ-AUTH-TRAINEE-ASSURANCE-REJECTION-001`, `REQ-AUTH-MACHINE-ASSURANCE-PROFILE-001`–`REQ-AUTH-MACHINE-ASSURANCE-PROFILE-002`, `REQ-AUTH-MACHINE-ASSURANCE-001`, `REQ-AUTH-MACHINE-ASSURANCE-REJECTION-001`, `REQ-AUTH-ASSURANCE-INDEPENDENCE-001`, `REQ-AUTH-EVIDENCE-CATALOGUE-001`–`REQ-AUTH-EVIDENCE-CATALOGUE-005`, `REQ-AUTH-IDENTITY-KEY-001`–`REQ-AUTH-IDENTITY-KEY-003`, `REQ-AUTH-VALIDATION-PACKAGE-001`–`REQ-AUTH-VALIDATION-PACKAGE-006`, `REQ-AUTH-VALIDATION-PACKAGE-CURRENT-001`, `REQ-AUTH-VALIDATION-PACKAGE-TRUST-001`, `REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-001`–`REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-002`, `REQ-AUTH-VALIDATION-PACKAGE-CURRENT-002`, `REQ-AUTH-VALIDATION-PACKAGE-MISMATCH-001`, `REQ-AUTH-VALIDATION-PACKAGE-COMPATIBILITY-001`, `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001`–`REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003`, `REQ-AUTH-VALIDATION-PACKAGE-HISTORY-001`, `REQ-AUTH-VALIDATION-DEPENDENCY-RETENTION-001`, `REQ-AUTH-VALIDATION-PACKAGE-IMPACT-001`, `REQ-AUTH-REVALIDATION-001`, `REQ-AUTH-POST-ADMISSION-001`, `REQ-AUTHORIZATION-SUBJECT-001`, `REQ-AUTHORIZATION-DENIAL-001`, `REQ-AUTHORIZATION-ASSERTION-001`, `REQ-AUTHORIZATION-ENFORCEMENT-001`, `REQ-AUTHORIZATION-CLIENT-ENFORCEMENT-001`, `REQ-AUTHORIZATION-RULE-001`, `REQ-AUTHORIZATION-LOCAL-LIST-001`, `REQ-AUTHORIZATION-TRAINEE-SCOPE-001`, `REQ-AUTHORIZATION-TRAINING-SELECTION-001`, `REQ-AUTHORIZATION-DEVICE-SCOPE-001`, `REQ-AUTHORIZATION-DEVICE-PAIRING-001`, `REQ-AUTH-IDENTITY-RETENTION-001`, `REQ-AUTH-IDENTITY-DISCLOSURE-001`, `REQ-AUTH-CALL-SIGN-001`, `REQ-AUTH-INTERNAL-USE-001`, `REQ-AUTH-AUDIT-COVERAGE-001`, `REQ-AUTH-AUDIT-DISPOSITION-001`, `REQ-AUTH-AUDIT-CONTENT-001`, `REQ-AUTH-AUDIT-SCHEMA-001`–`REQ-AUTH-AUDIT-SCHEMA-002`, `REQ-AUTH-AUDIT-SECRET-001`, `REQ-AUTH-AUDIT-SEPARATION-001`, `REQ-AUTH-AUDIT-POLICY-001`–`REQ-AUTH-AUDIT-POLICY-004`, `REQ-AUTH-AUDIT-POLICY-EXPIRY-001`, `REQ-AUTH-AUDIT-POLICY-005`, `REQ-AUTH-AUDIT-POLICY-CHANGE-001`–`REQ-AUTH-AUDIT-POLICY-CHANGE-003`, `REQ-AUTH-AUDIT-ACCESS-001`–`REQ-AUTH-AUDIT-ACCESS-002`, `SCOPE-AUTH-AUDIT-ACCESS-001`, `REQ-AUTH-AUDIT-INTEGRITY-001`–`REQ-AUTH-AUDIT-INTEGRITY-004`, `REQ-AUTH-AUDIT-EPOCH-001`–`REQ-AUTH-AUDIT-EPOCH-002`, `REQ-AUTH-AUDIT-CHECKPOINT-001`–`REQ-AUTH-AUDIT-CHECKPOINT-004`, `REQ-AUTH-AUDIT-WRITE-GATE-001`, `REQ-AUTH-AUDIT-COMMIT-001`, `REQ-AUTH-AUDIT-WRITE-FAILURE-001`–`REQ-AUTH-AUDIT-WRITE-FAILURE-002`, `REQ-AUTH-AUDIT-WRITE-RECOVERY-001`, `REQ-AUTH-DENIAL-CATEGORY-001`, `REQ-AUTH-DENIAL-MAPPING-001`–`REQ-AUTH-DENIAL-MAPPING-002`, `REQ-AUTH-DENIAL-DELIVERY-001`, `REQ-AUTH-DENIAL-DETAIL-001`, `REQ-AUTH-DENIAL-EQUIVALENCE-001`, `REQ-AUTH-IDENTITY-AUTHORITY-002`, `REQ-AUTHORIZATION-PERMISSION-001`–`REQ-AUTHORIZATION-PERMISSION-003`, `REQ-AUTHORIZATION-RULE-SET-001`, `REQ-AUTHORIZATION-RULE-SET-APPLICABILITY-001`, `REQ-AUTHORIZATION-RULE-SET-002`, `REQ-AUTH-OPERATION-INVENTORY-001`–`REQ-AUTH-OPERATION-INVENTORY-004`, `REQ-AUTH-OPERATION-INSTANCE-001`, `REQ-AUTH-ATTEMPT-LIFECYCLE-001`, `REQ-AUTH-ATTEMPT-SUPERSESSION-001`, `REQ-AUTH-EXCHANGE-001`–`REQ-AUTH-EXCHANGE-006`, `REQ-ADMISSION-PRECONDITION-001`, `REQ-ADMISSION-ATOMIC-001`, `REQ-ADMISSION-IDENTIFIER-001`, `REQ-ADMISSION-FAILURE-001`, `REQ-ADMISSION-UNIQUENESS-001`, `REQ-ADMISSION-DUPLICATE-001`, `SCOPE-AUTH-CROSS-AUTHORITY-001`, `REQ-ADMISSION-END-001`, `REQ-ADMISSION-PERSISTENCE-001`, `REQ-ADMISSION-END-EFFECT-001`, `REQ-ADMISSION-PREPARATION-DISCONNECT-001`, `REQ-ADMISSION-OPERATOR-CHANGE-001`, `REQ-ADMISSION-DEVICE-CHANGE-001`, `REQ-AUTH-LATE-JOIN-001`, `REQ-AUTH-ATTEMPT-CANCEL-001`, `REQ-AUTH-RETRY-001`, `REQ-AUTH-ATTEMPT-CONCURRENCY-001`, `REQ-AUTH-IDENTITY-LOCKOUT-001`, `REQ-AUTH-DATA-MINIMIZATION-001`, `REQ-AUTH-DATA-INVENTORY-001`–`REQ-AUTH-DATA-INVENTORY-003`, `REQ-AUTH-TRANSIENT-DATA-001`–`REQ-AUTH-TRANSIENT-DATA-003`, `SCOPE-AUTH-CREDENTIAL-RECOVERY-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for identity-security evidence.
+Exact role-specific Identity Validation Package, Identity Evidence, Identity Authority, issuer, evidence, profile, permission, assertion, revocation, trusted-time, rule-set and audit-policy versions; attempt and operation class-key plus unique-instance traces; mutual proof and protected-exchange transcripts; positive, missing, malformed, mismatched, expired, revoked, replayed, copied, concurrent, cancelled, duplicate, exchange-invalidated and cross-binding cases; Admission atomicity and lifecycle traces; terminal disclosure-disposition coverage; transient-data handling; complete audit records, incomplete-commit metadata, sequences, checkpoints, retention, write-failure and recovery results; and confirmation that NFR measurements and external operational assumptions are not silently treated as functional evidence
+
+Scope for `REQ-AUTH-SUBJECT-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-IDENTITY-AUTHORITY-001** — The authoritative creation, change, suspension, revocation, and retirement of every Trainee Identity, Client Device Identity, and Session Authority Identity MUST be owned by an Identity Authority outside the Training Simulation.
+
+Scope for `REQ-AUTH-IDENTITY-AUTHORITY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-IDENTITY-OWNERSHIP-001** — The Training Simulation MUST NOT create, change, suspend, revoke, retire, or act as the authoritative registry for a Trainee Identity, Client Device Identity, or Session Authority Identity.
 
+Scope for `REQ-AUTH-IDENTITY-OWNERSHIP-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORITY-AUTHENTICATION-001** — Before presenting Trainee Identity or Client Device Identity authentication evidence, a Trainee client MUST successfully authenticate exactly one Session Authority Identity for the endpoint to which it is connecting.
+
+Scope for `REQ-AUTHORITY-AUTHENTICATION-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORITY-AUTHORIZATION-001** — Before presenting Trainee Identity or Client Device Identity authentication evidence, a Trainee client MUST establish from an applicable Authorization Assertion that the authenticated Session Authority Identity is authorized to operate the Training Simulation authority role.
 
+Scope for `REQ-AUTHORITY-AUTHORIZATION-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORITY-FAILURE-001** — If Session Authority Identity authentication or authorization fails, the client MUST stop the admission attempt and MUST NOT present Trainee Identity or Client Device Identity authentication evidence to that endpoint.
+
+Scope for `REQ-AUTHORITY-FAILURE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-TRAINEE-PRESENCE-001** — Every initial admission attempt MUST require a new Trainee Authentication Act before the Session Authority may authenticate and bind the Trainee Identity to the client connection.
 
+Scope for `REQ-AUTH-TRAINEE-PRESENCE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-TRAINEE-REUSE-001** — Successful Trainee Identity authentication for one initial admission attempt MUST NOT by itself authenticate a later initial admission attempt, including one made from the same client computer or client process.
+
+Scope for `REQ-AUTH-TRAINEE-REUSE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-OFFLINE-001** — Initial admission MUST remain possible without live communication with the Identity Authority when the client and Session Authority can present all applicable Offline-Verifiable Identity Evidence required to authenticate and authorize the Session Authority Identity, Trainee Identity, and Client Device Identity.
 
+Scope for `REQ-AUTH-OFFLINE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-OFFLINE-VALIDATION-001** — Each party performing offline validation MUST establish the evidence issuer, exact subject identity, integrity, applicability, and current validity before treating that evidence as successful authentication or positive authorization.
+
+Scope for `REQ-AUTH-OFFLINE-VALIDATION-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-OFFLINE-CACHE-001** — A previously recorded authentication, authorization, or admission decision MUST NOT substitute for current Offline-Verifiable Identity Evidence in a later initial admission attempt.
 
+Scope for `REQ-AUTH-OFFLINE-CACHE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-EVIDENCE-VALIDITY-001** — Every item of Offline-Verifiable Identity Evidence MUST contain an exact validity-start instant and validity-end instant established by its Identity Authority, with the end strictly later than the start.
+
+Scope for `REQ-AUTH-EVIDENCE-VALIDITY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-EVIDENCE-VALIDITY-002** — Offline-Verifiable Identity Evidence MUST be treated as temporally valid exactly when the validation instant is equal to or later than its validity-start instant and strictly earlier than its validity-end instant.
 
+Scope for `REQ-AUTH-EVIDENCE-VALIDITY-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-EVIDENCE-VALIDITY-003** — Missing, malformed, unordered, not-yet-valid, or expired validity data MUST cause that evidence item to be rejected, and the Training Simulation MUST NOT extend or replace the Identity Authority's declared interval.
+
+Scope for `REQ-AUTH-EVIDENCE-VALIDITY-003`: Future — Production Security Baseline.
 
 **REQ-AUTH-TIME-001** — A Trainee client MUST use its own Trusted Identity Time to validate Session Authority Identity evidence, and the Session Authority MUST use its own Trusted Identity Time to validate Trainee Identity and Client Device Identity evidence.
 
+Scope for `REQ-AUTH-TIME-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-TIME-002** — A validating host MUST NOT use the Operational Clock, simulated time, or time supplied by the identity or endpoint being validated as the validation instant for Offline-Verifiable Identity Evidence.
+
+Scope for `REQ-AUTH-TIME-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-TIME-003** — If a validating host cannot establish its Trusted Identity Time, it MUST reject the affected authentication or authorization validation and MUST NOT continue admission on the basis of that evidence.
 
+Scope for `REQ-AUTH-TIME-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-REVOCATION-001** — Every identity-authentication evidence item and Authorization Assertion used for admission MUST have an applicable Offline Revocation Status issued by its Identity Authority and bound to that exact evidence item or assertion.
+
+Scope for `REQ-AUTH-REVOCATION-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-REVOCATION-002** — Each Offline Revocation Status MUST identify its issuer, bound evidence identity, `Current` or `Revoked` state, validity-start instant, and validity-end instant, and MUST satisfy the integrity and half-open temporal-validation rules applicable to Offline-Verifiable Identity Evidence.
 
+Scope for `REQ-AUTH-REVOCATION-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-REVOCATION-003** — Missing, malformed, mismatched, not-yet-valid, expired, unverifiable, or `Revoked` Offline Revocation Status MUST cause the bound evidence item or Authorization Assertion to be rejected.
+
+Scope for `REQ-AUTH-REVOCATION-003`: Future — Production Security Baseline.
 
 **REQ-AUTH-REVOCATION-004** — A previously recorded revocation check or admission decision MUST NOT substitute for an applicable current Offline Revocation Status during a later initial admission attempt.
 
+Scope for `REQ-AUTH-REVOCATION-004`: Future — Production Security Baseline.
+
 **REQ-AUTH-REVOCATION-CARDINALITY-001** — At one validation instant, exactly one temporally applicable Offline Revocation Status MUST exist for each evidence item or Authorization Assertion that requires one; zero or more than one applicable status, including overlapping `Current` values or any `Current` and `Revoked` conflict, MUST cause the bound item to be rejected.
+
+Scope for `REQ-AUTH-REVOCATION-CARDINALITY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-CONTROL-PROOF-001** — Successful authentication of a Trainee Identity, Client Device Identity, or Session Authority Identity MUST require Authenticator Control Proof for the authenticator bound by the Identity Authority to that exact identity.
 
+Scope for `REQ-AUTH-CONTROL-PROOF-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-CONTROL-PROOF-002** — Possession of copied identity evidence, an Authorization Assertion, or an Offline Revocation Status without valid Authenticator Control Proof MUST NOT authenticate an identity or permit admission.
+
+Scope for `REQ-AUTH-CONTROL-PROOF-002`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-BINDING-001** — Each Authorization Assertion MUST identify and apply only to the exact authenticated identity for which it was issued and MUST NOT be transferred to or combined with Authenticator Control Proof for another identity.
 
+Scope for `REQ-AUTHORIZATION-BINDING-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-CONTROL-NONDISCLOSURE-001** — Producing Authenticator Control Proof MUST NOT require disclosure or transfer of the controlled authenticator to the validating peer.
+
+Scope for `REQ-AUTH-CONTROL-NONDISCLOSURE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-CHALLENGE-001** — Every Authenticator Control Proof MUST respond to a new Authentication Challenge created by the validator for that exact AUTH Operation and AUTH Attempt.
 
+Scope for `REQ-AUTH-CHALLENGE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-CHALLENGE-BINDING-001** — An Authentication Challenge and its accepted proof MUST be bound to the exact presenter identity, validator identity, validation purpose, AUTH Operation class key and instance identifier, and AUTH Attempt class key and instance identifier for which the challenge was created.
+
+Scope for `REQ-AUTH-CHALLENGE-BINDING-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-CHALLENGE-USE-001** — An Authentication Challenge MUST be accepted at most once and MUST become invalid when its owning AUTH Operation reaches any terminal result; cancellation or supersession of the enclosing AUTH Attempt MUST propagate that invalidation under `REQ-AUTH-ATTEMPT-SUPERSESSION-001`.
 
+Scope for `REQ-AUTH-CHALLENGE-USE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-REPLAY-001** — A proof created for a different, preceding, completed, failed, cancelled, superseded, or already accepted Authentication Challenge MUST be rejected and MUST NOT authenticate an identity or permit Admission.
+
+Scope for `REQ-AUTH-REPLAY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-001** — Every Trainee Identity authentication-evidence item MUST identify the exact Authentication Assurance Profile version assigned by the Identity Authority to that identity.
 
+Scope for `REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-002** — The referenced Authentication Assurance Profile MUST enumerate the required authenticator classes, factor count, Trainee Authentication Act or other human-presence conditions, proof requirements, applicability conditions, and objective acceptance criteria.
+
+Scope for `REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-TRAINEE-ASSURANCE-001** — The Session Authority MUST authenticate a Trainee Identity only when the complete presented Authenticator Control Proof satisfies every applicable criterion in the exact referenced Authentication Assurance Profile version.
 
+Scope for `REQ-AUTH-TRAINEE-ASSURANCE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-TRAINEE-ASSURANCE-REJECTION-001** — A missing, unknown, unapproved, incomplete, mismatched, or partially satisfied Authentication Assurance Profile or proof set MUST cause Trainee Identity authentication and initial admission to be rejected.
+
+Scope for `REQ-AUTH-TRAINEE-ASSURANCE-REJECTION-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-MACHINE-ASSURANCE-PROFILE-001** — Every Client Device Identity and Session Authority Identity authentication-evidence item MUST identify the exact Authentication Assurance Profile version assigned by the Identity Authority to that identity.
 
+Scope for `REQ-AUTH-MACHINE-ASSURANCE-PROFILE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-MACHINE-ASSURANCE-PROFILE-002** — Client-device and Session Authority Authentication Assurance Profiles MAY differ from each other and from Trainee Identity profiles but MUST each provide the complete machine-applicable fields and objective acceptance criteria required by `REQ-AUTH-TRAINEE-ASSURANCE-PROFILE-002`, with human-presence fields explicitly classified as `Not Applicable` where appropriate.
+
+Scope for `REQ-AUTH-MACHINE-ASSURANCE-PROFILE-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-MACHINE-ASSURANCE-001** — The Session Authority MUST authenticate a Client Device Identity, and a Trainee client MUST authenticate a Session Authority Identity, only when the complete presented Authenticator Control Proof satisfies every applicable criterion in the exact profile assigned to that identity.
 
+Scope for `REQ-AUTH-MACHINE-ASSURANCE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-MACHINE-ASSURANCE-REJECTION-001** — A missing, unknown, unapproved, incomplete, mismatched, or partially satisfied machine Authentication Assurance Profile or proof set MUST cause the affected authentication and admission attempt to be rejected.
+
+Scope for `REQ-AUTH-MACHINE-ASSURANCE-REJECTION-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-ASSURANCE-INDEPENDENCE-001** — Satisfying the Authentication Assurance Profile for one identity MUST NOT satisfy or replace any criterion for another required identity.
 
+Scope for `REQ-AUTH-ASSURANCE-INDEPENDENCE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-EVIDENCE-CATALOGUE-001** — The Identity Evidence Catalogue MUST enumerate every supported Trainee Identity, Client Device Identity, and Session Authority Identity evidence type and version; Authorization Assertion and Offline Revocation Status type and version; required field and issuer; Authentication Assurance Profile; validation purpose and applicability condition; validation dependency; and objective validation rule.
+
+Scope for `REQ-AUTH-EVIDENCE-CATALOGUE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-EVIDENCE-CATALOGUE-002** — The Identity Evidence Catalogue MUST be closed and versioned, and every admitted row MUST identify the exact Identity Authority, evidence or assertion schema version, applicable identity class, proof and profile requirements, validation outputs, rejection conditions, and dependencies required for offline validation.
 
+Scope for `REQ-AUTH-EVIDENCE-CATALOGUE-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-EVIDENCE-CATALOGUE-003** — Before use, the implementation team MUST reconcile the Identity Evidence Catalogue against every Authentication and authorization requirement and supported evidence dependency, and the project owner MUST approve its exact version.
+
+Scope for `REQ-AUTH-EVIDENCE-CATALOGUE-003`: Future — Production Security Baseline.
 
 **REQ-AUTH-EVIDENCE-CATALOGUE-004** — A missing, unknown, unsupported, unapproved, incomplete, or version-mismatched catalogue row, evidence item, assertion, status, profile, issuer, validation rule, or dependency MUST cause the affected validation and admission attempt to be rejected.
 
+Scope for `REQ-AUTH-EVIDENCE-CATALOGUE-004`: Future — Production Security Baseline.
+
 **REQ-AUTH-EVIDENCE-CATALOGUE-005** — A Trainee client and Session Authority participating in one admission attempt MUST use the same exact approved Identity Evidence Catalogue version for every mutual validation in that attempt.
+
+Scope for `REQ-AUTH-EVIDENCE-CATALOGUE-005`: Future — Production Security Baseline.
 
 **REQ-AUTH-IDENTITY-KEY-001** — Every successful Trainee Identity, Client Device Identity, and Session Authority Identity validation MUST output exactly one Canonical Identity Key containing the exact Identity Authority, identity class, and stable subject identifier.
 
+Scope for `REQ-AUTH-IDENTITY-KEY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-IDENTITY-KEY-002** — The Identity Evidence Catalogue MUST define the complete normalization and equality rules that derive one Canonical Identity Key from every supported evidence type and schema version, and a missing, ambiguous, or non-canonical result MUST cause validation to fail.
+
+Scope for `REQ-AUTH-IDENTITY-KEY-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-IDENTITY-KEY-003** — Every identity binding, Authorization Assertion match, duplicate-Admission check, retained identity reference, and identity comparison MUST use Canonical Identity Key equality and MUST NOT compare display text, serialized evidence, network addresses, or implementation object identity.
 
+Scope for `REQ-AUTH-IDENTITY-KEY-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-001** — Before an admission attempt, every Trainee client and Session Authority host MUST have its applicable Identity Validation Package role manifest and the release's shared non-sensitive artifacts provisioned by an external process independent of the Training Simulation.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-002** — An Identity Validation Package release MUST define exactly one closed `Trainee Client` manifest and one closed `Session Authority` manifest; both MUST identify the same exact release, Identity Evidence Catalogue, Admission Authorization Rule Set, AUTH Operation Inventory, AUTH Data Inventory, AUTH Audit Policy, and AUTH Audit Integrity Profile versions, while each manifest contains only the profiles, issuer records, validation dependencies, offline status inputs, and internal fields declared applicable to that host role.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-003** — Before using an Identity Validation Package role manifest, the host MUST verify its canonical release and manifest identities, release and manifest versions, role, integrity, complete declared contents, shared artifact versions, and applicability against the exact launch-selected Package Trust Reference provisioned independently under `REQ-AUTH-VALIDATION-PACKAGE-TRUST-001`.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-003`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-004** — The Training Simulation MUST NOT obtain or update an Identity Validation Package, catalogue, profile, issuer record, validation dependency, or offline status input from the Session Authority during client connection or from live Identity Authority communication during admission.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-004`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-005** — A missing, invalid, incomplete, corrupted, role-inapplicable, or catalogue-mismatched Identity Validation Package MUST cause the affected host to reject the admission attempt before accepting identity evidence.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-005`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-006** — A Trainee client host MUST NOT receive or retain the `Session Authority` role manifest, and a Session Authority host MUST NOT receive or retain the `Trainee Client` role manifest; shared artifacts MUST be explicitly classified as non-sensitive and applicable to both roles by the package and AUTH Data inventories.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-006`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-CURRENT-001** — Each Trainee Client and Session Authority process MUST receive exactly one approved Identity Validation Package role manifest and Package Trust Reference as immutable launch inputs and MUST retain one validated immutable package view for its lifetime.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-CURRENT-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-TRUST-001** — Each candidate activation pair MUST identify one exact project-owner-approved Package Trust Reference for its Identity Validation Package, provisioned to each host independently of the package contents, Session Authority, and live Identity Authority communication; missing, invalid, mismatched, or unapproved bootstrap evidence MUST reject the pair.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-TRUST-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-001** — Before approval for process activation, a candidate package MUST be reconciled against every required component, supported host role, Identity Evidence Catalogue dependency, rule, policy, profile, issuer, offline input, AUTH requirement, retained historical dependency, and Package Trust Reference, with every applicable check receiving `Pass` and exact project-owner approval.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-002** — `Fail`, `Blocked`, `Not Evaluated`, an incomplete applicability decision, or missing project-owner approval for any candidate-package check MUST prevent approval and activation.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-ADMISSION-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-CURRENT-002** — A new admission attempt MUST proceed only when the Trainee client and Session Authority use approved immutable role manifests identifying the same exact release and shared artifact versions activated at their respective process starts.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-CURRENT-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-MISMATCH-001** — An older, newer, unknown, unapproved, wrong-role, release-mismatched, or shared-artifact-mismatched manifest on either host MUST cause the admission attempt to be rejected before the client presents Trainee Identity or Client Device Identity authentication evidence.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-MISMATCH-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-COMPATIBILITY-001** — The initial baseline MUST NOT negotiate, migrate, translate, or provide backward or forward compatibility between Identity Validation Package releases or role-manifest versions; cross-role compatibility exists only for the exact pair admitted and approved within one release.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-COMPATIBILITY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001** — Identity Validation Package or Package Trust Reference rotation MUST affect only later process starts and MUST NOT replace, patch, or revalidate the immutable package view of a running process.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-UPDATE-002** — Rotation MUST atomically change the exact package and Package Trust Reference pair admitted for later process starts and MUST NOT expose a new process to a mixed pair.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003** — If complete validation and activation of a replacement package fail, the preceding approved launch pair MUST remain unchanged and the incomplete replacement MUST NOT be used by a new process.
 
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-HISTORY-001** — The implementation team MUST retain a stable version and activation-history record for every package designated current, including its Package Trust Reference, approval evidence, activation and supersession instants, predecessor, and candidate validation result, as project verification evidence governed by `PROCESS-EVIDENCE-RETENTION-001`; that project evidence is outside the runtime Training Simulation and AUTH Data Inventory and MUST NOT be used as a current AUTH decision input.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-HISTORY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-VALIDATION-DEPENDENCY-RETENTION-001** — Every non-secret package, catalogue, issuer, profile, rule, policy, integrity-reference validation input, and other dependency needed to interpret or validate a retained AUTH Audit Record or AUTH Audit Checkpoint MUST remain versioned and available until that record and checkpoint complete their approved expiry disposition.
 
+Scope for `REQ-AUTH-VALIDATION-DEPENDENCY-RETENTION-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-VALIDATION-PACKAGE-IMPACT-001** — Candidate-package admission MUST prove that replacement preserves every dependency required by retained records and checkpoints or supplies an approved exact successor mapping without changing their historical interpretation or validation result.
+
+Scope for `REQ-AUTH-VALIDATION-PACKAGE-IMPACT-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-REVALIDATION-001** — Identity-evidence validity, authorization, and Offline Revocation Status MUST be evaluated as conditions of initial admission and MUST NOT be re-evaluated as conditions for retaining that admission, entering `TraineeReady`, starting active simulation, or continuing active simulation.
 
+Scope for `REQ-AUTH-REVALIDATION-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-POST-ADMISSION-001** — Expiry of previously accepted evidence or receipt of a later `Revoked` status after successful initial admission MUST NOT by itself remove the admitted client, revoke `TraineeReady`, release its Team Position, interrupt participation, or terminate the Training Session.
+
+Scope for `REQ-AUTH-POST-ADMISSION-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-SUBJECT-001** — Before admitting a client to Preparation, the Session Authority MUST establish that both the authenticated Trainee Identity and the authenticated Client Device Identity are individually authorized to use the Training Simulation.
 
+Scope for `REQ-AUTHORIZATION-SUBJECT-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-DENIAL-001** — If either required identity is not successfully authenticated or is not positively authorized, the Session Authority MUST reject admission and MUST NOT assign a Team Position or allow the client to enter Preparation.
+
+Scope for `REQ-AUTHORIZATION-DENIAL-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-ASSERTION-001** — The Identity Authority MUST be the authoritative source of every Authorization Assertion used to decide whether a Trainee Identity may use the Training Simulation, a Client Device Identity may operate a Trainee client, or a Session Authority Identity may operate the authority role.
 
+Scope for `REQ-AUTHORIZATION-ASSERTION-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-ENFORCEMENT-001** — The Session Authority MUST apply the exact approved Admission Authorization Rule Set to the authenticated identities and their Authorization Assertions and MUST be the sole authority that records the resulting admission or denial decision.
+
+Scope for `REQ-AUTHORIZATION-ENFORCEMENT-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-CLIENT-ENFORCEMENT-001** — The Trainee client MUST apply every client-validator row in the exact same Admission Authorization Rule Set to the authenticated Session Authority Identity and its Authorization Assertion before disclosing Trainee or Client Device evidence; this authorization result is a client-side precondition and does not itself create an Admission.
 
+Scope for `REQ-AUTHORIZATION-CLIENT-ENFORCEMENT-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-RULE-001** — The initial Admission Authorization Rule Set MUST require an applicable positive Authorization Assertion for the authenticated Trainee Identity, Client Device Identity, and Session Authority Identity, using the exact identity-class permission mappings defined by `REQ-AUTHORIZATION-PERMISSION-002`.
+
+Scope for `REQ-AUTHORIZATION-RULE-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-LOCAL-LIST-001** — The Training Simulation MUST NOT maintain a locally administered per-identity allowlist or denylist for Trainee Identities or Client Device Identities.
 
+Scope for `REQ-AUTHORIZATION-LOCAL-LIST-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-TRAINEE-SCOPE-001** — In the initial baseline, a Trainee Identity Authorization Assertion MUST determine only whether that identity may use the Training Simulation and MUST NOT assign or restrict a Scenario, Team, Team Position, Loadout, or Call Sign.
+
+Scope for `REQ-AUTHORIZATION-TRAINEE-SCOPE-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-TRAINING-SELECTION-001** — After admission, Scenario access, Team Position selection, Loadout selection, and Call Sign selection MUST be governed only by their existing functional requirements and MUST NOT depend on identity-based roles or permissions.
 
+Scope for `REQ-AUTHORIZATION-TRAINING-SELECTION-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-DEVICE-SCOPE-001** — In the initial baseline, a Client Device Identity Authorization Assertion MUST determine only whether that computer may operate a Trainee client for the Training Simulation.
+
+Scope for `REQ-AUTHORIZATION-DEVICE-SCOPE-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-DEVICE-PAIRING-001** — Client Device Identity authorization MUST NOT restrict which authorized Trainee Identity may use that computer and MUST NOT assign or restrict a Scenario, Team, Team Position, Loadout, Call Sign, or access mode.
 
+Scope for `REQ-AUTHORIZATION-DEVICE-PAIRING-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-IDENTITY-RETENTION-001** — After successful admission, the Session Authority MUST retain the exact authenticated Trainee Identity and Client Device Identity binding as internal AUTH state for that admitted client until the admission ends.
+
+Scope for `REQ-AUTH-IDENTITY-RETENTION-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-IDENTITY-DISCLOSURE-001** — The Session Authority MUST NOT disclose a Trainee Identity or Client Device Identity to another Trainee client, use either as active-simulation presentation, or expose either through Team, roster, communication, or Scenario information.
 
+Scope for `REQ-AUTH-IDENTITY-DISCLOSURE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-CALL-SIGN-001** — The Call Sign MUST remain the only identity label for one Trainee disclosed to other Trainees during Preparation and active simulation and MUST NOT be replaced or supplemented by the authenticated Trainee Identity.
+
+Scope for `REQ-AUTH-CALL-SIGN-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-INTERNAL-USE-001** — Retained authenticated identities MAY be used only for AUTH decisions, AUTH evidence traceability, and AUTH audit records and MUST NOT change gameplay, training selection, or Scenario outcomes.
 
+Scope for `REQ-AUTH-INTERNAL-USE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-COVERAGE-001** — The producer assigned by the AUTH Operation Inventory MUST create exactly the classified AUTH Audit Record for every terminal `Audited` AUTH Operation, including every covered authentication, authorization, admission, lifecycle, and audit-recovery operation; a `Not Audited` row MUST create none.
+
+Scope for `REQ-AUTH-AUDIT-COVERAGE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-DISPOSITION-001** — Before its AUTH Audit Commit Unit is attempted, each AUTH Audit Record MUST contain the settled terminal result of `Success`, `Failure`, or `Cancelled` assigned to its exact AUTH Operation and MUST identify the exact acceptance, rejection, or cancellation rule that produced it.
 
+Scope for `REQ-AUTH-AUDIT-DISPOSITION-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-CONTENT-001** — Each AUTH Audit Record MUST contain a stable record identifier, its AUTH Attempt and AUTH Operation class keys and instance identifiers, Trusted Identity Time instant, producing host role and identity, final result, reason, and governing AUTH Audit Policy and Integrity Profile versions; the schema matrix MUST classify the applicability and exact source of validation purpose, Canonical Identity Key, package, catalogue, assurance profile, rule set, operation inventory, non-secret evidence, revocation-status, Admission, Training Session, Team Position, and Technical Removal references for each record class.
+
+Scope for `REQ-AUTH-AUDIT-CONTENT-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-SCHEMA-001** — The AUTH Audit Policy MUST contain a closed schema matrix for every AUTH Audit Record class and assign every candidate field exactly one disposition of `Required Current Input`, `Required Retained Reference`, or `Not Applicable`, with the exact source and meaning for each required field.
 
+Scope for `REQ-AUTH-AUDIT-SCHEMA-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-SCHEMA-002** — A record MUST contain every field applicable to its class, MUST omit each `Not Applicable` field, and MUST NOT cause evidence, assurance, authorization, validity, or revocation to be re-evaluated merely to populate a retained reference for a lifecycle record.
+
+Scope for `REQ-AUTH-AUDIT-SCHEMA-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-SECRET-001** — An AUTH Audit Record MUST NOT contain an authenticator, Authenticator Control Proof, reusable Authentication Challenge value, or other material sufficient to authenticate, authorize, or reproduce an accepted proof.
 
+Scope for `REQ-AUTH-AUDIT-SECRET-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-SEPARATION-001** — AUTH Audit Records MUST remain separate from gameplay state, Scenario outcomes, and After-Action Review data and MUST NOT be disclosed to Trainee clients as training information.
+
+Scope for `REQ-AUTH-AUDIT-SEPARATION-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-POLICY-001** — One exact approved AUTH Audit Policy version MUST govern every AUTH Audit Record created by Trainee clients and the Session Authority.
 
+Scope for `REQ-AUTH-AUDIT-POLICY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-POLICY-002** — The AUTH Audit Policy MUST enumerate every record class and host-role combination and assign an exact strictly positive finite retention period, retention-start event, expiry transition, expiry disposition, and access boundary to each row.
+
+Scope for `REQ-AUTH-AUDIT-POLICY-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-POLICY-003** — The AUTH Audit Policy MUST NOT use an indefinite, unstated, discretionary, or Scenario-dependent retention period or expiry disposition.
 
+Scope for `REQ-AUTH-AUDIT-POLICY-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-POLICY-004** — Every AUTH Audit Record MUST identify the exact AUTH Audit Policy version governing it and MUST be retained until the expiry instant calculated from its applicable policy row and Trusted Identity Time, then complete that row's exact authorized expiry transition without permitting expiry to appear as unauthorized mutation.
+
+Scope for `REQ-AUTH-AUDIT-POLICY-004`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-POLICY-EXPIRY-001** — Each policy row MUST define deterministic logical-expiry, physical-disposition, restart, catch-up, and failure behavior when Trusted Identity Time is unavailable or its NFR uncertainty criterion cannot be established; time uncertainty MUST NOT permit early physical disposition, indefinite silent retention, or use of host uptime as a substitute.
 
+Scope for `REQ-AUTH-AUDIT-POLICY-EXPIRY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-POLICY-005** — Before use, the implementation team MUST reconcile the AUTH Audit Policy against every AUTH Audit Record producer and class, and the project owner MUST approve its exact version.
+
+Scope for `REQ-AUTH-AUDIT-POLICY-005`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-POLICY-CHANGE-001** — Replacing the AUTH Audit Policy for later process starts MUST occur only through activation of a replacement Identity Validation Package pair under `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-001` through `REQ-AUTH-VALIDATION-PACKAGE-UPDATE-003`; a running process retains its launch-bound policy.
 
+Scope for `REQ-AUTH-AUDIT-POLICY-CHANGE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-POLICY-CHANGE-002** — A record MUST remain governed by the exact AUTH Audit Policy version identified when it was created; superseded policy versions MUST remain available until every governed record has reached its expiry disposition and MUST NOT govern a new record after replacement.
+
+Scope for `REQ-AUTH-AUDIT-POLICY-CHANGE-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-POLICY-CHANGE-003** — Replacing an AUTH Audit Policy or Integrity Profile MUST preserve every version and non-secret validation dependency needed to interpret retained records, validate their integrity references, and complete their authorized expiry transitions until no retained artifact depends on it.
 
+Scope for `REQ-AUTH-AUDIT-POLICY-CHANGE-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-ACCESS-001** — The Training Simulation MUST NOT provide a Trainee, gameplay role, or other in-product role with a capability to read, search, query, modify, delete, or export AUTH Audit Records.
+
+Scope for `REQ-AUTH-AUDIT-ACCESS-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-ACCESS-002** — AUTH Audit Records MUST NOT be transmitted through Trainee client connections, gameplay communication channels, Scenario data, or After-Action Review data.
 
+Scope for `REQ-AUTH-AUDIT-ACCESS-002`: Future — Production Security Baseline.
+
 **SCOPE-AUTH-AUDIT-ACCESS-001** — Authorization, collection, consultation, export, archival, and analysis of AUTH Audit Records through the host operating environment are outside the Training Simulation product boundary.
+
+Scope for `SCOPE-AUTH-AUDIT-ACCESS-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-INTEGRITY-001** — Each host MUST maintain retained AUTH Audit Records and their integrity references under one exact approved AUTH Audit Integrity Profile whose admitted grouping and continuity domains have stable identities and unambiguous beginning, rollover, discontinuity, and authorized-expiry boundaries.
 
+Scope for `REQ-AUTH-AUDIT-INTEGRITY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-INTEGRITY-002** — The AUTH Audit Integrity Profile MUST bind each retained record's exact contents, stable identity, ordering position, group and continuity context to sufficient non-secret integrity references to satisfy every detection outcome in `REQ-AUTH-AUDIT-INTEGRITY-003`, without prescribing storage format or cryptographic mechanism in this document.
+
+Scope for `REQ-AUTH-AUDIT-INTEGRITY-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-INTEGRITY-003** — Validation against the applicable retained AUTH Audit Checkpoints MUST distinguish and detect unauthorized modification, insertion, removal, duplication, reordering, truncation, missing local scope, and undeclared discontinuity within each checkpointed extent while accepting only the exact authorized expiry and rollover transitions declared by the governing profiles.
 
+Scope for `REQ-AUTH-AUDIT-INTEGRITY-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-INTEGRITY-004** — AUTH Audit integrity behavior MUST be tamper-evident and MUST NOT claim to prevent deletion or modification by an actor that controls the host operating environment or every retained checkpoint.
+
+Scope for `REQ-AUTH-AUDIT-INTEGRITY-004`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-EPOCH-001** — Each host MUST have exactly one current append target and MAY retain zero or more superseded AUTH Audit Sequence epochs only as one closed ordered chain whose predecessor, successor, rollover or discontinuity reason, retained extent, expiry state, and applicable checkpoints are explicit and verifiable.
 
+Scope for `REQ-AUTH-AUDIT-EPOCH-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-EPOCH-002** — Rollover, recovery, and authorized prefix expiry MUST preserve validation across every boundary while affected records or checkpoints remain retained; an unlinked epoch, multiple current append targets, or a missing retained boundary MUST fail integrity validation.
+
+Scope for `REQ-AUTH-AUDIT-EPOCH-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-CHECKPOINT-001** — The AUTH Audit Integrity Profile MUST define the exact checkpoint granularity, scope, producing host identity binding, covered record identities and ordering boundary, creation instant, validation inputs, and objective acceptance criteria required to achieve the specified detection outcomes.
 
+Scope for `REQ-AUTH-AUDIT-CHECKPOINT-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-CHECKPOINT-002** — Each AUTH Audit Checkpoint MUST be a separately collectable host-environment artifact and MUST NOT contain an authenticator, reusable proof, or other authentication secret.
+
+Scope for `REQ-AUTH-AUDIT-CHECKPOINT-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-CHECKPOINT-003** — An externally retained AUTH Audit Checkpoint MUST permit detection of a missing or changed boundary record, truncated or completely missing local checkpointed extent, unauthorized expiry, or undeclared discontinuity for its exact scope.
 
+Scope for `REQ-AUTH-AUDIT-CHECKPOINT-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-CHECKPOINT-004** — Collection, external transfer, and retention of AUTH Audit Checkpoints MUST remain outside the Training Simulation product boundary and are governed by `ASSUMPTION-AUTH-AUDIT-CHECKPOINT-001`.
+
+Scope for `REQ-AUTH-AUDIT-CHECKPOINT-004`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-WRITE-GATE-001** — Before beginning any AUTH Operation classified `Audited`, the assigned producer MUST establish and reserve the ability to persist its complete AUTH Audit Commit Unit; inability to reserve it MUST prevent the operation from accepting input or producing an AUTH effect.
 
+Scope for `REQ-AUTH-AUDIT-WRITE-GATE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-COMMIT-001** — An `Audited` AUTH Operation MUST NOT produce an access-, privilege-, or Admission-granting AUTH effect until its complete AUTH Audit Commit Unit, containing the settled final record and every integrity reference required by the current profile, has been persistently committed as one externally verifiable success outcome.
+
+Scope for `REQ-AUTH-AUDIT-COMMIT-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-WRITE-FAILURE-001** — If an AUTH Audit Commit Unit cannot be committed completely, the governed AUTH Operation MUST produce no access-, privilege-, or Admission-granting AUTH effect; it MUST still reach its inventory-defined failure or cancellation result, invalidate its challenges and partial results, perform the applicable transient cleanup, and disclose the applicable generic denial only when a protected response channel remains; the host MUST classify every partial artifact as an incomplete commit rather than a final AUTH Audit Record or valid checkpoint and MUST reject new AUTH Operations until audit-write capability is restored and validated.
 
+Scope for `REQ-AUTH-AUDIT-WRITE-FAILURE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-AUDIT-WRITE-FAILURE-002** — Loss of audit-write capability MUST NOT by itself remove an admitted client, revoke `TraineeReady`, interrupt an active Trainee, or terminate a Training Session, but any new Admission requiring an AUTH Operation while that capability is unavailable MUST be rejected under `REQ-AUTH-AUDIT-WRITE-FAILURE-001`.
+
+Scope for `REQ-AUTH-AUDIT-WRITE-FAILURE-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-AUDIT-WRITE-RECOVERY-001** — Before accepting AUTH Operations again, the host MUST validate retained integrity continuity, disposition incomplete commit artifacts, and successfully commit the inventory-required recovery AUTH Audit Commit Unit bound to the last valid retained state or to an explicitly authenticated new continuity scope that identifies the preceding scope, unavoidable gap, and discontinuity without claiming that a missing artifact existed.
 
+Scope for `REQ-AUTH-AUDIT-WRITE-RECOVERY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-DENIAL-CATEGORY-001** — The closed AUTH Denial Category set disclosed to a requesting client MUST contain exactly `Session Authority Validation Failed`, `Admission Denied`, and `AUTH Temporarily Unavailable`; `No Denial Disclosure` is the only non-disclosure disposition and is not an AUTH Denial Category.
+
+Scope for `REQ-AUTH-DENIAL-CATEGORY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-DENIAL-MAPPING-001** — Each terminal AUTH Attempt or refusal to begin MUST map to exactly one disclosure disposition using this ordered precedence: `Success` maps to `No Denial Disclosure`; client-requested cancellation before an independent failure or any terminal outcome for which no protected response channel remains maps to `No Denial Disclosure`; otherwise audit-write unavailability or audit-commit failure maps to `AUTH Temporarily Unavailable`; otherwise initial-admission failure, cancellation, or refusal before successful Session Authority Identity validation maps to `Session Authority Validation Failed`; otherwise initial-admission failure, cancellation, or refusal maps to `Admission Denied`; otherwise lifecycle or audit-recovery failure, cancellation, or refusal maps to `No Denial Disclosure`.
 
+Scope for `REQ-AUTH-DENIAL-MAPPING-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-DENIAL-MAPPING-002** — The AUTH Operation Inventory MUST classify every terminal AUTH Attempt result and pre-processing refusal under exactly one row of `REQ-AUTH-DENIAL-MAPPING-001`; overlapping, absent, or multiple disclosure dispositions MUST prevent approval of that inventory.
+
+Scope for `REQ-AUTH-DENIAL-MAPPING-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-DENIAL-DELIVERY-001** — An AUTH Denial Category MUST be disclosed only through the same AUTH Protected Exchange and attempt to which it applies; when no protected response channel remains, the host MUST retain the local audit disposition but MUST NOT queue, defer, or disclose a reason-bearing result through a later attempt or another channel.
 
+Scope for `REQ-AUTH-DENIAL-DELIVERY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-DENIAL-DETAIL-001** — The requesting peer MUST NOT receive the exact failed identity, evidence item, permission, issuer, package, catalogue, profile, validity, revocation, challenge, proof, policy rule, or audit condition; when the final AUTH Audit Record commits, the exact reason MUST remain attributable only in that local record, and when its commit fails the exact reason MAY remain only in the incomplete-commit and recovery metadata required by the AUTH Audit Integrity Profile.
+
+Scope for `REQ-AUTH-DENIAL-DETAIL-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-DENIAL-EQUIVALENCE-001** — All failures mapped to one AUTH Denial Category MUST expose the same category and MUST NOT expose a more specific result through another Training Simulation message or state transition; timing-equivalence limits remain a separate NFR input.
 
+Scope for `REQ-AUTH-DENIAL-EQUIVALENCE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-IDENTITY-AUTHORITY-002** — One exact Identity Authority identity and its complete admitted issuer set MUST be declared by the process-bound Identity Validation Package, and evidence from another authority or undeclared issuer MUST be rejected.
+
+Scope for `REQ-AUTH-IDENTITY-AUTHORITY-002`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-PERMISSION-001** — The initial AUTH Permission set MUST contain exactly `Use Training Simulation`, `Operate Trainee Client`, and `Operate Session Authority`.
 
+Scope for `REQ-AUTHORIZATION-PERMISSION-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-PERMISSION-002** — A Trainee Identity Authorization Assertion MUST contain `Use Training Simulation`; a Client Device Identity assertion MUST contain `Operate Trainee Client`; and a Session Authority Identity assertion MUST contain `Operate Session Authority` before the corresponding authorization can succeed.
+
+Scope for `REQ-AUTHORIZATION-PERMISSION-002`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-PERMISSION-003** — A missing, unknown, malformed, identity-class-inapplicable, or differently named permission MUST NOT satisfy an AUTH Permission requirement, and additional permissions MUST NOT change Training Simulation behavior.
 
+Scope for `REQ-AUTHORIZATION-PERMISSION-003`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-RULE-SET-001** — The Admission Authorization Rule Set MUST be closed and versioned and MUST enumerate every admitted identity-class, AUTH Permission, Authorization Assertion, applicability, combination, positive decision, denial decision, and precedence rule.
+
+Scope for `REQ-AUTHORIZATION-RULE-SET-001`: Future — Production Security Baseline.
 
 **REQ-AUTHORIZATION-RULE-SET-APPLICABILITY-001** — Every Admission Authorization Rule Set row MUST identify exactly one validator role of `Trainee Client` or `Session Authority`: client rows MUST cover Session Authority Identity and `Operate Session Authority`, while authority rows MUST cover Trainee Identity with `Use Training Simulation` and Client Device Identity with `Operate Trainee Client`.
 
+Scope for `REQ-AUTHORIZATION-RULE-SET-APPLICABILITY-001`: Future — Production Security Baseline.
+
 **REQ-AUTHORIZATION-RULE-SET-002** — The exact process-bound Admission Authorization Rule Set version MUST be included in the launch-activated Identity Validation Package, reconciled against every AUTH Permission and admission requirement, and approved by the project owner before use.
+
+Scope for `REQ-AUTHORIZATION-RULE-SET-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-OPERATION-INVENTORY-001** — The AUTH Operation Inventory MUST enumerate every initial-admission, lifecycle, and audit-recovery AUTH Attempt and AUTH Operation class using stable class keys and MUST define exact nesting, validator, presenter, validation purpose, start event, terminal results, supersession event, cancellation propagation, permitted AUTH effect, exact cleanup disposition for every terminal result, and audit classification for each row; an `Audited` row MUST identify its required AUTH Audit Record class and producer, while a `Not Audited` row MUST NOT identify or produce an AUTH Audit Record.
 
+Scope for `REQ-AUTH-OPERATION-INVENTORY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-OPERATION-INVENTORY-002** — At runtime, every AUTH Attempt and AUTH Operation MUST have exactly one unique instance identifier in addition to its stable inventory class key; each AUTH Operation, including audit recovery, MUST belong to exactly one current AUTH Attempt, and each challenge, proof, evidence input, decision, audit record, and AUTH effect MUST identify its exact operation and attempt class keys and instance identifiers.
+
+Scope for `REQ-AUTH-OPERATION-INVENTORY-002`: Future — Production Security Baseline.
 
 **REQ-AUTH-OPERATION-INVENTORY-003** — The inventory MUST classify every Admission creation and end event, including Technical Removal, as either `Audited` with exact producer and record correlation or `Not Audited` with exact project-owner-approved rationale; an absent or unclassified lifecycle event MUST NOT execute.
 
+Scope for `REQ-AUTH-OPERATION-INVENTORY-003`: Future — Production Security Baseline.
+
 **REQ-AUTH-OPERATION-INVENTORY-004** — Before use, the implementation team MUST reconcile the AUTH Operation Inventory against every AUTH producer, consumer, lifecycle transition, challenge, proof, cancellation, retry, concurrency, audit, and denial-category requirement, and the project owner MUST approve its exact version.
+
+Scope for `REQ-AUTH-OPERATION-INVENTORY-004`: Future — Production Security Baseline.
 
 **REQ-AUTH-OPERATION-INSTANCE-001** — An AUTH Attempt or AUTH Operation instance identifier MUST NOT be reused while any challenge, proof, evidence input, decision, effect, audit artifact, incomplete-commit artifact, or retained reference bound to that identifier remains valid or retained.
 
+Scope for `REQ-AUTH-OPERATION-INSTANCE-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-ATTEMPT-LIFECYCLE-001** — An AUTH Attempt MUST begin at its inventory-defined start event and reach exactly one terminal result of `Success`, `Failure`, or `Cancelled`; after a terminal result it MUST accept no input, produce no new AUTH effect, and become eligible only for the exact audit and cleanup disposition assigned to that result.
+
+Scope for `REQ-AUTH-ATTEMPT-LIFECYCLE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-ATTEMPT-SUPERSESSION-001** — Superseding an AUTH Attempt or AUTH Operation MUST atomically assign its inventory-defined terminal result, propagate cancellation to every still-nonterminal nested operation, invalidate their challenges and partial results, perform its inventory-defined audit and cleanup dispositions, and prevent any later access-, privilege-, or Admission-granting effect from that superseded scope.
 
+Scope for `REQ-AUTH-ATTEMPT-SUPERSESSION-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-EXCHANGE-001** — Every initial-admission AUTH Attempt MUST use one AUTH Protected Exchange bound to the exact AUTH Attempt class key and instance identifier, client endpoint, Session Authority endpoint, Session Authority Identity, Identity Validation Package release and role-manifest versions, and every nested AUTH Operation class key, instance identifier, and validation purpose carried by that exchange.
+
+Scope for `REQ-AUTH-EXCHANGE-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-EXCHANGE-002** — The AUTH Protected Exchange MUST protect every AUTH message against unauthorized disclosure, modification, injection, replay, reordering, truncation, and use with another peer, identity, attempt, purpose, or package version.
 
+Scope for `REQ-AUTH-EXCHANGE-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-EXCHANGE-003** — The client MUST NOT disclose Trainee Identity or Client Device Identity evidence, Authorization Assertions, Offline Revocation Status values, Authenticator Control Proofs, or Trainee Authentication Act results until Session Authority Identity authentication and authorization have succeeded within that exchange.
+
+Scope for `REQ-AUTH-EXCHANGE-003`: Future — Production Security Baseline.
 
 **REQ-AUTH-EXCHANGE-004** — After Session Authority validation succeeds, every Trainee Identity and Client Device Identity input and result MUST remain confidential and integrity-protected between that Trainee client and Session Authority and MUST NOT be transmitted to another client.
 
+Scope for `REQ-AUTH-EXCHANGE-004`: Future — Production Security Baseline.
+
 **REQ-AUTH-EXCHANGE-005** — Loss of exchange protection, peer-identity change, endpoint change, package-release or manifest change, connection loss, cancellation, or transcript-integrity failure before initial Admission commit MUST cancel the applicable AUTH Attempt, invalidate every outstanding Authentication Challenge, and prevent reuse of its partial results.
+
+Scope for `REQ-AUTH-EXCHANGE-005`: Future — Production Security Baseline.
 
 **REQ-AUTH-EXCHANGE-006** — The Training Simulation MUST NOT fall back to an unprotected exchange, weaker validation rule, different package version, cached decision, or reduced identity population after an AUTH Protected Exchange fails.
 
+Scope for `REQ-AUTH-EXCHANGE-006`: Future — Production Security Baseline.
+
 **REQ-ADMISSION-PRECONDITION-001** — Admission MUST require successful Session Authority authentication and authorization by the client; exact matching of the client and authority Runtime Content Release and role-pack pair; successful Trainee Identity and Client Device Identity authentication and authorization by the Session Authority; the exact launch-activated Identity Validation Package, catalogue, assurance profiles, rule set, evidence validity and revocation results; and persistent commitment of every required AUTH Audit Record and checkpoint.
+
+Scope for `REQ-ADMISSION-PRECONDITION-001`: Future — Production Security Baseline.
 
 **REQ-ADMISSION-ATOMIC-001** — After every mode-applicable admission precondition succeeds, the Session Authority MUST atomically create exactly one stable Admission identifier and bind it to the exact Trainee, Client Device, and Session Authority identity references, current client connection, AUTH mode, attempt identity, Runtime Content Release, and every package, rule, audit, integrity, or time reference required by that mode; no partial Admission MAY be observable. Synthetic Identity references under the permissive development adapter MUST remain distinguishable from authenticated Canonical Identity Keys.
 
@@ -617,25 +995,47 @@ Production Security Baseline applies.
 
 **REQ-AUTH-ATTEMPT-CANCEL-001** — Client cancellation or connection loss before initial Admission commit MUST cancel the complete applicable AUTH Attempt, invalidate its challenges and proofs, apply the outcome-specific cleanup rules in `REQ-AUTH-TRANSIENT-DATA-001` through `REQ-AUTH-TRANSIENT-DATA-003`, and require any retry to begin as a new attempt.
 
+Scope for `REQ-AUTH-ATTEMPT-CANCEL-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-RETRY-001** — A retry after failure or cancellation MUST use a new AUTH Protected Exchange, new Authentication Challenges, a new Trainee Authentication Act, current evidence and revocation status, and a new audit reservation and MUST NOT reuse a preceding success or partial result.
+
+Scope for `REQ-AUTH-RETRY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-ATTEMPT-CONCURRENCY-001** — Concurrent attempts involving the same Trainee Identity or Client Device Identity MUST be resolved against one canonical Admission commit order, and no more than the single Admission permitted by `REQ-ADMISSION-UNIQUENESS-001` MAY succeed.
 
+Scope for `REQ-AUTH-ATTEMPT-CONCURRENCY-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-IDENTITY-LOCKOUT-001** — Failed or repeated attempts MUST NOT cause the Training Simulation to suspend, revoke, disable, or lock a Trainee Identity, Client Device Identity, Session Authority Identity, authenticator, or Authorization Assertion; identity lifecycle changes remain solely with the Identity Authority.
+
+Scope for `REQ-AUTH-IDENTITY-LOCKOUT-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-DATA-MINIMIZATION-001** — An AUTH validator MUST request or process externally presented identity, evidence, assertion, status, profile, and proof fields only when required by the exact applicable Identity Evidence Catalogue row and MUST reject an unclassified external field that would influence an AUTH result.
 
+Scope for `REQ-AUTH-DATA-MINIMIZATION-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-DATA-INVENTORY-001** — The Identity Validation Package MUST contain a closed AUTH Data Inventory that assigns every externally provisioned package payload and every internally produced live, transient, audit, attempt, package, policy, Admission, Training Session, Team Position, proof-reference, and integrity-reference field an exact purpose, source or producer, permitted host-role recipient, consumer, persistence class, retention or cleanup event, and governing requirement.
+
+Scope for `REQ-AUTH-DATA-INVENTORY-001`: Future — Production Security Baseline.
 
 **REQ-AUTH-DATA-INVENTORY-002** — The Training Simulation MUST NOT receive, create, retain, disclose, or use an AUTH package payload or internal field absent from the approved AUTH Data Inventory or on a host role not admitted by its row, and the inventory MUST NOT admit a field without a current requirement and finite purpose and lifetime.
 
+Scope for `REQ-AUTH-DATA-INVENTORY-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-DATA-INVENTORY-003** — Before use, the implementation team MUST reconcile the AUTH Data Inventory against every current identity, Admission, audit, lifecycle, cleanup, and disclosure requirement and every role manifest, and the project owner MUST approve its exact version.
+
+Scope for `REQ-AUTH-DATA-INVENTORY-003`: Future — Production Security Baseline.
 
 **REQ-AUTH-TRANSIENT-DATA-001** — In the exact terminal transition of a successful initial-admission attempt, each host MUST clear every transient field after the required AUTH Audit Commit Units and live non-secret binding commit; after a successful lifecycle or audit-recovery attempt, it MUST clear them after the required audit commits and permitted effect commit, with an inventory row that uses no transient fields explicitly declaring that disposition; in any failed or cancelled attempt, it MUST clear them after the required failure or cancellation audit commit without requiring a live binding.
 
+Scope for `REQ-AUTH-TRANSIENT-DATA-001`: Future — Production Security Baseline.
+
 **REQ-AUTH-TRANSIENT-DATA-002** — If audit commit fails, each host MUST clear all evidence, proofs, challenges, exchange material, and other transient inputs at the inventory-defined failed-commit recovery boundary; only incomplete-commit metadata explicitly required by the AUTH Audit Integrity Profile MAY remain until recovery.
 
+Scope for `REQ-AUTH-TRANSIENT-DATA-002`: Future — Production Security Baseline.
+
 **REQ-AUTH-TRANSIENT-DATA-003** — After terminal cleanup, only the exact live, audit, or incomplete-commit fields enumerated by the AUTH Data Inventory for that outcome MAY remain; every undeclared transient field MUST be absent before another AUTH Attempt begins.
+
+Scope for `REQ-AUTH-TRANSIENT-DATA-003`: Future — Production Security Baseline.
 
 **SCOPE-AUTH-CREDENTIAL-RECOVERY-001** — Issuance, replacement, recovery, reset, or administrative unlocking of an identity or authenticator is owned by the Identity Authority and MUST NOT be performed by the Training Simulation.
 
@@ -647,11 +1047,19 @@ Production Security Baseline applies.
 
 **REQ-SESSION-DISCONNECT-001** — Protocol & Replication MUST report a Trainee connection as lost only after applying the exact connection-loss detection rule and bound in the current Runtime Timing Profile.
 
+<a id="acceptance-ar-035"></a>
+Acceptance for `REQ-SESSION-DISCONNECT-001`–`REQ-SESSION-DISCONNECT-002`, `REQ-TECHNICAL-REMOVAL-001`–`REQ-TECHNICAL-REMOVAL-006`, `REQ-VOLUNTARY-LEAVE-002`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Confirmed connection loss and explicit active departure cases proving one atomic irreversible Technical Removal with cause `Disconnected`; canonical ordering index and exact preceding/resulting canonical versions; ended Admission; rejected later input and re-entry; `Withdrawn` disposition for every associated item; no Fatal, injury, incapacity, casualty or task-error classification; retained earlier evidence; invalid incomplete later measures; continued simulation; each Scenario-defined empty-Team outcome; and comparison of `OBS-TECHNICAL-REMOVAL-001` with the matching reconstruction record and lifecycle/tick signals under the approved Observability Contract
+
 **REQ-SESSION-DISCONNECT-002** — A confirmed technical disconnection MUST NOT be represented as Fatal, injury, incapacity, casualty, voluntary tactical action, or task error.
 
 **REQ-TECHNICAL-REMOVAL-001** — If a Trainee connection is lost while active simulation is running, the Session Authority MUST execute exactly one irreversible Technical Removal for that Trainee and MUST continue the Training Session with the remaining Trainees.
 
 **REQ-TECHNICAL-REMOVAL-002** — Technical Removal MUST atomically end the Trainee's Admission; clear Ready; release the Team Position and Loadout; remove the Trainee from participation, collision, communication, action and presentation; and assign `Withdrawn` to every physical item associated with that Trainee before any later Canonical Tick or externally visible state.
+
+<a id="acceptance-ar-047"></a>
+Acceptance for `REQ-TECHNICAL-REMOVAL-002`–`REQ-TECHNICAL-REMOVAL-003`, `REQ-VOLUNTARY-LEAVE-002`. Required: Automated Test. Supporting: Demonstration.
+Same-event traces proving that all removal effects commit atomically before the next simulation step and that simultaneous removals are resolved in canonical event order without pausing the simulation
 
 **REQ-TECHNICAL-REMOVAL-003** — Technical Removal MUST record cause `Disconnected`, the removed Admission and Team Position, the exact last preceding canonical state version, and the resulting canonical state version in the deterministic reconstruction record and Session Evidence Set without disclosing authenticated identity to other Trainee clients.
 
@@ -665,6 +1073,10 @@ Production Security Baseline applies.
 
 **REQ-VOLUNTARY-LEAVE-001** — A Trainee MUST be able to leave an active Training Session explicitly.
 
+<a id="acceptance-ar-007"></a>
+Acceptance for `REQ-VOLUNTARY-LEAVE-001`–`REQ-VOLUNTARY-LEAVE-003`, `REQ-VOLUNTARY-LEAVE-CONFIRMATION-001`, `REQ-AUTHORITY-SINGLE-SESSION-001`, `REQ-AUTHORITY-TERMINAL-SETTLEMENT-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001`, `REQ-SESSION-EVIDENCE-001`–`REQ-SESSION-EVIDENCE-006`, `REQ-SESSION-EVIDENCE-TRUST-001`, `REQ-SESSION-EVIDENCE-CONFIDENTIALITY-001`, `REQ-CLIENT-SINGLE-SESSION-001`, `REQ-SESSION-FRESH-START-001`, `REQ-SESSION-TERMINATION-STATE-001`, `REQ-SCENARIO-MAP-001`–`REQ-SCENARIO-MAP-002`, `REQ-SESSION-SCENARIO-001`, `REQ-SCENARIO-END-001`, `REQ-SCENARIO-DURATION-001`, `REQ-SESSION-TIMER-001`–`REQ-SESSION-TIMER-002`, `REQ-SESSION-END-001`, `REQ-SCENARIO-END-PRECEDENCE-001`–`REQ-SCENARIO-END-PRECEDENCE-002`, `REQ-SESSION-END-002`, `REQ-SERVER-SESSION-001`, `REQ-AUTHORITY-SCENARIO-BINDING-001`, `REQ-SCENARIO-SELECTION-001`–`REQ-SCENARIO-SELECTION-002`, `REQ-SCENARIO-CHANGE-001`, `REQ-SCENARIO-RECONFIGURE-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration for complete session flows.
+Voluntary Technical Removal; normal and non-normal termination; immutable reconstruction records and Session Evidence Set manifest; asynchronous nonblocking export; reserved-capacity failure; durable terminal receipt; candidate recovery; indefinite retention; independent receipt trust; exact approved recipient-and-field matrix; authenticated destination and requester; authorized-recipient field coverage; unauthorized-recipient and record-existence nondisclosure; absence of credentials, authentication evidence, Trainee Identity and identity-bound performance fields; terminal settlement; clean and non-clean process exit; fresh-process state; Scenario/Map relationship, objective, duration, one-session hosting, immutable launch selection and rejection of process reuse
+
 **REQ-VOLUNTARY-LEAVE-002** — Explicit departure during active simulation MUST produce the same atomic Technical Removal and `Disconnected` cause as confirmed connection loss and MUST NOT by itself terminate the Training Session.
 
 **REQ-VOLUNTARY-LEAVE-003** — Explicit departure MUST NOT be represented as Fatal, injury, incapacity, casualty, or task error; any resulting last-participant Scenario outcome MUST follow `REQ-TECHNICAL-REMOVAL-005`.
@@ -672,6 +1084,10 @@ Production Security Baseline applies.
 **REQ-VOLUNTARY-LEAVE-CONFIRMATION-001** — During active simulation, a Trainee Client requesting explicit departure MUST stop new Intentions, submit exactly one idempotently identified departure request, and wait only for the immutable launch-selected finite bound for confirmed Technical Removal; expiry or connection loss MUST terminate the client without claiming that the Session Authority committed the removal.
 
 **REQ-AUTHORITY-SINGLE-SESSION-001** — One Session Authority process MUST be bound at launch to exactly one Scenario and MUST own exactly one Training Session over its complete process lifetime.
+
+<a id="acceptance-ar-036"></a>
+Acceptance for `REQ-AUTHORITY-SINGLE-SESSION-001`, `REQ-AUTHORITY-TERMINAL-SETTLEMENT-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001`, `REQ-SESSION-EVIDENCE-001`–`REQ-SESSION-EVIDENCE-006`, `REQ-SESSION-EVIDENCE-TRUST-001`, `REQ-SESSION-EVIDENCE-CONFIDENTIALITY-001`, `REQ-CLIENT-SINGLE-SESSION-001`, `REQ-SESSION-FRESH-START-001`, `REQ-SESSION-TERMINATION-STATE-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration.
+Exact one-Scenario and one-Training-Session process lifetime; committed Lifecycle Revisions and phase order; Canonical Tick and Composite Confirmed-State Identities; Prediction correction, rollback, reset and lead-freeze boundaries; acknowledgement high-water monotonicity; delta-gap, digest-mismatch and baseline-resynchronization paths; candidate rejection and deterministic termination at every catch-up and overload bound; terminal result, reconstruction loss classification and exact affected ranges; Session Evidence Set correlation, completeness or explicit loss boundary, durable receipt, confidentiality and recipient-field enforcement; Admission, AUTH audit, bounded asynchronous Observability, resource-release and exit ordering; signal-loss and `CoreOnly` integrity; idempotent export and incomplete/corrupt recovery; rejection of observability as authority, ordering, acknowledgement, persistence receipt or live-session input; rejection of a second session or content change; new-process fresh-state proof; and absence of carried canonical or client state
 
 **REQ-AUTHORITY-TERMINAL-SETTLEMENT-001** — After normal completion or termination, the Session Authority MUST fix the terminal result, close every Admission, finalize the Session Evidence Set, complete its required durable handoff, settle mode-applicable AUTH audit and bounded Observability work, and accept no second Training Session.
 
@@ -709,6 +1125,10 @@ Production Security Baseline applies.
 
 **REQ-SCENARIO-END-001** — Each Scenario MUST define objective completion conditions, a maximum active-simulation duration, and the result of each completion condition.
 
+<a id="acceptance-ar-037"></a>
+Acceptance for `REQ-SCENARIO-END-001`, `REQ-SESSION-TIMER-001`, `REQ-SESSION-END-001`, `REQ-SCENARIO-END-PRECEDENCE-001`–`REQ-SCENARIO-END-PRECEDENCE-002`, `REQ-SESSION-END-002`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Scenario-declared condition/result inventory and deterministic total priority or combined-result rule; isolated completion and timeout cases; every pair and applicable multi-condition exact-transition tie; recorded resolved result; and non-normal technical/voluntary classifications
+
 **REQ-SCENARIO-DURATION-001** — Each Scenario MUST define its own maximum active-simulation duration.
 
 **REQ-SESSION-TIMER-001** — Active simulation MUST end when the configured duration expires.
@@ -727,6 +1147,10 @@ Production Security Baseline applies.
 
 **REQ-SERVER-SESSION-001** — A Session Authority process MUST contain exactly one Training Session over its lifetime, including Preparation, initial countdown, active simulation, completion processing, terminal settling, and shutdown.
 
+<a id="acceptance-ar-038"></a>
+Acceptance for `REQ-SERVER-SESSION-001`, `REQ-AUTHORITY-SCENARIO-BINDING-001`, `REQ-SCENARIO-SELECTION-001`–`REQ-SCENARIO-SELECTION-002`, `REQ-SCENARIO-CHANGE-001`, `REQ-SCENARIO-RECONFIGURE-001`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Exact immutable launch-selected Authority Pack and Scenario identity; validation and activation before readiness or connection; client mutation rejection; lifetime immutability; rejection of a second Training Session; and proof that another Scenario requires a new process and Training Session
+
 **REQ-AUTHORITY-SCENARIO-BINDING-001** — The immutable launch configuration MUST identify exactly one Authority Pack whose signed Runtime Content Release selects exactly one Scenario before the Session Authority process begins content validation.
 
 **REQ-SCENARIO-SELECTION-001** — The Session Authority MUST validate and activate its exact Scenario through the Authority Pack selected by launch configuration before publishing readiness or accepting Trainee connections.
@@ -741,9 +1165,21 @@ Production Security Baseline applies.
 
 **REQ-BRIEFING-001** — Before entering `TraineeReady`, every Trainee MUST be able to review the mission, Map, Team role, provided Recovery Proxy location information, extraction area, completion conditions, and maximum duration.
 
+<a id="acceptance-ar-039"></a>
+Acceptance for `REQ-BRIEFING-001`, `REQ-RECOVERY-INTELLIGENCE-001`, `REQ-RECOVERY-INTELLIGENCE-003`, `REQ-BRIEFING-ACTIVE-001`, `REQ-NAVIGATION-EQUIPMENT-001`, `REQ-NAVIGATION-MAP-001`. Required: Automated Test, Inspection. Supporting: Demonstration. Evidence: Implementation team and Representative Evaluators for `REQ-RECOVERY-INTELLIGENCE-003`.
+Complete role-specific briefing fields; exact canonical proxy-position disclosure for the opposing Team; versioned recovering-Team search geometry, extent and granularity; containment and at-least-two-consistent-position proof; approved tactical-usefulness findings; complete active-guidance source inventory and leakage negatives; and static-map prohibited information cases
+
+<a id="acceptance-ar-008"></a>
+Acceptance for `REQ-BRIEFING-001`, `REQ-RECOVERY-INTELLIGENCE-001`, `REQ-RECOVERY-INTELLIGENCE-003`, `REQ-RECOVERY-INTELLIGENCE-002`, `REQ-BRIEFING-ACTIVE-001`, `REQ-NAVIGATION-EQUIPMENT-001`, `REQ-NAVIGATION-MAP-001`, `REQ-NAVIGATION-PARITY-001`, `REQ-TEAM-IDENTIFICATION-001`, `REQ-TEAM-IDENTIFICATION-ERROR-001`, `CONSTRAINT-DIEGETIC-001`–`CONSTRAINT-DIEGETIC-002`, `REQ-OPERATIONAL-UI-001`–`REQ-OPERATIONAL-UI-002`, `REQ-DESKTOP-INPUT-001`, `REQ-DESKTOP-DISPLAY-001`, `REQ-PC-ONLY-SESSION-001`, `REQ-VR-CAPABILITY-001`, `REQ-ACCESS-BASELINE-SCOPE-001`–`REQ-ACCESS-BASELINE-SCOPE-004`, `REQ-VR-BASELINE-SCOPE-001`–`REQ-VR-BASELINE-SCOPE-002`, `REQ-VR-OPTIONAL-001`, `REQ-VR-INPUT-001`–`REQ-VR-INPUT-002`, `REQ-MIXED-MODE-001`, `REQ-MODE-PARITY-001`–`REQ-MODE-PARITY-002`, `REQ-ACTION-INTERRUPTION-001`, `REQ-ACTION-STATE-PERSISTENCE-001`, `REQ-ACTION-AUTONOMOUS-001`, `REQ-ACTION-RESTART-001`, `REQ-ACTION-RESOURCE-001`, `REQ-ACTION-PHYSICAL-CONDITIONS-001`–`REQ-ACTION-PHYSICAL-CONDITIONS-003`, `REQ-ACTION-COMPATIBILITY-001`–`REQ-ACTION-COMPATIBILITY-003`, `REQ-ACTION-COMPATIBILITY-APPROVAL-001`, `REQ-ACTION-COMPATIBILITY-004`–`REQ-ACTION-COMPATIBILITY-005`, `REQ-ACTION-CONCURRENCY-001`, `REQ-ACTION-CONFLICT-001`, `REQ-ACTION-CONCURRENCY-002`, `REQ-WEAPON-MANIPULATION-MOVEMENT-001`–`REQ-WEAPON-MANIPULATION-MOVEMENT-003`, `REQ-AUTHORITY-001`, `REQ-CLIENT-TRUST-001`, `REQ-STATE-CONSISTENCY-001`. Required: Automated Test, Inspection. Supporting: Demonstration where a complete operational or access-mode flow applies.
+Briefing, navigation, identification, Diegetic Presentation, Desktop/VR input, action resource/concurrency and authority-state cases, including prohibited information and non-authoritative client outcomes
+
 **REQ-RECOVERY-INTELLIGENCE-001** — The recovering Team's briefing MUST present a stable, versioned search area formed by the exact union of Map-owned region identities referenced by the Scenario; that geometry MUST contain the selected Recovery Proxy position and leave at least two distinct Scenario-valid initial positions consistent with all briefing information, and MUST NOT present or make the selected exact position deductively unique.
 
 **REQ-RECOVERY-INTELLIGENCE-003** — Each Personnel Recovery Scenario MUST define versioned quantitative acceptance bounds for search-area extent and presentation granularity, and at least two qualified Representative Evaluators MUST independently confirm before use that a search area within those bounds provides tactically useful but non-exact intelligence; the project owner MUST approve the exact bounds and findings before that Scenario version may be selected for a Training Session.
+
+<a id="acceptance-ar-040"></a>
+Acceptance for `REQ-RECOVERY-INTELLIGENCE-003`. Required: Representative Evaluation. Evidence: Representative Evaluators.
+At least two independent qualified evaluator results under pre-approved search-area bounds and presentation-granularity criteria, establishing tactically useful but non-exact intelligence before Scenario use
 
 **REQ-RECOVERY-INTELLIGENCE-002** — The opposing Team's briefing MUST reveal the exact initial position of the Recovery Proxy.
 
@@ -755,7 +1191,17 @@ Production Security Baseline applies.
 
 **REQ-NAVIGATION-PARITY-001** — Required navigation equipment MUST satisfy Mode Equivalence for Scenario information.
 
+<a id="acceptance-ar-049"></a>
+Acceptance for `REQ-NAVIGATION-PARITY-001`, `REQ-MODE-PARITY-001`–`REQ-MODE-PARITY-002`, `REQ-DOOR-INPUT-PARITY-001`, `REQ-WINDOW-INPUT-PARITY-001`, `REQ-THROWN-DEVICE-PARITY-001`. Required: Automated Test, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team and Representative Evaluators.
+Paired Desktop Mode and Virtual-Reality Mode results from the same canonical initial states showing the same Scenario information and tactically relevant outcome sets within approved tolerances; structured evaluator findings identify any tactically material asymmetry
+
+Scope for `REQ-NAVIGATION-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-TEAM-IDENTIFICATION-001** — Each Scenario MUST assign visually distinguishable and plausible uniforms or equipment to the Teams.
+
+<a id="acceptance-ar-041"></a>
+Acceptance for `REQ-TEAM-IDENTIFICATION-001`, `REQ-TEAM-IDENTIFICATION-ERROR-001`. Required: Automated Test, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team and Representative Evaluators.
+Controlled uniform/equipment, visibility and ambiguity cases; independent plausibility/distinguishability findings; absence of automatic friend-or-foe information or correction; acceptance of otherwise permitted actions regardless of hidden Team identity; and approved evidence-insufficiency criteria
 
 **REQ-TEAM-IDENTIFICATION-ERROR-001** — During active simulation, the Training Simulation MUST NOT provide automatic friend-or-foe identification, correct a Trainee's interpreted Team identity, or use hidden Team identity to reject an otherwise permitted action; controlled evidence-insufficiency cases and their acceptance criteria MUST be defined in an approved Representative Evaluation procedure.
 
@@ -763,7 +1209,15 @@ Production Security Baseline applies.
 
 **CONSTRAINT-DIEGETIC-001** — Desktop Mode and Virtual-Reality Mode MUST use Diegetic Presentation during active simulation.
 
+<a id="acceptance-ar-042"></a>
+Acceptance for `CONSTRAINT-DIEGETIC-001`. Required: Automated Test, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team and Representative Evaluators.
+Complete active-presentation information-source inventory in both modes, stable source-to-physical-perception trace, prohibited non-physical source negatives, and structured findings that the remaining presentation matches information perceivable in an equivalent physical exercise
+
 **CONSTRAINT-DIEGETIC-002** — Active simulation MUST NOT display a crosshair, state bars, ammunition counters, hit markers, objective markers, minimap, floating names, threat indicators, or gameplay messages.
+
+<a id="acceptance-ar-043"></a>
+Acceptance for `CONSTRAINT-DIEGETIC-002`, `REQ-OPERATIONAL-UI-001`–`REQ-OPERATIONAL-UI-002`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Complete active UI/widget/output inventory; negative cases for every prohibited element and undisclosed output surface; and canonical start/resume captures proving removal of preparation, countdown and pause interfaces
 
 **REQ-OPERATIONAL-UI-001** — Non-diegetic interface MAY be used during connection, preparation, Team selection, `TraineeReady`, and initial countdowns.
 
@@ -773,35 +1227,53 @@ Production Security Baseline applies.
 
 **REQ-DESKTOP-INPUT-001** — A Desktop Mode Trainee MUST be able to perform every required Scenario action using only keyboard and mouse.
 
+<a id="acceptance-ar-044"></a>
+Acceptance for `REQ-DESKTOP-INPUT-001`, `REQ-DESKTOP-DISPLAY-001`, `REQ-PC-ONLY-SESSION-001`, `REQ-VR-CAPABILITY-001`, `REQ-ACCESS-BASELINE-SCOPE-001`–`REQ-ACCESS-BASELINE-SCOPE-004`, `REQ-VR-BASELINE-SCOPE-001`–`REQ-VR-BASELINE-SCOPE-002`, `REQ-VR-OPTIONAL-001`, `REQ-VR-INPUT-001`–`REQ-VR-INPUT-002`, `REQ-MIXED-MODE-001`, `REQ-MODE-PARITY-001`–`REQ-MODE-PARITY-002`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Action Inventory × input-mode and required-output coverage; complete PC-only and mixed-mode flows; device/input removal negatives; complete requirement-registry reconciliation; exactly-one Included/Future/Not-Applicable classification; named milestones and approved justifications; no early Pass claim; dependency-derived VR set; and mandatory complete inclusion in the first VR baseline
+
 **REQ-DESKTOP-DISPLAY-001** — A Desktop Mode Trainee MUST receive every required visual output through a conventional monitor.
 
 **REQ-PC-ONLY-SESSION-001** — A complete Training Session MUST be operable using only Desktop Mode Trainees and no virtual-reality equipment.
 
 **REQ-VR-CAPABILITY-001** — Virtual-Reality Mode MUST be excluded from the acceptance scope and capability claims of the first Desktop Mode baseline and MUST be included as mandatory scope in an explicitly identified later Virtual-Reality Mode baseline.
 
-**REQ-ACCESS-BASELINE-SCOPE-001** — Before verification begins, each candidate product baseline MUST have a Baseline Applicability Inventory with a stable baseline identifier and version that classifies every current requirement identifier exactly once as `Included`, `Future` with one named applicability milestone, or `Not Applicable` with a recorded justification.
+**REQ-ACCESS-BASELINE-SCOPE-001** — A candidate product baseline MUST identify its scope and source revision. Requirements own their Included scope, Future milestone or Not Applicable justification; no separate applicability inventory or pre-test registration is required.
 
 **REQ-ACCESS-BASELINE-SCOPE-002** — A `Future` or `Not Applicable` requirement MUST receive no `Pass` claim in that baseline; a `Future` requirement MUST become `Included` and mandatory when its named applicability milestone is submitted for approval.
 
-**REQ-ACCESS-BASELINE-SCOPE-003** — The implementation team MUST reconcile baseline applicability against the complete current requirement-identifier registry, and the project owner MUST approve changes to scope dispositions and every `Not Applicable` justification before they are used for baseline acceptance. Mechanical source revisions and ordinary test executions MUST NOT require a separate inventory approval.
+**REQ-ACCESS-BASELINE-SCOPE-003** — Before baseline acceptance, the implementation team MUST reconcile the claimed scope against the governing requirements, and the project owner MUST approve changed scope and each Not Applicable justification. Ordinary tests and mechanical source changes require no separate scope approval.
 
-**REQ-ACCESS-BASELINE-SCOPE-004** — Adding, removing, or changing a requirement identifier, dependency, classification, or named milestone MUST create a new Baseline Applicability Inventory version and trigger assignment and evidence impact analysis.
+**REQ-ACCESS-BASELINE-SCOPE-004** — A requirement, dependency, scope or milestone change MUST update its owning source and trigger affected acceptance and evidence-impact review under VERIFY-CHANGE-001; Git identifies the revision without a successor inventory.
 
 **REQ-VR-BASELINE-SCOPE-001** — In the first Desktop Mode baseline, every requirement whose acceptance depends on Virtual-Reality Mode or Mode Equivalence, including transitive dependencies, MUST be classified `Future` with the first Virtual-Reality Mode baseline as its named milestone. Applicability MUST be determined from canonical requirements and actual dependencies under `VERIFY-CHANGE-001`, without requiring an approved global dependency graph.
 
 **REQ-VR-BASELINE-SCOPE-002** — The first Virtual-Reality Mode baseline MUST classify every identifier in that complete dependency-derived set as `Included` and mandatory; no member of the set MAY remain omitted, `Future`, or `Not Applicable` at that milestone.
 
+Scope for `REQ-VR-BASELINE-SCOPE-002`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-VR-OPTIONAL-001** — No Trainee MUST be required to use Virtual-Reality Mode.
+
+Scope for `REQ-VR-OPTIONAL-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-VR-INPUT-001** — Virtual-Reality Mode MUST permit all required Scenario actions using head tracking and motion controllers.
 
+Scope for `REQ-VR-INPUT-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-VR-INPUT-002** — Virtual-Reality Mode MUST NOT require keyboard or mouse during active simulation.
+
+Scope for `REQ-VR-INPUT-002`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-MIXED-MODE-001** — When Virtual-Reality Mode is available, both access modes MUST coexist in one Training Session.
 
+Scope for `REQ-MIXED-MODE-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-MODE-PARITY-001** — Every required Scenario capability and authoritative outcome MUST satisfy Mode Equivalence.
 
+Scope for `REQ-MODE-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-MODE-PARITY-002** — A Scenario MUST NOT require a tactical action available only in one access mode.
+
+Scope for `REQ-MODE-PARITY-002`: Future — First Virtual-Reality Mode Baseline.
 
 ## Action execution
 
@@ -814,6 +1286,10 @@ Production Security Baseline applies.
 **REQ-ACTION-RESTART-001** — Reissuing an interrupted action MUST derive a valid sequence from the current canonical state and MUST NOT resume a stored step whose physical prerequisites no longer hold.
 
 **REQ-ACTION-RESOURCE-001** — Each Trainee action MUST define the represented body parts, hands, posture, equipment controls, and other exclusive physical resources required while that action executes.
+
+<a id="acceptance-ar-045"></a>
+Acceptance for `REQ-ACTION-RESOURCE-001`, `REQ-ACTION-PHYSICAL-CONDITIONS-001`–`REQ-ACTION-PHYSICAL-CONDITIONS-003`, `REQ-ACTION-COMPATIBILITY-001`–`REQ-ACTION-COMPATIBILITY-003`, `REQ-ACTION-COMPATIBILITY-APPROVAL-001`, `REQ-ACTION-COMPATIBILITY-004`–`REQ-ACTION-COMPATIBILITY-005`, `REQ-ACTION-CONCURRENCY-001`, `REQ-ACTION-CONFLICT-001`, `REQ-ACTION-CONCURRENCY-002`, `REQ-WEAPON-MANIPULATION-MOVEMENT-001`–`REQ-WEAPON-MANIPULATION-MOVEMENT-003`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration.
+Complete canonical-state-derived physical-condition inventory; per-pair mutual exclusion, exhaustive reachable-state coverage and deterministic one-class mapping; approved inventory and matrix versions; every Action Inventory pair × class; resource/profile derivation; matrix-bound runtime cases; missing/stale/uncertain rejection; aggregate contention; movement/profile cases; and change-impact evidence
 
 **REQ-ACTION-PHYSICAL-CONDITIONS-001** — The Action Physical Condition Inventory MUST enumerate every canonical physical-state field and finite condition class that can change an action-pair compatibility disposition and trace each class to the canonical-state schema and applicable Approved Profiles.
 
@@ -849,6 +1325,10 @@ Production Security Baseline applies.
 
 **REQ-AUTHORITY-001** — Each non-completed and non-terminated Training Session MUST have exactly one Session Authority throughout Preparation, initial countdown, active simulation, and completion processing, and that same authority MUST determine canonical simulated state and outcomes.
 
+<a id="acceptance-ar-046"></a>
+Acceptance for `REQ-AUTHORITY-001`, `REQ-CLIENT-TRUST-001`, `REQ-STATE-CONSISTENCY-001`. Required: Automated Test, Inspection. Supporting: Demonstration.
+Exactly one unchanged Authority identity in every nonterminal lifecycle phase; zero/two-authority negatives; conflicting and malicious client intention cases; rejection of client-authored outcomes; cross-client/mode outcome traces to the same Composite Confirmed-State Identity while permitting perspective-specific presentation; Prediction correction, rollback, reset and lead-bound freeze cases; contiguous acknowledgement high-water; delta-gap and digest-mismatch recovery through a confirmed baseline; and proof that observability loss or replay cannot alter, acknowledge, persist or restore canonical state
+
 **REQ-CLIENT-TRUST-001** — Trainee clients MUST submit inputs and intentions but MUST NOT determine authoritative positions, impacts, injury, Scenario progression, or results.
 
 **REQ-STATE-CONSISTENCY-001** — Every Trainee MUST receive outcomes derived from the same canonical state.
@@ -857,7 +1337,19 @@ Production Security Baseline applies.
 
 **REQ-VOICE-CHANNEL-001** — `Capable` and `Impaired` Trainees MUST be able to communicate through Proximity Voice and Team Radio when permitted by the Scenario.
 
+<a id="acceptance-ar-055"></a>
+Acceptance for `REQ-VOICE-CHANNEL-001`, `REQ-VOICE-DISTINCTION-001`, `REQ-PROXIMITY-VOICE-001`–`REQ-PROXIMITY-VOICE-003`, `REQ-RADIO-EQUIPMENT-001`, `REQ-RADIO-CHANNEL-001`, `REQ-RADIO-CAPTURE-001`, `REQ-RADIO-CAPTURE-IDENTITY-001`, `REQ-RADIO-EQUIPMENT-002`, `REQ-RADIO-MULTIPLE-001`–`REQ-RADIO-MULTIPLE-003`, `REQ-RADIO-PTT-001`–`REQ-RADIO-PTT-004`, `REQ-RADIO-PROXIMITY-001`, `REQ-RADIO-SIMULTANEOUS-001`–`REQ-RADIO-SIMULTANEOUS-002`, `REQ-RADIO-COLLISION-001`–`REQ-RADIO-COLLISION-002`, `REQ-RADIO-CONTROL-001`–`REQ-RADIO-CONTROL-004`, `REQ-RADIO-ENERGY-001`, `REQ-RADIO-AUDIO-OUTPUT-001`–`REQ-RADIO-AUDIO-OUTPUT-005`, `REQ-RADIO-DROPPED-001`–`REQ-RADIO-DROPPED-004`, `REQ-RADIO-DROPPED-CONTROL-001`–`REQ-RADIO-DROPPED-CONTROL-002`, `REQ-RADIO-DAMAGE-001`–`REQ-RADIO-DAMAGE-005`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Sender, receiver, Team, channel, possession, power, output, push-to-talk, overlap, collision, dropped-radio, control, energy and damage-state matrices; exact canonical audio routes; absence-of-route checks; Acoustic Propagation inputs; and exact admitted profile versions for equipment and damage outcomes
+
+<a id="acceptance-ar-009"></a>
+Acceptance for `REQ-VOICE-CHANNEL-001`, `REQ-VOICE-DISTINCTION-001`, `REQ-PROXIMITY-VOICE-001`–`REQ-PROXIMITY-VOICE-003`, `REQ-RADIO-EQUIPMENT-001`, `REQ-RADIO-CHANNEL-001`, `REQ-RADIO-CAPTURE-001`, `REQ-RADIO-CAPTURE-IDENTITY-001`, `REQ-RADIO-EQUIPMENT-002`, `REQ-RADIO-MULTIPLE-001`–`REQ-RADIO-MULTIPLE-003`, `REQ-RADIO-PTT-001`–`REQ-RADIO-PTT-004`, `REQ-RADIO-PROXIMITY-001`, `REQ-RADIO-SIMULTANEOUS-001`–`REQ-RADIO-SIMULTANEOUS-002`, `REQ-RADIO-COLLISION-001`–`REQ-RADIO-COLLISION-002`, `REQ-RADIO-CONTROL-001`–`REQ-RADIO-CONTROL-004`, `REQ-RADIO-ENERGY-001`, `REQ-RADIO-AUDIO-OUTPUT-001`–`REQ-RADIO-AUDIO-OUTPUT-005`, `REQ-RADIO-DROPPED-001`–`REQ-RADIO-DROPPED-004`, `REQ-RADIO-DROPPED-CONTROL-001`–`REQ-RADIO-DROPPED-CONTROL-002`, `REQ-RADIO-DAMAGE-001`–`REQ-RADIO-DAMAGE-005`, `REQ-RADIO-COVERAGE-001`–`REQ-RADIO-COVERAGE-005`, `REQ-HAND-SIGNAL-001`, `REQ-HAND-SIGNAL-PRESENTATION-001`, `REQ-HAND-SIGNAL-VISIBILITY-001`, `REQ-HAND-SIGNAL-INTERPRETATION-001`, `REQ-HAND-SIGNAL-PARITY-001`, `REQ-HAND-SIGNAL-STOP-001`, `REQ-HAND-SIGNAL-MOVE-001`, `REQ-HAND-SIGNAL-FOLLOW-001`, `REQ-HAND-SIGNAL-DIRECTION-001`, `REQ-HAND-SIGNAL-HOLD-001`, `REQ-HAND-SIGNAL-ACKNOWLEDGE-001`, `REQ-HAND-SIGNAL-APPROVAL-001`, `REQ-HAND-SIGNAL-INPUT-VR-001`, `REQ-HAND-SIGNAL-INPUT-DESKTOP-001`, `REQ-HAND-SIGNAL-INPUT-DIRECTION-001`, `REQ-HAND-SIGNAL-OBSERVER-001`, `REQ-HAND-SIGNAL-PHYSICAL-001`, `REQ-HAND-SIGNAL-AVAILABILITY-001`, `REQ-HAND-SIGNAL-INTERRUPTION-001`–`REQ-HAND-SIGNAL-INTERRUPTION-002`, `REQ-HAND-SIGNAL-TEAM-001`, `REFERENCE-HAND-SIGNAL-OPTIONAL-001`, `REQ-POST-INCAPACITY-VOICE-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration for end-to-end communication flows.
+Channel, radio possession/capture, push-to-talk, simultaneous reception, propagation, obstruction, damage, energy, Hand Signal and post-incapacity communication cases; approved profiles, controlled geometry, canonical media state and leakage checks
+
 **REQ-VOICE-DISTINCTION-001** — A receiver MUST be able to distinguish Proximity Voice from Team Radio.
+
+<a id="acceptance-ar-056"></a>
+Acceptance for `REQ-VOICE-DISTINCTION-001`, `REQ-PROXIMITY-VOICE-001`, `REQ-PROXIMITY-VOICE-003`, `REQ-RADIO-AUDIO-OUTPUT-002`–`REQ-RADIO-AUDIO-OUTPUT-003`, `REQ-RADIO-DAMAGE-003`, `REQ-RADIO-COVERAGE-001`–`REQ-RADIO-COVERAGE-005`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Controlled source/path/output cases; exact Radio Coverage Profile domain, corpus, noise, configuration, metric and tolerance; reproducible complete-domain analysis; versioned geometry-reconciled test points including boundaries and worst paths; pre-observation approval; at least two independent evaluator results; perceived source/channel distinction; failure communication; and explicit exclusion of overlapping traffic from isolated-coverage acceptance
 
 **REQ-PROXIMITY-VOICE-001** — Proximity Voice MUST be audible to either Team when Acoustic Propagation makes the speaker perceptible.
 
@@ -953,6 +1445,14 @@ Production Security Baseline applies.
 
 **REQ-HAND-SIGNAL-001** — A `Capable` or applicable `Impaired` Trainee MUST be able to perform an approved Hand Signal through an explicit action during active simulation.
 
+<a id="acceptance-ar-054"></a>
+Acceptance for `REQ-HAND-SIGNAL-001`, `REQ-HAND-SIGNAL-PRESENTATION-001`, `REQ-HAND-SIGNAL-VISIBILITY-001`, `REQ-HAND-SIGNAL-PARITY-001`, `REQ-HAND-SIGNAL-STOP-001`, `REQ-HAND-SIGNAL-MOVE-001`, `REQ-HAND-SIGNAL-FOLLOW-001`, `REQ-HAND-SIGNAL-DIRECTION-001`, `REQ-HAND-SIGNAL-HOLD-001`, `REQ-HAND-SIGNAL-ACKNOWLEDGE-001`, `REQ-HAND-SIGNAL-INPUT-DIRECTION-001`, `REQ-HAND-SIGNAL-TEAM-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Technical evidence from the complete Hand Signal row plus at least two independent in-scope evaluator results under a pre-approved protocol establishing military meaning, physical credibility, visual interpretability, direction preservation, access-mode tactical equivalence, and team-independent presentation across declared conditions
+
+<a id="acceptance-ar-053"></a>
+Acceptance for `REQ-HAND-SIGNAL-001`, `REQ-HAND-SIGNAL-PRESENTATION-001`, `REQ-HAND-SIGNAL-VISIBILITY-001`, `REQ-HAND-SIGNAL-INTERPRETATION-001`, `REQ-HAND-SIGNAL-PARITY-001`, `REQ-HAND-SIGNAL-STOP-001`, `REQ-HAND-SIGNAL-MOVE-001`, `REQ-HAND-SIGNAL-FOLLOW-001`, `REQ-HAND-SIGNAL-DIRECTION-001`, `REQ-HAND-SIGNAL-HOLD-001`, `REQ-HAND-SIGNAL-ACKNOWLEDGE-001`, `REQ-HAND-SIGNAL-APPROVAL-001`, `REQ-HAND-SIGNAL-INPUT-VR-001`, `REQ-HAND-SIGNAL-INPUT-DESKTOP-001`, `REQ-HAND-SIGNAL-INPUT-DIRECTION-001`, `REQ-HAND-SIGNAL-OBSERVER-001`, `REQ-HAND-SIGNAL-PHYSICAL-001`, `REQ-HAND-SIGNAL-AVAILABILITY-001`, `REQ-HAND-SIGNAL-INTERRUPTION-001`–`REQ-HAND-SIGNAL-INTERRUPTION-002`, `REQ-HAND-SIGNAL-TEAM-001`, `REFERENCE-HAND-SIGNAL-OPTIONAL-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists.
+Complete supported-meaning inventory; exact admitted Approved Profile items and specialist validation; Desktop and VR input traces; selected-direction preservation; controlled team-swap and one-factor visibility cases; gesture-state and observer-payload comparisons; UI leakage; required-limb availability; interruption at every observable motion stage; and proof that signals cannot directly affect objectives, results, or Scenario state
+
 **REQ-HAND-SIGNAL-PRESENTATION-001** — A Hand Signal MUST be represented by the signaling Trainee's physical body animation and MUST be perceivable only through direct visual observation of that representation.
 
 **REQ-HAND-SIGNAL-VISIBILITY-001** — Geometry, distance, lighting, viewpoint, and Obscurants MUST affect whether another Trainee can see and interpret a Hand Signal.
@@ -960,6 +1460,8 @@ Production Security Baseline applies.
 **REQ-HAND-SIGNAL-INTERPRETATION-001** — The Training Simulation MUST NOT display a label, icon, subtitle, notification, or automatic interpretation of a Hand Signal.
 
 **REQ-HAND-SIGNAL-PARITY-001** — Desktop Mode and Virtual-Reality Mode MUST provide the same approved Hand Signal meanings and authoritative represented outcomes.
+
+Scope for `REQ-HAND-SIGNAL-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-HAND-SIGNAL-STOP-001** — The initial Hand Signal set MUST include an approved signal meaning `Stop`.
 
@@ -976,6 +1478,8 @@ Production Security Baseline applies.
 **REQ-HAND-SIGNAL-APPROVAL-001** — The physical gesture assigned to every supported meaning MUST be an enumerated item in an exact admitted Approved Profile version and MUST receive item-level `Pass` validation from a Qualified Specialist whose approved technical scope covers the represented military Hand Signal before use as validated behavior.
 
 **REQ-HAND-SIGNAL-INPUT-VR-001** — In Virtual-Reality Mode, the Trainee MUST perform the selected Hand Signal through tracked-controller motion that drives the represented gesture.
+
+Scope for `REQ-HAND-SIGNAL-INPUT-VR-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-HAND-SIGNAL-INPUT-DESKTOP-001** — In Desktop Mode, the Trainee MUST explicitly select a Hand Signal meaning, after which the represented body MUST perform the corresponding approved gesture.
 
@@ -997,11 +1501,29 @@ Production Security Baseline applies.
 
 **REQ-POST-INCAPACITY-VOICE-001** — An `Incapacitated` or `Fatal` Trainee MUST NOT transmit voice to any Trainee through Proximity Voice or Team Radio, regardless of either Trainee's Team, functional state, radio possession, or radio channel.
 
+<a id="acceptance-ar-057"></a>
+Acceptance for `REQ-POST-INCAPACITY-VOICE-001`. Required: Automated Test, Inspection.
+Complete sender Functional State × receiver Functional State × same/opposing Team × Proximity Voice/Team Radio × sender/receiver radio possession, function and channel matrix proving that Incapacitated and Fatal senders produce no received voice route or audio while permitted control cases remain observable
+
 ## Locomotion, load, fatigue, and Stress Load
 
 **REQ-LOCOMOTION-001** — Every `Capable` Trainee MUST be able to walk, run, crouch, lie prone, lean from cover, traverse low obstacles, and use stairs whenever the current complete input tuple is inside the applicable action's admitted Locomotion Profile domain; that profile MUST contain at least one non-empty applicable condition class for every listed action.
 
+<a id="acceptance-ar-059"></a>
+Acceptance for `REQ-LOCOMOTION-001`, `REQ-LOCOMOTION-MODE-PARITY-001`, `REQ-LOCOMOTION-PROFILE-001`, `REQ-LOCOMOTION-PROFILE-COVERAGE-001`, `REQ-LOCOMOTION-FACTORS-001`, `REQ-FATIGUE-PROFILE-001`, `REQ-FATIGUE-PROFILE-COVERAGE-001`, `REQ-FATIGUE-EFFECT-INVENTORY-001`, `REQ-FATIGUE-EVOLUTION-001`, `REQ-FATIGUE-EFFECT-001`, `REQ-STRESS-PROFILE-001`, `REQ-STRESS-INVENTORY-001`, `REQ-STRESS-STIMULUS-001`, `REQ-STRESS-RECOVERY-001`–`REQ-STRESS-RECOVERY-002`, `REQ-STRESS-INTERACTION-001`, `REQ-STRESS-FEEDBACK-001`, `REQ-STATE-FEEDBACK-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical evidence from the locomotion/fatigue/stress row plus at least two independent in-scope evaluator results under a pre-approved protocol establishing operational movement adequacy, access-mode tactical equivalence, credible Fatigue and Stress stimulus, evolution, recovery and enabled effects, and perceptibility and distinguishability of every applicable feedback class
+
+<a id="acceptance-ar-058"></a>
+Acceptance for `REQ-LOCOMOTION-001`, `REQ-LOCOMOTION-MODE-PARITY-001`, `REQ-LOCOMOTION-PROFILE-001`, `REQ-LOCOMOTION-PROFILE-COVERAGE-001`, `REQ-LOCOMOTION-FACTORS-001`, `REQ-LOCOMOTION-EQUALITY-001`, `REQ-FATIGUE-STATE-001`, `REQ-FATIGUE-PROFILE-001`, `REQ-FATIGUE-PROFILE-COVERAGE-001`, `REQ-FATIGUE-EFFECT-INVENTORY-001`, `REQ-FATIGUE-EVOLUTION-001`, `REQ-FATIGUE-LOAD-001`, `REQ-FATIGUE-EFFECT-001`, `REQ-STRESS-LOAD-001`, `REQ-STRESS-PROFILE-001`, `REQ-STRESS-INVENTORY-001`, `REQ-STRESS-EFFECT-INVENTORY-001`, `REQ-STRESS-TIME-001`, `REQ-STRESS-STIMULUS-001`, `REQ-STRESS-RECOVERY-001`–`REQ-STRESS-RECOVERY-003`, `REQ-STRESS-DETERMINISM-001`, `REQ-STRESS-INTERACTION-001`, `REQ-STRESS-FEEDBACK-001`, `REQ-STATE-PRESENTATION-001`, `REQ-STATE-FEEDBACK-001`, `REQ-AIM-CONTROL-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact admitted Locomotion, Fatigue and Stress Profile versions; closed profile inputs and outputs; complete factor tuples; state bounds, reference states, history windows, simulated-time accumulation and recovery; enabled/disabled Stress effects; Carried Load inputs; state cues; and deterministic negative cases for random failure, numeric presentation and artificial aim changes
+
+<a id="acceptance-ar-010"></a>
+Acceptance for `REQ-LOCOMOTION-001`, `REQ-LOCOMOTION-MODE-PARITY-001`, `REQ-LOCOMOTION-PROFILE-001`, `REQ-LOCOMOTION-PROFILE-COVERAGE-001`, `REQ-LOCOMOTION-FACTORS-001`, `REQ-LOCOMOTION-EQUALITY-001`, `REQ-FATIGUE-STATE-001`, `REQ-FATIGUE-PROFILE-001`, `REQ-FATIGUE-PROFILE-COVERAGE-001`, `REQ-FATIGUE-EFFECT-INVENTORY-001`, `REQ-FATIGUE-EVOLUTION-001`, `REQ-FATIGUE-LOAD-001`, `REQ-FATIGUE-EFFECT-001`, `REQ-STRESS-LOAD-001`, `REQ-STRESS-PROFILE-001`, `REQ-STRESS-INVENTORY-001`, `REQ-STRESS-EFFECT-INVENTORY-001`, `REQ-STRESS-TIME-001`, `REQ-STRESS-STIMULUS-001`, `REQ-STRESS-RECOVERY-001`–`REQ-STRESS-RECOVERY-003`, `REQ-STRESS-DETERMINISM-001`, `REQ-STRESS-INTERACTION-001`, `REQ-STRESS-FEEDBACK-001`, `REQ-STATE-PRESENTATION-001`, `REQ-STATE-FEEDBACK-001`, `REQ-AIM-CONTROL-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact admitted Locomotion, Fatigue and Stress Profiles, applicable Carrying Catalogue inputs, controlled state combinations, transition and recovery traces, calculated outcomes against exact profile criteria, and aim-input prohibitions
+
 **REQ-LOCOMOTION-MODE-PARITY-001** — Every required locomotion action MUST exist in both access modes.
+
+Scope for `REQ-LOCOMOTION-MODE-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-LOCOMOTION-PROFILE-001** — Movement capabilities and limits MUST be defined by the exact admitted Locomotion Profile version applicable to the represented Trainee and environment.
 
@@ -1059,6 +1581,14 @@ Production Security Baseline applies.
 
 **REQ-CARRYING-SOURCE-INVENTORY-001** — Before a Carrying Catalogue can be admitted, a versioned source inventory MUST enumerate every Scenario, Loadout, equipment profile, carryable item type, and Carry Position type admitted to the candidate baseline, MUST be reconciled to their complete authoritative content and profile registries, and MUST receive project-owner approval for that exact reconciled version.
 
+<a id="acceptance-ar-060"></a>
+Acceptance for `REQ-CARRYING-SOURCE-INVENTORY-001`, `REQ-CARRYING-CATALOGUE-001`–`REQ-CARRYING-CATALOGUE-004`, `REQ-CARRYING-CATALOGUE-HISTORY-001`, `REQ-ITEM-IDENTITY-001`, `REQ-ITEM-TRANSFER-001`, `REQ-ITEM-CONSUMPTION-001`, `REQ-ITEM-TRANSFORMATION-001`, `REQ-ITEM-CONTAINMENT-001`, `REQ-ITEM-PICKUP-001`–`REQ-ITEM-PICKUP-003`, `REQ-ITEM-TEAM-ORIGIN-001`, `REQ-CASUALTY-EQUIPMENT-001`–`REQ-CASUALTY-EQUIPMENT-003`, `REQ-CASUALTY-WORN-EQUIPMENT-001`–`REQ-CASUALTY-WORN-EQUIPMENT-002`, `REQ-ITEM-DROP-001`, `REQ-LOADOUT-INITIAL-001`, `REQ-CARRY-CAPACITY-001`, `REQ-CARRY-LOAD-001`, `REQ-CARRY-HANDS-001`, `REQ-CARRY-SLING-001`, `REQ-CARRY-HOLSTER-001`, `REQ-CARRY-MAGAZINE-POUCH-001`, `REQ-CARRY-EQUIPMENT-POUCH-001`, `REQ-CARRY-CONTAINER-001`, `REQ-CARRY-COMPATIBILITY-001`, `REQ-CARRY-OVERFLOW-001`, `REQ-ITEM-PICKUP-HANDS-001`–`REQ-ITEM-PICKUP-HANDS-003`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for equipment-profile evidence.
+Exact catalogue, source-inventory and content versions; authoritative-registry reconciliation, admission decision and history; complete compatibility cross-product; missing/stale/uncertain negatives; graph property tests for unique disposition, acyclicity, atomic transfer, declared consumption and identity/content conservation; nested exactly-once load cases; capacity boundaries; stable item and destination ordering; lexicographic complete-allocation selection; one- and two-hand preflight; concurrent destination invalidation; and proof that failed pickup leaves all state unchanged
+
+<a id="acceptance-ar-011"></a>
+Acceptance for `REQ-CARRYING-SOURCE-INVENTORY-001`, `REQ-CARRYING-CATALOGUE-001`–`REQ-CARRYING-CATALOGUE-004`, `REQ-CARRYING-CATALOGUE-HISTORY-001`, `REQ-ITEM-IDENTITY-001`, `REQ-ITEM-TRANSFER-001`, `REQ-ITEM-CONSUMPTION-001`, `REQ-ITEM-TRANSFORMATION-001`, `REQ-ITEM-CONTAINMENT-001`, `REQ-ITEM-PICKUP-001`–`REQ-ITEM-PICKUP-003`, `REQ-ITEM-TEAM-ORIGIN-001`, `REQ-CASUALTY-EQUIPMENT-001`–`REQ-CASUALTY-EQUIPMENT-003`, `REQ-CASUALTY-WORN-EQUIPMENT-001`–`REQ-CASUALTY-WORN-EQUIPMENT-002`, `REQ-ITEM-DROP-001`, `REQ-LOADOUT-INITIAL-001`, `REQ-CARRY-CAPACITY-001`, `REQ-CARRY-LOAD-001`, `REQ-CARRY-HANDS-001`, `REQ-CARRY-SLING-001`, `REQ-CARRY-HOLSTER-001`, `REQ-CARRY-MAGAZINE-POUCH-001`, `REQ-CARRY-EQUIPMENT-POUCH-001`, `REQ-CARRY-CONTAINER-001`, `REQ-CARRY-COMPATIBILITY-001`, `REQ-CARRY-OVERFLOW-001`, `REQ-ITEM-PICKUP-HANDS-001`–`REQ-ITEM-PICKUP-HANDS-003`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for equipment-profile evidence.
+Authoritative source-inventory reconciliation and exact-version admission; complete item-type × Carry-Position-type compatibility results; capacities, load contributions and total item/destination stow ordering; retained catalogue history; item identity, unique disposition, acyclic containment, atomic transfer and consumption invariants; recursive exactly-once load calculations; physical reach and obstruction; casualty equipment; and zero, one, multiple and insufficient-destination automatic-stow cases
+
 **REQ-CARRYING-CATALOGUE-001** — The candidate baseline MUST use one exact Carrying Catalogue version reconciled to the complete approved source inventory and admitted through project-owner approval before any affected content is used or verified.
 
 **REQ-CARRYING-CATALOGUE-002** — The Carrying Catalogue MUST define each item type's interfaces and exact Carried Load contribution; each Carry Position type's interfaces and capacity; one deterministic `Compatible` or `Conflict` result for every item-type and Carry-Position-type pair; and ordering keys that produce stable total orders over displaced item identities and all Carry Position instances available to one Trainee.
@@ -1070,6 +1600,10 @@ Production Security Baseline applies.
 **REQ-CARRYING-CATALOGUE-HISTORY-001** — Every candidate, admitted, superseded, and rejected Carrying Catalogue version, its source-inventory version, reconciliation result, decision, and approval record MUST remain retained and traceable.
 
 **REQ-ITEM-IDENTITY-001** — Every physical item instance MUST have one stable identity for its lifetime in a Training Session and MUST have exactly one Item Disposition admitted for its type and current state.
+
+<a id="acceptance-ar-064"></a>
+Acceptance for `REQ-ITEM-IDENTITY-001`, `REQ-ITEM-TRANSFER-001`, `REQ-ITEM-CONSUMPTION-001`, `REQ-ITEM-TRANSFORMATION-001`, `REQ-WEAPON-EJECTION-001`–`REQ-WEAPON-EJECTION-002`, `REQ-WEAPON-DISCHARGE-TRANSFORMATION-001`, `REQ-WEAPON-SINGLE-CARTRIDGE-LOAD-003`, `REQ-WEAPON-ACCESSORY-REMOVAL-001`, `REQ-WEAPON-ACCESSORY-CARRY-001`, `REQ-WEAPON-ACCESSORY-EFFECT-001`, `REQ-AMMUNITION-001`, `REQ-CHAMBER-STATE-001`, `REQ-MAGAZINE-REMOVE-002`–`REQ-MAGAZINE-REMOVE-003`, `REQ-MAGAZINE-INSERT-001`–`REQ-MAGAZINE-INSERT-003`, `REQ-RELOAD-RESULT-001`, `REQ-RELOAD-INTERRUPTION-002`–`REQ-RELOAD-INTERRUPTION-003`, `REQ-RELOAD-CONSERVATION-001`, `REQ-AMMUNITION-REACTION-001`. Required: Automated Test, Analysis, Inspection. Evidence: Implementation team and Qualified Specialists for transformation-profile evidence.
+Exact input and output Item Dispositions and identities; chamber, magazine, accessory-interface and Scenario positions; atomic transitions; discharge/reaction transformation rows; terminal consumed inputs; unique traced output identities; non-item outputs; interruption at every operation boundary; and conservation/no-copy/no-multiplication invariants
 
 **REQ-ITEM-TRANSFER-001** — Pickup, drop, stowage, removal, insertion, attachment, detachment, and every other item transfer MUST move each affected existing item identity atomically from exactly one preceding Item Disposition to exactly one succeeding Item Disposition and MUST NOT copy or multiply any item identity or contents.
 
@@ -1131,6 +1665,14 @@ Production Security Baseline applies.
 
 **REQ-WEAPON-BEHAVIOR-SOURCE-INVENTORY-001** — A versioned source inventory MUST enumerate every weapon, ammunition, magazine, and Weapon Accessory type admitted to the candidate baseline and every requirement in the weapon, aiming, recoil, ammunition, reload, and Weapon Malfunction sections; it MUST be reconciled to the complete authoritative content, profile, Action Inventory, and requirement registries and approved by the project owner for that exact version.
 
+<a id="acceptance-ar-061"></a>
+Acceptance for `REQ-WEAPON-BEHAVIOR-SOURCE-INVENTORY-001`, `REQ-WEAPON-BEHAVIOR-CATALOGUE-001`–`REQ-WEAPON-BEHAVIOR-CATALOGUE-004`. Required: Automated Test, Analysis, Inspection. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact authoritative registry reconciliation; complete equipment × requirement expansion; Applicable/Not-Applicable item rows; nonempty capability domains; exact admitted profile references; project-owner approvals; missing/stale/uncertain rejection; retained versions and decisions; and change-impact evidence
+
+<a id="acceptance-ar-012"></a>
+Acceptance for `REQ-WEAPON-BEHAVIOR-SOURCE-INVENTORY-001`, `REQ-WEAPON-BEHAVIOR-CATALOGUE-001`–`REQ-WEAPON-BEHAVIOR-CATALOGUE-004`, `REQ-WEAPON-CONTROL-001`, `REQ-WEAPON-SAFE-001`, `REQ-WEAPON-FIRE-MODE-001`, `REQ-WEAPON-INSPECTION-001`–`REQ-WEAPON-INSPECTION-003`, `REQ-WEAPON-INSPECTION-PRESENTATION-001`, `REQ-WEAPON-ACTION-001`–`REQ-WEAPON-ACTION-002`, `REQ-WEAPON-EJECTION-001`–`REQ-WEAPON-EJECTION-002`, `REQ-WEAPON-DISCHARGE-TRANSFORMATION-001`, `REQ-WEAPON-SINGLE-CARTRIDGE-LOAD-001`–`REQ-WEAPON-SINGLE-CARTRIDGE-LOAD-003`, `CONSTRAINT-AIMING-001`, `REQ-AIMING-001`, `REQ-AIMING-BALLISTICS-001`, `REQ-AIMING-DEVICE-001`, `REQ-SIGHT-SETUP-001`, `REQ-SIGHT-MAGNIFICATION-001`, `REQ-WEAPON-RECOIL-001`–`REQ-WEAPON-RECOIL-004`, `REQ-WEAPON-FIRE-MOVEMENT-001`–`REQ-WEAPON-FIRE-MOVEMENT-002`, `REQ-WEAPON-BRACING-001`–`REQ-WEAPON-BRACING-003`, `REQ-WEAPON-COLLISION-001`–`REQ-WEAPON-COLLISION-002`, `REQ-WEAPON-OBSTRUCTION-001`, `REQ-WEAPON-CONDITION-CAUSES-001`, `CONSTRAINT-WEAPON-EXTERNAL-DAMAGE-001`–`CONSTRAINT-WEAPON-EXTERNAL-DAMAGE-002`, `CONSTRAINT-WEAPON-ACCESSORY-DETACHMENT-001`, `REQ-WEAPON-ACCESSORY-REMOVAL-001`, `REQ-WEAPON-ACCESSORY-FIELD-001`–`REQ-WEAPON-ACCESSORY-FIELD-002`, `REQ-WEAPON-ACCESSORY-FIXED-001`, `REQ-WEAPON-ACCESSORY-CARRY-001`, `REQ-WEAPON-ACCESSORY-EFFECT-001`–`REQ-WEAPON-ACCESSORY-EFFECT-003`, `REQ-SUPPRESSOR-EFFECT-001`–`REQ-SUPPRESSOR-EFFECT-003`, `REQ-AMMUNITION-STATE-SCHEMA-001`–`REQ-AMMUNITION-STATE-SCHEMA-002`, `REQ-AMMUNITION-001`, `REQ-MAGAZINE-STATE-001`, `REQ-CHAMBER-STATE-001`, `REQ-MAGAZINE-REMOVE-001`–`REQ-MAGAZINE-REMOVE-003`, `REQ-MAGAZINE-INSERT-001`–`REQ-MAGAZINE-INSERT-003`, `REQ-RELOAD-001`–`REQ-RELOAD-002`, `REQ-RELOAD-PROFILE-001`, `REQ-RELOAD-RESULT-001`, `REQ-RELOAD-INTERRUPTION-001`–`REQ-RELOAD-INTERRUPTION-003`, `REQ-RELOAD-RESTART-001`–`REQ-RELOAD-RESTART-002`, `REQ-RELOAD-SELECTION-001`, `REQ-RELOAD-MAGAZINE-001`–`REQ-RELOAD-MAGAZINE-003`, `REQ-RELOAD-CONSERVATION-001`, `REQ-AMMUNITION-DAMAGE-001`–`REQ-AMMUNITION-DAMAGE-003`, `REQ-AMMUNITION-REACTION-001`, `REQ-STRESS-RELOAD-001`–`REQ-STRESS-RELOAD-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact source inventory and Weapon Behavior Catalogue; admitted weapon, ammunition, magazine and accessory Approved Profiles; complete capability, state, interaction, damage, transformation and applicability rows; aiming, recoil, collision, reload, interruption and current-state restart cases; and attributable physical-state, Item Disposition and projectile traces
+
 **REQ-WEAPON-BEHAVIOR-CATALOGUE-001** — Before affected content is used or verified, the project owner MUST approve and admit one exact Weapon Behavior Catalogue version reconciled to the approved source inventory.
 
 **REQ-WEAPON-BEHAVIOR-CATALOGUE-002** — For every admitted equipment type and required behavior, the Weapon Behavior Catalogue MUST contain one item-level `Applicable` row with complete condition and output domains, exact admitted Approved Profile versions, tolerances, and evidence, or one justified `Not Applicable` row; every required capability MUST have at least one non-empty applicable condition class for every equipment type to which it is declared applicable.
@@ -1141,6 +1683,10 @@ Production Security Baseline applies.
 
 **REQ-WEAPON-CONTROL-001** — A weapon MUST expose exactly the safety and fire-selector states defined by the exact admitted Approved Profile version referenced by its applicable Weapon Behavior Catalogue row.
 
+<a id="acceptance-ar-062"></a>
+Acceptance for `REQ-WEAPON-CONTROL-001`, `REQ-WEAPON-SAFE-001`, `REQ-WEAPON-FIRE-MODE-001`, `REQ-WEAPON-INSPECTION-001`–`REQ-WEAPON-INSPECTION-003`, `REQ-WEAPON-INSPECTION-PRESENTATION-001`, `REQ-WEAPON-ACTION-001`–`REQ-WEAPON-ACTION-002`, `REQ-WEAPON-EJECTION-001`–`REQ-WEAPON-EJECTION-002`, `REQ-WEAPON-DISCHARGE-TRANSFORMATION-001`, `REQ-WEAPON-SINGLE-CARTRIDGE-LOAD-001`–`REQ-WEAPON-SINGLE-CARTRIDGE-LOAD-003`, `CONSTRAINT-AIMING-001`, `REQ-AIMING-001`, `REQ-AIMING-BALLISTICS-001`, `REQ-AIMING-DEVICE-001`, `REQ-SIGHT-SETUP-001`, `REQ-SIGHT-MAGNIFICATION-001`, `REQ-WEAPON-RECOIL-001`–`REQ-WEAPON-RECOIL-004`, `REQ-WEAPON-FIRE-MOVEMENT-001`–`REQ-WEAPON-FIRE-MOVEMENT-002`, `REQ-WEAPON-BRACING-001`–`REQ-WEAPON-BRACING-003`, `REQ-WEAPON-COLLISION-001`–`REQ-WEAPON-COLLISION-002`, `REQ-WEAPON-OBSTRUCTION-001`, `REQ-WEAPON-CONDITION-CAUSES-001`, `CONSTRAINT-WEAPON-EXTERNAL-DAMAGE-001`–`CONSTRAINT-WEAPON-EXTERNAL-DAMAGE-002`, `CONSTRAINT-WEAPON-ACCESSORY-DETACHMENT-001`, `REQ-WEAPON-ACCESSORY-REMOVAL-001`, `REQ-WEAPON-ACCESSORY-FIELD-001`–`REQ-WEAPON-ACCESSORY-FIELD-002`, `REQ-WEAPON-ACCESSORY-FIXED-001`, `REQ-WEAPON-ACCESSORY-CARRY-001`, `REQ-WEAPON-ACCESSORY-EFFECT-001`–`REQ-WEAPON-ACCESSORY-EFFECT-003`, `REQ-SUPPRESSOR-EFFECT-001`–`REQ-SUPPRESSOR-EFFECT-003`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Complete Weapon Behavior Catalogue rows and exact profiles; control and mechanical-state transitions; inspection state × action × viewpoint × lighting coverage; emission transforms; sight configurations; recoil persistence; movement/discharge predicates; bracing and collision contact/no-contact matrices including owner body; condition-cause partition and precedence; accessory state/effects; and suppressor signature domains
+
 **REQ-WEAPON-SAFE-001** — A weapon in `Safe` MUST NOT discharge.
 
 **REQ-WEAPON-FIRE-MODE-001** — `Semi`, `Burst`, and `Automatic` behavior MUST match the complete state and transition rules in the exact admitted Approved Profile version when the applicable Weapon Behavior Catalogue row classifies those modes as present.
@@ -1150,6 +1696,10 @@ Production Security Baseline applies.
 **REQ-WEAPON-INSPECTION-002** — Each inspection action MUST use the represented motion, required hands, duration, and observable-state mapping defined by its exact admitted Approved Profile version.
 
 **REQ-WEAPON-INSPECTION-003** — For every supported inspection, its exact admitted Approved Profile MUST enumerate the complete relevant physical-state × inspection-action × viewpoint × lighting domain, the state cues physically exposed by the represented action, and perception and distinction criteria and tolerances; the inspection MUST expose only those cues and MUST NOT reveal unenumerated ammunition or mechanical state.
+
+<a id="acceptance-ar-063"></a>
+Acceptance for `REQ-WEAPON-INSPECTION-003`, `REQ-SUPPRESSOR-EFFECT-002`, `REQ-WEAPON-MALFUNCTION-PRESENTATION-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Applicable technical/profile evidence plus at least two independent in-scope evaluator results under a pre-approved protocol establishing physical inspection-cue observability and distinction, suppressor-signature audibility across its declared receiver domain, and credible malfunction-cue perception and distinction
 
 **REQ-WEAPON-INSPECTION-PRESENTATION-001** — Active simulation MUST NOT display an ammunition count, chamber-state label, inspection result message, or other non-diegetic interpretation of weapon state.
 
@@ -1239,6 +1789,10 @@ Production Security Baseline applies.
 
 **REQ-AMMUNITION-STATE-SCHEMA-001** — The Weapon Behavior Catalogue MUST reference an exact admitted closed ammunition-state schema that enumerates cartridge identity, type, condition and Item Disposition; magazine identity, body condition, feed and retention capabilities, capacity, and ordered contained cartridge identities; and chamber contents and mechanical condition for every admitted type.
 
+<a id="acceptance-ar-065"></a>
+Acceptance for `REQ-AMMUNITION-STATE-SCHEMA-001`–`REQ-AMMUNITION-STATE-SCHEMA-002`, `REQ-AMMUNITION-001`, `REQ-MAGAZINE-STATE-001`, `REQ-CHAMBER-STATE-001`, `REQ-MAGAZINE-REMOVE-001`–`REQ-MAGAZINE-REMOVE-003`, `REQ-MAGAZINE-INSERT-001`–`REQ-MAGAZINE-INSERT-003`, `REQ-RELOAD-001`–`REQ-RELOAD-002`, `REQ-RELOAD-PROFILE-001`, `REQ-RELOAD-RESULT-001`, `REQ-RELOAD-INTERRUPTION-001`–`REQ-RELOAD-INTERRUPTION-003`, `REQ-RELOAD-RESTART-001`–`REQ-RELOAD-RESTART-002`, `REQ-RELOAD-SELECTION-001`, `REQ-RELOAD-MAGAZINE-001`–`REQ-RELOAD-MAGAZINE-003`, `REQ-RELOAD-CONSERVATION-001`, `REQ-AMMUNITION-DAMAGE-001`–`REQ-AMMUNITION-DAMAGE-003`, `REQ-AMMUNITION-REACTION-001`, `REQ-STRESS-RELOAD-001`–`REQ-STRESS-RELOAD-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for ammunition/profile evidence.
+Complete admitted ammunition-state schemas; cartridge order and identity; magazine body/feed/retention and chamber state; reload command-precondition boundary; candidate population at acceptance; inserted-magazine exclusion; greatest-count and stable tie selection; deterministic stow/drop destinations; every interruption boundary; closed damage exposure cross-product; component exposure; exact resolved damaged capabilities and reaction products; and Stress Profile enabled/disabled reload effects
+
 **REQ-AMMUNITION-STATE-SCHEMA-002** — A missing, stale, uncertain, unclassified, or non-admitted ammunition-state field or transition MUST block the affected equipment and MUST NOT receive an implementation-defined default.
 
 **REQ-AMMUNITION-001** — The Session Authority MUST track every field in the applicable exact admitted ammunition-state schema separately for each cartridge, magazine, and weapon chamber.
@@ -1303,6 +1857,18 @@ Production Security Baseline applies.
 
 **REQ-WEAPON-MALFUNCTION-001** — Weapon Malfunction occurrence MUST be resolved by the exact admitted weapon-and-ammunition Approved Profile versions referenced by the applicable Weapon Behavior Catalogue row.
 
+<a id="acceptance-ar-066"></a>
+Acceptance for `REQ-WEAPON-MALFUNCTION-001`–`REQ-WEAPON-MALFUNCTION-003`, `REQ-WEAPON-MALFUNCTION-INVENTORY-001`–`REQ-WEAPON-MALFUNCTION-INVENTORY-002`, `REQ-WEAPON-MALFUNCTION-TYPE-001`–`REQ-WEAPON-MALFUNCTION-TYPE-003`, `REQ-WEAPON-MALFUNCTION-STRESS-001`, `REQ-WEAPON-MALFUNCTION-PRESENTATION-001`–`REQ-WEAPON-MALFUNCTION-PRESENTATION-002`, `REQ-MALFUNCTION-CLEAR-001`–`REQ-MALFUNCTION-CLEAR-003`, `REQ-MALFUNCTION-CLEAR-PROFILE-001`–`REQ-MALFUNCTION-CLEAR-PROFILE-002`, `REQ-MALFUNCTION-CLEAR-INTERRUPTION-001`–`REQ-MALFUNCTION-CLEAR-INTERRUPTION-002`, `REQ-MALFUNCTION-CLEAR-RESTART-001`, `REQ-STRESS-MALFUNCTION-CLEAR-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for malfunction/profile evidence.
+Exact admitted weapon × ammunition × condition domains; complete supported/applicability inventory; deterministic and approved stochastic occurrence cases and tolerances; blocked-operation sets; cue sets; correction sequence and intermediate-state coverage; missing/uncertain negatives; interruption at every represented boundary; current-state restart; and Stress Profile enabled/disabled correction effects
+
+<a id="acceptance-ar-052"></a>
+Acceptance for `REQ-WEAPON-MALFUNCTION-001`–`REQ-WEAPON-MALFUNCTION-003`, `REQ-WEAPON-MALFUNCTION-TYPE-001`–`REQ-WEAPON-MALFUNCTION-TYPE-003`, `REQ-MALFUNCTION-CLEAR-001`–`REQ-MALFUNCTION-CLEAR-003`, `REQ-MALFUNCTION-CLEAR-PROFILE-001`–`REQ-MALFUNCTION-CLEAR-PROFILE-002`, `REQ-MALFUNCTION-CLEAR-INTERRUPTION-001`–`REQ-MALFUNCTION-CLEAR-INTERRUPTION-002`, `REQ-MALFUNCTION-CLEAR-RESTART-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialist.
+Exact approved profile versions and supported-malfunction inventory; occurrence and corrective-sequence results for each supported malfunction and applicable condition; interruption at every observable corrective step; preserved physical and mechanical state; rejection of obsolete stored steps; and derivation of a valid subsequent sequence from current state
+
+<a id="acceptance-ar-013"></a>
+Acceptance for `REQ-WEAPON-MALFUNCTION-001`–`REQ-WEAPON-MALFUNCTION-003`, `REQ-WEAPON-MALFUNCTION-INVENTORY-001`–`REQ-WEAPON-MALFUNCTION-INVENTORY-002`, `REQ-WEAPON-MALFUNCTION-TYPE-001`–`REQ-WEAPON-MALFUNCTION-TYPE-003`, `REQ-WEAPON-MALFUNCTION-STRESS-001`, `REQ-WEAPON-MALFUNCTION-PRESENTATION-001`–`REQ-WEAPON-MALFUNCTION-PRESENTATION-002`, `REQ-MALFUNCTION-CLEAR-001`–`REQ-MALFUNCTION-CLEAR-003`, `REQ-MALFUNCTION-CLEAR-PROFILE-001`–`REQ-MALFUNCTION-CLEAR-PROFILE-002`, `REQ-MALFUNCTION-CLEAR-INTERRUPTION-001`–`REQ-MALFUNCTION-CLEAR-INTERRUPTION-002`, `REQ-MALFUNCTION-CLEAR-RESTART-001`, `REQ-STRESS-MALFUNCTION-CLEAR-001`, `REQ-PHYSICAL-EFFECTS-SOURCE-INVENTORY-001`, `REQ-PHYSICAL-EFFECTS-CATALOGUE-001`–`REQ-PHYSICAL-EFFECTS-CATALOGUE-004`, `REQ-BALLISTICS-001`–`REQ-BALLISTICS-002`, `REQ-BALLISTICS-HITSCAN-001`, `REQ-BALLISTICS-MATERIAL-001`, `REQ-BALLISTICS-RESIDUAL-001`, `REQ-BALLISTICS-DEFORMATION-001`, `REQ-OVERPRESSURE-001`, `REQ-OVERPRESSURE-EFFECT-001`, `REQ-OVERPRESSURE-EXPOSURE-001`, `REQ-OVERPRESSURE-PROFILE-001`, `CONSTRAINT-PHYSICAL-APPROVAL-001`–`CONSTRAINT-PHYSICAL-APPROVAL-002`, `REQ-PHYSICAL-TRACEABILITY-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact admitted malfunction and physical profiles; closed applicability and supported-malfunction coverage; occurrence, blocked-operation, cue and corrective-sequence evidence; plus complete Physical Effects Catalogue, ballistic, projectile, collision, penetration, Blast Overpressure, explosion and Physical Profile cases using versioned inputs, calculations, tolerances, observations and traceability
+
 **REQ-WEAPON-MALFUNCTION-002** — The malfunction profile domain MUST include weapon condition, exact ammunition state, accumulated use, heat, and every applicable environmental-condition class and MUST define an exact deterministic occurrence rule or an explicitly approved stochastic distribution and tolerance for every complete input tuple.
 
 **REQ-WEAPON-MALFUNCTION-003** — Every stochastic malfunction distribution used as validated behavior MUST be an item in an exact admitted Approved Profile version with supporting evidence, reference conditions, tolerance, Qualified Specialist validation, and project-owner approval.
@@ -1345,6 +1911,10 @@ Production Security Baseline applies.
 
 **REQ-PHYSICAL-EFFECTS-SOURCE-INVENTORY-001** — A versioned source inventory MUST enumerate every admitted physical-effect source, projectile, atmosphere, material, propagation medium and path, impact geometry, target, protection class, transformation, and required physical behavior; it MUST be reconciled to complete authoritative content, profile, and requirement registries and approved by the project owner for that exact version.
 
+<a id="acceptance-ar-067"></a>
+Acceptance for `REQ-PHYSICAL-EFFECTS-SOURCE-INVENTORY-001`, `REQ-PHYSICAL-EFFECTS-CATALOGUE-001`–`REQ-PHYSICAL-EFFECTS-CATALOGUE-004`, `REQ-BALLISTICS-001`–`REQ-BALLISTICS-002`, `REQ-BALLISTICS-HITSCAN-001`, `REQ-BALLISTICS-MATERIAL-001`, `REQ-BALLISTICS-RESIDUAL-001`, `REQ-BALLISTICS-DEFORMATION-001`, `REQ-OVERPRESSURE-001`, `REQ-OVERPRESSURE-EFFECT-001`, `REQ-OVERPRESSURE-EXPOSURE-001`, `REQ-OVERPRESSURE-PROFILE-001`, `CONSTRAINT-PHYSICAL-APPROVAL-001`–`CONSTRAINT-PHYSICAL-APPROVAL-002`, `REQ-PHYSICAL-TRACEABILITY-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for physical-profile evidence.
+Exact source-inventory reconciliation and catalogue admission; complete projectile flight and impact domain; mutually exclusive/exhaustive impact outcomes; residual states and transformations; overpressure source/path/target/protection cross-product; pressure-time histories, arrival, injury/impulse/sensory/no-effect outputs and durations; missing-row rejection; and item-level profile evidence, validation, approval and traceability
+
 **REQ-PHYSICAL-EFFECTS-CATALOGUE-001** — Before affected behavior is used or verified, the project owner MUST approve and admit one exact Physical Effects Catalogue version reconciled to the approved source inventory.
 
 **REQ-PHYSICAL-EFFECTS-CATALOGUE-002** — Every source-inventory cross-product row MUST be classified `Applicable` with its complete input domain, exact admitted Physical Profile versions, deterministic rule or approved stochastic distribution, outputs, transformations, durations, and tolerances, or justified `Not Applicable` with evidence.
@@ -1369,6 +1939,10 @@ Production Security Baseline applies.
 
 **REQ-OVERPRESSURE-EFFECT-001** — Every applicable Blast Overpressure exposure MUST select exactly one result from a mutually exclusive and collectively exhaustive combined-outcome-tuple inventory; injury, Functional State, physical-impulse, and sensory-disruption fields MAY coexist within one tuple, while `No effect` MUST be true exactly when every other effect field is empty, and every temporary output MUST define its exact duration, recovery rule, and tolerance.
 
+<a id="acceptance-ar-068"></a>
+Acceptance for `REQ-OVERPRESSURE-EFFECT-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical overpressure evidence plus at least two independent in-scope evaluator results under a pre-approved protocol establishing the perceptibility and training credibility of each represented temporary sensory-disruption class across its admitted receiver conditions
+
 **REQ-OVERPRESSURE-EXPOSURE-001** — Blast Overpressure resolution MUST use the exact pressure-time history, arrival, propagation path and distance, intervening geometry and materials, target geometry and state, and protection inputs required by the applicable complete catalogue row and MUST NOT substitute a fixed-radius outcome.
 
 **REQ-OVERPRESSURE-PROFILE-001** — Each represented weapon discharge and explosive type MUST reference the exact admitted Physical Profile versions covering every applicable overpressure source, path, target, and outcome row.
@@ -1382,6 +1956,14 @@ Production Security Baseline applies.
 ## Acoustic Propagation
 
 **REQ-ACOUSTIC-SOURCE-INVENTORY-001** — A versioned source inventory MUST enumerate every admitted represented sound-source class, material, opening, environment, propagation path, receiver and output class; it MUST be reconciled to complete authoritative content, geometry, material, profile, and requirement registries and approved by the project owner for that exact version.
+
+<a id="acceptance-ar-069"></a>
+Acceptance for `REQ-ACOUSTIC-SOURCE-INVENTORY-001`, `REQ-ACOUSTIC-CATALOGUE-001`–`REQ-ACOUSTIC-CATALOGUE-004`, `REQ-ACOUSTIC-001`, `REQ-WAVE-SEPARATION-001`, `REQ-ACOUSTIC-DELAY-001`–`REQ-ACOUSTIC-DELAY-002`, `REQ-ACOUSTIC-ORDER-001`, `REQ-ACOUSTIC-OCCLUSION-001`, `REQ-ACOUSTIC-PATH-001`, `REQ-ACOUSTIC-FILTER-001`, `REQ-ACOUSTIC-REFLECTION-001`, `REQ-ACOUSTIC-ECHO-001`, `REQ-ACOUSTIC-ENVIRONMENT-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for acoustic-profile evidence.
+Exact source/material/environment registries and catalogue versions; complete source × path/opening × material × geometry × environment × receiver/output rows; emission and arrival timing; direction, intensity and spectrum; occlusion, path, reflection, reverberation and echo outputs; visual/physical-before-audio ordering; exact profile criteria and tolerances; missing-row rejection; and change-impact evidence
+
+<a id="acceptance-ar-014"></a>
+Acceptance for `REQ-ACOUSTIC-SOURCE-INVENTORY-001`, `REQ-ACOUSTIC-CATALOGUE-001`–`REQ-ACOUSTIC-CATALOGUE-004`, `REQ-ACOUSTIC-001`, `REQ-WAVE-SEPARATION-001`, `REQ-ACOUSTIC-DELAY-001`–`REQ-ACOUSTIC-DELAY-002`, `REQ-ACOUSTIC-ORDER-001`, `REQ-ACOUSTIC-OCCLUSION-001`, `REQ-ACOUSTIC-PATH-001`, `REQ-ACOUSTIC-FILTER-001`, `REQ-ACOUSTIC-REFLECTION-001`, `REQ-ACOUSTIC-ECHO-001`, `REQ-ACOUSTIC-ENVIRONMENT-001`, `REQ-INJURY-SOURCE-INVENTORY-001`, `REQ-INJURY-CATALOGUE-001`–`REQ-INJURY-CATALOGUE-004`, `REQ-FUNCTIONAL-TRANSITION-CATALOGUE-001`–`REQ-FUNCTIONAL-TRANSITION-CATALOGUE-003`, `REQ-INJURY-MODEL-001`–`REQ-INJURY-MODEL-002`, `REQ-INJURY-EVIDENCE-001`, `REQ-FUNCTIONAL-STATE-001`–`REQ-FUNCTIONAL-STATE-007`, `REQ-IMPAIRMENT-REGION-001`–`REQ-IMPAIRMENT-REGION-002`, `REQ-IMPAIRMENT-COMBINATION-001`–`REQ-IMPAIRMENT-COMBINATION-002`, `REQ-IMPAIRMENT-LOWER-LIMB-001`–`REQ-IMPAIRMENT-LOWER-LIMB-002`, `REQ-IMPAIRMENT-UPPER-LIMB-001`–`REQ-IMPAIRMENT-UPPER-LIMB-002`, `REQ-IMPAIRMENT-AIM-001`, `REQ-IMPAIRMENT-SENSORY-001`–`REQ-IMPAIRMENT-SENSORY-002`, `REQ-IMPAIRMENT-TORSO-001`, `REQ-INJURY-DOWNSTREAM-TRACE-001`, `REQ-INJURY-STRESS-ORDER-001`, `REQ-IMPAIRMENT-EXTERNAL-001`–`REQ-IMPAIRMENT-EXTERNAL-002`, `REQ-RESPAWN-001`, `REQ-BODY-PERSISTENCE-001`, `REQ-INCAPACITATED-BODY-001`, `REQ-POST-INCAPACITY-VIEW-001`–`REQ-POST-INCAPACITY-VIEW-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration where perception or a complete casualty flow applies. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact Acoustic Propagation and Injury Outcome Catalogues; Acoustic, Injury, Fatigue, Stress and downstream profiles; complete path/time/level/material and exposure/body/protection/state domains; functional transitions, impairments, casualty persistence, presentation and viewpoint cases against controlled canonical states
 
 **REQ-ACOUSTIC-CATALOGUE-001** — Before affected behavior is used or verified, the project owner MUST approve and admit one exact Acoustic Propagation Catalogue version reconciled to the approved source inventory.
 
@@ -1398,6 +1980,10 @@ Production Security Baseline applies.
 **REQ-ACOUSTIC-DELAY-001** — The reference Scenario MUST use 343 metres per second as acoustic propagation speed.
 
 **REQ-ACOUSTIC-DELAY-002** — An acoustic receiver output MUST NOT be rendered before its authoritative profile-derived arrival time and MUST be rendered at that arrival time when its applicable receiver-output and perception conditions are satisfied.
+
+<a id="acceptance-ar-070"></a>
+Acceptance for `REQ-ACOUSTIC-DELAY-002`, `REQ-ACOUSTIC-FILTER-001`, `REQ-ACOUSTIC-REFLECTION-001`, `REQ-ACOUSTIC-ECHO-001`, `REQ-ACOUSTIC-ENVIRONMENT-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical acoustic evidence plus at least two independent in-scope evaluator results under a pre-approved protocol establishing receiver-output audibility, obstruction-change perception, spatial coherence, echo distinction, and pairwise environmental distinction across the exact controlled receiver conditions
 
 **REQ-ACOUSTIC-ORDER-001** — When a corresponding authoritative visual or physical effect reaches a Trainee before the profile-derived acoustic arrival time, that effect MUST remain observable before the sound; the Training Simulation MUST NOT delay it solely to synchronize with audio.
 
@@ -1416,6 +2002,10 @@ Production Security Baseline applies.
 ## Injury and Trainee Functional State
 
 **REQ-INJURY-SOURCE-INVENTORY-001** — A versioned source inventory MUST enumerate every admitted body region, exposure type, magnitude/energy/pressure class, protection class, prior-injury class, Trainee Functional State, injury outcome, limitation, and external or sensory cue; it MUST be reconciled to complete authoritative physical, equipment, action, profile, and requirement registries and approved by the project owner for that exact version.
+
+<a id="acceptance-ar-071"></a>
+Acceptance for `REQ-INJURY-SOURCE-INVENTORY-001`, `REQ-INJURY-CATALOGUE-001`–`REQ-INJURY-CATALOGUE-004`, `REQ-FUNCTIONAL-TRANSITION-CATALOGUE-001`–`REQ-FUNCTIONAL-TRANSITION-CATALOGUE-003`, `REQ-INJURY-MODEL-001`–`REQ-INJURY-MODEL-002`, `REQ-INJURY-EVIDENCE-001`, `REQ-FUNCTIONAL-STATE-001`–`REQ-FUNCTIONAL-STATE-007`, `REQ-IMPAIRMENT-REGION-001`–`REQ-IMPAIRMENT-REGION-002`, `REQ-IMPAIRMENT-COMBINATION-001`–`REQ-IMPAIRMENT-COMBINATION-002`, `REQ-IMPAIRMENT-LOWER-LIMB-001`–`REQ-IMPAIRMENT-LOWER-LIMB-002`, `REQ-IMPAIRMENT-UPPER-LIMB-001`–`REQ-IMPAIRMENT-UPPER-LIMB-002`, `REQ-IMPAIRMENT-AIM-001`, `REQ-IMPAIRMENT-SENSORY-001`–`REQ-IMPAIRMENT-SENSORY-002`, `REQ-IMPAIRMENT-TORSO-001`, `REQ-INJURY-DOWNSTREAM-TRACE-001`, `REQ-INJURY-STRESS-ORDER-001`, `REQ-IMPAIRMENT-EXTERNAL-001`–`REQ-IMPAIRMENT-EXTERNAL-002`, `REQ-RESPAWN-001`, `REQ-BODY-PERSISTENCE-001`, `REQ-INCAPACITATED-BODY-001`, `REQ-POST-INCAPACITY-VIEW-001`–`REQ-POST-INCAPACITY-VIEW-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for injury/profile evidence.
+Exact source and outcome catalogue versions; complete body-region × exposure × magnitude × protection × prior-injury × state coverage; exact injury profiles; enabled/disabled effects; single, simultaneous and accumulated transition matrices and order; retained/additional limitations; downstream profile/matrix traces and precedence; atomic Injury/Fatigue/Stress updates; cue and sensory-effect inventories; body collision/force/clearance cases; and post-incapacity view-source negatives
 
 **REQ-INJURY-CATALOGUE-001** — Before injury behavior is used or verified, the project owner MUST approve and admit one exact Injury Outcome Catalogue version reconciled to the approved source inventory.
 
@@ -1471,6 +2061,10 @@ Production Security Baseline applies.
 
 **REQ-IMPAIRMENT-SENSORY-001** — Every enabled head or sensory-organ impairment effect MUST change vision or hearing through only the exact Diegetic Presentation cue/effect inventory, input domain, bounds, duration, perception criteria, and tolerances in its admitted Injury Profile.
 
+<a id="acceptance-ar-072"></a>
+Acceptance for `REQ-IMPAIRMENT-SENSORY-001`, `REQ-IMPAIRMENT-EXTERNAL-001`, `REQ-POST-INCAPACITY-VIEW-002`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical injury/presentation evidence plus at least two independent in-scope evaluator results under a pre-approved protocol establishing sensory-effect perceptibility, credible outward impairment recognition, distinction from unaffected and other impairment states, and absence of non-own-source information after incapacity
+
 **REQ-IMPAIRMENT-SENSORY-002** — Sensory impairment MUST NOT be communicated through a status message, meter, icon, or other non-diegetic active-simulation display.
 
 **REQ-IMPAIRMENT-TORSO-001** — Every enabled torso impairment effect MUST change sustainable physical exertion, Fatigue accumulation, Fatigue recovery, or audible breathing exactly through the cited Injury, Fatigue, Locomotion, and Acoustic Profile fields, domains, precedence, and tolerances.
@@ -1497,6 +2091,14 @@ Production Security Baseline applies.
 
 **REQ-MELEE-SOURCE-INVENTORY-001** — A versioned source inventory MUST enumerate every admitted body and Functional State class, Melee action, implement, equipment interface, required hand and action resource, access mode, physical-condition class, contact phase, target, defense, and Melee requirement; it MUST be reconciled to complete Action, Carrying, Weapon Behavior, Physical Effects, Injury Outcome, mode, content, and requirement registries and approved by the project owner for that exact version.
 
+<a id="acceptance-ar-073"></a>
+Acceptance for `REQ-MELEE-SOURCE-INVENTORY-001`, `REQ-MELEE-CATALOGUE-001`–`REQ-MELEE-CATALOGUE-004`, `REQ-MELEE-UNARMED-001`, `REQ-MELEE-FIREARM-001`, `REQ-MELEE-BLADE-001`–`REQ-MELEE-BLADE-002`, `REQ-MELEE-KNIFE-CARRY-001`, `REQ-MELEE-BAYONET-001`, `REQ-MELEE-BLADE-AUTOMATION-001`, `REQ-MELEE-ITEM-STATE-001`, `REQ-MELEE-ITEM-DAMAGE-001`, `REQ-MELEE-CONTACT-001`, `REQ-MELEE-OUTCOME-001`, `REQ-MELEE-TARGETING-001`, `REQ-MELEE-INPUT-VR-001`, `REQ-MELEE-INPUT-DESKTOP-001`–`REQ-MELEE-INPUT-DESKTOP-002`, `REQ-MELEE-INPUT-PARITY-001`, `REQ-MELEE-PHYSICAL-LIMIT-001`, `REQ-MELEE-STRESS-001`, `REQ-MELEE-BLOCK-001`–`REQ-MELEE-BLOCK-003`, `REFERENCE-MELEE-BLADE-001`, `REFERENCE-MELEE-OPTIONAL-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact registry reconciliation, catalogue admission and history; complete body/state × action × implement/interface × resource × mode × physical-condition coverage; profile provenance; active contact/no-contact phases; outcome tuples; equipment dispositions and transformations; continuous input and prohibition cases; complete physical-limit tuples and precedence; Stress enabled/disabled behavior; defensive contacts; and reference Loadout admission
+
+<a id="acceptance-ar-015"></a>
+Acceptance for `REQ-MELEE-SOURCE-INVENTORY-001`, `REQ-MELEE-CATALOGUE-001`–`REQ-MELEE-CATALOGUE-004`, `REQ-MELEE-UNARMED-001`, `REQ-MELEE-FIREARM-001`, `REQ-MELEE-BLADE-001`–`REQ-MELEE-BLADE-002`, `REQ-MELEE-KNIFE-CARRY-001`, `REQ-MELEE-BAYONET-001`, `REQ-MELEE-BLADE-AUTOMATION-001`, `REQ-MELEE-ITEM-STATE-001`, `REQ-MELEE-ITEM-DAMAGE-001`, `REQ-MELEE-CONTACT-001`, `REQ-MELEE-OUTCOME-001`, `REQ-MELEE-TARGETING-001`, `REQ-MELEE-INPUT-VR-001`, `REQ-MELEE-INPUT-DESKTOP-001`–`REQ-MELEE-INPUT-DESKTOP-002`, `REQ-MELEE-INPUT-PARITY-001`, `REQ-MELEE-PHYSICAL-LIMIT-001`, `REQ-MELEE-STRESS-001`, `REQ-MELEE-BLOCK-001`–`REQ-MELEE-BLOCK-003`, `REFERENCE-MELEE-BLADE-001`, `REFERENCE-MELEE-OPTIONAL-001`, `REQ-TRAINEE-COLLISION-PROFILE-001`, `REQ-TRAINEE-COLLISION-001`–`REQ-TRAINEE-COLLISION-002`, `REQ-TRAINEE-CONTACT-001`, `REQ-HARMFUL-EFFECT-INVENTORY-001`–`REQ-HARMFUL-EFFECT-INVENTORY-003`, `REQ-FRIENDLY-FIRE-001`–`REQ-FRIENDLY-FIRE-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact Melee source inventory and Coverage Catalogue; admitted weapon, physical, injury, fatigue, stress, locomotion and equipment profiles; complete capability, contact, outcome, physical-limit and defense domains; item transitions; Trainee collision profiles; closed harmful-effect inventory; and paired Team-invariance cases
+
 **REQ-MELEE-CATALOGUE-001** — Before Melee behavior is used or verified, the project owner MUST approve and admit one exact Melee Coverage Catalogue version reconciled to the approved source inventory.
 
 **REQ-MELEE-CATALOGUE-002** — Every applicable body/state × action × implement/interface × resource × access-mode × physical-condition row MUST define a nonempty action domain, exact admitted Approved Profile and downstream catalogue versions, input behavior, active-contact phase, physical limits, interruption boundaries, and output tolerances, or contain a justified `Not Applicable` result with evidence.
@@ -1506,6 +2108,10 @@ Production Security Baseline applies.
 **REQ-MELEE-CATALOGUE-004** — A change to the catalogue, source inventory, row, profile, equipment, action, mode, physical condition, or dependency MUST create a new version, retain preceding decisions and evidence, and trigger evidence-impact analysis.
 
 **REQ-MELEE-UNARMED-001** — A `Capable` or `Impaired` Trainee MUST be able to perform every unarmed strike classified `Applicable` by the exact Melee Coverage Catalogue under its complete declared current-state domain through an explicit action.
+
+<a id="acceptance-ar-074"></a>
+Acceptance for `REQ-MELEE-UNARMED-001`, `REQ-MELEE-FIREARM-001`, `REQ-MELEE-INPUT-VR-001`, `REQ-MELEE-INPUT-DESKTOP-001`, `REQ-MELEE-PHYSICAL-LIMIT-001`, `REQ-MELEE-BLOCK-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical Melee evidence plus at least two independent in-scope evaluator results under a pre-approved protocol establishing credible military handling, accessible physical control, operational physical limits, and defensive interposition adequacy in the applicable modes and state domains
 
 **REQ-MELEE-FIREARM-001** — A `Capable` or `Impaired` Trainee MUST be able to strike using a currently held firearm exactly when the applicable Melee and Weapon Behavior Catalogue rows classify that action as `Applicable` under the complete current-state domain.
 
@@ -1531,11 +2137,15 @@ Production Security Baseline applies.
 
 **REQ-MELEE-INPUT-VR-001** — In Virtual-Reality Mode, tracked-controller motion MUST determine the represented strike motion within the exact limits produced by the applicable Melee Coverage Catalogue and admitted profile row for the current complete state.
 
+Scope for `REQ-MELEE-INPUT-VR-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-MELEE-INPUT-DESKTOP-001** — In Desktop Mode, holding an explicit Melee command and moving the mouse MUST control the represented striking body part or held equipment continuously within the exact limits produced by the applicable Melee Coverage Catalogue and admitted profile row for the current complete state.
 
 **REQ-MELEE-INPUT-DESKTOP-002** — Releasing the Desktop Mode Melee command MUST end direct strike control and MUST NOT complete an automatic target-oriented attack animation.
 
 **REQ-MELEE-INPUT-PARITY-001** — Desktop Mode and Virtual-Reality Mode MUST resolve Melee contact and outcomes through the same authoritative physical and injury rules.
+
+Scope for `REQ-MELEE-INPUT-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-MELEE-PHYSICAL-LIMIT-001** — Melee strike speed, achievable impact energy, sustainable repetition, and recovery duration MUST equal the exact bounded outputs and tolerances derived from cited body/action, Locomotion, Fatigue, Injury, Physical, and equipment profile fields over the complete posture × Carried Load × Fatigue × injury/Functional State × implement × action × access-mode domain, using declared precedence.
 
@@ -1555,6 +2165,10 @@ Production Security Baseline applies.
 
 **REQ-TRAINEE-COLLISION-PROFILE-001** — Exact admitted Physical Profile versions MUST cover every Trainee Functional State/pose × body-pair × geometry/contact/force/surface class, penetration tolerance, deterministic or bounded response, multi-contact aggregation and order, and ordinary-displacement classification and threshold.
 
+<a id="acceptance-ar-075"></a>
+Acceptance for `REQ-TRAINEE-COLLISION-PROFILE-001`, `REQ-TRAINEE-COLLISION-001`–`REQ-TRAINEE-COLLISION-002`, `REQ-TRAINEE-CONTACT-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for physical-profile evidence.
+Complete Functional State/pose × body-pair × geometry/contact/force/surface coverage; exact collision geometry and penetration tolerance; contact/no-contact controls; deterministic or bounded response; multi-contact aggregation/order; Enabled/Disabled ordinary displacement; threshold boundaries; and Team-swap invariance
+
 **REQ-TRAINEE-COLLISION-001** — Trainees MUST physically block one another regardless of Team according to the exact applicable body-collision Physical Profile and penetration tolerance.
 
 **REQ-TRAINEE-COLLISION-002** — Two Trainee collision bodies MUST NOT overlap beyond the exact admitted penetration tolerance or pass through one another; no-contact controls MUST produce no collision response.
@@ -1562,6 +2176,10 @@ Production Security Baseline applies.
 **REQ-TRAINEE-CONTACT-001** — Each body-contact profile row MUST classify ordinary displacement `Enabled` or `Disabled`; when enabled, contact MUST produce only the row's bounded direction, magnitude, duration, and multi-contact result, and when disabled it MUST produce none; no contact may exceed the exact prohibited-force or movement threshold or provide an artificial attack or movement mechanism.
 
 **REQ-HARMFUL-EFFECT-INVENTORY-001** — An approved, versioned, and closed Harmful Effect Inventory MUST enumerate every admitted source capable of injury, impairment, equipment damage, or another adverse authoritative outcome and reconcile each item to exact Physical Effects, Injury Outcome, Melee, Fire, environment, equipment, and other applicable catalogue and profile rows.
+
+<a id="acceptance-ar-076"></a>
+Acceptance for `REQ-HARMFUL-EFFECT-INVENTORY-001`–`REQ-HARMFUL-EFFECT-INVENTORY-003`, `REQ-FRIENDLY-FIRE-001`–`REQ-FRIENDLY-FIRE-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for effect-profile evidence.
+Complete authoritative source reconciliation across physical, injury, Melee, Fire, environment and equipment registries; exact inventory approval/version/history; missing/stale/uncertain negatives; and paired cases differing only in Team identity, plus represented equipment/protection controls that justify permitted outcome differences
 
 **REQ-HARMFUL-EFFECT-INVENTORY-002** — The project owner MUST approve the exact reconciled Harmful Effect Inventory version before friendly-fire verification; a missing, stale, uncertain, unclassified, or non-admitted harmful effect MUST block acceptance and MUST NOT default to Team-dependent or Team-independent behavior.
 
@@ -1574,6 +2192,14 @@ Production Security Baseline applies.
 ## Environment damage
 
 **REQ-ENVIRONMENT-SOURCE-INVENTORY-001** — A versioned source inventory MUST enumerate the finite members of every admitted object/effect, interaction/exposure, current-state, physical-condition, door, window, circuit, light, Obscurant, thrown or explosive device, Fire source/material/state, movable-object, destructible-surface, outcome, and requirement dimension; it MUST be reconciled to complete content, Action, Carrying, Weapon Behavior, Physical Effects, Acoustic Propagation, Injury Outcome, Harmful Effect, profile, and requirement registries and approved by the project owner for that exact version.
+
+<a id="acceptance-ar-077"></a>
+Acceptance for `REQ-ENVIRONMENT-SOURCE-INVENTORY-001`, `REQ-ENVIRONMENT-CATALOGUE-001`–`REQ-ENVIRONMENT-CATALOGUE-004`, `REQ-ENVIRONMENT-STATE-CATALOGUE-001`–`REQ-ENVIRONMENT-STATE-CATALOGUE-003`. Required: Automated Test, Analysis, Inspection. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Complete authoritative registry reconciliation; exact catalogue admission; object/effect × interaction/exposure × state × condition expansion; Applicable/Not-Applicable rows; exact profiles, transitions and tolerances; same-event aggregation and precedence; atomic outputs and terminal dispositions; missing/stale/uncertain negatives; version history; and impact analysis
+
+<a id="acceptance-ar-016"></a>
+Acceptance for `REQ-ENVIRONMENT-SOURCE-INVENTORY-001`, `REQ-ENVIRONMENT-CATALOGUE-001`–`REQ-ENVIRONMENT-CATALOGUE-004`, `REQ-ENVIRONMENT-STATE-CATALOGUE-001`–`REQ-ENVIRONMENT-STATE-CATALOGUE-003`, `REFERENCE-TACTICAL-SPACE-INVENTORY-001`, `REFERENCE-MAP-DOOR-001`, `REFERENCE-MAP-LOCKED-DOOR-001`, `REFERENCE-DOOR-BREACH-TOOL-001`, `REQ-DOOR-INTERACTION-001`, `REQ-DOOR-STATE-001`, `REQ-DOOR-MOTION-001`–`REQ-DOOR-MOTION-003`, `REQ-DOOR-INPUT-VR-001`, `REQ-DOOR-INPUT-DESKTOP-001`, `REQ-DOOR-INPUT-RELEASE-001`, `REQ-DOOR-INPUT-PARITY-001`, `REQ-DOOR-LOCK-001`–`REQ-DOOR-LOCK-004`, `REQ-DOOR-BREACH-001`–`REQ-DOOR-BREACH-002`, `REQ-DOOR-MECHANICAL-BREACH-001`, `REQ-DOOR-BALLISTIC-EXPLOSIVE-BREACH-001`, `REFERENCE-MAP-WINDOW-001`, `REFERENCE-MAP-WINDOW-OPERABLE-001`, `REQ-WINDOW-CLASSIFICATION-001`, `REQ-WINDOW-INTERACTION-001`, `REQ-WINDOW-MOTION-001`–`REQ-WINDOW-MOTION-002`, `REQ-WINDOW-INPUT-VR-001`, `REQ-WINDOW-INPUT-DESKTOP-001`, `REQ-WINDOW-INPUT-PARITY-001`, `REQ-WINDOW-DAMAGE-001`–`REQ-WINDOW-DAMAGE-002`, `REQ-WINDOW-TRAVERSAL-001`–`REQ-WINDOW-TRAVERSAL-002`, `REQ-WINDOW-FRAGMENT-001`, `REFERENCE-MAP-LIGHTING-CONTROL-001`, `REQ-LIGHT-SWITCH-001`, `REQ-LIGHT-CIRCUIT-001`, `REQ-LIGHT-DAMAGE-001`–`REQ-LIGHT-DAMAGE-002`, `REQ-LIGHT-VISIBILITY-001`, `REQ-LIGHTING-TACTICAL-PERCEPTION-001`, `REQ-PORTABLE-LIGHT-001`, `REQ-PORTABLE-LIGHT-CONTROL-001`, `REQ-PORTABLE-LIGHT-PHYSICAL-001`, `REQ-PORTABLE-LIGHT-SHADOW-001`, `REQ-PORTABLE-LIGHT-SHARED-001`, `REQ-PORTABLE-LIGHT-DAMAGE-001`–`REQ-PORTABLE-LIGHT-DAMAGE-003`, `REQ-PORTABLE-LIGHT-ENERGY-001`, `REQ-OBSCURANT-SOURCE-001`, `REQ-OBSCURANT-SHARED-001`, `REQ-OBSCURANT-EVOLUTION-001`, `REQ-OBSCURANT-PRESENTATION-001`, `REQ-OBSCURANT-PHYSIOLOGY-001`, `REFERENCE-SMOKE-GRENADE-001`, `REFERENCE-SMOKE-GRENADE-EFFECT-001`, `REFERENCE-FRAGMENTATION-GRENADE-001`, `REQ-FRAGMENTATION-GRENADE-EFFECT-001`–`REQ-FRAGMENTATION-GRENADE-EFFECT-002`, `REQ-THROWN-DEVICE-OPERATION-001`, `REQ-THROWN-DEVICE-ACTIVATION-001`, `REQ-THROWN-DEVICE-DELAY-001`, `REQ-THROWN-DEVICE-RETRIEVAL-001`, `REQ-THROWN-DEVICE-PHYSICAL-001`, `REQ-EXPLOSIVE-EXTERNAL-INITIATION-001`–`REQ-EXPLOSIVE-EXTERNAL-INITIATION-003`, `REQ-THROWN-DEVICE-TRAJECTORY-001`, `REQ-THROWN-DEVICE-AID-001`, `REQ-THROWN-DEVICE-PARITY-001`, `REQ-THROWN-DEVICE-INPUT-VR-001`, `REQ-THROWN-DEVICE-INPUT-DESKTOP-001`, `REQ-THROWN-DEVICE-INPUT-FEEDBACK-001`, `REQ-THROWN-DEVICE-LIMIT-001`, `REQ-THROWN-DEVICE-STRESS-001`, `REQ-FIRE-IGNITION-001`, `REQ-FIRE-SHARED-001`, `REQ-FIRE-EFFECT-001`, `REQ-FIRE-SPREAD-001`, `REQ-FIRE-EXPOSURE-001`, `REQ-FIRE-LIFECYCLE-001`, `REQ-FIRE-EXTINCTION-001`, `CONSTRAINT-FIRE-SUPPRESSION-001`, `CONSTRAINT-FIRE-SCOPE-001`, `REFERENCE-FIRE-001`–`REFERENCE-FIRE-002`, `REFERENCE-PORTABLE-LIGHT-001`–`REFERENCE-PORTABLE-LIGHT-002`, `REQ-ENVIRONMENT-MOVABLE-001`–`REQ-ENVIRONMENT-MOVABLE-003`, `REQ-ENVIRONMENT-MANIPULATION-001`–`REQ-ENVIRONMENT-MANIPULATION-003`, `REQ-ENVIRONMENT-MANIPULATION-IDENTITY-001`, `REQ-ENVIRONMENT-MANIPULATION-CONTENTION-001`, `REQ-ENVIRONMENT-MANIPULATION-004`–`REQ-ENVIRONMENT-MANIPULATION-007`, `REFERENCE-MOVABLE-OBJECT-001`, `REQ-ENVIRONMENT-MANIPULATION-VR-001`, `REQ-ENVIRONMENT-MANIPULATION-DESKTOP-001`, `REQ-ENVIRONMENT-MANIPULATION-RELEASE-001`, `REQ-ENVIRONMENT-THROW-BOUNDARY-001`, `REQ-ENVIRONMENT-MANIPULATION-PARITY-001`, `REQ-ENVIRONMENT-MANIPULATION-TACTICAL-ADEQUACY-001`, `REQ-ENVIRONMENT-DESTRUCTIBLE-INVENTORY-001`, `REQ-ENVIRONMENT-DAMAGE-001`–`REQ-ENVIRONMENT-DAMAGE-002`, `REQ-MAP-DAMAGE-LIFETIME-001`, `REQ-MAP-RESET-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact Environment Coverage and State Catalogues; admitted physical, material, equipment, lighting, Obscurant, Fire, exposure and injury profiles; reference-content inspection; and controlled interaction, damage, transition, persistence and reset cases for doors, windows, lights, Obscurants, explosives, thrown devices, Fire, movable objects and localized Map damage
 
 **REQ-ENVIRONMENT-CATALOGUE-001** — Before affected environment behavior is used or verified, the project owner MUST approve and admit one exact Environment Coverage Catalogue version reconciled to the approved source inventory.
 
@@ -1591,9 +2217,17 @@ Production Security Baseline applies.
 
 **REFERENCE-TACTICAL-SPACE-INVENTORY-001** — The reference Map MUST have a versioned inventory of spaces and door/window connections with stable identifiers, geometry, access paths, training use, and objective connection evidence; before Map admission, at least two independent in-scope Representative Evaluators MUST confirm each connection classified tactically relevant under a pre-approved criterion, and the project owner MUST approve that exact inventory and procedure version.
 
+<a id="acceptance-ar-078"></a>
+Acceptance for `REFERENCE-TACTICAL-SPACE-INVENTORY-001`, `REFERENCE-MAP-DOOR-001`, `REFERENCE-MAP-WINDOW-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Evidence: Implementation team and Representative Evaluators.
+Versioned space/connection inventory with stable identities, geometry, paths and training use; objective connection evidence; at least two independent in-scope evaluator results under a pre-approved tactical-relevance criterion; exact inventory/procedure approval; and complete trace from every admitted door/window connection
+
 **REFERENCE-MAP-DOOR-001** — The reference Map MUST contain physically represented operable doors for every door connection admitted as tactically relevant by the approved reference-space inventory.
 
 **REFERENCE-MAP-LOCKED-DOOR-001** — The reference Personnel Recovery Scenario MUST configure at least one operable door as initially locked and MUST provide at least one represented breach method with an `Applicable` row for that exact door, tool or effect, and condition in the admitted Environment Coverage Catalogue.
+
+<a id="acceptance-ar-079"></a>
+Acceptance for `REFERENCE-MAP-LOCKED-DOOR-001`, `REFERENCE-DOOR-BREACH-TOOL-001`, `REQ-DOOR-INTERACTION-001`, `REQ-DOOR-STATE-001`, `REQ-DOOR-MOTION-001`–`REQ-DOOR-MOTION-003`, `REQ-DOOR-INPUT-VR-001`, `REQ-DOOR-INPUT-DESKTOP-001`, `REQ-DOOR-INPUT-RELEASE-001`, `REQ-DOOR-INPUT-PARITY-001`, `REQ-DOOR-LOCK-001`–`REQ-DOOR-LOCK-004`, `REQ-DOOR-BREACH-001`–`REQ-DOOR-BREACH-002`, `REQ-DOOR-MECHANICAL-BREACH-001`, `REQ-DOOR-BALLISTIC-EXPLOSIVE-BREACH-001`, `REFERENCE-MAP-WINDOW-001`, `REFERENCE-MAP-WINDOW-OPERABLE-001`, `REQ-WINDOW-CLASSIFICATION-001`, `REQ-WINDOW-INTERACTION-001`, `REQ-WINDOW-MOTION-001`–`REQ-WINDOW-MOTION-002`, `REQ-WINDOW-INPUT-VR-001`, `REQ-WINDOW-INPUT-DESKTOP-001`, `REQ-WINDOW-INPUT-PARITY-001`, `REQ-WINDOW-DAMAGE-001`–`REQ-WINDOW-DAMAGE-002`, `REQ-WINDOW-TRAVERSAL-001`–`REQ-WINDOW-TRAVERSAL-002`, `REQ-WINDOW-FRAGMENT-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for physical/material/profile evidence.
+Exact door/window/tool catalogue and profile rows; complete interaction and motion domains; lock, breach, damage and simultaneous-transition matrices; input/release/parity evidence; intact/damaged/broken geometry and downstream outputs; traversal clearance boundaries; fragment transformations and injury; and reference content admission
 
 **REFERENCE-DOOR-BREACH-TOOL-001** — At least one recovering-Team Loadout in the reference Scenario MUST include a dedicated mechanical breaching tool whose exact tool × initially locked door × condition row is admitted and classified `Applicable` in the Environment Coverage Catalogue.
 
@@ -1609,11 +2243,15 @@ Production Security Baseline applies.
 
 **REQ-DOOR-INPUT-VR-001** — In Virtual-Reality Mode, a Trainee MUST be able to grasp and move an operable door through tracked-controller motion.
 
+Scope for `REQ-DOOR-INPUT-VR-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-DOOR-INPUT-DESKTOP-001** — In Desktop Mode, a Trainee MUST be able to hold an explicit interaction command and use mouse motion to control the door continuously.
 
 **REQ-DOOR-INPUT-RELEASE-001** — Releasing the active door interaction MUST stop the Trainee's direct manipulation and leave the door at the resulting physical position, subject to subsequent collisions and forces.
 
 **REQ-DOOR-INPUT-PARITY-001** — Both input methods MUST operate on the same authoritative door state and satisfy Mode Equivalence for tactically relevant door placement.
+
+Scope for `REQ-DOOR-INPUT-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-DOOR-LOCK-001** — A Scenario MUST be able to define each operable door's initial lock state.
 
@@ -1645,9 +2283,13 @@ Production Security Baseline applies.
 
 **REQ-WINDOW-INPUT-VR-001** — In Virtual-Reality Mode, a Trainee MUST manipulate an operable window through tracked-controller motion consistent with its represented mechanism.
 
+Scope for `REQ-WINDOW-INPUT-VR-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-WINDOW-INPUT-DESKTOP-001** — In Desktop Mode, a Trainee MUST manipulate an operable window continuously by holding an explicit interaction command and using mouse motion.
 
 **REQ-WINDOW-INPUT-PARITY-001** — Both input methods MUST operate on the same authoritative window state and satisfy Mode Equivalence for tactically relevant window placement.
+
+Scope for `REQ-WINDOW-INPUT-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-WINDOW-DAMAGE-001** — Every exposure of a breakable window MUST select and apply exactly one exhaustive outcome, including explicit `No effect`, from its exact admitted material, structural, Environment State, and Physical Effects rows; a successful break outcome MUST perform its atomic geometry and transformation changes.
 
@@ -1663,6 +2305,10 @@ Production Security Baseline applies.
 
 **REQ-LIGHT-SWITCH-001** — A `Capable` or `Impaired` Trainee MUST be able to operate a represented light switch through an explicit interaction exactly when the applicable Environment row's Functional State, resource, reach, obstruction, switch, circuit, and current-state predicate passes.
 
+<a id="acceptance-ar-080"></a>
+Acceptance for `REQ-LIGHT-SWITCH-001`, `REQ-LIGHT-CIRCUIT-001`, `REQ-LIGHT-DAMAGE-001`–`REQ-LIGHT-DAMAGE-002`, `REQ-LIGHT-VISIBILITY-001`, `REQ-LIGHTING-TACTICAL-PERCEPTION-001`, `REQ-PORTABLE-LIGHT-001`, `REQ-PORTABLE-LIGHT-CONTROL-001`, `REQ-PORTABLE-LIGHT-PHYSICAL-001`, `REQ-PORTABLE-LIGHT-SHADOW-001`, `REQ-PORTABLE-LIGHT-SHARED-001`, `REQ-PORTABLE-LIGHT-DAMAGE-001`–`REQ-PORTABLE-LIGHT-DAMAGE-003`, `REQ-PORTABLE-LIGHT-ENERGY-001`, `REQ-OBSCURANT-SOURCE-001`, `REQ-OBSCURANT-SHARED-001`, `REQ-OBSCURANT-EVOLUTION-001`, `REQ-OBSCURANT-PRESENTATION-001`, `REQ-OBSCURANT-PHYSIOLOGY-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for lighting/obscurant/profile evidence.
+Switch/circuit/state matrices; exact equipment-damage outcomes; Lighting and Obscurant Profile versions; source/geometry/material/path/viewpoint domains; illumination, occlusion, shadow and visibility metrics/tolerances; shared-state comparisons; complete Obscurant formation/evolution/dissipation; and physiology Enabled/Disabled/No-effect cases
+
 **REQ-LIGHT-CIRCUIT-001** — Operating a light switch MUST change the powered state of every functioning light source connected to its represented circuit.
 
 **REQ-LIGHT-DAMAGE-001** — Every light-source exposure MUST select and apply exactly one exhaustive outcome, including `No effect`, from its exact admitted equipment, Environment State, and Physical Effects rows.
@@ -1672,6 +2318,10 @@ Production Security Baseline applies.
 **REQ-LIGHT-VISIBILITY-001** — Every functioning-light state change MUST produce the exact spatial illumination, shadow, and visibility outputs, domains, comparison metrics, and tolerances required by its admitted Lighting Profile and environment geometry.
 
 **REQ-LIGHTING-TACTICAL-PERCEPTION-001** — Before Lighting or Obscurant Profile outputs are accepted for the reference Scenario, at least two independent in-scope Representative Evaluators MUST confirm under a pre-approved protocol that the admitted illumination, shadow, occlusion, and Obscurant visibility differences preserve tactically relevant perception across the declared spaces, paths, and viewpoints, and the project owner MUST approve the exact protocol and profile versions before observation.
+
+<a id="acceptance-ar-081"></a>
+Acceptance for `REQ-LIGHTING-TACTICAL-PERCEPTION-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical lighting/visibility evidence plus at least two independent in-scope evaluator results under a pre-approved protocol establishing tactically meaningful illumination, shadow, occlusion, and Obscurant visibility differences across declared spaces, paths and viewpoints, with exact pre-observation protocol/profile approval
 
 **REQ-PORTABLE-LIGHT-001** — A Loadout MUST be able to include a represented handheld or weapon-mounted light compatible with its assigned equipment.
 
@@ -1703,6 +2353,10 @@ Production Security Baseline applies.
 
 **REFERENCE-SMOKE-GRENADE-001** — Each Team in the reference Scenario MUST have at least one available Loadout containing a represented smoke grenade whose exact admitted device and Obscurant Profile rows select an Obscurant-generating outcome.
 
+<a id="acceptance-ar-082"></a>
+Acceptance for `REFERENCE-SMOKE-GRENADE-001`, `REFERENCE-SMOKE-GRENADE-EFFECT-001`, `REFERENCE-FRAGMENTATION-GRENADE-001`, `REQ-FRAGMENTATION-GRENADE-EFFECT-001`–`REQ-FRAGMENTATION-GRENADE-EFFECT-002`, `REQ-THROWN-DEVICE-OPERATION-001`, `REQ-THROWN-DEVICE-ACTIVATION-001`, `REQ-THROWN-DEVICE-DELAY-001`, `REQ-THROWN-DEVICE-RETRIEVAL-001`, `REQ-THROWN-DEVICE-PHYSICAL-001`, `REQ-EXPLOSIVE-EXTERNAL-INITIATION-001`–`REQ-EXPLOSIVE-EXTERNAL-INITIATION-003`, `REQ-THROWN-DEVICE-TRAJECTORY-001`, `REQ-THROWN-DEVICE-AID-001`, `REQ-THROWN-DEVICE-PARITY-001`, `REQ-THROWN-DEVICE-INPUT-VR-001`, `REQ-THROWN-DEVICE-INPUT-DESKTOP-001`, `REQ-THROWN-DEVICE-INPUT-FEEDBACK-001`, `REQ-THROWN-DEVICE-LIMIT-001`, `REQ-THROWN-DEVICE-STRESS-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for device/profile evidence.
+Exact device, state, Physical, Obscurant, Injury, Fatigue and Stress profile rows; preparation/activation/release order; retention Enabled/Disabled cases; retrieval rejection aligned with Carrying Catalogue; physical lifecycle and terminal disposition; external-initiation exhaustive outcomes; trajectories and mode input; complete physical-limit tuple; and Stress effect cases
+
 **REFERENCE-SMOKE-GRENADE-EFFECT-001** — The Obscurant emitted by the reference smoke grenade MUST NOT produce toxicity, respiratory injury, or a change to Trainee Functional State.
 
 **REFERENCE-FRAGMENTATION-GRENADE-001** — Each Team in the reference Scenario MUST have at least one available Loadout containing a represented fragmentation grenade.
@@ -1733,7 +2387,11 @@ Production Security Baseline applies.
 
 **REQ-THROWN-DEVICE-PARITY-001** — Desktop Mode and Virtual-Reality Mode MUST satisfy Mode Equivalence for achievable thrown-device outcomes through their respective input methods.
 
+Scope for `REQ-THROWN-DEVICE-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-THROWN-DEVICE-INPUT-VR-001** — In Virtual-Reality Mode, tracked-controller position and velocity at release MUST determine the represented release position, direction, and requested velocity.
+
+Scope for `REQ-THROWN-DEVICE-INPUT-VR-001`: Future — First Virtual-Reality Mode Baseline.
 
 **REQ-THROWN-DEVICE-INPUT-DESKTOP-001** — In Desktop Mode, holding the throw command MUST prepare the throw, mouse input MUST determine direction, command duration MUST determine requested intensity within the Trainee's current physical limits, and releasing the command MUST release the device.
 
@@ -1744,6 +2402,10 @@ Production Security Baseline applies.
 **REQ-THROWN-DEVICE-STRESS-001** — Stress Load MUST change throw-preparation duration exactly when and as the applicable Stress Profile effect is `Enabled`, MUST NOT change it when `Disabled` or unenumerated, and MUST NOT introduce artificial random error into the release direction selected by the Trainee.
 
 **REQ-FIRE-IGNITION-001** — Every exposure of an explicitly combustible object or material to an admitted heat, flame, projectile, explosion, or device source MUST select and apply exactly one exhaustive ignition outcome, including `No ignition`, from its exact admitted Fire, Environment State, and Physical Effects rows.
+
+<a id="acceptance-ar-083"></a>
+Acceptance for `REQ-FIRE-IGNITION-001`, `REQ-FIRE-SHARED-001`, `REQ-FIRE-EFFECT-001`, `REQ-FIRE-SPREAD-001`, `REQ-FIRE-EXPOSURE-001`, `REQ-FIRE-LIFECYCLE-001`, `REQ-FIRE-EXTINCTION-001`, `CONSTRAINT-FIRE-SUPPRESSION-001`, `CONSTRAINT-FIRE-SCOPE-001`, `REFERENCE-FIRE-001`–`REFERENCE-FIRE-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for fire/profile evidence.
+Exact Fire Profile and state versions; complete source × material/object × transfer × geometry × environment × target × Fire-state/fuel coverage; ignition/No-ignition outcomes; fuel conservation; simultaneous aggregation and precedence; light/heat/Obscurant/Acoustic outputs; exposure outcomes; lifecycle and extinction boundaries; and reference setup
 
 **REQ-FIRE-SHARED-001** — Fire position, extent, and state MUST be part of the shared canonical simulation state.
 
@@ -1771,6 +2433,10 @@ Production Security Baseline applies.
 
 **REQ-ENVIRONMENT-MOVABLE-001** — An environment object classified as movable MUST respond to every applicable Trainee contact, Ballistic Projectile impact, Blast Overpressure, gravity, collision, and other force exactly according to its admitted mass, material, structure, Physical Profile, and Environment row.
 
+<a id="acceptance-ar-084"></a>
+Acceptance for `REQ-ENVIRONMENT-MOVABLE-001`–`REQ-ENVIRONMENT-MOVABLE-003`, `REQ-ENVIRONMENT-MANIPULATION-001`–`REQ-ENVIRONMENT-MANIPULATION-003`, `REQ-ENVIRONMENT-MANIPULATION-IDENTITY-001`, `REQ-ENVIRONMENT-MANIPULATION-CONTENTION-001`, `REQ-ENVIRONMENT-MANIPULATION-004`–`REQ-ENVIRONMENT-MANIPULATION-007`, `REFERENCE-MOVABLE-OBJECT-001`, `REQ-ENVIRONMENT-MANIPULATION-VR-001`, `REQ-ENVIRONMENT-MANIPULATION-DESKTOP-001`, `REQ-ENVIRONMENT-MANIPULATION-RELEASE-001`, `REQ-ENVIRONMENT-THROW-BOUNDARY-001`, `REQ-ENVIRONMENT-MANIPULATION-PARITY-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for physical/profile evidence.
+Exact movable-object and manipulation rows; complete object × mode × state × manipulation × physical-condition tuples; forces and persistent canonical state; reach/grasp/resources; downstream profiles and tolerances; identity, disposition, atomic acquire/release and Carried Load; concurrent same-object requests; heavy-object negatives; and paired mode outcomes
+
 **REQ-ENVIRONMENT-MOVABLE-002** — A movable object's position, orientation, velocity, and damage state MUST be part of the shared canonical simulation state and persist for the remainder of the Training Session.
 
 **REQ-ENVIRONMENT-MOVABLE-003** — A moved object's current represented geometry and material state MUST affect movement, visibility, Ballistic Projectile interaction, Acoustic Propagation, and cover where applicable.
@@ -1797,17 +2463,33 @@ Production Security Baseline applies.
 
 **REQ-ENVIRONMENT-MANIPULATION-VR-001** — In Virtual-Reality Mode, a Trainee MUST grasp and manipulate an eligible environment object through tracked-controller motion at a valid represented grasp point.
 
+Scope for `REQ-ENVIRONMENT-MANIPULATION-VR-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-ENVIRONMENT-MANIPULATION-DESKTOP-001** — In Desktop Mode, a Trainee MUST manipulate an eligible environment object by holding an explicit interaction command and using mouse and locomotion input to orient and displace it.
 
 **REQ-ENVIRONMENT-MANIPULATION-RELEASE-001** — Releasing the active manipulation input MUST release the environment object at its current authoritative position and orientation and clamp inherited linear and angular velocity to the exact admitted ordinary-drop envelope before free physical motion continues.
+
+<a id="acceptance-ar-098"></a>
+Acceptance for `REQ-ENVIRONMENT-MANIPULATION-RELEASE-001`, `REQ-ENVIRONMENT-THROW-BOUNDARY-001`, `NON-GOAL-SESSION-SAVE-001`, `NON-GOAL-ENVIRONMENT-OBJECT-THROW-001`. Required: Automated Test, Analysis, Inspection.
+Process-loss and restart negatives proving that live Training Session state is neither checkpointed nor resumed; every environment-object deliberate-Throw row Disabled; exact linear/angular envelope boundaries; release/drop adds no commanded impulse and clamps inherited velocity within the envelope; and post-release external-force controls
 
 **REQ-ENVIRONMENT-THROW-BOUNDARY-001** — Every environment-object row MUST classify deliberate `Throw` as `Disabled`, define a finite ordinary-drop linear/angular velocity envelope, and prohibit release from producing velocity outside that envelope or adding a commanded impulse; external forces applied after release remain governed by ordinary physical rules.
 
 **REQ-ENVIRONMENT-MANIPULATION-PARITY-001** — Both modes MUST operate on the same authoritative object state and enforce the same profile, mass, hand, fatigue, load, posture, and injury limitations.
 
+Scope for `REQ-ENVIRONMENT-MANIPULATION-PARITY-001`: Future — First Virtual-Reality Mode Baseline.
+
 **REQ-ENVIRONMENT-MANIPULATION-TACTICAL-ADEQUACY-001** — Before manipulation behavior is accepted, at least two independent in-scope Representative Evaluators MUST confirm under a pre-approved protocol that VR and Desktop manipulation preserve credible and operationally adequate handling for every applicable reference-object and manipulation class, and the project owner MUST approve the exact protocol, catalogue, and profile versions before observation.
 
+<a id="acceptance-ar-085"></a>
+Acceptance for `REQ-ENVIRONMENT-MANIPULATION-TACTICAL-ADEQUACY-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical manipulation evidence plus at least two independent in-scope evaluator results under a pre-approved protocol establishing credible and operationally adequate object handling in each access mode across admitted reference-object and manipulation classes, with exact pre-observation protocol/catalogue/profile approval
+
 **REQ-ENVIRONMENT-DESTRUCTIBLE-INVENTORY-001** — The Environment Coverage Catalogue MUST contain a closed inventory of every destructible Scenario object and surface, its localization granularity, exact geometry/material/collision representation, applicable projectile/explosion exposures, transformation rows, and downstream visibility, cover, projectile, movement, Acoustic and Lighting outputs.
+
+<a id="acceptance-ar-086"></a>
+Acceptance for `REQ-ENVIRONMENT-DESTRUCTIBLE-INVENTORY-001`, `REQ-ENVIRONMENT-DAMAGE-001`–`REQ-ENVIRONMENT-DAMAGE-002`, `REQ-MAP-DAMAGE-LIFETIME-001`, `REQ-MAP-RESET-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for physical/material/profile evidence.
+Closed destructible population; localization granularity; exact exposure/outcome/geometry/material/collision and transformation rows; downstream visibility, cover, projectile, Acoustic, Lighting and movement results; no-effect and boundary cases; Training Session persistence; and complete reset against the Scenario initial state
 
 **REQ-ENVIRONMENT-DAMAGE-001** — Every projectile or explosion exposure of a destructible object or surface MUST select and atomically apply exactly one exhaustive localized outcome, including `No effect`, `Perforated`, `Broken`, or `Removed`, from its exact admitted Environment State, Physical Effects, and transformation rows within declared geometry and material tolerances.
 
@@ -1820,6 +2502,14 @@ Production Security Baseline applies.
 ## Reference Personnel Recovery Scenario
 
 **REFERENCE-MAP-ACCEPTANCE-PROFILE-001** — Before reference Map admission, the project owner MUST approve one exact versioned acceptance profile defining the playable horizontal boundary, dimensional tolerance, urban-content inventory, vertical-level and route-accessibility predicates, Lighting Profile class thresholds, and required evidence; at least two independent in-scope Representative Evaluators MUST confirm under a pre-approved protocol that the admitted content is recognizably urban and adequate for the reference training use.
+
+<a id="acceptance-ar-087"></a>
+Acceptance for `REFERENCE-MAP-ACCEPTANCE-PROFILE-001`, `REFERENCE-MAP-001`, `REFERENCE-MAP-SCALE-001`, `REFERENCE-MAP-VERTICALITY-001`, `REFERENCE-SCENARIO-LIGHTING-001`, `REFERENCE-MAP-LIGHTING-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Exact approved acceptance profile; 250 m axis boundaries and tolerance; identified levels and traversable routes under the reference Locomotion tuple; complete lighting-class regions, transitions, metrics and thresholds; urban/indoor/outdoor content evidence; and at least two independent pre-approved representative findings
+
+<a id="acceptance-ar-017"></a>
+Acceptance for `REFERENCE-MAP-ACCEPTANCE-PROFILE-001`, `REFERENCE-MAP-001`, `REFERENCE-MAP-SCALE-001`, `REFERENCE-MAP-VERTICALITY-001`, `REFERENCE-SCENARIO-LIGHTING-001`, `REFERENCE-MAP-LIGHTING-001`, `REFERENCE-SCENARIO-MISSION-001`–`REFERENCE-SCENARIO-MISSION-002`, `REFERENCE-RECOVERY-PLACEMENT-001`, `REQ-RECOVERY-PLACEMENT-001`, `REQ-RECOVERY-PLACEMENT-DISTRIBUTION-001`, `REQ-RECOVERY-PLACEMENT-002`–`REQ-RECOVERY-PLACEMENT-003`, `REQ-RECOVERY-PROXY-001`, `REQ-RECOVERY-PROXY-DAMAGE-001`, `REQ-RECOVERY-PROXY-STATE-001`, `REQ-RECOVERY-PROXY-ELIGIBILITY-001`, `REQ-RECOVERY-PROXY-CONTENTION-001`, `REQ-RECOVERY-PROXY-DROP-COVERAGE-001`, `REQ-RECOVERY-CARRY-001`–`REQ-RECOVERY-CARRY-003`, `REQ-RECOVERY-CARRIER-001`–`REQ-RECOVERY-CARRIER-004`, `REQ-RECOVERY-DROP-001`–`REQ-RECOVERY-DROP-002`, `REQ-RECOVERY-DEFENCE-001`, `REQ-RECOVERY-EXTRACTION-GEOMETRY-001`, `REQ-RECOVERY-EXTRACTION-001`–`REQ-RECOVERY-EXTRACTION-003`, `REQ-RECOVERY-EXTRACTION-ORDER-001`, `REQ-RECOVERY-EXTRACTION-004`, `REFERENCE-SCENARIO-DURATION-001`, `REQ-SCENARIO-TIMEOUT-001`, `REQ-SCENARIO-RECOVERY-FAILURE-001`, `REQ-SCENARIO-OPPOSITION-LOSS-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact reference Map acceptance profile and Scenario configuration; placement distribution analysis; Recovery Proxy identity, state, interaction, carrying, speed and contention; extraction geometry/timing/order; timeout and Team-outcome cases from controlled baselines
 
 **REFERENCE-MAP-001** — The reference Scenario MUST use a Map satisfying the exact admitted reference Map acceptance profile, including its urban-content and connected indoor/outdoor-space criteria.
 
@@ -1841,6 +2531,10 @@ Production Security Baseline applies.
 
 **REQ-RECOVERY-PLACEMENT-DISTRIBUTION-001** — Before Scenario admission, the project owner MUST approve an exact versioned uniform-selection distribution and random-generator/configuration record over the complete current valid-position set, including analytic and finite statistical acceptance procedures and tolerances.
 
+<a id="acceptance-ar-088"></a>
+Acceptance for `REQ-RECOVERY-PLACEMENT-DISTRIBUTION-001`, `REQ-RECOVERY-PLACEMENT-002`–`REQ-RECOVERY-PLACEMENT-003`. Required: Automated Test, Analysis, Inspection. Evidence: Implementation team and Qualified Specialists for stochastic-method evidence.
+Exact valid-position set; admitted generator/configuration and distribution; analytic proof and finite statistical procedure/tolerance; per-position `1/N` results; with-replacement history independence; nonzero immediate-repeat coverage; and rejection of deterministic rotation
+
 **REQ-RECOVERY-PLACEMENT-002** — The position MUST be selected automatically by the admitted distribution, with each of the `N` current valid positions having exact declared probability `1/N` within the approved acceptance tolerance.
 
 **REQ-RECOVERY-PLACEMENT-003** — Each Training Session selection MUST be sampled with replacement independently of preceding position selections, so the immediately preceding position has the same declared `1/N` probability as every other current valid position; a deterministic position rotation based on session history MUST NOT be used.
@@ -1850,6 +2544,10 @@ Production Security Baseline applies.
 **REQ-RECOVERY-PROXY-DAMAGE-001** — The Recovery Proxy MUST NOT be damaged, destroyed, or made unrecoverable by Scenario effects.
 
 **REQ-RECOVERY-PROXY-STATE-001** — The Recovery Proxy MUST have one stable item identity and exact admitted Scenario, Carrying, Action, Locomotion, Environment State and Item Disposition rows defining its hands/resources, compatibility, load contribution, position, uncarried/carried state, pickup, carry and drop transitions.
+
+<a id="acceptance-ar-089"></a>
+Acceptance for `REQ-RECOVERY-PROXY-STATE-001`, `REQ-RECOVERY-PROXY-ELIGIBILITY-001`, `REQ-RECOVERY-PROXY-CONTENTION-001`, `REQ-RECOVERY-PROXY-DROP-COVERAGE-001`, `REQ-RECOVERY-CARRY-001`–`REQ-RECOVERY-CARRY-003`, `REQ-RECOVERY-CARRIER-001`–`REQ-RECOVERY-CARRIER-004`, `REQ-RECOVERY-DROP-001`–`REQ-RECOVERY-DROP-002`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Exact Proxy identity, item/carry/action/locomotion/environment rows; resources, load and dispositions; exhaustive eligibility including former carrier and opposing Team; concurrent pickup order; primary/secondary/two-hand classifications; equipment/body prerequisite controls; exact 70% reference tuple without double reduction; atomic incapacity drop, ordered valid-transform search, and transform persistence
 
 **REQ-RECOVERY-PROXY-ELIGIBILITY-001** — A recovering-Team `Capable` or `Impaired` Trainee, including a former Recovery Carrier, is eligible to pick up the Proxy exactly when the current Action Compatibility, Functional State, hand/resource, reach, obstruction, Carrying and Proxy-state predicates pass; no other Trainee is eligible.
 
@@ -1879,6 +2577,10 @@ Production Security Baseline applies.
 
 **REQ-RECOVERY-EXTRACTION-GEOMETRY-001** — The Scenario MUST reference one exact Map-owned extraction-region identifier and version and define mission containment semantics and boundary tolerance requiring the Proxy's complete admitted collision volume to be inside that canonical geometry; Scenario data MUST NOT redefine the region geometry.
 
+<a id="acceptance-ar-090"></a>
+Acceptance for `REQ-RECOVERY-EXTRACTION-GEOMETRY-001`, `REQ-RECOVERY-EXTRACTION-001`–`REQ-RECOVERY-EXTRACTION-003`, `REQ-RECOVERY-EXTRACTION-ORDER-001`, `REQ-SCENARIO-RECOVERY-FAILURE-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration.
+Versioned region and full-volume containment predicate; inside/outside/boundary tolerances; simulated-time entry, just-before, exact-five-second and just-after cases; exit-at-deadline precedence; atomic reset; and exact all-Incapacitated/Fatal predicate integrated with Scenario completion precedence
+
 **REQ-RECOVERY-EXTRACTION-001** — The recovering Team MUST NOT complete its objective unless the complete Recovery Proxy volume satisfies the exact extraction containment predicate.
 
 **REQ-RECOVERY-EXTRACTION-002** — The Session Authority MUST accumulate exactly five seconds of continuous simulated time while the containment predicate remains true before accepting success.
@@ -1900,6 +2602,14 @@ Production Security Baseline applies.
 ## Content authoring and admission
 
 **REQ-PROFILE-RECORD-001** — Every candidate Approved Profile MUST record a stable identifier, version, scope, reference conditions, data values, units, tolerances, and limits of applicability.
+
+<a id="acceptance-ar-102"></a>
+Acceptance for `REQ-PROFILE-RECORD-001`, `REQ-PROFILE-TRACEABILITY-001`, `REQ-PROFILE-VALIDATION-001`, `REQ-PROFILE-VALIDATION-COVERAGE-001`–`REQ-PROFILE-VALIDATION-COVERAGE-002`, `REQ-PROFILE-APPROVAL-001`, `REQ-PROFILE-ADMISSION-001`, `REQ-PROFILE-PROVISIONAL-001`, `REQ-PROFILE-CHANGE-001`–`REQ-PROFILE-CHANGE-003`, `REQ-PROFILE-ADMIN-CORRECTION-001`, `REQ-PROFILE-CHANGE-HISTORY-001`. Required: Inspection, Analysis. Evidence: Implementation team and Qualified Specialists.
+Exact profile version and fields; complete item inventory; each normative value and behavior traced through evidence and derivation to an in-scope specialist qualification and validation result; complete multidisciplinary coverage; approval and admission outcomes; rejection of non-admitted data; version transitions, retained predecessors, administrative impact analysis, and history
+
+<a id="acceptance-ar-018"></a>
+Acceptance for `REQ-PROFILE-RECORD-001`, `REQ-PROFILE-TRACEABILITY-001`, `REQ-PROFILE-VALIDATION-001`, `REQ-PROFILE-VALIDATION-COVERAGE-001`–`REQ-PROFILE-VALIDATION-COVERAGE-002`, `REQ-PROFILE-APPROVAL-001`, `REQ-PROFILE-ADMISSION-001`, `REQ-PROFILE-PROVISIONAL-001`, `REQ-PROFILE-CHANGE-001`–`REQ-PROFILE-CHANGE-003`, `REQ-PROFILE-ADMIN-CORRECTION-001`, `REQ-PROFILE-CHANGE-HISTORY-001`, `REQ-SPECIALIST-QUALIFICATION-001`–`REQ-SPECIALIST-QUALIFICATION-002`, `REQ-SPECIALIST-SCOPE-001`, `REQ-SPECIALIST-EVIDENCE-001`, `REQ-SPECIALIST-CRITERIA-001`–`REQ-SPECIALIST-CRITERIA-002`, `REQ-SPECIALIST-ASSESSMENT-001`, `CONSTRAINT-MAP-AUTHORING-001`, `CONSTRAINT-SCENARIO-SEPARATION-001`, `REQ-MAP-SCENARIO-REUSE-001`, `CONSTRAINT-RUNTIME-BLENDER-001`, `REQ-CONTENT-PROCESSING-GATE-001`, `REQ-CONTENT-COOKER-TOOL-001`, `REQ-COOKING-JOB-SPECIFICATION-001`, `REQ-COOKING-JOB-PROVENANCE-001`, `REQ-CONTENT-PROCESSING-RECORD-001`, `REQ-CONTENT-PROCESSING-001`, `REQ-CONTENT-TRACEABILITY-001`, `REQ-CONTENT-PROCESSING-ADMISSION-001`, `REQ-CONTENT-RELEASE-001`, `REQ-CONTENT-PACK-ROLE-001`, `REQ-CONTENT-PAIR-001`, `REQ-CONTENT-PAIR-ATOMIC-001`, `REQ-CONTENT-SIGNING-001`, `REQ-CONTENT-TRUST-001`, `REQ-CONTENT-COMPATIBILITY-001`, `CONSTRAINT-CONTENT-DISTRIBUTION-001`, `REQ-CONTENT-MISSING-001`, `REQ-CONTENT-IDENTITY-001`, `REQ-CONTENT-MISMATCH-001`, `REQ-CONTENT-VERSION-001`–`REQ-CONTENT-VERSION-002`, `REQ-CONTENT-STARTUP-001`, `REQ-CONTENT-ACTIVATION-001`, `REQ-CONTENT-IMMUTABILITY-001`, `REQ-CONTENT-OVERRIDE-001`, `REQ-CONTENT-ROLLBACK-001`, `REQ-CONTENT-RETENTION-001`. Required: Automated Test, Analysis, Inspection. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Profile inventory, derivation, qualification, validation, approval, version/history and admission records; Map/Scenario authoring and separation; paired release processing, signing, trust, distribution, identity, compatibility, activation, immutability, rollback, retention and failure cases
 
 **REQ-PROFILE-TRACEABILITY-001** — Every candidate Approved Profile MUST retain traceability from each normative value or behavior to the evidence supporting it.
 
@@ -1927,6 +2637,10 @@ Production Security Baseline applies.
 
 **REQ-SPECIALIST-QUALIFICATION-001** — Before validating an Approved Profile candidate, each Qualified Specialist MUST have a recorded qualification identifying the person, explicit technical scope, supporting evidence of relevant education, professional or operational experience, or technical work, and project-owner approval.
 
+<a id="acceptance-ar-103"></a>
+Acceptance for `REQ-SPECIALIST-QUALIFICATION-001`–`REQ-SPECIALIST-QUALIFICATION-002`, `REQ-SPECIALIST-SCOPE-001`, `REQ-SPECIALIST-EVIDENCE-001`, `REQ-SPECIALIST-CRITERIA-001`–`REQ-SPECIALIST-CRITERIA-002`, `REQ-SPECIALIST-ASSESSMENT-001`. Required: Inspection, Analysis.
+Pre-candidate scope-specific procedure with evidence, depth, recency and deterministic criteria; procedure approval and version; candidate-to-criterion results; qualification identity, approved scope and validity conditions; validation-time trace; and rejection of out-of-scope work without requiring a universal credential
+
 **REQ-SPECIALIST-QUALIFICATION-002** — Qualification as a Qualified Specialist MUST NOT require one universal credential applicable to every equipment type or physical phenomenon.
 
 **REQ-SPECIALIST-SCOPE-001** — A Qualified Specialist MUST validate only profile content that falls within that specialist's recorded and approved technical scope.
@@ -1941,6 +2655,10 @@ Production Security Baseline applies.
 
 **CONSTRAINT-MAP-AUTHORING-001** — Blender MUST be the canonical graphical authoring environment for Map geometry, materials, lighting, collision definitions, and versioned spatial anchor and region identities with their transforms and geometry.
 
+<a id="acceptance-ar-091"></a>
+Acceptance for `CONSTRAINT-MAP-AUTHORING-001`, `CONSTRAINT-SCENARIO-SEPARATION-001`, `REQ-MAP-SCENARIO-REUSE-001`, `REQ-CONTENT-PROCESSING-GATE-001`, `REQ-CONTENT-PROCESSING-RECORD-001`, `REQ-CONTENT-PROCESSING-001`, `REQ-CONTENT-TRACEABILITY-001`, `REQ-CONTENT-PROCESSING-ADMISSION-001`. Required: Automated Test, Analysis, Inspection.
+Map-owned Blender anchor/region identities and geometry; Scenario references and mission semantics without geometry duplication; reuse across Scenarios; exact pre-approved gate criteria/procedure/schema; complete source/pipeline/tool/config/output/hash processing record bound to that gate; item-level source-output trace; exact contract, role, pair, signature and integrity validation; criterion-level Pass and rejection of missing, failed, stale or wrong-gate results
+
 **CONSTRAINT-SCENARIO-SEPARATION-001** — Team configuration, mission rules, objectives, equipment, duration, completion conditions, results, and mission semantics MUST remain Scenario data rather than Map behavior; Scenario data MUST reference Map-owned spatial anchor or region identifiers and MAY add Scenario parameters but MUST NOT duplicate or redefine their canonical geometry.
 
 **REQ-MAP-SCENARIO-REUSE-001** — One Blender-authored Map MUST be reusable by multiple Scenarios without duplicating canonical Map content.
@@ -1950,6 +2668,10 @@ Production Security Baseline applies.
 **REQ-CONTENT-PROCESSING-GATE-001** — Before execution, the project owner MUST approve an exact versioned content-processing gate defining every validation criterion, procedure, input and output schema, tool/configuration constraint, disposition rule, and admission effect.
 
 **REQ-CONTENT-COOKER-TOOL-001** — The Content Cooker Tool MUST execute offline as one finite invocation for one Cooking Job Specification and MUST NOT expose a Runtime Launch Specification, Process Lifecycle State, runtime endpoint, Admission, or resident supervision interface.
+
+<a id="acceptance-ar-100"></a>
+Acceptance for `REQ-CONTENT-COOKER-TOOL-001`, `REQ-COOKING-JOB-SPECIFICATION-001`, `REQ-COOKING-JOB-PROVENANCE-001`. Required: Automated Test, Analysis, Inspection.
+Closed deterministic-CBOR vectors; CLI/environment/cwd/discovery override negatives; exhaustive normalized authoring traversal; symlink/collision/mutation cases; immutable snapshot; every workflow and cancellation boundary; exact output identities; trusted provenance copy; secret absence; atomic result; both-pack-plus-record durability/publication; identical retry; `IdentityConflict`; staging recovery; and absence of runtime lifecycle, endpoint, Admission, Controlled LAN, or supervisor dependencies
 
 **REQ-COOKING-JOB-SPECIFICATION-001** — Each Content Cooker Tool invocation MUST receive exactly one immutable versioned Cooking Job Specification identifying its exact Tool Release, authoring root and complete source closure, processing gate, catalogue and profile versions, tool and configuration versions, output identities, signing-key reference, publication destination, capacities, provenance, and Cooking Job Result destination; command-line options, environment variables, working-directory state, directory discovery, or mutable defaults MUST NOT override that specification.
 
@@ -2021,6 +2743,10 @@ Production Security Baseline applies.
 
 **REQ-RUNTIME-CONTROL-LOSS-001** — Loss, corruption, incompatible framing, or bounded-write failure of the required Process Control Contract before `ProcessReady` MUST produce cleanup and startup rejection; after `ProcessReady` it MUST initiate non-normal role-specific termination, MUST NOT reopen or replace the channel, and MUST NOT revise a terminal Training Session result already committed.
 
+<a id="acceptance-ar-094"></a>
+Acceptance for `REQ-RUNTIME-CONTROL-LOSS-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration for complete launch and shutdown flows.
+Golden framed-control vectors; partial, corrupt, incompatible, oversized and exhausted-channel cases; loss before and after `ProcessReady`; reserved terminal capacity; no reconnect or fallback; deterministic classification; role-specific settlement; and proof that committed terminal truth is unchanged
+
 **REQ-RUNTIME-SUPERVISION-001** — The Training Simulation MUST NOT require or provide a resident Sacramento launcher or supervisor; an external executor MAY start, observe, request graceful shutdown of, and replace a process only through the runtime external-lifecycle contract.
 
 **REQ-RUNTIME-REPLACEMENT-001** — Replacement of a lost Session Authority process MUST create a new process execution and a new Training Session from the Scenario's initial state and MUST NOT restore an Admission, live session state, endpoint identity, or continuity claim from the lost process.
@@ -2032,6 +2758,14 @@ Production Security Baseline applies.
 **REQ-AUTHORITY-PLACEMENT-001** — The initial accepted deployment MUST run no more than one active Session Authority process on one `RHP-AUTHORITY-001` host; greater density requires a separately approved Deployment Profile proving independent capacity reservations, endpoints and artifact paths, isolation, absence of overcommit, and every applicable workload.
 
 **REQ-PLATFORM-ACCEPTANCE-PROFILE-001** — Accepted Desktop, PC-connected Virtual-Reality, and Session Authority configurations MUST each reference one exact approved Reference Hardware Profile version defining the fixed hardware and platform fields required for reproducible acceptance and the variable configuration fields that each acceptance execution must record as evidence.
+
+<a id="acceptance-ar-092"></a>
+Acceptance for `REQ-PLATFORM-ACCEPTANCE-PROFILE-001`–`REQ-PLATFORM-ACCEPTANCE-PROFILE-002`, `CONSTRAINT-CLIENT-OS-001`, `CONSTRAINT-AUTHORITY-HOST-001`–`CONSTRAINT-AUTHORITY-HOST-002`, `CONSTRAINT-AUTHORITY-OS-001`, `CONSTRAINT-PLATFORM-MATRIX-001`, `PREFERENCE-PLATFORM-PARITY-001`, `EXCEPTION-PLATFORM-PARITY-001`, `CONSTRAINT-NETWORK-MEDIUM-001`, `CONSTRAINT-AUDIO-DEVICE-001`. Required: Automated Test, Analysis, Inspection.
+Exact role/mode Reference Hardware Profile versions; full executable acceptance runs; OS edition/build/kernel/configuration, drivers and runtime; dedicated-host and LAN topology/medium checks; two-channel output, microphone, simultaneous routing, level/channel-isolation and acoustic tolerances; and prospective platform-exception alternative comparisons and approval
+
+<a id="acceptance-ar-019"></a>
+Acceptance for `REQ-PLATFORM-ACCEPTANCE-PROFILE-001`–`REQ-PLATFORM-ACCEPTANCE-PROFILE-002`, `CONSTRAINT-CLIENT-OS-001`, `CONSTRAINT-AUTHORITY-HOST-001`–`CONSTRAINT-AUTHORITY-HOST-002`, `CONSTRAINT-AUTHORITY-OS-001`, `CONSTRAINT-PLATFORM-MATRIX-001`, `PREFERENCE-PLATFORM-PARITY-001`, `EXCEPTION-PLATFORM-PARITY-001`, `CONSTRAINT-NETWORK-MEDIUM-001`, `CONSTRAINT-AUDIO-DEVICE-001`, `CONSTRAINT-LANGUAGE-001`, `CONSTRAINT-CPP-VERSION-001`, `CONSTRAINT-CPP-STYLE-001`, `CONSTRAINT-CPP-FORMAT-001`, `CONSTRAINT-CPP-LINT-001`, `CONSTRAINT-CPP-TOOLCHAIN-001`, `PROCESS-CPP-STYLE-EXCEPTION-001`, `PROCESS-CPP-STYLE-GATE-001`, `CONSTRAINT-PYTHON-STYLE-001`, `CONSTRAINT-PYTHON-LINT-001`, `CONSTRAINT-PYTHON-TOOLCHAIN-001`, `PROCESS-PYTHON-STYLE-EXCEPTION-001`, `PROCESS-PYTHON-STYLE-GATE-001`, `CONSTRAINT-COMMIT-MESSAGE-001`, `CONSTRAINT-COMMIT-TYPE-001`, `CONSTRAINT-COMMIT-STRUCTURE-001`, `PROCESS-COMMIT-MESSAGE-GATE-001`, `PROCESS-COMMIT-HISTORY-001`, `CONSTRAINT-DOCUMENTATION-001`–`CONSTRAINT-DOCUMENTATION-002`. Required: Automated Test, Analysis, Inspection.
+Exact client/authority Reference Hardware Profiles, executable role/mode results, OS/build/driver/configuration, host, platform, LAN and audio-device evidence; parity-exception records; NFR-boundary trace; and clear canonical ownership with affected links and duplication checked under the documentation policy.
 
 **REQ-PLATFORM-ACCEPTANCE-PROFILE-002** — Each role/mode MUST execute its complete applicable acceptance procedure on its exact Reference Hardware Profile and deployment configuration before that profile is admitted; inspection alone MUST NOT establish execution acceptance.
 
@@ -2059,6 +2793,10 @@ Production Security Baseline applies.
 
 **CONSTRAINT-CPP-VERSION-001** — All first-party production Training Simulation and Simulation Engine source code and libraries MUST target standard C++23 and MUST NOT require a later language version or non-standard compiler extension; repository automation, build, content-pipeline, verification, and maintenance scripts MAY use another language.
 
+<a id="acceptance-ar-020"></a>
+Acceptance for `CONSTRAINT-CPP-VERSION-001`, `CONSTRAINT-CPP-STYLE-001`, `CONSTRAINT-CPP-FORMAT-001`, `CONSTRAINT-CPP-LINT-001`, `CONSTRAINT-CPP-TOOLCHAIN-001`, `PROCESS-CPP-STYLE-EXCEPTION-001`, `PROCESS-CPP-STYLE-GATE-001`. Required: Automated Test, Inspection.
+Approved self-contained Project C++ Style Profile; exact adopted-rule and deviation inventory; pinned formatter, linter, compiler and configuration identities; positive and deliberately nonconforming fixtures; byte-diff formatting gate; lint and warning rejection; exception expiry and unmatched-suppression negatives; and equal local and automated acceptance results
+
 **CONSTRAINT-CPP-STYLE-001** — Before first-party C++ source is admitted, the project owner MUST approve one exact Project C++ Style Profile based substantially on the [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html) and maintained as a self-contained repository artifact; it MUST enumerate every adopted rule, explicit deviation, applicability boundary, automatic check, and non-automatable review obligation without requiring the live external document to determine compliance.
 
 **CONSTRAINT-CPP-FORMAT-001** — One repository-owned, versioned `clang-format` configuration MUST be authoritative for every formatting rule it can express, and the automated acceptance gate MUST reject any covered C++ file for which applying the pinned formatter would produce a change.
@@ -2073,6 +2811,10 @@ Production Security Baseline applies.
 
 **CONSTRAINT-PYTHON-STYLE-001** — Every first-party Python script and module MUST comply with one exact project-owner-approved Project Python Style Profile based substantially on the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html) and maintained as a self-contained repository artifact; it MUST enumerate every adopted language and style rule, explicit deviation, applicability boundary, automatic check, and non-automatable review obligation without requiring the live external document to determine compliance.
 
+<a id="acceptance-ar-021"></a>
+Acceptance for `CONSTRAINT-PYTHON-STYLE-001`, `CONSTRAINT-PYTHON-LINT-001`, `CONSTRAINT-PYTHON-TOOLCHAIN-001`, `PROCESS-PYTHON-STYLE-EXCEPTION-001`, `PROCESS-PYTHON-STYLE-GATE-001`. Required: Automated Test, Inspection.
+Approved self-contained Project Python Style Profile; exact adopted-rule and deviation inventory; pinned interpreter, linter and admitted formatter or type-checker identities; compliant and deliberately nonconforming fixtures; syntax and lint rejection; exception expiry, missing-explanation and unmatched-suppression negatives; and equal local and automated acceptance results
+
 **CONSTRAINT-PYTHON-LINT-001** — One repository-owned, versioned `pylint` configuration MUST map every automatically enforceable Project Python Style Profile rule and MUST cause the automated acceptance gate to fail on any admitted diagnostic.
 
 **CONSTRAINT-PYTHON-TOOLCHAIN-001** — The candidate baseline MUST pin the exact Python interpreter, linter, any formatter or type checker, every configuration, and each invocation used by local checks and automated acceptance, and the same input and configuration MUST produce the same pass/fail result in both environments.
@@ -2082,6 +2824,10 @@ Production Security Baseline applies.
 **PROCESS-PYTHON-STYLE-GATE-001** — Every change containing covered Python source MUST pass syntax validation, the pinned linter, every admitted formatter or type checker, and exception-validity checks before integration, with zero waived or ignored diagnostic unless matched to a current approved exception record.
 
 **CONSTRAINT-COMMIT-MESSAGE-001** — Every commit integrated into the repository MUST comply with one exact project-owner-approved Conventional Commit Profile based on [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/); the profile MUST be self-contained and MUST NOT require the live external specification to determine compliance.
+
+<a id="acceptance-ar-022"></a>
+Acceptance for `CONSTRAINT-COMMIT-MESSAGE-001`, `CONSTRAINT-COMMIT-TYPE-001`, `CONSTRAINT-COMMIT-STRUCTURE-001`, `PROCESS-COMMIT-MESSAGE-GATE-001`, `PROCESS-COMMIT-HISTORY-001`. Required: Automated Test, Inspection.
+Approved self-contained Conventional Commit Profile; exact specification version, type set and scope grammar; positive and isolated negative fixtures for headers, bodies, footers and breaking changes; local-hook and remote-gate rejection; bypass negative; initial, squash and rebase results; and proof that protected-branch integration creates no unvalidated merge message
 
 **CONSTRAINT-COMMIT-TYPE-001** — The initial allowed commit-type set MUST contain exactly `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, and `test`; types and optional scopes MUST be lowercase, and a scope MUST use only lowercase ASCII letters, digits, and internal hyphens.
 
@@ -2093,6 +2839,10 @@ Production Security Baseline applies.
 
 **CONSTRAINT-DOCUMENTATION-001** — Each persistent document MUST have one stated purpose and one canonical owner for its information.
 
+<a id="acceptance-ar-096"></a>
+Acceptance for `CONSTRAINT-DOCUMENTATION-001`–`CONSTRAINT-DOCUMENTATION-002`. Required: Automated Test, Analysis, Inspection.
+Exact repository reconciliation; persistent/nonpersistent, format, generation and canonical classifications; project-owner inventory approval; one owner and stable information mapping; embedded Markdown control metadata or complete inventory-held control metadata for a non-Markdown format that cannot safely embed it; canonical-reference versus marked non-authoritative quotation cases; resolved document prerequisites; H2-to-ToC link expansion and negatives; version/change history; and impact analysis
+
 **CONSTRAINT-DOCUMENTATION-002** — Documents MUST reference canonical terms, requirements, and decisions rather than duplicate them.
 
 Ambiguity review, verification responsibility, and acceptance are governed by the canonical [Training Simulation Verification Plan](training-simulation-verification-plan.md).
@@ -2100,6 +2850,10 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 ## Non-goals
 
 - **NON-GOAL-ACCOUNT-001** — Training-Simulation-owned persistent accounts or authoritative Trainee Identity or Client Device Identity lifecycle administration.
+
+<a id="acceptance-ar-023"></a>
+Acceptance for `NON-GOAL-ACCOUNT-001`, `NON-GOAL-AUTH-AUDIT-INTERFACE-001`, `NON-GOAL-AUTH-CREDENTIAL-ADMINISTRATION-001`, `NON-GOAL-AUTH-RISK-ENGINE-001`, `NON-GOAL-AUTH-CROSS-AUTHORITY-SESSION-001`, `NON-GOAL-MEDICAL-001`, `NON-GOAL-SESSION-SAVE-001`, `NON-GOAL-CUSTOM-EDITOR-001`, `NON-GOAL-CONTENT-DOWNLOAD-001`, `NON-GOAL-CONTENT-MIGRATION-001`, `NON-GOAL-AMMUNITION-POOL-001`, `NON-GOAL-AMMUNITION-REPACKING-001`, `NON-GOAL-ABSTRACT-INVENTORY-001`, `NON-GOAL-CHARACTER-ATTRIBUTES-001`, `NON-GOAL-SIGHT-ZEROING-001`, `NON-GOAL-CASUALTY-MOVEMENT-001`, `NON-GOAL-ENVIRONMENT-OBJECT-THROW-001`, `NON-GOAL-WEAPON-EXTERNAL-DAMAGE-001`, `NON-GOAL-ACCESSORY-THERMAL-HANDLING-001`. Required: Inspection.
+Baseline scope inspection confirming that no non-goal is required, claimed as accepted, or used as an unstated prerequisite
 - **NON-GOAL-AUTH-AUDIT-INTERFACE-001** — An in-product AUTH audit administration, consultation, search, or export interface.
 - **NON-GOAL-AUTH-CREDENTIAL-ADMINISTRATION-001** — In-product identity or authenticator issuance, enrollment, replacement, recovery, reset, revocation, suspension, or unlocking.
 - **NON-GOAL-AUTH-RISK-ENGINE-001** — Adaptive, behavioral, location-based, reputation-based, or risk-scored authentication and authorization.
@@ -2126,16 +2880,50 @@ Ambiguity review, verification responsibility, and acceptance are governed by th
 ## Deferred capabilities
 
 - **DEFERRED-PRODUCTION-SECURITY-001** — The Production Security Baseline: real mutual authentication and authorization, offline identity validation, AUTH Protected Exchange, revocation, durable-before-effect AUTH audit and recovery, operational trust, authenticated evidence custody, and production qualification of their adapters.
+
+<a id="acceptance-ar-024"></a>
+Acceptance for `DEFERRED-PRODUCTION-SECURITY-001`, `DEFERRED-PLATFORM-OPERATIONS-001`, `DEFERRED-INSTRUCTOR-001`, `DEFERRED-AAR-001`, `DEFERRED-RECOVERY-SUBJECT-001`, `DEFERRED-SCENARIO-001`, `DEFERRED-VR-DEVICE-001`, `DEFERRED-LIGHTING-001`, `DEFERRED-RADIO-ADVANCED-001`, `DEFERRED-LOCOMOTION-001`, `DEFERRED-STRUCTURAL-COLLAPSE-001`, `DEFERRED-MELEE-RESTRAINT-001`. Required: Inspection.
+Baseline scope inspection confirming that each deferred capability remains outside acceptance except for explicitly stated current-scope seams and that no permissive adapter, orchestration contract, or runtime evidence is misclassified as satisfying a future baseline
+
+Scope for `DEFERRED-PRODUCTION-SECURITY-001`: Future — Production Security Baseline.
 - **DEFERRED-PLATFORM-OPERATIONS-001** — The Platform Operations Baseline: Kubernetes resources and configuration, infrastructure scheduling and supervision, capability availability and its measurable target, redundancy, failover, cluster and network topology, power resilience, hardening, secrets, operational credentials, and alert routing.
+
+Scope for `DEFERRED-PLATFORM-OPERATIONS-001`: Future — Platform Operations Baseline.
 - **DEFERRED-CONTENT-COOKER-PLATFORM-001** — Selection and acceptance of the Content Cooker Tool execution platform, Reference Hardware Profile, native runtime environment, packaging, and Tool Release distribution mechanism.
 
+<a id="acceptance-ar-101"></a>
+Acceptance for `DEFERRED-CONTENT-COOKER-PLATFORM-001`. Required: Inspection. Evidence: Project owner.
+Confirmation that no Content Cooker platform, Reference Hardware Profile, native environment, package, Tool Release distribution mechanism, or product acceptance result is selected before its named future baseline
+
+Scope for `DEFERRED-CONTENT-COOKER-PLATFORM-001`: Future — Content Cooker Platform Baseline.
+
 - **DEFERRED-INSTRUCTOR-001** — Instructor control of Training Sessions.
+
+Scope for `DEFERRED-INSTRUCTOR-001`: Future — Instructor Capability Baseline.
 - **DEFERRED-AAR-001** — Full After-Action Review, including Training Session reconstruction, tactical timeline, and detailed post-action analysis. Session performance metrics, Formal Assessment, and Leaderboards are governed separately and are not deferred by this entry.
+
+Scope for `DEFERRED-AAR-001`: Future — After-Action Review Baseline.
 - **DEFERRED-RECOVERY-SUBJECT-001** — Replacing the Recovery Proxy with an autonomously controlled Recovery Subject under a distinct `Autonomous Recovery Subject Baseline`; that narrower capability may depend on the Autonomous Participant baseline but does not define or satisfy the general Autonomous Participant role.
+
+Scope for `DEFERRED-RECOVERY-SUBJECT-001`: Future — Autonomous Recovery Subject Baseline.
 - **DEFERRED-SCENARIO-001** — Sabotage missions.
+
+Scope for `DEFERRED-SCENARIO-001`: Future — Sabotage Scenario Baseline.
 - **DEFERRED-VR-DEVICE-001** — Standalone virtual-reality devices.
+
+Scope for `DEFERRED-VR-DEVICE-001`: Future — Standalone Virtual-Reality Device Baseline.
 - **DEFERRED-LIGHTING-001** — Dynamic time of day, dynamic weather, and night operations.
+
+Scope for `DEFERRED-LIGHTING-001`: Future — Dynamic Environment Baseline.
 - **DEFERRED-RADIO-ADVANCED-001** — Frequency management, jamming, and cryptographic simulation.
+
+Scope for `DEFERRED-RADIO-ADVANCED-001`: Future — Advanced Radio Baseline.
 - **DEFERRED-LOCOMOTION-001** — Free-form jumping and arbitrary surface climbing.
+
+Scope for `DEFERRED-LOCOMOTION-001`: Future — Extended Locomotion Baseline.
 - **DEFERRED-STRUCTURAL-COLLAPSE-001** — Full structural collapse of buildings.
+
+Scope for `DEFERRED-STRUCTURAL-COLLAPSE-001`: Future — Structural Collapse Baseline.
 - **DEFERRED-MELEE-RESTRAINT-001** — Grappling, restraint, immobilization, arrest, and detention actions.
+
+Scope for `DEFERRED-MELEE-RESTRAINT-001`: Future — Melee Restraint Baseline.

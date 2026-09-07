@@ -69,14 +69,6 @@ _Avoid_: Runtime call graph, protocol specification, incomplete list of authenti
 An exact versioned Identity Authority policy defining the authenticator classes, factor count, human-presence conditions, proof requirements, applicability, and acceptance criteria for one identity class.
 _Avoid_: Product-owned account policy, implicit assurance, universal password rule
 
-**Baseline Applicability Inventory**:
-The approved, versioned classification of every current requirement identifier as Included, Future at one named milestone, or Not Applicable with justification for one candidate product baseline.
-_Avoid_: Implicit scope, omitted requirement, future promise without milestone
-
-**Baseline Artifact Inventory**:
-The generated navigation index of governed source artifacts and their canonical requirement, Architecture Claim and Design Commitment records. Git identifies versions; source records, not the generated index, own decisions and evidence states under ADR-0014.
-_Avoid_: Duplicate authority, inferred implementation, inventory approval cycle
-
 **Design Commitment**:
 One stable, atomic, responsibility-owned and verifiable software-design obligation that traces to its governing requirements, Architecture Claims, Software Architecture Description views, Software Design Document, and planned verification.
 _Avoid_: Requirement, Architecture Claim, implementation task, untracked design note
@@ -104,10 +96,6 @@ _Avoid_: Production deployment, security acceptance, operational availability cl
 **Deployment Compatibility Matrix**:
 The approved, versioned, and closed coverage of exact Application Release, Runtime Content Release, protocol, launch, observability, and external-integration contract combinations permitted to start or communicate.
 _Avoid_: Runtime version negotiation, semantic-version range, automatic fallback, implicit compatibility
-
-**Documentation Inventory**:
-The generated retained-document listing together with the canonical classification and ownership rules in the Documentation Inventory page. It provides navigation and content hashes without mandatory repeated control tables or separate mechanical approval under ADR-0014.
-_Avoid_: Duplicate canonical owner, manually copied file population, inferred approval
 
 **Environment Coverage Catalogue**:
 The approved, versioned, and closed coverage of admitted doors, windows, lights, circuits, Obscurants, devices, Fire, movable objects, destructible surfaces, interactions, states, and environmental outcomes, with exact profile and downstream catalogue versions.
@@ -208,10 +196,6 @@ _Avoid_: Minimum requirements, recommended PC, hardware class
 **Reference Workload Profile**:
 A versioned acceptance definition that fixes one reproducible `Typical`, `Stress`, or `Rejection Boundary` load used to verify applicable Training Simulation quality requirements.
 _Avoid_: Ad hoc benchmark, unspecified worst case, duplicated per-requirement workload
-
-**Runtime Resource Type Inventory**:
-The approved, versioned, and closed inventory of every admitted Runtime Resource type, its stable type identity, semantic owner, admitted schema versions, dependency rules, structural limits, validation and materialization contract, alignment, and stable failure outcomes.
-_Avoid_: Dynamic type registry, plugin discovery, manifest-defined type, implementation-only dispatch table
 
 **Runtime Timing Profile**:
 An Approved Profile that fixes the runtime cadence and finite operating bounds for authoritative Simulation, client Prediction, Presentation, catch-up, replication retention, and connection-loss detection.

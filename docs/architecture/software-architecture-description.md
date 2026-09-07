@@ -1,7 +1,7 @@
 # Software Architecture Description
 
-Status: Accepted architecture; product realization and evidence remain as recorded
-in the [claim register](../project/training-simulation-architecture-claim-traces.csv).
+Status: Accepted Development Baseline architecture; no product implementation or
+passing architecture evidence is claimed. Future scope remains explicitly deferred.
 Owner: Project owner. This is the architecture entry point, not an implementation
 report. Read the overview first; open a contract only for the behavior you change.
 The [documentation policy](../project/documentation-policy.md) governs maintenance.
@@ -140,7 +140,7 @@ applicable integration and native-target checks. Test outcomes must come from th
 requirement, reference model or approved data, not a copy of the implementation.
 Use measurement for performance and qualified evaluation where military validity
 cannot be established objectively. The [acceptance workflow](../requirements/training-simulation-verification-plan.md)
-and searchable catalogue replace mandatory full-plan reading.
+and local requirement criteria support one increment at a time.
 
 ## 11. Risks and open work
 
@@ -148,8 +148,8 @@ Dependency qualification, reference workloads, unpopulated profile/type
 catalogues, product implementation and native evidence remain open. Cooker platform,
 production security, platform operations, Autonomous Participants and After-Action
 Review retain their explicit future boundaries. An accepted diagram resolves none
-of these. [Applicability](../requirements/training-simulation-baseline-applicability.md)
-records scope; [GitHub issues](https://github.com/sergioffpc/sacramento/issues)
+of these. [Requirements](../requirements/README.md)
+own scope; [GitHub issues](https://github.com/sergioffpc/sacramento/issues)
 record executable work. Conservative impact analysis reruns affected or uncertain
 evidence; missing references never prove a result unaffected.
 
@@ -159,6 +159,5 @@ Use [CONTEXT](../../CONTEXT.md), the
 [technical glossary](../glossary/technical.md) and
 [governance glossary](../glossary/governance.md) for canonical terms.
 Edit the relevant `.puml` source and run `python3 scripts/render-diagrams.py`;
-the adjacent SVGs are generated previews. Run `python3 scripts/documentation.py check`
-after a documentation change. Review the changed meaning and directly affected
-contracts, not every document in the repository.
+the adjacent SVGs are generated previews. Check affected links and review the
+changed meaning and directly affected contracts.

@@ -52,7 +52,13 @@ criterion.
 
 ## Scope and role
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-SCOPE-001** — The `Autonomous Participant baseline` MUST remain a separately approved future baseline and MUST NOT expand the Development Baseline or the first Virtual-Reality Mode baseline.
+
+<a id="acceptance-ar-117"></a>
+Acceptance for `REQ-AUTONOMOUS-SCOPE-001`–`REQ-AUTONOMOUS-SCOPE-002`, `REQ-AUTONOMOUS-ROLE-001`, `REQ-AUTONOMOUS-CONTROL-001`, `REQ-AUTONOMOUS-CONTROL-BOUNDARY-001`. Required: Inspection.
+Exact baseline and role boundaries; distinction from Trainee and synthetic clients; one-controller/one-connection cardinality; separation of Autonomous Control, Prediction, and Presentation; and absence of an admitted module, interface, implementation, dependency, or product-evidence claim
 
 **REQ-AUTONOMOUS-SCOPE-002** — Approval of these requirements MUST NOT by itself admit an Autonomous Participant, an `Autonomous Control` module or interface, a controller implementation, a dependency, or product verification evidence.
 
@@ -64,7 +70,13 @@ criterion.
 
 ## Identity, authorization, and Admission
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-IDENTITY-001** — Every Autonomous Participant Admission MUST bind exactly one validated Autonomous Controller Identity that identifies the controlling software subject and MUST NOT be a Trainee Identity.
+
+<a id="acceptance-ar-118"></a>
+Acceptance for `REQ-AUTONOMOUS-IDENTITY-001`, `REQ-AUTONOMOUS-DEVICE-IDENTITY-001`, `REQ-AUTONOMOUS-IDENTITY-EQUALITY-001`, `REQ-AUTONOMOUS-PERMISSION-001`, `REQ-AUTONOMOUS-AUTHORIZATION-001`, `REQ-AUTONOMOUS-ADMISSION-001`, `REQ-AUTONOMOUS-ADMISSION-UNIQUENESS-001`, `REQ-AUTONOMOUS-HUMAN-AUTH-NOT-APPLICABLE-001`, `REQ-AUTONOMOUS-PRODUCTION-SECURITY-001`, `REQ-AUTONOMOUS-CONTINUITY-001`–`REQ-AUTONOMOUS-CONTINUITY-002`, `REQ-AUTONOMOUS-REVOCATION-001`, `REQ-AUTONOMOUS-AUDIT-001`, `REQ-AUTONOMOUS-AUDIT-ATTRIBUTION-001`, `REQ-AUTONOMOUS-RECOVERY-001`–`REQ-AUTONOMOUS-RECOVERY-002`. Required: Automated Test, Inspection. Supporting: Demonstration for complete Admission and recovery flows. Evidence: Implementation team and Qualified Specialists for identity-security evidence.
+Role-specific identity and permission catalogues; Canonical Identity Key comparisons; assertion and trust-package versions; positive, missing, mismatched, duplicate, revoked, expired, restarted, replacement, pre-active recovery, and active-loss cases; atomic Admission and removal traces; separate AUTH and action-attribution records; and proof that no human identity or preceding Admission state is inferred
 
 **REQ-AUTONOMOUS-DEVICE-IDENTITY-001** — The Admission MUST separately bind the Client Device Identity of the computer operating the controlling client; an Autonomous Controller Identity and a Client Device Identity MUST NOT substitute for one another.
 
@@ -84,6 +96,8 @@ criterion.
 
 ## Continuity, revocation, audit, and recovery
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-CONTINUITY-001** — Autonomous Participant continuity MUST exist only while its current Admission, exact controlling connection, identity and permission bindings, controller release, configuration, applicable content, and separate Team Position participation binding remain valid.
 
 **REQ-AUTONOMOUS-CONTINUITY-002** — A different or restarted connection MUST obtain a new Admission and MUST NOT inherit an Admission identifier, unacknowledged Intention, controller sequence, or live Autonomous Participant state from the preceding connection.
@@ -100,7 +114,13 @@ criterion.
 
 ## Actions and authority
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-ACTION-SOURCE-001** — Every Intention submitted for an Autonomous Participant MUST carry an unambiguous source binding to its current Admission and monotonically increasing controller sequence, and the Session Authority MUST reject a missing, stale, duplicate, future, or mismatched source binding.
+
+<a id="acceptance-ar-119"></a>
+Acceptance for `REQ-AUTONOMOUS-ACTION-SOURCE-001`, `REQ-AUTONOMOUS-INTENTION-001`, `REQ-AUTONOMOUS-AUTHORITY-001`, `REQ-AUTONOMOUS-ACTION-EQUIVALENCE-001`, `REQ-AUTONOMOUS-PHYSICAL-EQUIVALENCE-001`, `REQ-AUTONOMOUS-ACTION-ORDER-001`, `REQ-AUTONOMOUS-TEAM-POSITION-001`, `REQ-AUTONOMOUS-CAPACITY-001`, `REQ-AUTONOMOUS-MIXED-ROSTER-001`, `REQ-AUTONOMOUS-PREPARATION-001`, `REQ-AUTONOMOUS-READINESS-001`, `REQ-AUTONOMOUS-SCENARIO-APPLICABILITY-001`, `REQ-AUTONOMOUS-SCENARIO-CLOSED-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for profile evidence.
+Complete Team Position, roster-mixture, Loadout, action, readiness, Scenario-applicability and source-binding matrices; exact content and profile versions; same-state Trainee/Autonomous paired outcomes; capacity boundaries; concurrency and ordering traces; rejected authoritative fields; and absent-applicability negatives
 
 **REQ-AUTONOMOUS-INTENTION-001** — A controlling client MAY submit only Intentions for represented actions admitted by the current Action Inventory and Scenario; it MUST NOT submit a Canonical Tick, authoritative ordering, outcome, impact, injury, Scenario progression, or result.
 
@@ -113,6 +133,8 @@ criterion.
 **REQ-AUTONOMOUS-ACTION-ORDER-001** — Concurrent Autonomous Participant and Trainee Intentions MUST enter the same authoritative ordering and conflict rules; software control MUST confer no ordering priority or reserved execution capacity.
 
 ## Team, capacity, and Scenario participation
+
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
 
 **REQ-AUTONOMOUS-TEAM-POSITION-001** — An Autonomous Participant MUST occupy exactly one otherwise ordinary Team Position, and that position MUST be occupiable by at most one Trainee or Autonomous Participant.
 
@@ -130,9 +152,19 @@ criterion.
 
 ## Perception and prohibited inputs
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-PERCEPTION-001** — An Autonomous Participant MUST receive only Scenario-relevant information that a Trainee at the same canonical state, pose, equipment state, viewpoint, acoustic receiver, and environmental conditions could perceive under Diegetic Presentation.
 
+<a id="acceptance-ar-120"></a>
+Acceptance for `REQ-AUTONOMOUS-PERCEPTION-001`, `REQ-AUTONOMOUS-PERCEPTION-EQUIVALENCE-001`, `REQ-AUTONOMOUS-PRIVILEGED-INPUT-001`, `REQ-AUTONOMOUS-PERCEPTION-FAILURE-001`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration. Evidence: Implementation team and Qualified Specialists for perception-profile evidence.
+Versioned field-and-precision mapping for every controller-visible input; same-state Trainee perception comparisons across viewpoint, equipment, acoustic, environment, occlusion and hidden-state cases; missing/stale/duplicate/reordered inputs; tolerances fixed before results; and prohibited privileged-input negatives
+
 **REQ-AUTONOMOUS-PERCEPTION-EQUIVALENCE-001** — Machine-readable perception MAY differ in representation from human Presentation only when an approved mapping proves that it exposes neither more information nor a more precise tactically relevant outcome than the corresponding Trainee perception within approved tolerances.
+
+<a id="acceptance-ar-121"></a>
+Acceptance for `REQ-AUTONOMOUS-PERCEPTION-EQUIVALENCE-001`. Required: Automated Test, Analysis, Inspection, Representative Evaluation. Supporting: Demonstration. Evidence: Implementation team, Qualified Specialists, and Representative Evaluators.
+Complete technical perception mapping plus at least two independent in-scope evaluator results under a pre-approved protocol confirming that differences within each tolerance expose no tactically material information or precision advantage
 
 **REQ-AUTONOMOUS-PRIVILEGED-INPUT-001** — A controlling client MUST NOT receive direct canonical state, hidden entity state, opposing-Team identity, unobstructed geometry, exact future state, privileged Scenario state, authoritative random state, or any other input unavailable through the equivalent Trainee perception boundary.
 
@@ -140,7 +172,13 @@ criterion.
 
 ## Observability and deterministic replay
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-OBSERVABILITY-001** — The approved Observability Contract successor for this baseline MUST identify controller-process lifecycle, exact runtime and controller identities, Admission correlation, perception delivery, Intention submission, authoritative disposition, connection loss, revocation, and removal with finite cardinality, ordering, loss, privacy, and correlation rules.
+
+<a id="acceptance-ar-122"></a>
+Acceptance for `REQ-AUTONOMOUS-OBSERVABILITY-001`–`REQ-AUTONOMOUS-OBSERVABILITY-003`, `REQ-AUTONOMOUS-REPLAY-001`–`REQ-AUTONOMOUS-REPLAY-003`. Required: Automated Test, Analysis, Inspection.
+Exact Observability Contract and replay-environment versions; signal catalogue, cardinality, order, correlation, privacy and loss cases; immutable controller release, configuration, state, seed, perception and clock inputs; repeated output comparison; first-divergence records; and negatives for claims beyond controller-output repeatability
 
 **REQ-AUTONOMOUS-OBSERVABILITY-002** — Autonomous Participant signals MUST distinguish the Autonomous Participant's Team Position, controlling connection, Admission, and controller sequence through opaque non-personal identifiers and MUST NOT expose identity evidence, authenticators, reusable proofs, or prohibited gameplay payloads.
 
@@ -154,7 +192,13 @@ criterion.
 
 ## Workload, performance, and failure
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **NFR-AUTONOMOUS-WORKLOAD-001** — Approved workload profiles MUST count every Autonomous Participant as one ordinary client connection and MUST declare the exact Trainee, Autonomous Participant, rendered-client, and synthetic-client populations and action rates without double-counting one connection in multiple roles.
+
+<a id="acceptance-ar-123"></a>
+Acceptance for `NFR-AUTONOMOUS-WORKLOAD-001`–`NFR-AUTONOMOUS-WORKLOAD-002`, `NFR-AUTONOMOUS-ACTION-RESPONSE-001`, `NFR-AUTONOMOUS-RESOURCE-ISOLATION-001`, `NFR-AUTONOMOUS-CONTROL-TIMING-001`, `REQ-AUTONOMOUS-FAILURE-001`–`REQ-AUTONOMOUS-FAILURE-004`, `REQ-AUTONOMOUS-SECURITY-001`–`REQ-AUTONOMOUS-SECURITY-003`. Required: Automated Test, Analysis, Inspection. Supporting: Demonstration for maximum-capacity and failure flows. Evidence: Implementation team and Qualified Specialists for security and performance evidence.
+Exact workload, hardware, controller and Scenario-profile versions; all-autonomous and mixed 16-position runs; action-response results; Session Authority resource and timing evidence; controller cadence boundaries; stall, malformed, excessive, isolation and uncertainty cases; immutable controller provenance and integrity; untrusted-input closure; and secret or privileged-data leakage negatives
 
 **NFR-AUTONOMOUS-WORKLOAD-002** — Performance acceptance for the Autonomous Participant baseline MUST include the maximum 16-participant configuration with every occupied Team Position autonomous and at least one mixed-roster configuration, while retaining every applicable existing Session Authority and network threshold.
 
@@ -174,6 +218,8 @@ criterion.
 
 ## Security and retained outputs
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-SECURITY-001** — An Autonomous Participant controlling client and every submitted Intention MUST be treated as untrusted input; software control MUST confer no direct memory, module-private state, protocol, observability, administrative, or content-admission privilege.
 
 **REQ-AUTONOMOUS-SECURITY-002** — The controller release, configuration, model or policy data, and random-seed material used for acceptance MUST have immutable exact identities, integrity evidence, approved provenance, and retained availability for audit and replay without being admitted as authoritative runtime content by this requirement alone.
@@ -182,7 +228,13 @@ criterion.
 
 ## Applicability decisions
 
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
 **REQ-AUTONOMOUS-ASSESSMENT-001** — Trainee Performance Assessment, Training Feedback, Formal Assessment, qualification status, and Leaderboard eligibility MUST NOT be produced for or attributed to an Autonomous Participant.
+
+<a id="acceptance-ar-124"></a>
+Acceptance for `REQ-AUTONOMOUS-ASSESSMENT-001`, `REQ-AUTONOMOUS-ASSESSMENT-IDENTITY-001`, `REQ-AUTONOMOUS-AAR-001`, `REQ-AUTONOMOUS-RECOVERY-SUBJECT-001`. Required: Automated Test, Inspection.
+Output-recipient and identity matrices proving no Autonomous Participant assessment, Training Feedback, qualification or Leaderboard result; AAR and AUTH separation; and trace showing the distinct Autonomous Recovery Subject Baseline depends on but does not cover the general role
 
 **REQ-AUTONOMOUS-ASSESSMENT-IDENTITY-001** — An Autonomous Controller Identity, Client Device Identity, Admission identifier, or Autonomous Participant's Team Position MUST NOT be represented as a Trainee Identity or presentation name in a Formal Assessment or Leaderboard.
 
@@ -192,7 +244,13 @@ criterion.
 
 ## Acceptance and change control
 
-**PROCESS-AUTONOMOUS-APPLICABILITY-001** — Before architecture or implementation planning, the Baseline Applicability Inventory MUST classify every identifier in this document under the `Autonomous Participant baseline` milestone, preserve every existing Development Baseline disposition, and retain the distinct `Autonomous Recovery Subject Baseline` milestone while recording its dependency on this baseline.
+Scope: Future — Autonomous Participant baseline. These requirements are not part of current Development Baseline acceptance.
+
+**PROCESS-AUTONOMOUS-APPLICABILITY-001** — Every requirement in this document MUST remain Future under the `Autonomous Participant baseline` milestone until that baseline is accepted. Existing Development Baseline scope is unchanged; the distinct `Autonomous Recovery Subject Baseline` retains its dependency on this baseline.
+
+<a id="acceptance-ar-125"></a>
+Acceptance for `PROCESS-AUTONOMOUS-APPLICABILITY-001`, `PROCESS-AUTONOMOUS-SCENARIO-INVENTORY-001`, `PROCESS-AUTONOMOUS-PERCEPTION-COVERAGE-001`, `PROCESS-AUTONOMOUS-EVALUATION-001`, `PROCESS-AUTONOMOUS-ACCEPTANCE-001`. Required: Automated Test, Analysis, Inspection. Evidence: Implementation team and Representative Evaluators where assigned.
+Reconciled requirement scope, Scenario applicability and perception coverage; exact source and test revisions; attributable obligation results; objective-versus-representative method decisions; missing, stale, uncertain, failed and blocked acceptance negatives; owner approval of changed meaning; and conservative transitive impact analysis for every enumerated change class.
 
 **PROCESS-AUTONOMOUS-SCENARIO-INVENTORY-001** — Before a Scenario admits an Autonomous Participant, the implementation team MUST reconcile its complete role-applicability population against every Team Position, Loadout, represented action, perception source, objective, end condition, and failure rule, and the project owner MUST approve the exact inventory version.
 
@@ -200,15 +258,14 @@ criterion.
 
 **PROCESS-AUTONOMOUS-EVALUATION-001** — Representative Evaluation MUST be Required only for an obligation whose acceptance claims tactical adequacy, credible military behavior, or perception equivalence beyond reproducible objective criteria; technical role, authority, identity, and prohibited-access obligations remain objectively verifiable.
 
-**PROCESS-AUTONOMOUS-ACCEPTANCE-001** — The Autonomous Participant baseline MUST NOT be accepted until its exact requirements and scope decisions, identity and permission catalogues, Scenario applicability records, controller and perception profiles, Observability Contract, applicable test procedures and dependencies, and required evidence are accepted with no missing, stale, uncertain, failed, or blocked included obligation. Generated artifact/reference indexes are navigation and MUST NOT create a separate approval gate under ADR-0014.
+**PROCESS-AUTONOMOUS-ACCEPTANCE-001** — The Autonomous Participant baseline MUST NOT be accepted until its exact requirements and scope decisions, identity and permission catalogues, Scenario applicability records, controller and perception profiles, Observability Contract, applicable test procedures and dependencies, and required evidence are accepted with no missing, stale, uncertain, failed, or blocked included obligation. Scope and evidence are reviewed at their owning sources without a separate inventory approval gate under ADR-0014.
 
 ## Completion rule
 
 This requirement set is ready for approval when every issue #26 decision and
 obligation is represented by a stable identifier, every Development Baseline
 disposition remains unchanged except the explicitly traced Recovery Subject
-reconciliation, the governed successor inventories and generated assignment
-view reconcile, both independent review axes pass, and the project owner
-approves the exact candidate versions and package digests. Approval makes the
-requirements eligible for later architecture, design, implementation, and
-verification planning; it does not admit the capability.
+reconciliation, affected scope and acceptance criteria are explicit, and the
+project owner approves changed meaning at the identified Git revision. Approval
+makes the requirements eligible for later architecture, design, implementation
+and verification planning; it does not admit the capability.

@@ -6,7 +6,7 @@ language, requirements, architecture, or verification obligations.
 ## Locate
 
 1. Search for every affected term and stable identifier. Prefer the defining
-   Markdown section over a CSV occurrence or cross-reference.
+   requirement or contract over a summary or cross-reference.
 2. Read the source's status and the defining section for each affected branch.
    Do not make full-corpus reading a prerequisite to a scoped change.
 
@@ -21,16 +21,17 @@ language, requirements, architecture, or verification obligations.
    | Performance assessment or engagement target | The matching performance requirement or profile under `docs/requirements/` |
    | Reference hardware | `docs/requirements/training-simulation-reference-hardware-profiles.md` |
    | Verification method, assignment, evidence, or acceptance | `docs/requirements/training-simulation-verification-plan.md` |
-   | Baseline applicability disposition | `docs/requirements/training-simulation-baseline-applicability.md` and its linked CSV |
+   | Current or future scope | The owning requirement's scope note and deferred-capability section |
    | Architectural decision | The relevant concise file under `docs/adr/` |
    | Detailed architectural contract or trace | The ADR-linked file under `docs/architecture/` |
 
 3. Limit reading to the branches involved. For architecture, start with
    `docs/architecture/software-architecture-description.md`; open only the relevant
    ADR or exact contract. For a requirement use
-   `python3 scripts/documentation.py requirement <identifier>` to find its criteria.
+   `rg '<identifier>' docs/requirements docs/architecture docs/design` to find
+   its definition, local acceptance notes and affected contracts.
 4. Treat `docs/research/` as historical input. Resolve conflicts in favor of
-   the canonical source identified by the Documentation Inventory.
+   the owning requirement, contract, ADR or glossary.
 
 ## Apply
 
@@ -40,10 +41,10 @@ language, requirements, architecture, or verification obligations.
   requirement, profile, decision, or claim.
 - Preserve each source's status: the approved baseline remains authoritative
   until its candidate successor is approved.
-- The acceptance catalogue owns requirement-specific method/evidence assignments;
-  tests own executable examples, not duplicate prose. Interpret applicability with
-  its short control page. Retired process IDs resolve through
-  `docs/project/documentation-migration.csv`, never through obsolete instructions.
+- Requirements own scope and acceptance notes; tests own executable examples.
+  The acceptance workflow governs evidence and re-testing. Historical process
+  identifiers and removed control records are recoverable in Git, not current
+  instructions.
 - Treat an absent concept as a possible model gap. Name the gap instead of
   introducing an unreviewed synonym.
 - Surface a conflict with an accepted ADR before proposing a successor; keep

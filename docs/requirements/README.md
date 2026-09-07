@@ -3,15 +3,9 @@
 Owner: Project owner. This is navigation, not another specification. Product
 requirements retain their stable identifiers and meaning. Use the relevant
 capability in [Initial Requirements](training-simulation-initial-requirements.md)
-or search one identifier:
-
-```sh
-python3 scripts/documentation.py requirement REQ-STATE-CONSISTENCY-001
-```
-
-The command shows the definition, current applicability, acceptance criteria and
-method assignments, then direct architecture/design references. Reading every
-requirement or every catalogue is not a prerequisite to changing one behavior.
+or search its stable identifier with `rg`. Read its definition, scope and local
+acceptance notes, then the affected contract. Reading every requirement or every
+catalogue is not a prerequisite to changing one behavior.
 
 | If the change concerns… | Read only the applicable source |
 | --- | --- |
@@ -21,11 +15,9 @@ requirement or every catalogue is not a prerequisite to changing one behavior.
 | Trainee Performance Assessment | [Assessment requirements](training-simulation-performance-assessment-requirements.md) |
 | Platform-specific measurement | [Hardware profiles](training-simulation-reference-hardware-profiles.md) and [Engagement Target](training-simulation-performance-profile-engagement-target-001.md) |
 | Future Autonomous Participants | [Autonomous Participant requirements](training-simulation-autonomous-participant-requirements.md) |
-| What is currently in scope | [Applicability](training-simulation-baseline-applicability.md) |
+| What is currently in scope | Scope notes beside requirements and [deferred capabilities](training-simulation-initial-requirements.md#deferred-capabilities) |
 | How to accept a change | [Acceptance workflow](training-simulation-verification-plan.md) |
 
-The [acceptance catalogue](training-simulation-acceptance-examples.csv) preserves
-requirement-specific method/evidence assignments from the former verification
-plan. It is data to query, not a new document to approve in full. Implemented
-examples become public-behavior tests; non-functional measurements and qualified
-military evaluation remain necessary when the requirement demands them.
+Acceptance notes live with the relevant requirements; there is no separate CSV
+catalogue. Implemented examples become public-behavior tests. Non-functional
+measurements and qualified military evaluation remain necessary when required.

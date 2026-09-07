@@ -31,6 +31,6 @@ Explicit claim states and conservative dependency impact prevent accepted
 decisions from being mistaken for implementation or evidence. ADR-0014 generates
 mechanical indexes while retaining semantic claim and contract ownership.
 
-The complete cross-cutting contracts, claim register, view set, verification
+The complete cross-cutting contracts, architecture views, verification
 layers, representative sequences, closure blockers, alternatives, and traces
 are in the [cross-cutting architecture specification](../architecture/0010-cross-cutting-architecture-and-verification.md).
