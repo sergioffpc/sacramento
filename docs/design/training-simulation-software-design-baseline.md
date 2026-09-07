@@ -2,7 +2,7 @@
 
 Status: Candidate successor; project-owner approval pending
 
-Last meaningful change: 2026-09-04
+Last meaningful change: 2026-09-06
 
 Baseline version: `SDB-002`
 
@@ -22,8 +22,10 @@ Trainee Client composition, and the offline Content Cooker Tool.
 Intended readers: Project owner, designers, implementers, verification authors,
 architects, and reviewers.
 
-Required reviewers: One runtime-design reviewer and one verification-design
-reviewer acting independently, followed by the project owner.
+Required reviewers: One runtime-design reviewer, one content-design reviewer,
+and one verification-design reviewer acting independently, followed by the
+project owner. The runtime and verification reviewers cover the complete
+package; the content reviewer additionally covers `SDD-0004`.
 
 Prerequisites: Approved initial requirements, SAD-003, ADR-0013,
 ARCHSPEC-0013, approved governance inventories, and the retained Software
@@ -35,7 +37,7 @@ Canonical information owner: Project owner.
 
 The goal is to leave no implementation-local choice about startup ordering,
 representation, ownership, failure containment, or acceptance. Success means
-that two independent reviewers derive the same observable behavior and a
+that all three independent reviewers derive the same observable behavior and a
 verification author can construct every acceptance case without inventing a
 schema, limit, order, or expected result.
 
@@ -54,11 +56,11 @@ The candidate package is:
 
 | Component | Identity | SHA-256 |
 | --- | --- | --- |
-| Design Commitment register | `SDB-002-DC` | `4a544e3c5eddd88fb8e7c942d9d3d9315dd72fba78e4889261578231b8bbd8df` |
-| Process Control Contract SDD | `SDD-0001` | `3a2e749510cd77e3bde780b8a267cc50c37415433fbdb9b33b1c08f458c75683` |
-| Session Authority Runtime SDD | `SDD-0002` | `d3f2d073e08fbc6e96963b65bedb6be5bcdee9c2e23764d42801cc3873a728d8` |
-| Trainee Client Runtime SDD | `SDD-0003` | `62b1b7d52822e8db2ecde1c71a8c17d9751d0a8c4a63d56bfbdf98c3f9586f7c` |
-| Content Cooker Tool SDD | `SDD-0004` | `34306a0e48cb7e6d295c27873c186502a1a28dac6261c8bc98d8d51ee5cc2c06` |
+| Design Commitment register | `SDB-002-DC` | `e8cd5a58124fda7260f117b7b4ba716fd4daec10e01b51d342b2760fd51fdcf4` |
+| Process Control Contract SDD | `SDD-0001` | `f589a365b6acd4026c697e5a8f04124d101170a9d63a0eb59b610099878a3a62` |
+| Session Authority Runtime SDD | `SDD-0002` | `58f741603c3cecefee06c29a2b4f3e0fc6f41b155a642fb067e331a1855e8c6b` |
+| Trainee Client Runtime SDD | `SDD-0003` | `fe2c5c4f513e36eb899a1c73aa854e77b52fa3ddab2308435a74cb88691c8484` |
+| Content Cooker Tool SDD | `SDD-0004` | `730667db778dd840722ac5edb57490fe716a9446f9c106fc148b3c48e8636f46` |
 
 The CSV register owns identity, state, disposition, traces, owner, and
 verification approach. Each SDD owns its obligation text, interface and codec
@@ -122,11 +124,17 @@ needed because every commitment is governed directly by a canonical input.
 | `REQ-VOLUNTARY-LEAVE-CONFIRMATION-001` | `DC-CLIENT-005` |
 | `REQ-CONTENT-COOKER-TOOL-001` | `DC-COOKER-001`, `DC-COOKER-009` |
 | `REQ-COOKING-JOB-SPECIFICATION-001` | `DC-COOKER-002`, `DC-COOKER-008`, `DC-COOKER-010`, `DC-COOKER-012` |
-| `REQ-CONTENT-PROCESSING-001` | `DC-COOKER-003`, `DC-COOKER-010`, `DC-COOKER-012` |
-| `REQ-CONTENT-PAIR-ATOMIC-001` | `DC-COOKER-004`, `DC-COOKER-005`, `DC-COOKER-011`, `DC-COOKER-014` |
+| `REQ-CONTENT-PROCESSING-001` | `DC-COOKER-003`, `DC-COOKER-010`, `DC-COOKER-012`, `DC-COOKER-018`, `DC-COOKER-022` |
+| `REQ-CONTENT-PROCESSING-GATE-001` | `DC-COOKER-015` |
+| `REQ-CONTENT-PROCESSING-RECORD-001` | `DC-COOKER-016`, `DC-COOKER-023` |
+| `REQ-CONTENT-TRACEABILITY-001` | `DC-COOKER-017` |
+| `REQ-CONTENT-PROCESSING-ADMISSION-001` | `DC-COOKER-018` |
+| `REQ-CONTENT-PAIR-001` | `DC-COOKER-019`, `DC-COOKER-022` |
+| `REQ-CONTENT-PACK-ROLE-001` | `DC-COOKER-021` |
+| `REQ-CONTENT-PAIR-ATOMIC-001` | `DC-COOKER-004`, `DC-COOKER-005`, `DC-COOKER-011`, `DC-COOKER-014`, `DC-COOKER-020` |
 | `REQ-CONTENT-RELEASE-001` | `DC-COOKER-004` |
 | `REQ-COOKING-JOB-PROVENANCE-001` | `DC-COOKER-006` |
-| `REQ-CONTENT-SIGNING-001` | `DC-COOKER-008`, `DC-COOKER-013` |
+| `REQ-CONTENT-SIGNING-001` | `DC-COOKER-013`, `DC-COOKER-020`, `DC-COOKER-022` |
 | `DEFERRED-CONTENT-COOKER-PLATFORM-001` | `DC-COOKER-007`; `SDR-003` |
 
 ## Design risks, assumptions, and deferred decisions
@@ -138,7 +146,8 @@ needed because every commitment is governed directly by a canonical input.
 | `SDR-003` | Deferred | Content Cooker platform, hardware profile, packaging, and distribution are unselected. | Project owner | Approve the baseline named by `DEFERRED-CONTENT-COOKER-PLATFORM-001`. | Blocks `DC-COOKER-007` evidence `Pass`. |
 | `SDR-004` | Assumption | Provisioned identity bytes and paths are canonical under their owning contracts. | Project and deployment owners | Re-evaluate when an identity or platform path model changes. | Trigger requires an SDB successor. |
 | `SDR-005` | Risk | The 64 KiB launch and 1 MiB cooking-job bounds may not fit the largest admitted closure. | Runtime composition and Content Cooker Tool | Prove the largest approved closure fits with 10% headroom before implementation planning, or revise the design. | Blocks planning for a failing input. |
-| `SDR-006` | Review gate | Different interpretations would invalidate approval. | Independent reviewers | Both restate every `DC-*` and derive its `DAC-*` with no unresolved difference. | Blocks SDB-002 approval. |
+| `SDR-006` | Review gate | Different interpretations would invalidate approval. | Independent reviewers | Runtime and verification reviewers both restate every `DC-*` and derive its `DAC-*`; the content reviewer does the same for every `DC-COOKER-*`; all three report no unresolved material difference. | Blocks SDB-002 approval. |
+| `SDR-007` | External dependency | No approved concrete Content Processing Gate is retained and `RRTI-001` admits zero Runtime Resource Types, so no deployment-ready role closure can yet be cooked. | Project owner and resource semantic owners | Approve one exact gate version and a nonzero applicable RRTI population before cooker realization or evidence acceptance. | Does not block design approval; blocks `DC-COOKER-015` through `DC-COOKER-023` realization and `Pass`. |
 
 ## Decisions, rationale, and trade-offs
 
