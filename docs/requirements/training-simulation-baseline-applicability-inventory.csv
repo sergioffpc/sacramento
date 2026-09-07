@@ -2,9 +2,9 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 1,GOAL-TRAINING-001,Included,Development Baseline,Implementation team
 2,GOAL-TEAM-TACTICS-001,Included,Development Baseline,Implementation team
 3,PROCESS-TRACEABILITY-001,Included,Development Baseline,Implementation team
-4,PROCESS-TRACEABILITY-INVENTORY-001,Included,Development Baseline,Implementation team
-5,PROCESS-TRACEABILITY-INVENTORY-002,Included,Development Baseline,Implementation team
-6,PROCESS-TRACEABILITY-INVENTORY-003,Included,Development Baseline,Implementation team
+4,PROCESS-TRACEABILITY-INVENTORY-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+5,PROCESS-TRACEABILITY-INVENTORY-002,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+6,PROCESS-TRACEABILITY-INVENTORY-003,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
 7,PROCESS-ARCHITECTURE-CLAIM-001,Included,Development Baseline,Implementation team
 8,PROCESS-ARCHITECTURE-CLAIM-002,Included,Development Baseline,Implementation team
 9,PROCESS-ARCHITECTURE-CLAIM-003,Included,Development Baseline,Implementation team
@@ -12,8 +12,8 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 11,PROCESS-ARCHITECTURE-VERIFICATION-001,Included,Development Baseline,Implementation team
 12,PROCESS-ARCHITECTURE-CONTRACT-001,Included,Development Baseline,Implementation team
 13,PROCESS-ARCHITECTURE-EXECUTABLE-001,Included,Development Baseline,Implementation team
-14,PROCESS-ARCHITECTURE-DESCRIPTION-001,Included,Development Baseline,Implementation team
-15,PROCESS-ARCHITECTURE-UPDATE-001,Included,Development Baseline,Implementation team
+14,PROCESS-ARCHITECTURE-DESCRIPTION-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+15,PROCESS-ARCHITECTURE-UPDATE-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
 16,SCOPE-PRODUCT-001,Included,Development Baseline,Implementation team
 17,SCOPE-ROLE-001,Included,Development Baseline,Implementation team
 18,SCOPE-REQUIREMENTS-DOCUMENT-001,Included,Development Baseline,Implementation team
@@ -950,14 +950,14 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 949,PROCESS-COMMIT-HISTORY-001,Included,Development Baseline,Implementation team
 950,CONSTRAINT-DOCUMENTATION-001,Included,Development Baseline,Implementation team
 951,CONSTRAINT-DOCUMENTATION-002,Included,Development Baseline,Implementation team
-952,PROCESS-DOCUMENTATION-INVENTORY-001,Included,Development Baseline,Implementation team
-953,PROCESS-DOCUMENTATION-INVENTORY-002,Included,Development Baseline,Implementation team
-954,PROCESS-DOCUMENTATION-INVENTORY-003,Included,Development Baseline,Implementation team
-955,PROCESS-DOCUMENTATION-INVENTORY-004,Included,Development Baseline,Implementation team
-956,PROCESS-DOCUMENTATION-INVENTORY-005,Included,Development Baseline,Implementation team
-957,PROCESS-DOCUMENTATION-INVENTORY-006,Included,Development Baseline,Implementation team
-958,CONSTRAINT-DOCUMENTATION-TOC-001,Included,Development Baseline,Implementation team
-959,CONSTRAINT-DOCUMENT-CONTROL-001,Included,Development Baseline,Implementation team
+952,PROCESS-DOCUMENTATION-INVENTORY-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+953,PROCESS-DOCUMENTATION-INVENTORY-002,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+954,PROCESS-DOCUMENTATION-INVENTORY-003,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+955,PROCESS-DOCUMENTATION-INVENTORY-004,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+956,PROCESS-DOCUMENTATION-INVENTORY-005,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+957,PROCESS-DOCUMENTATION-INVENTORY-006,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+958,CONSTRAINT-DOCUMENTATION-TOC-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
+959,CONSTRAINT-DOCUMENT-CONTROL-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Implementation team
 960,NON-GOAL-ACCOUNT-001,Not Applicable,Approved objective scope exclusion recorded by NON-GOAL-ACCOUNT-001,Implementation team
 961,NON-GOAL-AUTH-AUDIT-INTERFACE-001,Not Applicable,Approved objective scope exclusion recorded by NON-GOAL-AUTH-AUDIT-INTERFACE-001,Implementation team
 962,NON-GOAL-AUTH-CREDENTIAL-ADMINISTRATION-001,Not Applicable,Approved objective scope exclusion recorded by NON-GOAL-AUTH-CREDENTIAL-ADMINISTRATION-001,Implementation team
@@ -1055,63 +1055,63 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 1054,ETP-PRESENTATION-001,Included,Development Baseline,Implementation team
 1055,ETP-VALIDATION-001,Included,Development Baseline,Implementation team and Representative Evaluators
 1056,ETP-VERIFICATION-001,Included,Development Baseline,Implementation team
-1057,PROCESS-VERIFICATION-METHOD-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1058,PROCESS-VERIFICATION-METHOD-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1059,PROCESS-VERIFICATION-METHOD-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1060,PROCESS-VERIFICATION-METHOD-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1061,PROCESS-VERIFICATION-DEFAULT-INSPECTION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1062,PROCESS-VERIFICATION-DEFAULT-TEST-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1063,PROCESS-VERIFICATION-DEFAULT-ANALYSIS-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1064,PROCESS-VERIFICATION-DEFAULT-DEMONSTRATION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1065,PROCESS-VERIFICATION-DEFAULT-EVALUATION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1066,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1067,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1068,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1069,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1070,PROCESS-VERIFICATION-EVALUATION-INVENTORY-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1071,PROCESS-VERIFICATION-EVALUATION-INVENTORY-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1072,PROCESS-VERIFICATION-EVALUATION-INVENTORY-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1073,PROCESS-VERIFICATION-EVALUATION-INVENTORY-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1074,PROCESS-VERIFICATION-DEFAULT-DEVIATION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1075,PROCESS-VERIFICATION-DEFAULT-DEVIATION-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1076,PROCESS-EVIDENCE-CONTENT-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1077,PROCESS-EVIDENCE-DISPOSITION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1078,PROCESS-EVIDENCE-DISPOSITION-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1079,PROCESS-EVIDENCE-OBLIGATION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1080,PROCESS-EVIDENCE-OBLIGATION-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1081,PROCESS-EVIDENCE-OBLIGATION-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1082,PROCESS-EVIDENCE-OBLIGATION-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1083,PROCESS-EVIDENCE-RETENTION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1084,PROCESS-EVIDENCE-GROUPING-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1085,PROCESS-EVIDENCE-GROUPING-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1086,PROCESS-EVIDENCE-DEPENDENCY-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1087,PROCESS-EVIDENCE-DEPENDENCY-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1088,PROCESS-EVIDENCE-DEPENDENCY-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1089,PROCESS-EVIDENCE-DEPENDENCY-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1090,PROCESS-EVIDENCE-DEPENDENCY-005,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1091,PROCESS-EVIDENCE-DEPENDENCY-006,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1092,PROCESS-EVIDENCE-DEPENDENCY-007,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1093,PROCESS-EVIDENCE-DEPENDENCY-008,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1094,PROCESS-EVIDENCE-DEPENDENCY-009,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1095,PROCESS-EVIDENCE-CHANGE-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1096,PROCESS-EVIDENCE-CHANGE-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1097,PROCESS-EVIDENCE-CHANGE-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1098,PROCESS-EVIDENCE-CHANGE-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1099,PROCESS-EVIDENCE-CHANGE-005,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1100,PROCESS-EVIDENCE-CHANGE-006,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1101,PROCESS-PROCEDURE-DEVIATION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1102,PROCESS-PROCEDURE-DEVIATION-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1103,PROCESS-PROCEDURE-DEVIATION-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1104,PROCESS-PROCEDURE-DEVIATION-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1105,PROCESS-PROCEDURE-DEVIATION-005,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1106,PROCESS-PROCEDURE-DEVIATION-006,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1107,PROCESS-PROCEDURE-DEVIATION-COVERAGE-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1108,PROCESS-PROCEDURE-DEVIATION-COVERAGE-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1109,PROCESS-PROCEDURE-DEVIATION-COVERAGE-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
-1110,PROCESS-VERIFICATION-EVIDENCE-OWNER-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1111,PROCESS-VERIFICATION-MILITARY-EVIDENCE-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1112,PROCESS-VERIFICATION-APPROVER-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1113,PROCESS-VERIFICATION-SEPARATION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
+1057,PROCESS-VERIFICATION-METHOD-001,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1058,PROCESS-VERIFICATION-METHOD-002,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1059,PROCESS-VERIFICATION-METHOD-003,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1060,PROCESS-VERIFICATION-METHOD-004,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1061,PROCESS-VERIFICATION-DEFAULT-INSPECTION-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1062,PROCESS-VERIFICATION-DEFAULT-TEST-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1063,PROCESS-VERIFICATION-DEFAULT-ANALYSIS-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1064,PROCESS-VERIFICATION-DEFAULT-DEMONSTRATION-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1065,PROCESS-VERIFICATION-DEFAULT-EVALUATION-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1066,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1067,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-002,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1068,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-003,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1069,PROCESS-VERIFICATION-EVALUATION-APPLICABILITY-004,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1070,PROCESS-VERIFICATION-EVALUATION-INVENTORY-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1071,PROCESS-VERIFICATION-EVALUATION-INVENTORY-002,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1072,PROCESS-VERIFICATION-EVALUATION-INVENTORY-003,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1073,PROCESS-VERIFICATION-EVALUATION-INVENTORY-004,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1074,PROCESS-VERIFICATION-DEFAULT-DEVIATION-001,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1075,PROCESS-VERIFICATION-DEFAULT-DEVIATION-002,Not Applicable,Superseded by VERIFY-METHOD-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1076,PROCESS-EVIDENCE-CONTENT-001,Not Applicable,Superseded by VERIFY-CONTEXT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1077,PROCESS-EVIDENCE-DISPOSITION-001,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1078,PROCESS-EVIDENCE-DISPOSITION-002,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1079,PROCESS-EVIDENCE-OBLIGATION-001,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1080,PROCESS-EVIDENCE-OBLIGATION-002,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1081,PROCESS-EVIDENCE-OBLIGATION-003,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1082,PROCESS-EVIDENCE-OBLIGATION-004,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1083,PROCESS-EVIDENCE-RETENTION-001,Not Applicable,Superseded by VERIFY-RETENTION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1084,PROCESS-EVIDENCE-GROUPING-001,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1085,PROCESS-EVIDENCE-GROUPING-002,Not Applicable,Superseded by VERIFY-RESULT-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1086,PROCESS-EVIDENCE-DEPENDENCY-001,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1087,PROCESS-EVIDENCE-DEPENDENCY-002,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1088,PROCESS-EVIDENCE-DEPENDENCY-003,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1089,PROCESS-EVIDENCE-DEPENDENCY-004,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1090,PROCESS-EVIDENCE-DEPENDENCY-005,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1091,PROCESS-EVIDENCE-DEPENDENCY-006,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1092,PROCESS-EVIDENCE-DEPENDENCY-007,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1093,PROCESS-EVIDENCE-DEPENDENCY-008,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1094,PROCESS-EVIDENCE-DEPENDENCY-009,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1095,PROCESS-EVIDENCE-CHANGE-001,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1096,PROCESS-EVIDENCE-CHANGE-002,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1097,PROCESS-EVIDENCE-CHANGE-003,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1098,PROCESS-EVIDENCE-CHANGE-004,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1099,PROCESS-EVIDENCE-CHANGE-005,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1100,PROCESS-EVIDENCE-CHANGE-006,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1101,PROCESS-PROCEDURE-DEVIATION-001,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1102,PROCESS-PROCEDURE-DEVIATION-002,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1103,PROCESS-PROCEDURE-DEVIATION-003,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1104,PROCESS-PROCEDURE-DEVIATION-004,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1105,PROCESS-PROCEDURE-DEVIATION-005,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1106,PROCESS-PROCEDURE-DEVIATION-006,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1107,PROCESS-PROCEDURE-DEVIATION-COVERAGE-001,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1108,PROCESS-PROCEDURE-DEVIATION-COVERAGE-002,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1109,PROCESS-PROCEDURE-DEVIATION-COVERAGE-003,Not Applicable,Superseded by VERIFY-DEVIATION-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them; Implementation team
+1110,PROCESS-VERIFICATION-EVIDENCE-OWNER-001,Not Applicable,Superseded by VERIFY-ACCEPTANCE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1111,PROCESS-VERIFICATION-MILITARY-EVIDENCE-001,Not Applicable,Superseded by VERIFY-ACCEPTANCE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1112,PROCESS-VERIFICATION-APPROVER-001,Not Applicable,Superseded by VERIFY-ACCEPTANCE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1113,PROCESS-VERIFICATION-SEPARATION-001,Not Applicable,Superseded by VERIFY-ACCEPTANCE-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
 1114,PROCESS-MODE-EQUIVALENCE-TOLERANCE-001,Future,First Virtual-Reality Mode Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
 1115,PROCESS-MODE-EQUIVALENCE-TOLERANCE-002,Future,First Virtual-Reality Mode Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team; Representative Evaluators
 1116,PROCESS-MODE-EQUIVALENCE-TOLERANCE-003,Future,First Virtual-Reality Mode Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team
@@ -1134,19 +1134,19 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 1133,PROCESS-EVALUATION-PANEL-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team and Representative Evaluators
 1134,PROCESS-EVALUATION-PANEL-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team and Representative Evaluators
 1135,PROCESS-EVALUATION-PANEL-004,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them; Implementation team and Representative Evaluators
-1136,PROCESS-AMBIGUITY-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1137,PROCESS-AMBIGUITY-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1138,PROCESS-AMBIGUITY-003,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1139,PROCESS-AMBIGUITY-COVERAGE-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1140,PROCESS-AMBIGUITY-COVERAGE-002,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
+1136,PROCESS-AMBIGUITY-001,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1137,PROCESS-AMBIGUITY-002,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1138,PROCESS-AMBIGUITY-003,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1139,PROCESS-AMBIGUITY-COVERAGE-001,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
+1140,PROCESS-AMBIGUITY-COVERAGE-002,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team and Representative Evaluators where the process assigns them
 1141,PROCESS-BASELINE-MANDATORY-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
 1142,PROCESS-BASELINE-PREFERENCE-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
 1143,PROCESS-BASELINE-PERMISSION-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
 1144,PROCESS-BASELINE-SCOPE-001,Included,Development Baseline,Implementation team and Representative Evaluators where the process assigns them
-1145,PROCESS-ASSIGNMENT-RANGE-001,Included,Development Baseline,Implementation team
-1146,PROCESS-ASSIGNMENT-RANGE-002,Included,Development Baseline,Implementation team
-1147,PROCESS-ASSIGNMENT-RANGE-003,Included,Development Baseline,Implementation team
-1148,PROCESS-ASSIGNMENT-RANGE-004,Included,Development Baseline,Implementation team
+1145,PROCESS-ASSIGNMENT-RANGE-001,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team
+1146,PROCESS-ASSIGNMENT-RANGE-002,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team
+1147,PROCESS-ASSIGNMENT-RANGE-003,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team
+1148,PROCESS-ASSIGNMENT-RANGE-004,Not Applicable,Superseded by VERIFY-EXAMPLES-001 under ADR-0014,Implementation team
 1149,REQ-AUTONOMOUS-SCOPE-001,Future,Autonomous Participant baseline,Implementation team
 1150,REQ-AUTONOMOUS-SCOPE-002,Future,Autonomous Participant baseline,Implementation team
 1151,REQ-AUTONOMOUS-ROLE-001,Future,Autonomous Participant baseline,Implementation team
@@ -1210,15 +1210,15 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 1209,PROCESS-AUTONOMOUS-APPLICABILITY-001,Future,Autonomous Participant baseline,Implementation team
 1210,PROCESS-AUTONOMOUS-SCENARIO-INVENTORY-001,Future,Autonomous Participant baseline,Implementation team
 1211,PROCESS-AUTONOMOUS-PERCEPTION-COVERAGE-001,Future,Autonomous Participant baseline,Implementation team
-1212,PROCESS-AUTONOMOUS-VERIFICATION-001,Future,Autonomous Participant baseline,Implementation team
+1212,PROCESS-AUTONOMOUS-VERIFICATION-001,Not Applicable,Superseded by VERIFY-CONTEXT-001 under ADR-0014,Implementation team
 1213,PROCESS-AUTONOMOUS-EVALUATION-001,Future,Autonomous Participant baseline,Implementation team
 1214,PROCESS-AUTONOMOUS-ACCEPTANCE-001,Future,Autonomous Participant baseline,Implementation team
-1215,PROCESS-AUTONOMOUS-CHANGE-001,Future,Autonomous Participant baseline,Implementation team
-1216,PROCESS-SOFTWARE-DESIGN-BASELINE-001,Included,Development Baseline,Project owner
+1215,PROCESS-AUTONOMOUS-CHANGE-001,Not Applicable,Superseded by VERIFY-CHANGE-001 under ADR-0014,Implementation team
+1216,PROCESS-SOFTWARE-DESIGN-BASELINE-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Project owner
 1217,PROCESS-SOFTWARE-DESIGN-COMMITMENT-001,Included,Development Baseline,Project owner
 1218,PROCESS-SOFTWARE-DESIGN-STATE-001,Included,Development Baseline,Project owner
-1219,PROCESS-SOFTWARE-DESIGN-TRACE-001,Included,Development Baseline,Project owner
-1220,PROCESS-SOFTWARE-DESIGN-APPROVAL-001,Included,Development Baseline,Project owner
+1219,PROCESS-SOFTWARE-DESIGN-TRACE-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Project owner
+1220,PROCESS-SOFTWARE-DESIGN-APPROVAL-001,Not Applicable,Superseded by DOC-MAINTENANCE-001 under ADR-0014,Project owner
 1221,REQ-CLIENT-RECONNECT-001,Included,Development Baseline,Implementation team
 1222,REQ-VOLUNTARY-LEAVE-CONFIRMATION-001,Included,Development Baseline,Implementation team
 1223,REQ-CONTENT-COOKER-TOOL-001,Included,Development Baseline,Implementation team
@@ -1226,3 +1226,12 @@ sequence,requirement_identifier,disposition,milestone_or_justification,responsib
 1225,REQ-COOKING-JOB-PROVENANCE-001,Included,Development Baseline,Implementation team
 1226,REQ-RUNTIME-CONTROL-LOSS-001,Included,Development Baseline,Implementation team
 1227,DEFERRED-CONTENT-COOKER-PLATFORM-001,Future,Content Cooker Platform Baseline,Project owner
+1228,VERIFY-EXAMPLES-001,Included,Development Baseline,Project owner
+1229,VERIFY-METHOD-001,Included,Development Baseline,Project owner
+1230,VERIFY-RESULT-001,Included,Development Baseline,Project owner
+1231,VERIFY-CONTEXT-001,Included,Development Baseline,Project owner
+1232,VERIFY-CHANGE-001,Included,Development Baseline,Project owner
+1233,VERIFY-DEVIATION-001,Included,Development Baseline,Project owner
+1234,VERIFY-RETENTION-001,Included,Development Baseline,Project owner
+1235,VERIFY-ACCEPTANCE-001,Included,Development Baseline,Project owner
+1236,DOC-MAINTENANCE-001,Included,Development Baseline,Project owner

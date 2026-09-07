@@ -2,25 +2,16 @@
 
 Status: Candidate successor design; project-owner approval pending
 
-Last meaningful change: 2026-09-04
+Last meaningful change: 2026-09-05
 
 Purpose: Define the exact composition, startup, concurrency, readiness,
 shutdown, ownership, and acceptance design for one Session Authority process
 and its single Training Session.
 
-Scope: Role launch view, owner interfaces, preparation, endpoint publication,
-Training Session preparation, execution domains, and terminal settlement.
+Review focus: Changed runtime semantics and verification criteria under ADR-0014;
+no fixed reviewer count or full-package reread is required for a routine edit.
 
-Intended readers: Authority designers, implementers, verification authors,
-operators, and evidence custodians.
-
-Required reviewers: Runtime-design reviewer and verification-design reviewer.
-
-Prerequisites: SDB-002, SDD-0001, SAD-003, ARCHSPEC-0005, ARCHSPEC-0006,
-ARCHSPEC-0008, ARCHSPEC-0009, ARCHSPEC-0012, and the requirements traced by
-`DC-AUTHORITY-*` in `SDB-002-DC`.
-
-Canonical information owner: Session Authority composition.
+Owner: Session Authority composition.
 
 ## Goals, boundary, and ownership
 
@@ -36,7 +27,7 @@ Each owner implements one deep lifecycle interface:
 | `validate(view)` | composition / semantic owner | Borrows immutable typed view for the call; no effect; bounded; returns one closed failure or success. |
 | `prepare(view, capacity, adapters)` | composition / owner | Borrows inputs; returns failure or one move-only `PreparedOwner`; cancellable only at the adapter boundaries it declares. |
 | `commit(PreparedOwner&&)` | composition / owner | Consumes the handle; non-blocking, non-throwing, allocation-free, and infallible after successful prepare; returns `CommittedOwner`. |
-| `stop(reason)` | canonical coordination / committed owner | Idempotent; enqueues only into pre-reserved owner capacity; reports already-stopping as the same result. |
+| `stop(reason)` | canonical coordination / committed owner | Non-blocking and non-throwing; enqueues only into pre-reserved owner capacity; returns closed `Accepted` or `AlreadyStopping`; every later call returns `AlreadyStopping`. It has no failure result. |
 | `settle()` | canonical coordination / applicable owner | Bounded by the launch-selected settlement policy; returns a closed receipt or failure without undoing a canonical commit. |
 | destruction | composition / either handle | Prepared destruction reverses its effects; committed destruction releases resources only after stop/settle, in reverse dependency order. |
 
@@ -135,8 +126,8 @@ failure, queue high-water marks, process exit, and executable identity.
 | Criterion | Preconditions and stimulus | Required and prohibited observation |
 | --- | --- | --- |
 | `DAC-AUTHORITY-001` | Valid closure; observe every startup boundary. | Exactly one Preparation precedes Ready and binds the complete listed identity closure. |
-| `DAC-AUTHORITY-002` | Fail each owner prepare and interrupt before/after each commit. | Prepare/commit order is exact; pre-commit cleanup is reverse; no skipped or duplicate owner. |
-| `DAC-AUTHORITY-003` | Inject bind failure, connection attempts before/during Ready write, and short Ready write. | Bind precedes commit; failure rolls back; zero accepts occur until the complete Ready frame is published. |
+| `DAC-AUTHORITY-002` | Fail each owner prepare; request cancellation at every permitted boundary; observe immediately before/after each commit; inject a conformance-violating commit throw separately. | Prepare/commit order is exact; pre-commit cleanup is reverse; cancellation is not sampled during the commit sequence; a throwing commit produces InternalFailure without rollback of preceding commits; no skipped or duplicate owner. |
+| `DAC-AUTHORITY-003` | Inject bind failure, connection attempts before/during Ready publication, partial positive-progress writes, and terminal write error after a strict Ready prefix. | Bind precedes commit; bind failure rolls back; partial writes assemble the complete frame; a terminal publication error preserves Preparation and starts terminal handling; zero accepts occur until the complete Ready frame is published. |
 | `DAC-AUTHORITY-004` | Request shutdown at each Canonical Tick boundary and inject settlement success/failure. | New work stops, one Tick fence occurs, terminal truth and settlement precede reverse release. |
 | `DAC-AUTHORITY-005` | Invoke every transition from each execution domain. | Canonical caller succeeds in order; every callback or foreign-domain mutation is rejected without state change. |
 | `DAC-AUTHORITY-006` | Fill evidence and Observability queues, then request shutdown and force terminal output. | Control and terminal records complete within selected bounds; no ordinary queue consumes reserved slots. |

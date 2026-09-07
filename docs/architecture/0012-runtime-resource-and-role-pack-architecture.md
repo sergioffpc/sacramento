@@ -8,24 +8,7 @@ Approval: Project owner, 2026-09-04
 Purpose: Define the stable identity, package, validation, materialization,
 ownership, lifetime, and verification contracts for Runtime Resources.
 
-Scope: Resource Identity Metadata, Content Cooker output, Authority and Client
-role-pack bytes, Runtime Package and Content Admission seams, responsibility-
-owned materialization, immutable runtime access, cleanup, and adoption evidence.
-
-Intended readers: Architects, designers, content-pipeline authors, C++
-implementers, security reviewers, performance engineers, and verification
-authors.
-
-Prerequisites: [ADR-0012](../adr/0012-establish-runtime-resource-and-role-pack-architecture.md),
-[ADR-0007](../adr/0007-use-signed-scenario-bound-runtime-content-releases.md),
-[runtime content releases](0007-runtime-content-releases.md),
-[cross-cutting architecture](0010-cross-cutting-architecture-and-verification.md),
-[memory architecture](0011-memory-accounting-and-allocation.md), the
-[technical glossary](../glossary/technical.md), and the approved C++
-engineering, functional, non-functional, observability, and verification
-baselines.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision boundary
 

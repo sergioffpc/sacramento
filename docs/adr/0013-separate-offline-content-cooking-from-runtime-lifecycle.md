@@ -7,16 +7,7 @@ Approval: Project owner, 2026-09-04
 Purpose: Record that content cooking is an offline finite tool operation rather
 than a product-runtime composition.
 
-Scope: Content Cooker classification, invocation, release identity, lifecycle,
-and its relationship to runtime deployment contracts.
-
-Intended readers: Architects, content-pipeline designers, implementers,
-verification authors, and release operators.
-
-Prerequisites: ADR-0004, ADR-0007, ADR-0009, ADR-0012, and the approved
-functional and architecture baselines.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 

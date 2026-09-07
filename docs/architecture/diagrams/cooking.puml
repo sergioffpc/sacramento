@@ -1,0 +1,34 @@
+@startuml
+title Content Cooker Tool — finite offline publication
+hide footbox
+autonumber
+actor "Invoker" as I
+participant "Content Cooker Tool" as C
+participant "Private snapshot / processing" as S
+participant "Signing adapter" as K
+participant "Release Publisher" as P
+I -> C : immutable job; authoring root; key reference
+C -> C : validate job and tool closure
+C -> S : capture private immutable snapshot; reject unsafe paths
+S --> C : validated input closure
+C -> S : required processing gates; deterministic role Pack Cores
+S --> C : authority pack + client pack + processing record
+C -> K : sign reciprocal release envelopes
+K --> C : signed role packs (no secret export)
+C -> P : make complete release durable; publish release entry atomically
+alt identical release already published
+  P --> C : idempotent existing release
+else same identity, different release
+  P --> C : Identity Conflict
+else ambiguous publication
+  P --> C : failure; block unsafe retry
+else new complete release published
+  P --> C : publication identity
+end
+C -> I : atomically publish job result; owned cleanup; terminal exit
+note over C,P
+  No partial release activation. Release publication precedes success result.
+  Failure before publication cleans only owned work; never deletes another release.
+  No ProcessReady, Admission or live Controlled LAN service.
+end note
+@enduml

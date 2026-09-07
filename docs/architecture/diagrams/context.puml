@@ -1,0 +1,15 @@
+@startuml
+!pragma layout smetana
+!include <C4/C4_Context>
+title Sacramento — system context (accepted design; realization separate)
+Person(trainee, "Trainee", "Uses an applicable access mode")
+Person(author, "Content author / operator", "Prepares and selects Scenario content")
+System(sim, "Training Simulation", "Authoritative military Training Sessions")
+System_Ext(provisioning, "External provisioning", "Immutable selection, launch and supervision")
+System_Ext(custody, "Evidence custody / assessment", "External handoff seams; topology unselected")
+Rel(trainee, sim, "Participates through the Trainee Client Runtime")
+Rel(author, sim, "Supplies authoring inputs and cooking jobs")
+Rel(provisioning, sim, "Selects immutable releases and starts processes")
+Rel(sim, custody, "Hands off retained evidence / assessment inputs")
+SHOW_LEGEND()
+@enduml

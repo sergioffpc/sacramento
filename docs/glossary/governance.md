@@ -74,8 +74,8 @@ The approved, versioned classification of every current requirement identifier a
 _Avoid_: Implicit scope, omitted requirement, future promise without milestone
 
 **Baseline Artifact Inventory**:
-The approved, versioned list of architecture, design, implementation, and verification artifacts governed by one candidate baseline.
-_Avoid_: Repository file listing, informal document list, section index
+The generated navigation index of governed source artifacts and their canonical requirement, Architecture Claim and Design Commitment records. Git identifies versions; source records, not the generated index, own decisions and evidence states under ADR-0014.
+_Avoid_: Duplicate authority, inferred implementation, inventory approval cycle
 
 **Design Commitment**:
 One stable, atomic, responsibility-owned and verifiable software-design obligation that traces to its governing requirements, Architecture Claims, Software Architecture Description views, Software Design Document, and planned verification.
@@ -106,8 +106,8 @@ The approved, versioned, and closed coverage of exact Application Release, Runti
 _Avoid_: Runtime version negotiation, semantic-version range, automatic fallback, implicit compatibility
 
 **Documentation Inventory**:
-The approved, versioned, and closed inventory of persistent project documents, their canonical information owner, metadata, prerequisite links, Markdown and Table-of-Contents applicability, and stable mappings to the information for which each document is authoritative.
-_Avoid_: Repository file listing, implicit document population, duplicate canonical owner
+The generated retained-document listing together with the canonical classification and ownership rules in the Documentation Inventory page. It provides navigation and content hashes without mandatory repeated control tables or separate mechanical approval under ADR-0014.
+_Avoid_: Duplicate canonical owner, manually copied file population, inferred approval
 
 **Environment Coverage Catalogue**:
 The approved, versioned, and closed coverage of admitted doors, windows, lights, circuits, Obscurants, devices, Fire, movable objects, destructible surfaces, interactions, states, and environmental outcomes, with exact profile and downstream catalogue versions.

@@ -11,17 +11,7 @@ from runtime lifecycle, project owner, 2026-09-04
 Purpose: Record the runtime-resource identity, role-pack format, validation,
 materialization, ownership, and publication decision.
 
-Scope: Content authoring identity metadata, cooking, role-pack representation,
-runtime validation and materialization, immutable resource access, and startup
-evidence.
-
-Intended readers: Architects, content-pipeline designers, engine implementers,
-security reviewers, performance engineers, and verification authors.
-
-Prerequisites: ADR-0003 through ADR-0011 and the approved C++ engineering,
-functional, non-functional, observability, and verification baselines.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 

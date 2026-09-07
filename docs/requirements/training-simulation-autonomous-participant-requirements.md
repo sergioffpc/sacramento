@@ -198,13 +198,9 @@ criterion.
 
 **PROCESS-AUTONOMOUS-PERCEPTION-COVERAGE-001** — Before acceptance, a versioned perception-equivalence inventory MUST map every controller-visible field and precision to the corresponding Trainee-perceptible source and tolerance and MUST reject every missing, unmatched, more precise, hidden, or privileged input.
 
-**PROCESS-AUTONOMOUS-VERIFICATION-001** — Every requirement in this baseline MUST receive stable obligation keys, Required verification methods, pre-registered evidence records and dependencies, exact input and environment identities, attributable results, and project-owner approval under the Verification Plan and current Evidence Dependency Inventory.
-
 **PROCESS-AUTONOMOUS-EVALUATION-001** — Representative Evaluation MUST be Required only for an obligation whose acceptance claims tactical adequacy, credible military behavior, or perception equivalence beyond reproducible objective criteria; technical role, authority, identity, and prohibited-access obligations remain objectively verifiable.
 
-**PROCESS-AUTONOMOUS-ACCEPTANCE-001** — The Autonomous Participant baseline MUST NOT be accepted until its exact requirement set, applicability and artifact inventories, identity and permission catalogues, Scenario applicability records, controller and perception profiles, Observability Contract, verification procedures, evidence dependencies, and required evidence are approved with no missing, stale, uncertain, failed, or blocked included obligation.
-
-**PROCESS-AUTONOMOUS-CHANGE-001** — A change to an Autonomous Participant definition, identifier, identity or permission rule, Admission binding, controller input or output, Scenario applicability, perception mapping, workload, profile, assignment range, dependency, or acceptance criterion MUST create the applicable governed successor and trigger conservative evidence-impact analysis under the current approved Evidence Dependency Inventory.
+**PROCESS-AUTONOMOUS-ACCEPTANCE-001** — The Autonomous Participant baseline MUST NOT be accepted until its exact requirements and scope decisions, identity and permission catalogues, Scenario applicability records, controller and perception profiles, Observability Contract, applicable test procedures and dependencies, and required evidence are accepted with no missing, stale, uncertain, failed, or blocked included obligation. Generated artifact/reference indexes are navigation and MUST NOT create a separate approval gate under ADR-0014.
 
 ## Completion rule
 

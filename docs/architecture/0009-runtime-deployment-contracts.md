@@ -12,22 +12,7 @@ placement, packaging, compatibility, supervision, failure, and verification
 contracts of the initial Training Simulation runtime without selecting its
 production orchestration or security infrastructure.
 
-Scope: Windows Trainee Client and Debian Session Authority runtime allocation,
-platform seams, Application Releases, launch and readiness, Controlled LAN
-connection, external operational handoffs, update and rollback, shutdown, and
-architecture-level verification. Kubernetes resources, infrastructure high
-availability, production security mechanisms, credentials, storage products,
-and concrete package formats remain outside this decision. Offline Content
-Cooker Tool execution is governed by ARCHSPEC-0013.
-
-Canonical information owner: Project owner
-
-Intended readers: Architects, designers, implementers, verification authors,
-operators, security reviewers, and infrastructure owners.
-
-Prerequisites: `CONTEXT.md`, ADR-0003 through ADR-0008, and the approved
-functional, non-functional, observability, performance-assessment, reference
-hardware, and verification baselines.
+Owner: Project owner
 
 Sacramento exposes small, immutable process contracts and leaves process
 scheduling to external infrastructure. A Session Authority remains one

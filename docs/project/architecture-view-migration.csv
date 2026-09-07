@@ -1,0 +1,10 @@
+previous_view,current_sections,reason
+EDI-VIEW-001,12-glossary-and-maintenance,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-002,3-context-and-scope|5-building-blocks|7-deployment-view,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-003,5-building-blocks,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-004,6-runtime-view,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-005,8-cross-cutting-contracts,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-006,6-runtime-view|8-cross-cutting-contracts,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-007,8-cross-cutting-contracts,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-008,10-quality-and-acceptance,ADR-0014 tailored arc42; exact contracts remain linked.
+EDI-VIEW-009,11-risks-and-open-work,ADR-0014 tailored arc42; exact contracts remain linked.

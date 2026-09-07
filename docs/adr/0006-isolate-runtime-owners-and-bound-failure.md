@@ -4,13 +4,7 @@ Status: Accepted
 
 Purpose: Record the concurrency, ownership, capacity, and failure-containment decision.
 
-Scope: Session Authority and Trainee Client execution boundaries.
-
-Intended readers: Architects, designers, implementers, and verification authors.
-
-Prerequisites: ADR-0004 and ADR-0005.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 Amendments: ADR-0008 defines retained-evidence seams and replaces client
 recovery; ADR-0009 moves production AUTH durability and recovery to the future

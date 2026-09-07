@@ -8,19 +8,7 @@ Approval: Project owner, 2026-09-04
 Purpose: Define how Sacramento measures, attributes, budgets, allocates, and
 releases CPU and GPU memory without selecting a concrete allocator library.
 
-Scope: The real-time `Trainee Client Runtime` and `Session Authority Runtime`.
-The Content Cooker Tool, Administrative Tools, concrete APIs,
-source layout, libraries, numeric limits, and operational dashboards remain
-outside this decision.
-
-Canonical information owner: Project owner.
-
-Intended readers: Architects, designers, implementers, performance engineers,
-verification authors, and reviewers.
-
-Prerequisites: `CONTEXT.md`, the technical and governance glossaries, ADR-0003
-through ADR-0011, `CPP-ENGINEERING-BASELINE-004`, `NFR-BASELINE-001`,
-`OBS-CONTRACT-003`, `RHP-SET-001`, and the Verification Plan.
+Owner: Project owner.
 
 Sacramento begins with observable memory ownership rather than an elaborate
 allocator hierarchy. Accounting follows the existing responsibility model;

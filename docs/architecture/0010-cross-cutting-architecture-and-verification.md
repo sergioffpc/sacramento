@@ -11,22 +11,7 @@ Purpose: Define the remaining cross-cutting contracts, architecture-level
 verification strategy, claim traceability, evidence-impact behavior, and
 Software Architecture Description view set for the Development Baseline.
 
-Scope: Responsibility-owned configuration, outcomes, resource lifetime, test
-seams, evidence hooks, architecture claims, executable closure, representative
-sequences, documentation and inventory dependencies, and architecture
-description maintenance. Detailed APIs, classes, source layout, databases,
-Kubernetes, credentials, production security mechanisms, and platform
-operations remain outside this decision.
-
-Canonical information owner: Project owner
-
-Intended readers: Architects, designers, implementers, verification authors,
-operators, security reviewers, Qualified Specialists, and Representative
-Evaluators.
-
-Prerequisites: `CONTEXT.md`, ADR-0003 through ADR-0009, and the approved
-functional, non-functional, observability, performance-assessment, reference
-hardware, and verification baselines.
+Owner: Project owner
 
 Sacramento closes its Development Baseline architecture decisions without
 claiming that the decided architecture is implemented, verified, production
@@ -215,212 +200,158 @@ their other applicable evidence while preserving data minimization,
 sensitivity, identity, cardinality, and loss rules. A runtime hook reports a
 fact; it never calculates or assigns verification `Pass`.
 
-Architecture artifacts and typed dependency edges belong in the Evidence
-Dependency Inventory. Changing one affects every transitively reachable
-requirement, obligation key, procedure, environment, input, and evidence
-record. Existing evidence can be `Unaffected` only through the approved,
-coverage-validated inventory or reproducible obligation-level invariance rules.
-Missing, stale, unclassified, or uncertain dependency information requires
-reverification.
+Evidence impact follows `VERIFY-CHANGE-001`: inspect actual dependencies,
+including transitive effects, and rerun affected or uncertain results. Retain a
+result only with reproducible obligation-level invariance reasoning. The generated
+reference index aids navigation but is not a complete semantic graph. ADR-0014
+removes global graph approval and output pre-registration, not conservative impact.
 
 ## Architecture Claim register
 
-The register below closes the current decision set at architecture level. The
-future Baseline Artifact and Evidence Dependency Inventories expand its exact
-artifact and evidence relations; until then, realization is `Not Implemented`
-and evidence is `Blocked` for baseline-acceptance purposes.
+The register below owns claim meaning and verification surfaces. Exact governing
+source paths, expanded requirement relations and independent states live in the
+[claim CSV](../project/training-simulation-architecture-claim-traces.csv).
+No file listing, diagram or accepted decision implies product evidence.
 
-`D` identifies the exact state tuple `Accepted / Included / Not Implemented /
-Blocked`. `F` identifies `Deferred / Future / Not Implemented / Blocked`.
-Every row below is one independently governed architecture-level claim; examples,
+Current states are recorded only in the linked claim CSV. Every row below is one independently governed architecture-level claim; examples,
 rationale, and consequences in its canonical ADR do not create additional
 normative claims.
 
-| Claim and meaning | Canonical location | Primary requirement trace | Owner | Verification surface and evidence hooks | State profile |
-| --- | --- | --- | --- | --- | --- |
-| `AC-TOOLCHAIN-001` — Clang is the sole C++ compiler | ADR-0001 | `CONSTRAINT-CPP-TOOLCHAIN-001` | Build composition | Toolchain identity and dual-target build | `D` |
-| `AC-TOOLCHAIN-002` — Windows artefacts cross-build from the pinned Ubuntu root and execute natively for acceptance | ADR-0002 | `CONSTRAINT-CPP-TOOLCHAIN-001`, `CONSTRAINT-CLIENT-OS-001` | Build composition | Build-root identity, artefact provenance, native Windows result | `D` |
-| `AC-FOUNDATION-001` — the selected narrow dependency composition is conditional on qualification | ARCHSPEC-0003 qualification | `CONSTRAINT-CPP-VERSION-001`, `CONSTRAINT-PLATFORM-MATRIX-001` | Runtime compositions | Qualified dependency graph and native builds | `D` |
-| `AC-FOUNDATION-002` — product interfaces and persistent contracts expose only Sacramento types | ARCHSPEC-0003 interface rules | `SCOPE-PRODUCT-001`, `PREFERENCE-PLATFORM-PARITY-001` | Responsibility modules | Public-type and persistent-contract inspection | `D` |
-| `AC-FOUNDATION-003` — the Debian Session Authority remains headless | ARCHSPEC-0003 interface rules | `CONSTRAINT-AUTHORITY-OS-001` | Session Authority composition | Native dependency and startup closure | `D` |
-| `AC-FOUNDATION-004` — Falcor/Vulkan/Slang remain client rendering implementation details | ARCHSPEC-0003 interface rules | `CONSTRAINT-CLIENT-OS-001`, `PREFERENCE-PLATFORM-PARITY-001` | `Presentation` | Rendering adapter contracts and client dependency identity | `D` |
-| `AC-FOUNDATION-005` — GameNetworkingSockets is transport only and Steam Audio owns no physical outcome | ARCHSPEC-0003 interface rules | `REQ-AUTHORITY-001`, `REQ-OVERPRESSURE-001` | `Protocol & Replication`, `Presentation` | Transport/acoustic adapter contracts and outcome traces | `D` |
-| `AC-FOUNDATION-006` — diagnostic profiling cannot replace or alter core Observability | ARCHSPEC-0003 interface rules | `NFR-OBSERVABILITY-CORE-001`, `NFR-OBSERVABILITY-INTEGRITY-001` | `Observability` | CoreOnly/Diagnostic configuration and signal evidence | `D` |
-| `AC-FOUNDATION-007` — Falcor's offline vendor capsule is the sole dependency-management exception | ARCHSPEC-0003 qualification | `CONSTRAINT-CPP-TOOLCHAIN-001`, `CONSTRAINT-NFR-TEAM-001` | Build composition | Capsule identity, offline-build, patch, and maintenance evidence | `D` |
-| `AC-DECOMPOSITION-001` — deep modules follow canonical responsibility | ARCHSPEC-0004 responsibility modules | `SCOPE-PRODUCT-001`, `CONSTRAINT-NFR-TEAM-001` | Responsibility modules | Responsibility and interface inspection | `D` |
-| `AC-DECOMPOSITION-002` — each runtime explicitly composes only its required modules | ARCHSPEC-0004 runtime compositions | `CONSTRAINT-CLIENT-OS-001`, `CONSTRAINT-AUTHORITY-OS-001` | Runtime compositions | Role-specific dependency closure | `D` |
-| `AC-DECOMPOSITION-003` — module dependencies are acyclic and point toward canonical owners | ARCHSPEC-0004 dependency view | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | Responsibility modules | Static dependency and mutation-path negatives | `D` |
-| `AC-DECOMPOSITION-004` — vendor/platform integrations remain private adapters at real seams | ARCHSPEC-0004 adapter rules | `PREFERENCE-PLATFORM-PARITY-001` | Each interface owner | Common adapter contracts and public-type inspection | `D` |
-| `AC-DECOMPOSITION-005` — Prediction and Presentation cannot author canonical outcomes | ARCHSPEC-0004 failure rules | `REQ-CLIENT-TRUST-001`, `REQ-STATE-CONSISTENCY-001` | `Prediction`, `Presentation` | Authority and client-failure sequences; state versions | `D` |
-| `AC-DECOMPOSITION-006` — Autonomous Participants require a future named baseline | ARCHSPEC-0004 future baseline | `SCOPE-ROLE-001`, `REQ-AUTONOMOUS-SCOPE-001`, `REQ-AUTONOMOUS-SCOPE-002`, `REQ-AUTONOMOUS-CONTROL-BOUNDARY-001` | Future Autonomous Participant baseline | Scope and requirement inspection | `F` |
-| `AC-RUNTIME-001` — authoritative Simulation advances in fixed Canonical Ticks | ARCHSPEC-0005 time profiles | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | `Simulation` | Tick index, Simulated Time, state version | `D` |
-| `AC-RUNTIME-002` — Operational Clock, Simulated Time, presentation time, and Trusted Identity Time remain distinct | ARCHSPEC-0005 time profiles | `REQ-OPERATIONAL-CLOCK-001`, `REQ-OPERATIONAL-CLOCK-002` | Owning responsibility modules | Clock-source and equal-boundary tests | `D` |
-| `AC-RUNTIME-003` — one process owns one complete Training Session lifecycle | ARCHSPEC-0005 lifecycle | `REQ-SERVER-SESSION-001`, `REQ-AUTHORITY-SINGLE-SESSION-001` | `Session Lifecycle` | Lifecycle transitions and process/session identities | `D` |
-| `AC-RUNTIME-004` — each Canonical Tick is an atomic candidate/commit/publication transaction | ARCHSPEC-0005 tick transaction | `REQ-STATE-CONSISTENCY-001`, `REQ-SESSION-EVIDENCE-001` | `Simulation` | Commit/publication points and rejection/failure sequences | `D` |
-| `AC-RUNTIME-005` — Intention admission and ordering are authority-owned and deterministic | ARCHSPEC-0005 intention ordering | `REQ-AUTHORITY-001`, `NFR-ACTION-RESPONSE-001` | `Protocol & Replication`, `Simulation` | Ordered intention/result correlation | `D` |
-| `AC-RUNTIME-006` — Prediction is correctable and Presentation consumes committed immutable views | ARCHSPEC-0005 replication | `REQ-CLIENT-TRUST-001`, `REQ-STATE-CONSISTENCY-001` | `Prediction`, `Presentation` | Composite state versions and correction cases | `D` |
-| `AC-RUNTIME-007` — committed ticks produce deterministic reconstruction evidence | ARCHSPEC-0005 replay | `REQ-SESSION-EVIDENCE-001`, `REQ-SESSION-EVIDENCE-002` | `Simulation`, retained-evidence adapter | Tick inputs, outcome, profile and content identities | `D` |
-| `AC-RUNTIME-008` — a disconnected active Trainee receives irreversible Technical Removal | ARCHSPEC-0005 client loss | `REQ-TECHNICAL-REMOVAL-001` through `REQ-TECHNICAL-REMOVAL-006` | `Session Lifecycle`, `Simulation` | Connection-loss and removal state-version sequence | `D` |
-| `AC-CONCURRENCY-001` — runtime execution domains follow responsibility rather than arbitrary worker ownership | ARCHSPEC-0006 execution domains | `REQ-STATE-CONSISTENCY-001` | Runtime compositions | Domain allocation and callback negatives | `D` |
-| `AC-CONCURRENCY-002` — each mutable state class has one exclusive owner | ARCHSPEC-0006 exclusive ownership | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | Responsibility modules | Writer inventory and cross-owner mutation negatives | `D` |
-| `AC-CONCURRENCY-003` — cross-owner handoffs are immutable and publication-fenced | ARCHSPEC-0006 handoffs | `REQ-STATE-CONSISTENCY-001` | Producing and consuming owners | Version, queue, fence, stale/mixed-view tests | `D` |
-| `AC-CONCURRENCY-004` — waits and work are bounded outside the Canonical Tick unless explicitly admitted | ARCHSPEC-0006 scheduling | `NFR-ACTION-RESPONSE-001`, `NFR-DESKTOP-STALL-001` | Runtime compositions | Budget, blocked-owner, timeout, and overload evidence | `D` |
-| `AC-CONCURRENCY-005` — cross-owner atomicity uses one coordinator and visible commit point | ARCHSPEC-0006 atomicity | `REQ-STATE-CONSISTENCY-001` | Semantic coordinator | Before/after-boundary failure injection and commit identity | `D` |
-| `AC-CONCURRENCY-006` — capacity is reserved before admission and exhaustion has deterministic backpressure | ARCHSPEC-0006 capacity | `REQ-CAPACITY-001`, `REQ-CAPACITY-002`, `REQ-CAPACITY-003` | Resource-owning modules | Capacity, reservation, rejection and release evidence | `D` |
-| `AC-CONCURRENCY-007` — failure is contained to the smallest safe semantic scope | ARCHSPEC-0006 failure containment | `REQ-SESSION-DISCONNECT-001`, `REQ-AUTH-AUDIT-WRITE-FAILURE-001` | Owning module and runtime composition | Owner failure matrix and affected-scope result | `D` |
-| `AC-CONCURRENCY-008` — startup, shutdown, and process loss preserve ownership and commit boundaries | ARCHSPEC-0006 process lifecycle | `REQ-AUTHORITY-TERMINAL-SETTLEMENT-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Runtime composition | Acquire/release order and process-loss sequence | `D` |
-| `AC-CONTENT-001` — each Scenario version has one immutable paired Runtime Content Release | ARCHSPEC-0007 release identity | `REQ-CONTENT-RELEASE-001`, `REQ-CONTENT-PAIR-001` | `Runtime Package` | Release, pair, role, hash and contract identities | `D` |
-| `AC-CONTENT-002` — cooking is deterministic, all-or-nothing, and provenance-complete | ARCHSPEC-0007 cooking; amended by ARCHSPEC-0013 | `REQ-CONTENT-PROCESSING-001`, `REQ-CONTENT-PROCESSING-RECORD-001` | Content Cooker Tool | Gate-step failures and processing record | `D` |
-| `AC-CONTENT-003` — signing trust is scoped by pack role and runtime contract | ARCHSPEC-0007 signing and trust | `REQ-CONTENT-SIGNING-001`, `REQ-CONTENT-TRUST-001` | Content Cooker and `Content Admission` | Trust-reference, signer-role and signature negatives | `D` |
-| `AC-CONTENT-004` — runtime activation is eager, immutable, explicit, and fail-fast | ARCHSPEC-0007 startup | `REQ-CONTENT-STARTUP-001`, `REQ-CONTENT-ACTIVATION-001` | `Content Admission` | Materialization and immutable-view publication | `D` |
-| `AC-CONTENT-005` — client and authority reject a mismatched role-pack pair before Admission | ARCHSPEC-0007 pair matching | `REQ-CONTENT-MISMATCH-001`, `REQ-CONTENT-PAIR-ATOMIC-001` | `Content Admission`, `AUTH & Admission` | Peer/release/pack correlation and rejection | `D` |
-| `AC-CONTENT-006` — one Session Authority process serves one Scenario and Training Session | ARCHSPEC-0007 process boundary | `REQ-SERVER-SESSION-001`, `REQ-AUTHORITY-SINGLE-SESSION-001` | Session Authority composition | Launch, session, terminal and exit identities | `D` |
-| `AC-CONTENT-007` — retention, update, rollback, and cleanup never mutate an active release | ARCHSPEC-0007 retention | `REQ-CONTENT-RETENTION-001`, `REQ-CONTENT-ROLLBACK-001` | `Runtime Package`, external provisioning | Activation history and later-process selection | `D` |
-| `AC-RESOURCE-001` — each semantic Runtime Resource has one persistent UUIDv4 identity, role-specific projection, and explicit authoring metadata | ARCHSPEC-0012 identity | `REQ-CONTENT-TRACEABILITY-001`, `REQ-CONTENT-PROCESSING-001` | `Runtime Package`, authoring tools | Metadata, move, rename, duplication, collision, Unicode, and role-projection vectors | `D` |
-| `AC-RESOURCE-002` — a closed type inventory and local typed references preserve one semantic owner and borrowed runtime access | ARCHSPEC-0012 type model | `REQ-CONTENT-PACK-ROLE-001`, `REQ-CONTENT-ACTIVATION-001` | Runtime-resource responsibility owners | Inventory closure, local reference, owner, handle, and prohibited-manager tests | `D` |
-| `AC-RESOURCE-003` — role-pack version one has one exact deterministic header, envelope, restricted manifest, extent, and Pack Core representation | ARCHSPEC-0012 pack format | `REQ-CONTENT-PAIR-001`, `REQ-CONTENT-VERSION-002` | `Runtime Package` | Golden, malformed, ordering, range, version, and cross-platform byte vectors | `D` |
-| `AC-RESOURCE-004` — version-one trust uses Ed25519, SHA-256, full key identity, scoped authorization, and no algorithm negotiation | ARCHSPEC-0012 signing | `REQ-CONTENT-SIGNING-001`, `REQ-CONTENT-TRUST-001`, `REQ-CONTENT-COMPATIBILITY-001` | `Runtime Package` and Content Cooker Tool | Signature, digest, key, role, contract, rotation, and algorithm-negative vectors | `D` |
-| `AC-RESOURCE-005` — authenticated external limits and owner budgets reserve complete capacity before payload processing | ARCHSPEC-0012 bounds | `REQ-RUNTIME-LAUNCH-SPECIFICATION-002`, `REQ-RUNTIME-READINESS-001` | `Content Admission`, resource-owning modules | Overflow, capacity function, reservation, attribution, and failure-precedence evidence | `D` |
-| `AC-RESOURCE-006` — one authenticated local DAG is completely materialized behind owner fences and published atomically | ARCHSPEC-0012 validation and publication | `REQ-CONTENT-ACTIVATION-001`, `REQ-CONTENT-VERSION-002` | `Content Admission`, resource-owning modules | Graph, materializer, GPU fence, failure cleanup, and zero-or-one publication tests | `D` |
-| `AC-RESOURCE-007` — the published view has no pack, content-I/O, mapping, reload, generation-replacement, or eviction dependency | ARCHSPEC-0012 publication | `REQ-CONTENT-IMMUTABILITY-001` | `Content Admission`, resource-owning modules | Post-readiness open/read negatives, pack mutation, handle lifetime, and shutdown evidence | `D` |
-| `AC-RESOURCE-008` — deterministic Pack Cores and one atomic pair-publication commit preserve reproducibility and all-or-nothing releases | ARCHSPEC-0012 cooking; amended by ARCHSPEC-0013 | `REQ-CONTENT-PROCESSING-001`, `REQ-CONTENT-PAIR-ATOMIC-001` | Content Cooker Tool | Repeat-cook core comparison and every before/after publication failure boundary | `D` |
-| `AC-RESOURCE-009` — initial synchronous buffered I/O remains until an approved startup target and dual-platform evidence justify compression or async | ARCHSPEC-0012 I/O | `PREFERENCE-PLATFORM-PARITY-001`, `CONSTRAINT-NFR-TEAM-001` | `Runtime Package`, implementation team | Native cold/warm stage timings, memory peaks, common contract suite, and adoption disposition | `D` |
-| `AC-RESOURCE-010` — normative vectors, bounded fuzzing, failure injection, native determinism, and accumulating gates govern implementation admission | ARCHSPEC-0012 verification | `PROCESS-ARCHITECTURE-CONTRACT-001`, `PROCESS-ARCHITECTURE-VERIFICATION-001` | Implementation team and interface owners | Fixture identities, fuzz results, sanitizer results, native closure, and representative sequences | `D` |
-| `AC-TOOLING-001` — the Content Cooker is one finite offline Tool Release and never a product runtime | ARCHSPEC-0013 classification | `REQ-CONTENT-COOKER-TOOL-001`, `DEFERRED-CONTENT-COOKER-PLATFORM-001` | Content Cooker Tool | Interface and dependency inspection; runtime-lifecycle negatives | `D` |
-| `AC-TOOLING-002` — one closed immutable Cooking Job Specification is the sole source of execution-affecting values | ARCHSPEC-0013 identities | `REQ-COOKING-JOB-SPECIFICATION-001` | Content Cooker Tool | Golden schema, malformed input, environment, cwd, discovery, and override negatives | `D` |
-| `AC-TOOLING-003` — one exhaustive deterministic authoring snapshot isolates every cook from live-source mutation | ARCHSPEC-0013 snapshot | `REQ-CONTENT-PROCESSING-001` | Content Cooker Tool | Entry classification, collision, symlink, mutation, ordering, and digest evidence | `D` |
-| `AC-TOOLING-004` — Release Publisher durably exposes both packs and the processing record through one idempotent atomic commit | ARCHSPEC-0013 publication | `REQ-CONTENT-PAIR-ATOMIC-001`, `REQ-CONTENT-RELEASE-001` | Content Cooker Tool | Every commit boundary, retry equality, IdentityConflict, and staging-recovery evidence | `D` |
-| `AC-TOOLING-005` — cooking copies trusted job provenance and keeps signing secrets behind the private signing seam | ARCHSPEC-0013 signing and provenance | `REQ-COOKING-JOB-PROVENANCE-001`, `REQ-CONTENT-SIGNING-001` | Content Cooker Tool | Provenance-source, trust, key-identity, secret-absence, and signing-failure evidence | `D` |
-| `AC-RETENTION-001` — live Training Session state is ephemeral and non-restorable | ARCHSPEC-0008 ownership | `NON-GOAL-SESSION-SAVE-001`, `REQ-RUNTIME-REPLACEMENT-001` | Session Authority composition | Process-loss and restart negatives | `D` |
-| `AC-RETENTION-002` — each retained data class keeps its semantic owner and private persistence seam | ARCHSPEC-0008 ownership | `REQ-SESSION-EVIDENCE-001`, `PROCESS-EVIDENCE-RETENTION-001` | Semantic owner of each class | Owner, commit, custody and retention identities | `D` |
-| `AC-RETENTION-003` — Technical Removal withdraws only the disconnected Trainee and associated live items | ARCHSPEC-0008 client loss | `REQ-TECHNICAL-REMOVAL-003`, `REQ-TECHNICAL-REMOVAL-004` | `Session Lifecycle`, `Simulation` | Atomic removal and unaffected-participant evidence | `D` |
-| `AC-RETENTION-004` — content-signing, identity-package, identity-authority, and administrative-custody trust remain independently scoped | ARCHSPEC-0008 trust | `REQ-SESSION-EVIDENCE-TRUST-001`, `REQ-CONTENT-TRUST-001` | Each trust consumer | Trust-domain and cross-use negatives | `D` |
-| `AC-RETENTION-005` — ordinary retained export is asynchronous while canonical reconstruction integrity and terminal receipt retain their special failure rules | ARCHSPEC-0008 commit/export | `REQ-SESSION-EVIDENCE-003`, `REQ-SESSION-EVIDENCE-004` | Retained-evidence adapter, `Session Lifecycle` | Commit, buffer, loss, receipt and exit evidence | `D` |
-| `AC-RETENTION-006` — administrative recovery may finish idempotent export but never restore a Training Session | ARCHSPEC-0008 recovery | `REQ-RUNTIME-REPLACEMENT-001`, `NON-GOAL-SESSION-SAVE-001` | Administrative Tool Runtime | Candidate classification and duplicate/restart tests | `D` |
-| `AC-DEPLOYMENT-001` — the initial topology has explicit client and authority runtime classes plus separate finite offline tools | ARCHSPEC-0009 allocation; amended by ARCHSPEC-0013 | `CONSTRAINT-CLIENT-OS-001`, `CONSTRAINT-AUTHORITY-OS-001`, `REQ-CONTENT-COOKER-TOOL-001` | Runtime and tool compositions | Role/process/tool/host allocation evidence | `D` |
-| `AC-DEPLOYMENT-002` — platform capabilities are private responsibility-owned seams, not one Platform module | ARCHSPEC-0009 platform seams | `PREFERENCE-PLATFORM-PARITY-001`, `SCOPE-PRODUCT-001` | Each responsibility module | Adapter variation/failure contracts and public-type negatives | `D` |
-| `AC-DEPLOYMENT-003` — one immutable Runtime Launch Specification governs complete startup and readiness for each product runtime | ARCHSPEC-0009 launch | `REQ-RUNTIME-LAUNCH-SPECIFICATION-001`, `REQ-RUNTIME-READINESS-001` | Runtime composition | Exact selection, validation, capacity, endpoint and ProcessReady order | `D` |
-| `AC-DEPLOYMENT-004` — clients connect only to their assigned endpoint without discovery or fallback | ARCHSPEC-0009 connection | `REQ-SESSION-CONNECTION-001` | `Protocol & Replication` | Endpoint identity and discovery/fallback negatives | `D` |
-| `AC-DEPLOYMENT-005` — exact Deployment Compatibility Matrix combinations gate startup and communication | ARCHSPEC-0009 compatibility | `REQ-DEPLOYMENT-COMPATIBILITY-001`, `REQ-DEPLOYMENT-COMPATIBILITY-002` | Runtime composition, `Protocol & Replication` | Combination admission/rejection evidence | `D` |
-| `AC-DEPLOYMENT-006` — update and rollback select complete releases only for later processes | ARCHSPEC-0009 update/rollback | `REQ-APPLICATION-UPDATE-001`, `REQ-APPLICATION-ROLLBACK-001` | External provisioning | Candidate failure, activation and rollback history | `D` |
-| `AC-DEPLOYMENT-007` — external handoffs retain independent capacity, acknowledgement, loss, and failure contracts | ARCHSPEC-0009 handoffs | `REQ-SESSION-EVIDENCE-003`, `NFR-OBSERVABILITY-INTEGRITY-001` | Semantic owner of each handoff | Buffer, retry, acknowledgement, loss and exhaustion evidence | `D` |
-| `AC-DEPLOYMENT-008` — graceful shutdown and forced loss preserve terminal-settlement semantics | ARCHSPEC-0009 shutdown | `REQ-AUTHORITY-TERMINAL-SETTLEMENT-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Runtime composition, `Session Lifecycle` | Shutdown phase, receipt, cleanup and exit classification | `D` |
-| `AC-DEPLOYMENT-009` — permissive development AUTH preserves the seam without producing security evidence | ARCHSPEC-0009 development AUTH | `REQ-AUTH-DEVELOPMENT-ADAPTER-001` through `REQ-AUTH-DEVELOPMENT-ADAPTER-003` | `AUTH & Admission` | Mode, ordering, failure and prohibited-effect tests | `D` |
-| `AC-DEPLOYMENT-010` — production security and platform operations remain named future baselines | ARCHSPEC-0009 future boundaries | `DEFERRED-PRODUCTION-SECURITY-001`, `DEFERRED-PLATFORM-OPERATIONS-001` | Future baseline owners | Scope inspection; no Development evidence can pass them | `F` |
-| `AC-CROSSCUTTING-001` — decision, applicability, realization, and evidence states remain independent | ARCHSPEC-0010 status | `PROCESS-ARCHITECTURE-CLAIM-003`, `PROCESS-ARCHITECTURE-CLAIM-004` | Architecture owner | Claim-state combinations and inference negatives | `D` |
-| `AC-CROSSCUTTING-002` — execution configuration is immutable, explicit, responsibility-validated, and future-process-only | ARCHSPEC-0010 configuration | `REQ-RUNTIME-LAUNCH-SPECIFICATION-001`, `REQ-RUNTIME-LAUNCH-SPECIFICATION-002` | Each module; runtime composition aggregates | Selection identity, validation, publication and mutable-default negatives | `D` |
-| `AC-CROSSCUTTING-003` — interface failures cross as stable Sacramento outcomes while native diagnostics remain private | ARCHSPEC-0010 outcomes | `REQ-RUNTIME-EXTERNAL-LIFECYCLE-001`, `REQ-ADMISSION-FAILURE-001` | Interface owner | Operation, category, affected scope, retry and diagnostic-containment evidence | `D` |
-| `AC-CROSSCUTTING-004` — resource owners acquire, publish, transfer, and release in declared bounded order | ARCHSPEC-0010 resources | `REQ-RUNTIME-READINESS-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Resource-owning module | Acquire/publish/release and cleanup injection | `D` |
-| `AC-CROSSCUTTING-005` — all adapters at a seam satisfy one contract suite without product-visible test bypasses | ARCHSPEC-0010 test interfaces | `PROCESS-ARCHITECTURE-CONTRACT-001` | Interface owner | Shared suite, adapter matrix, bypass and private-state negatives | `D` |
-| `AC-CROSSCUTTING-006` — static, contract, native executable, and representative-sequence verification layers accumulate | ARCHSPEC-0010 verification | `PROCESS-ARCHITECTURE-VERIFICATION-001` | Implementation team | Layer-specific records and prohibited substitution cases | `D` |
-| `AC-CROSSCUTTING-007` — executable closure requires native execution from only the declared immutable dependency closure | ARCHSPEC-0010 executable closure | `PROCESS-ARCHITECTURE-EXECUTABLE-001`, `REQ-APPLICATION-RELEASE-001` | Implementation team | Native role runs and dependency negatives | `D` |
-| `AC-CROSSCUTTING-008` — the six representative sequences cover architecture-dominating composition outcomes | ARCHSPEC-0010 verification | `PROCESS-ARCHITECTURE-VERIFICATION-001` | Runtime compositions and implementation team | Sequence identities, outcomes, commit points and affected scopes | `D` |
-| `AC-CROSSCUTTING-009` — evidence hooks report attributable facts and never assign verification Pass | ARCHSPEC-0010 evidence hooks | `PROCESS-EVIDENCE-DISPOSITION-001`, `NFR-OBSERVABILITY-INTEGRITY-001` | Seam owner; verification process disposes | Operation/version/correlation/loss facts and disposition-source negative | `D` |
-| `AC-CROSSCUTTING-010` — architecture evidence impact is conservative and transitive through the approved dependency inventory | ARCHSPEC-0010 change impact | `PROCESS-EVIDENCE-DEPENDENCY-001` through `PROCESS-EVIDENCE-CHANGE-006` | Implementation team; project owner approves | Graph traversal, uncertainty, invariance and inventory-version evidence | `D` |
-| `AC-CROSSCUTTING-011` — the Software Architecture Description uses the selected linked view set and update triggers | ARCHSPEC-0010 view set | `PROCESS-ARCHITECTURE-DESCRIPTION-001`, `PROCESS-ARCHITECTURE-UPDATE-001` | Project owner; implementation team maintains | View control, claim mappings, navigation and impact records | `D` |
-| `AC-CROSSCUTTING-012` — Documentation Inventory exists while the other three inventories remain ordered approval blockers | ARCHSPEC-0010 closure boundary | `PROCESS-DOCUMENTATION-INVENTORY-001`, `PROCESS-TRACEABILITY-INVENTORY-001`, `PROCESS-EVIDENCE-DEPENDENCY-001` | Implementation team; project owner approves | Inventory versions, reconciliation, blockers and issue dependencies | `D` |
-| `AC-MEMORY-001` — CPU requested, allocator capacity, process private commit, process resident memory, and GPU usage and budget remain distinct quantities | ARCHSPEC-0011 quantities | `REQ-RUNTIME-EXTERNAL-LIFECYCLE-001`, `NFR-DESKTOP-SMOOTHNESS-001` | Runtime compositions and resource-owning modules | Attributable counters, samples, provenance, and prohibited aggregate gauge | `D` |
-| `AC-MEMORY-002` — memory accounting separates canonical owner, lifetime domain, and resource without creating a second product decomposition | ARCHSPEC-0011 accounting | `SCOPE-PRODUCT-001`, `REQ-STATE-CONSISTENCY-001` | Resource-owning modules | Exactly-one ownership, aggregation, transfer, Third Party, and Untracked cases | `D` |
-| `AC-MEMORY-003` — a Sacramento seam and explicit Memory Resource Context preserve allocator identity and attribution across asynchronous execution | ARCHSPEC-0011 CPU seam and propagation | `REQ-STATE-CONSISTENCY-001`, `PREFERENCE-PLATFORM-PARITY-001` | Resource-owning modules and runtime compositions | Alignment, failure, deallocator, continuation, and work-stealing contracts | `D` |
-| `AC-MEMORY-004` — each Memory Lifetime Domain has an explicit release fence consistent with session and evidence ownership | ARCHSPEC-0011 lifetimes | `REQ-SESSION-EVIDENCE-001`, `REQ-SESSION-EVIDENCE-002`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Resource-owning modules | Acquire, publish, transfer, fence, bulk-reset, and release sequences | `D` |
-| `AC-MEMORY-005` — permanent memory accounting is bounded and non-recursive while allocation detail remains Diagnostic | ARCHSPEC-0011 accounting detail | `NFR-OBSERVABILITY-BUILD-PARITY-001`, `NFR-OBSERVABILITY-INTEGRITY-001`, `NFR-DESKTOP-STALL-001` | Resource-owning modules and `Observability` | Counter invariants, bounded buffers, explicit loss, CoreOnly negatives, and overhead evidence | `D` |
-| `AC-MEMORY-006` — responsibility-owned immutable budgets and resource-class failure rules are validated before ProcessReady | ARCHSPEC-0011 budgets | `REQ-RUNTIME-LAUNCH-SPECIFICATION-001`, `REQ-RUNTIME-LAUNCH-SPECIFICATION-002`, `REQ-RUNTIME-READINESS-001`, `REQ-SESSION-EVIDENCE-002` | Resource-owning modules and runtime compositions | Budget identity, reservation, rejection, eviction negatives, and canonical failure boundaries | `D` |
-| `AC-MEMORY-007` — Presentation owns a separate GPU allocation seam and reports logical, physical, deferred, usage, and budget quantities separately | ARCHSPEC-0011 GPU memory | `NFR-DESKTOP-SMOOTHNESS-001`, `CONSTRAINT-PLATFORM-MATRIX-001`, `PREFERENCE-PLATFORM-PARITY-001` | `Presentation` | GPU heap, suballocation, alias, fence, residency, and ownership evidence | `D` |
-| `AC-MEMORY-008` — allocator specialization requires representative native end-to-end evidence and preserves existing quality and diagnostic obligations | ARCHSPEC-0011 adoption evidence | `NFR-DESKTOP-SMOOTHNESS-001`, `NFR-DESKTOP-STALL-001`, `NFR-ACTION-RESPONSE-001`, `CONSTRAINT-NFR-TEAM-001` | Implementation team and resource-owning modules | Native workloads, trace replay, soak, tails, footprint, determinism, and tool compatibility | `D` |
-| `AC-MEMORY-009` — after ProcessReady, Measured Real-Time Hot Loops never reach the general-purpose heap or grow backing storage | ARCHSPEC-0011 adoption evidence | `NFR-DESKTOP-SMOOTHNESS-001`, `NFR-DESKTOP-STALL-001`, `NFR-ACTION-RESPONSE-001` | Resource-owning modules | Design inventory, profiling coverage, heap-call interception, capacity, fallback, and exhaustion evidence | `D` |
+| Claim and meaning | Canonical location | Primary requirement trace | Owner | Verification surface and evidence hooks |
+| --- | --- | --- | --- | --- |
+| `AC-TOOLCHAIN-001` — Clang is the sole C++ compiler | ADR-0001 | `CONSTRAINT-CPP-TOOLCHAIN-001` | Build composition | Toolchain identity and dual-target build |
+| `AC-TOOLCHAIN-002` — Windows artefacts cross-build from the pinned Ubuntu root and execute natively for acceptance | ADR-0002 | `CONSTRAINT-CPP-TOOLCHAIN-001`, `CONSTRAINT-CLIENT-OS-001` | Build composition | Build-root identity, artefact provenance, native Windows result |
+| `AC-FOUNDATION-001` — the selected narrow dependency composition is conditional on qualification | ARCHSPEC-0003 qualification | `CONSTRAINT-CPP-VERSION-001`, `CONSTRAINT-PLATFORM-MATRIX-001` | Runtime compositions | Qualified dependency graph and native builds |
+| `AC-FOUNDATION-002` — product interfaces and persistent contracts expose only Sacramento types | ARCHSPEC-0003 interface rules | `SCOPE-PRODUCT-001`, `PREFERENCE-PLATFORM-PARITY-001` | Responsibility modules | Public-type and persistent-contract inspection |
+| `AC-FOUNDATION-003` — the Debian Session Authority remains headless | ARCHSPEC-0003 interface rules | `CONSTRAINT-AUTHORITY-OS-001` | Session Authority composition | Native dependency and startup closure |
+| `AC-FOUNDATION-004` — Falcor/Vulkan/Slang remain client rendering implementation details | ARCHSPEC-0003 interface rules | `CONSTRAINT-CLIENT-OS-001`, `PREFERENCE-PLATFORM-PARITY-001` | `Presentation` | Rendering adapter contracts and client dependency identity |
+| `AC-FOUNDATION-005` — GameNetworkingSockets is transport only and Steam Audio owns no physical outcome | ARCHSPEC-0003 interface rules | `REQ-AUTHORITY-001`, `REQ-OVERPRESSURE-001` | `Protocol & Replication`, `Presentation` | Transport/acoustic adapter contracts and outcome traces |
+| `AC-FOUNDATION-006` — diagnostic profiling cannot replace or alter core Observability | ARCHSPEC-0003 interface rules | `NFR-OBSERVABILITY-CORE-001`, `NFR-OBSERVABILITY-INTEGRITY-001` | `Observability` | CoreOnly/Diagnostic configuration and signal evidence |
+| `AC-FOUNDATION-007` — Falcor's offline vendor capsule is the sole dependency-management exception | ARCHSPEC-0003 qualification | `CONSTRAINT-CPP-TOOLCHAIN-001`, `CONSTRAINT-NFR-TEAM-001` | Build composition | Capsule identity, offline-build, patch, and maintenance evidence |
+| `AC-DECOMPOSITION-001` — deep modules follow canonical responsibility | ARCHSPEC-0004 responsibility modules | `SCOPE-PRODUCT-001`, `CONSTRAINT-NFR-TEAM-001` | Responsibility modules | Responsibility and interface inspection |
+| `AC-DECOMPOSITION-002` — each runtime explicitly composes only its required modules | ARCHSPEC-0004 runtime compositions | `CONSTRAINT-CLIENT-OS-001`, `CONSTRAINT-AUTHORITY-OS-001` | Runtime compositions | Role-specific dependency closure |
+| `AC-DECOMPOSITION-003` — module dependencies are acyclic and point toward canonical owners | ARCHSPEC-0004 dependency view | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | Responsibility modules | Static dependency and mutation-path negatives |
+| `AC-DECOMPOSITION-004` — vendor/platform integrations remain private adapters at real seams | ARCHSPEC-0004 adapter rules | `PREFERENCE-PLATFORM-PARITY-001` | Each interface owner | Common adapter contracts and public-type inspection |
+| `AC-DECOMPOSITION-005` — Prediction and Presentation cannot author canonical outcomes | ARCHSPEC-0004 failure rules | `REQ-CLIENT-TRUST-001`, `REQ-STATE-CONSISTENCY-001` | `Prediction`, `Presentation` | Authority and client-failure sequences; state versions |
+| `AC-DECOMPOSITION-006` — Autonomous Participants require a future named baseline | ARCHSPEC-0004 future baseline | `SCOPE-ROLE-001`, `REQ-AUTONOMOUS-SCOPE-001`, `REQ-AUTONOMOUS-SCOPE-002`, `REQ-AUTONOMOUS-CONTROL-BOUNDARY-001` | Future Autonomous Participant baseline | Scope and requirement inspection |
+| `AC-RUNTIME-001` — authoritative Simulation advances in fixed Canonical Ticks | ARCHSPEC-0005 time profiles | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | `Simulation` | Tick index, Simulated Time, state version |
+| `AC-RUNTIME-002` — Operational Clock, Simulated Time, presentation time, and Trusted Identity Time remain distinct | ARCHSPEC-0005 time profiles | `REQ-OPERATIONAL-CLOCK-001`, `REQ-OPERATIONAL-CLOCK-002` | Owning responsibility modules | Clock-source and equal-boundary tests |
+| `AC-RUNTIME-003` — one process owns one complete Training Session lifecycle | ARCHSPEC-0005 lifecycle | `REQ-SERVER-SESSION-001`, `REQ-AUTHORITY-SINGLE-SESSION-001` | `Session Lifecycle` | Lifecycle transitions and process/session identities |
+| `AC-RUNTIME-004` — each Canonical Tick is an atomic candidate/commit/publication transaction | ARCHSPEC-0005 tick transaction | `REQ-STATE-CONSISTENCY-001`, `REQ-SESSION-EVIDENCE-001` | `Simulation` | Commit/publication points and rejection/failure sequences |
+| `AC-RUNTIME-005` — Intention admission and ordering are authority-owned and deterministic | ARCHSPEC-0005 intention ordering | `REQ-AUTHORITY-001`, `NFR-ACTION-RESPONSE-001` | `Protocol & Replication`, `Simulation` | Ordered intention/result correlation |
+| `AC-RUNTIME-006` — Prediction is correctable and Presentation consumes committed immutable views | ARCHSPEC-0005 replication | `REQ-CLIENT-TRUST-001`, `REQ-STATE-CONSISTENCY-001` | `Prediction`, `Presentation` | Composite state versions and correction cases |
+| `AC-RUNTIME-007` — committed ticks produce deterministic reconstruction evidence | ARCHSPEC-0005 replay | `REQ-SESSION-EVIDENCE-001`, `REQ-SESSION-EVIDENCE-002` | `Simulation`, retained-evidence adapter | Tick inputs, outcome, profile and content identities |
+| `AC-RUNTIME-008` — a disconnected active Trainee receives irreversible Technical Removal | ARCHSPEC-0005 client loss | `REQ-TECHNICAL-REMOVAL-001` through `REQ-TECHNICAL-REMOVAL-006` | `Session Lifecycle`, `Simulation` | Connection-loss and removal state-version sequence |
+| `AC-CONCURRENCY-001` — runtime execution domains follow responsibility rather than arbitrary worker ownership | ARCHSPEC-0006 execution domains | `REQ-STATE-CONSISTENCY-001` | Runtime compositions | Domain allocation and callback negatives |
+| `AC-CONCURRENCY-002` — each mutable state class has one exclusive owner | ARCHSPEC-0006 exclusive ownership | `REQ-AUTHORITY-001`, `REQ-STATE-CONSISTENCY-001` | Responsibility modules | Writer inventory and cross-owner mutation negatives |
+| `AC-CONCURRENCY-003` — cross-owner handoffs are immutable and publication-fenced | ARCHSPEC-0006 handoffs | `REQ-STATE-CONSISTENCY-001` | Producing and consuming owners | Version, queue, fence, stale/mixed-view tests |
+| `AC-CONCURRENCY-004` — waits and work are bounded outside the Canonical Tick unless explicitly admitted | ARCHSPEC-0006 scheduling | `NFR-ACTION-RESPONSE-001`, `NFR-DESKTOP-STALL-001` | Runtime compositions | Budget, blocked-owner, timeout, and overload evidence |
+| `AC-CONCURRENCY-005` — cross-owner atomicity uses one coordinator and visible commit point | ARCHSPEC-0006 atomicity | `REQ-STATE-CONSISTENCY-001` | Semantic coordinator | Before/after-boundary failure injection and commit identity |
+| `AC-CONCURRENCY-006` — capacity is reserved before admission and exhaustion has deterministic backpressure | ARCHSPEC-0006 capacity | `REQ-CAPACITY-001`, `REQ-CAPACITY-002`, `REQ-CAPACITY-003` | Resource-owning modules | Capacity, reservation, rejection and release evidence |
+| `AC-CONCURRENCY-007` — failure is contained to the smallest safe semantic scope | ARCHSPEC-0006 failure containment | `REQ-SESSION-DISCONNECT-001`, `REQ-AUTH-AUDIT-WRITE-FAILURE-001` | Owning module and runtime composition | Owner failure matrix and affected-scope result |
+| `AC-CONCURRENCY-008` — startup, shutdown, and process loss preserve ownership and commit boundaries | ARCHSPEC-0006 process lifecycle | `REQ-AUTHORITY-TERMINAL-SETTLEMENT-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Runtime composition | Acquire/release order and process-loss sequence |
+| `AC-CONTENT-001` — each Scenario version has one immutable paired Runtime Content Release | ARCHSPEC-0007 release identity | `REQ-CONTENT-RELEASE-001`, `REQ-CONTENT-PAIR-001` | `Runtime Package` | Release, pair, role, hash and contract identities |
+| `AC-CONTENT-002` — cooking is deterministic, all-or-nothing, and provenance-complete | ARCHSPEC-0007 cooking; amended by ARCHSPEC-0013 | `REQ-CONTENT-PROCESSING-001`, `REQ-CONTENT-PROCESSING-RECORD-001` | Content Cooker Tool | Gate-step failures and processing record |
+| `AC-CONTENT-003` — signing trust is scoped by pack role and runtime contract | ARCHSPEC-0007 signing and trust | `REQ-CONTENT-SIGNING-001`, `REQ-CONTENT-TRUST-001` | Content Cooker and `Content Admission` | Trust-reference, signer-role and signature negatives |
+| `AC-CONTENT-004` — runtime activation is eager, immutable, explicit, and fail-fast | ARCHSPEC-0007 startup | `REQ-CONTENT-STARTUP-001`, `REQ-CONTENT-ACTIVATION-001` | `Content Admission` | Materialization and immutable-view publication |
+| `AC-CONTENT-005` — client and authority reject a mismatched role-pack pair before Admission | ARCHSPEC-0007 pair matching | `REQ-CONTENT-MISMATCH-001`, `REQ-CONTENT-PAIR-ATOMIC-001` | `Content Admission`, `AUTH & Admission` | Peer/release/pack correlation and rejection |
+| `AC-CONTENT-006` — one Session Authority process serves one Scenario and Training Session | ARCHSPEC-0007 process boundary | `REQ-SERVER-SESSION-001`, `REQ-AUTHORITY-SINGLE-SESSION-001` | Session Authority composition | Launch, session, terminal and exit identities |
+| `AC-CONTENT-007` — retention, update, rollback, and cleanup never mutate an active release | ARCHSPEC-0007 retention | `REQ-CONTENT-RETENTION-001`, `REQ-CONTENT-ROLLBACK-001` | `Runtime Package`, external provisioning | Activation history and later-process selection |
+| `AC-RESOURCE-001` — each semantic Runtime Resource has one persistent UUIDv4 identity, role-specific projection, and explicit authoring metadata | ARCHSPEC-0012 identity | `REQ-CONTENT-TRACEABILITY-001`, `REQ-CONTENT-PROCESSING-001` | `Runtime Package`, authoring tools | Metadata, move, rename, duplication, collision, Unicode, and role-projection vectors |
+| `AC-RESOURCE-002` — a closed type inventory and local typed references preserve one semantic owner and borrowed runtime access | ARCHSPEC-0012 type model | `REQ-CONTENT-PACK-ROLE-001`, `REQ-CONTENT-ACTIVATION-001` | Runtime-resource responsibility owners | Inventory closure, local reference, owner, handle, and prohibited-manager tests |
+| `AC-RESOURCE-003` — role-pack version one has one exact deterministic header, envelope, restricted manifest, extent, and Pack Core representation | ARCHSPEC-0012 pack format | `REQ-CONTENT-PAIR-001`, `REQ-CONTENT-VERSION-002` | `Runtime Package` | Golden, malformed, ordering, range, version, and cross-platform byte vectors |
+| `AC-RESOURCE-004` — version-one trust uses Ed25519, SHA-256, full key identity, scoped authorization, and no algorithm negotiation | ARCHSPEC-0012 signing | `REQ-CONTENT-SIGNING-001`, `REQ-CONTENT-TRUST-001`, `REQ-CONTENT-COMPATIBILITY-001` | `Runtime Package` and Content Cooker Tool | Signature, digest, key, role, contract, rotation, and algorithm-negative vectors |
+| `AC-RESOURCE-005` — authenticated external limits and owner budgets reserve complete capacity before payload processing | ARCHSPEC-0012 bounds | `REQ-RUNTIME-LAUNCH-SPECIFICATION-002`, `REQ-RUNTIME-READINESS-001` | `Content Admission`, resource-owning modules | Overflow, capacity function, reservation, attribution, and failure-precedence evidence |
+| `AC-RESOURCE-006` — one authenticated local DAG is completely materialized behind owner fences and published atomically | ARCHSPEC-0012 validation and publication | `REQ-CONTENT-ACTIVATION-001`, `REQ-CONTENT-VERSION-002` | `Content Admission`, resource-owning modules | Graph, materializer, GPU fence, failure cleanup, and zero-or-one publication tests |
+| `AC-RESOURCE-007` — the published view has no pack, content-I/O, mapping, reload, generation-replacement, or eviction dependency | ARCHSPEC-0012 publication | `REQ-CONTENT-IMMUTABILITY-001` | `Content Admission`, resource-owning modules | Post-readiness open/read negatives, pack mutation, handle lifetime, and shutdown evidence |
+| `AC-RESOURCE-008` — deterministic Pack Cores and one atomic pair-publication commit preserve reproducibility and all-or-nothing releases | ARCHSPEC-0012 cooking; amended by ARCHSPEC-0013 | `REQ-CONTENT-PROCESSING-001`, `REQ-CONTENT-PAIR-ATOMIC-001` | Content Cooker Tool | Repeat-cook core comparison and every before/after publication failure boundary |
+| `AC-RESOURCE-009` — initial synchronous buffered I/O remains until an approved startup target and dual-platform evidence justify compression or async | ARCHSPEC-0012 I/O | `PREFERENCE-PLATFORM-PARITY-001`, `CONSTRAINT-NFR-TEAM-001` | `Runtime Package`, implementation team | Native cold/warm stage timings, memory peaks, common contract suite, and adoption disposition |
+| `AC-RESOURCE-010` — normative vectors, bounded fuzzing, failure injection, native determinism, and accumulating gates govern implementation admission | ARCHSPEC-0012 verification | `PROCESS-ARCHITECTURE-CONTRACT-001`, `PROCESS-ARCHITECTURE-VERIFICATION-001` | Implementation team and interface owners | Fixture identities, fuzz results, sanitizer results, native closure, and representative sequences |
+| `AC-TOOLING-001` — the Content Cooker is one finite offline Tool Release and never a product runtime | ARCHSPEC-0013 classification | `REQ-CONTENT-COOKER-TOOL-001`, `DEFERRED-CONTENT-COOKER-PLATFORM-001` | Content Cooker Tool | Interface and dependency inspection; runtime-lifecycle negatives |
+| `AC-TOOLING-002` — one closed immutable Cooking Job Specification is the sole source of execution-affecting values | ARCHSPEC-0013 identities | `REQ-COOKING-JOB-SPECIFICATION-001` | Content Cooker Tool | Golden schema, malformed input, environment, cwd, discovery, and override negatives |
+| `AC-TOOLING-003` — one exhaustive deterministic authoring snapshot isolates every cook from live-source mutation | ARCHSPEC-0013 snapshot | `REQ-CONTENT-PROCESSING-001` | Content Cooker Tool | Entry classification, collision, symlink, mutation, ordering, and digest evidence |
+| `AC-TOOLING-004` — Release Publisher durably exposes both packs and the processing record through one idempotent atomic commit | ARCHSPEC-0013 publication | `REQ-CONTENT-PAIR-ATOMIC-001`, `REQ-CONTENT-RELEASE-001` | Content Cooker Tool | Every commit boundary, retry equality, IdentityConflict, and staging-recovery evidence |
+| `AC-TOOLING-005` — cooking copies trusted job provenance and keeps signing secrets behind the private signing seam | ARCHSPEC-0013 signing and provenance | `REQ-COOKING-JOB-PROVENANCE-001`, `REQ-CONTENT-SIGNING-001` | Content Cooker Tool | Provenance-source, trust, key-identity, secret-absence, and signing-failure evidence |
+| `AC-RETENTION-001` — live Training Session state is ephemeral and non-restorable | ARCHSPEC-0008 ownership | `NON-GOAL-SESSION-SAVE-001`, `REQ-RUNTIME-REPLACEMENT-001` | Session Authority composition | Process-loss and restart negatives |
+| `AC-RETENTION-002` — each retained data class keeps its semantic owner and private persistence seam | ARCHSPEC-0008 ownership | `REQ-SESSION-EVIDENCE-001`, `PROCESS-EVIDENCE-RETENTION-001` | Semantic owner of each class | Owner, commit, custody and retention identities |
+| `AC-RETENTION-003` — Technical Removal withdraws only the disconnected Trainee and associated live items | ARCHSPEC-0008 client loss | `REQ-TECHNICAL-REMOVAL-003`, `REQ-TECHNICAL-REMOVAL-004` | `Session Lifecycle`, `Simulation` | Atomic removal and unaffected-participant evidence |
+| `AC-RETENTION-004` — content-signing, identity-package, identity-authority, and administrative-custody trust remain independently scoped | ARCHSPEC-0008 trust | `REQ-SESSION-EVIDENCE-TRUST-001`, `REQ-CONTENT-TRUST-001` | Each trust consumer | Trust-domain and cross-use negatives |
+| `AC-RETENTION-005` — ordinary retained export is asynchronous while canonical reconstruction integrity and terminal receipt retain their special failure rules | ARCHSPEC-0008 commit/export | `REQ-SESSION-EVIDENCE-003`, `REQ-SESSION-EVIDENCE-004` | Retained-evidence adapter, `Session Lifecycle` | Commit, buffer, loss, receipt and exit evidence |
+| `AC-RETENTION-006` — administrative recovery may finish idempotent export but never restore a Training Session | ARCHSPEC-0008 recovery | `REQ-RUNTIME-REPLACEMENT-001`, `NON-GOAL-SESSION-SAVE-001` | Administrative Tool Runtime | Candidate classification and duplicate/restart tests |
+| `AC-DEPLOYMENT-001` — the initial topology has explicit client and authority runtime classes plus separate finite offline tools | ARCHSPEC-0009 allocation; amended by ARCHSPEC-0013 | `CONSTRAINT-CLIENT-OS-001`, `CONSTRAINT-AUTHORITY-OS-001`, `REQ-CONTENT-COOKER-TOOL-001` | Runtime and tool compositions | Role/process/tool/host allocation evidence |
+| `AC-DEPLOYMENT-002` — platform capabilities are private responsibility-owned seams, not one Platform module | ARCHSPEC-0009 platform seams | `PREFERENCE-PLATFORM-PARITY-001`, `SCOPE-PRODUCT-001` | Each responsibility module | Adapter variation/failure contracts and public-type negatives |
+| `AC-DEPLOYMENT-003` — one immutable Runtime Launch Specification governs complete startup and readiness for each product runtime | ARCHSPEC-0009 launch | `REQ-RUNTIME-LAUNCH-SPECIFICATION-001`, `REQ-RUNTIME-READINESS-001` | Runtime composition | Exact selection, validation, capacity, endpoint and ProcessReady order |
+| `AC-DEPLOYMENT-004` — clients connect only to their assigned endpoint without discovery or fallback | ARCHSPEC-0009 connection | `REQ-SESSION-CONNECTION-001` | `Protocol & Replication` | Endpoint identity and discovery/fallback negatives |
+| `AC-DEPLOYMENT-005` — exact Deployment Compatibility Matrix combinations gate startup and communication | ARCHSPEC-0009 compatibility | `REQ-DEPLOYMENT-COMPATIBILITY-001`, `REQ-DEPLOYMENT-COMPATIBILITY-002` | Runtime composition, `Protocol & Replication` | Combination admission/rejection evidence |
+| `AC-DEPLOYMENT-006` — update and rollback select complete releases only for later processes | ARCHSPEC-0009 update/rollback | `REQ-APPLICATION-UPDATE-001`, `REQ-APPLICATION-ROLLBACK-001` | External provisioning | Candidate failure, activation and rollback history |
+| `AC-DEPLOYMENT-007` — external handoffs retain independent capacity, acknowledgement, loss, and failure contracts | ARCHSPEC-0009 handoffs | `REQ-SESSION-EVIDENCE-003`, `NFR-OBSERVABILITY-INTEGRITY-001` | Semantic owner of each handoff | Buffer, retry, acknowledgement, loss and exhaustion evidence |
+| `AC-DEPLOYMENT-008` — graceful shutdown and forced loss preserve terminal-settlement semantics | ARCHSPEC-0009 shutdown | `REQ-AUTHORITY-TERMINAL-SETTLEMENT-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Runtime composition, `Session Lifecycle` | Shutdown phase, receipt, cleanup and exit classification |
+| `AC-DEPLOYMENT-009` — permissive development AUTH preserves the seam without producing security evidence | ARCHSPEC-0009 development AUTH | `REQ-AUTH-DEVELOPMENT-ADAPTER-001` through `REQ-AUTH-DEVELOPMENT-ADAPTER-003` | `AUTH & Admission` | Mode, ordering, failure and prohibited-effect tests |
+| `AC-DEPLOYMENT-010` — production security and platform operations remain named future baselines | ARCHSPEC-0009 future boundaries | `DEFERRED-PRODUCTION-SECURITY-001`, `DEFERRED-PLATFORM-OPERATIONS-001` | Future baseline owners | Scope inspection; no Development evidence can pass them |
+| `AC-CROSSCUTTING-001` — decision, applicability, realization, and evidence states remain independent | ARCHSPEC-0010 status | `PROCESS-ARCHITECTURE-CLAIM-003`, `PROCESS-ARCHITECTURE-CLAIM-004` | Architecture owner | Claim-state combinations and inference negatives |
+| `AC-CROSSCUTTING-002` — execution configuration is immutable, explicit, responsibility-validated, and future-process-only | ARCHSPEC-0010 configuration | `REQ-RUNTIME-LAUNCH-SPECIFICATION-001`, `REQ-RUNTIME-LAUNCH-SPECIFICATION-002` | Each module; runtime composition aggregates | Selection identity, validation, publication and mutable-default negatives |
+| `AC-CROSSCUTTING-003` — interface failures cross as stable Sacramento outcomes while native diagnostics remain private | ARCHSPEC-0010 outcomes | `REQ-RUNTIME-EXTERNAL-LIFECYCLE-001`, `REQ-ADMISSION-FAILURE-001` | Interface owner | Operation, category, affected scope, retry and diagnostic-containment evidence |
+| `AC-CROSSCUTTING-004` — resource owners acquire, publish, transfer, and release in declared bounded order | ARCHSPEC-0010 resources | `REQ-RUNTIME-READINESS-001`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Resource-owning module | Acquire/publish/release and cleanup injection |
+| `AC-CROSSCUTTING-005` — all adapters at a seam satisfy one contract suite without product-visible test bypasses | ARCHSPEC-0010 test interfaces | `PROCESS-ARCHITECTURE-CONTRACT-001` | Interface owner | Shared suite, adapter matrix, bypass and private-state negatives |
+| `AC-CROSSCUTTING-006` — static, contract, native executable, and representative-sequence verification layers accumulate | ARCHSPEC-0010 verification | `PROCESS-ARCHITECTURE-VERIFICATION-001` | Implementation team | Layer-specific records and prohibited substitution cases |
+| `AC-CROSSCUTTING-007` — executable closure requires native execution from only the declared immutable dependency closure | ARCHSPEC-0010 executable closure | `PROCESS-ARCHITECTURE-EXECUTABLE-001`, `REQ-APPLICATION-RELEASE-001` | Implementation team | Native role runs and dependency negatives |
+| `AC-CROSSCUTTING-008` — the six representative sequences cover architecture-dominating composition outcomes | ARCHSPEC-0010 verification | `PROCESS-ARCHITECTURE-VERIFICATION-001` | Runtime compositions and implementation team | Sequence identities, outcomes, commit points and affected scopes |
+| `AC-CROSSCUTTING-009` — evidence hooks report attributable facts and never assign verification Pass | ARCHSPEC-0010 evidence hooks | `PROCESS-EVIDENCE-DISPOSITION-001`, `NFR-OBSERVABILITY-INTEGRITY-001` | Seam owner; verification process disposes | Operation/version/correlation/loss facts and disposition-source negative |
+| `AC-CROSSCUTTING-010` — historical: approved global dependency inventory; superseded by AC-CROSSCUTTING-013 | ADR-0014 migration | `PROCESS-EVIDENCE-DEPENDENCY-001` through `PROCESS-EVIDENCE-CHANGE-006` | Project owner | Historical record only |
+| `AC-CROSSCUTTING-011` — historical: mandatory linked view-control set; superseded by AC-CROSSCUTTING-014 | ADR-0014 migration | `PROCESS-ARCHITECTURE-DESCRIPTION-001`, `PROCESS-ARCHITECTURE-UPDATE-001` | Project owner | Historical record only |
+| `AC-CROSSCUTTING-012` — historical: ordered inventory approval blockers; superseded by AC-CROSSCUTTING-015 | ADR-0014 migration | `PROCESS-DOCUMENTATION-INVENTORY-001`, `PROCESS-TRACEABILITY-INVENTORY-001`, `PROCESS-EVIDENCE-DEPENDENCY-001` | Project owner | Historical record only |
+| `AC-CROSSCUTTING-013` — impact uses actual dependencies and conservative reruns without global graph approval | ADR-0014 | `VERIFY-CHANGE-001` | Implementation team | Affected/uncertain reruns and reproducible invariant-result reasoning |
+| `AC-CROSSCUTTING-014` — tailored arc42, C4/UML and linked ADRs explain architecture without fixed per-view controls | ADR-0014 | `DOC-MAINTENANCE-001` | Project owner | Source/preview provenance, links and behavior walkthroughs |
+| `AC-CROSSCUTTING-015` — generated document/artifact/reference indexes replace mechanical inventory approval cycles | ADR-0014 | `DOC-MAINTENANCE-001` | Implementation team | Source-population, trace/state and broken-reference checks |
+| `AC-MEMORY-001` — CPU requested, allocator capacity, process private commit, process resident memory, and GPU usage and budget remain distinct quantities | ARCHSPEC-0011 quantities | `REQ-RUNTIME-EXTERNAL-LIFECYCLE-001`, `NFR-DESKTOP-SMOOTHNESS-001` | Runtime compositions and resource-owning modules | Attributable counters, samples, provenance, and prohibited aggregate gauge |
+| `AC-MEMORY-002` — memory accounting separates canonical owner, lifetime domain, and resource without creating a second product decomposition | ARCHSPEC-0011 accounting | `SCOPE-PRODUCT-001`, `REQ-STATE-CONSISTENCY-001` | Resource-owning modules | Exactly-one ownership, aggregation, transfer, Third Party, and Untracked cases |
+| `AC-MEMORY-003` — a Sacramento seam and explicit Memory Resource Context preserve allocator identity and attribution across asynchronous execution | ARCHSPEC-0011 CPU seam and propagation | `REQ-STATE-CONSISTENCY-001`, `PREFERENCE-PLATFORM-PARITY-001` | Resource-owning modules and runtime compositions | Alignment, failure, deallocator, continuation, and work-stealing contracts |
+| `AC-MEMORY-004` — each Memory Lifetime Domain has an explicit release fence consistent with session and evidence ownership | ARCHSPEC-0011 lifetimes | `REQ-SESSION-EVIDENCE-001`, `REQ-SESSION-EVIDENCE-002`, `REQ-AUTHORITY-TERMINAL-SHUTDOWN-001` | Resource-owning modules | Acquire, publish, transfer, fence, bulk-reset, and release sequences |
+| `AC-MEMORY-005` — permanent memory accounting is bounded and non-recursive while allocation detail remains Diagnostic | ARCHSPEC-0011 accounting detail | `NFR-OBSERVABILITY-BUILD-PARITY-001`, `NFR-OBSERVABILITY-INTEGRITY-001`, `NFR-DESKTOP-STALL-001` | Resource-owning modules and `Observability` | Counter invariants, bounded buffers, explicit loss, CoreOnly negatives, and overhead evidence |
+| `AC-MEMORY-006` — responsibility-owned immutable budgets and resource-class failure rules are validated before ProcessReady | ARCHSPEC-0011 budgets | `REQ-RUNTIME-LAUNCH-SPECIFICATION-001`, `REQ-RUNTIME-LAUNCH-SPECIFICATION-002`, `REQ-RUNTIME-READINESS-001`, `REQ-SESSION-EVIDENCE-002` | Resource-owning modules and runtime compositions | Budget identity, reservation, rejection, eviction negatives, and canonical failure boundaries |
+| `AC-MEMORY-007` — Presentation owns a separate GPU allocation seam and reports logical, physical, deferred, usage, and budget quantities separately | ARCHSPEC-0011 GPU memory | `NFR-DESKTOP-SMOOTHNESS-001`, `CONSTRAINT-PLATFORM-MATRIX-001`, `PREFERENCE-PLATFORM-PARITY-001` | `Presentation` | GPU heap, suballocation, alias, fence, residency, and ownership evidence |
+| `AC-MEMORY-008` — allocator specialization requires representative native end-to-end evidence and preserves existing quality and diagnostic obligations | ARCHSPEC-0011 adoption evidence | `NFR-DESKTOP-SMOOTHNESS-001`, `NFR-DESKTOP-STALL-001`, `NFR-ACTION-RESPONSE-001`, `CONSTRAINT-NFR-TEAM-001` | Implementation team and resource-owning modules | Native workloads, trace replay, soak, tails, footprint, determinism, and tool compatibility |
+| `AC-MEMORY-009` — after ProcessReady, Measured Real-Time Hot Loops never reach the general-purpose heap or grow backing storage | ARCHSPEC-0011 adoption evidence | `NFR-DESKTOP-SMOOTHNESS-001`, `NFR-DESKTOP-STALL-001`, `NFR-ACTION-RESPONSE-001` | Resource-owning modules | Design inventory, profiling coverage, heap-call interception, capacity, fallback, and exhaustion evidence |
 
-The Baseline Artifact and Evidence Dependency Inventories must expand every
-requirement range above to exact identifiers before evidence can pass.
+The claim CSV retains exact requirement relations; the Markdown ranges above
+are explanatory shorthand. Retired process references resolve through the
+[migration map](../project/documentation-migration.csv).
+
 
 ## Software Architecture Description view set
 
-The future description has one lean, linked view set:
-
-| View | Principal concern | Authoritative inputs |
-| --- | --- | --- |
-| Document control and reading guide | Status, audience, stakeholder routes, notation, ownership, and view map | Documentation Inventory and architecture guidance |
-| System context and allocation | Product boundary, people, neighboring systems, deployable units, platforms, and external seams | Requirements, ADR-0008, ADR-0009 |
-| Module and dependency structure | Responsibility modules, interfaces, adapters, allowed dependencies, and variation seams | ADR-0003, ADR-0004, ADR-0010 |
-| Runtime lifecycle and sequences | Startup, Admission, preparation, Canonical Ticks, completion, failure, shutdown, and replacement | ADR-0005 through ADR-0010 |
-| Concurrency and ownership | Execution domains, exclusive mutable owners, handoffs, fences, waits, and failure scopes | ADR-0005, ADR-0006, ADR-0008 |
-| Content, trust, and retained-evidence paths | Cook-to-runtime flow, immutable selection, trust domains, commit points, custody, and cleanup | ADR-0007 through ADR-0010 |
-| Cross-cutting policies | Configuration, outcomes, resources, testing, security applicability, Observability, and evidence hooks | ADR-0006 through ADR-0010 |
-| Verification and traceability | Claim mappings, contract surfaces, executable closure, sequences, status, and evidence impact | Verification Plan, inventories, ADR-0010 |
-| Risks, debt, assumptions, and open work | Known limitations, blockers, future baselines, issues, and replacement triggers | ADRs, requirements, evidence, and issue tracker |
-
-Each view states purpose, scope, stakeholders, notation, prerequisites,
-authoritative inputs, claim mappings, inter-view relationships, owner, and
-update triggers. The project owner remains the canonical information owner; the
-implementation team maintains the description. A governing requirement, ADR,
-claim, interface, inventory disposition, or evidence-dependency change triggers
-review of every reachable view and retained architecture evidence.
+The [architecture entry point](software-architecture-description.md) uses tailored
+arc42 sections, C4 context/container diagrams and selected UML sequences. Detailed
+contracts remain linked. The [view migration](../project/architecture-view-migration.csv)
+maps former EDI-VIEW identifiers to current section anchors for design traceability.
+There is no fixed view count or repeated per-view control table.
 
 ## Inventory and closure boundary
 
-The Documentation Inventory is established with this decision and reconciles
-the retained repository documents. Its validator checks structural facts but
-cannot decide semantic ownership or approval.
+ADR-0014 replaces the former three-inventory approval sequence with generated
+navigation and direct checks. Applicability, claim states, Design Commitments and
+requirement-specific acceptance criteria remain canonical semantic records.
+Structural checks cannot approve a product baseline or prove dependency completeness.
 
-The following inventories remain separate prerequisite work:
-
-1. Baseline Applicability Inventory;
-2. Baseline Artifact Inventory; and
-3. Evidence Dependency Inventory, after the authoritative category inventories
-   on which it depends.
-
-The approved inventories and SAD establish structural closure but do not by
-themselves satisfy product realization or evidence obligations. Their absence
-would block baseline approval and any complete architecture-evidence claim;
-their presence keeps those remaining blockers explicit and traceable.
-
-No focused prototype is currently required. Dependency qualification,
-Reference Workload Profiles and deterministic replay artifacts, unpopulated
-normative catalogues and profiles, product realization and evidence,
-production security, and platform operations remain explicit blockers or
-future work.
+Dependency qualification, reference workloads and deterministic replay artifacts,
+unpopulated profiles/catalogues, product realization and native evidence remain
+explicit blockers. Production security and platform operations remain future.
 
 ## Considered options and consequences
 
-A generic cross-cutting framework was rejected because it would centralize
-unrelated meaning, enlarge one interface, and weaken responsibility locality.
-Responsibility ownership duplicates no policy: shared stable conventions are
-documented once while each module owns its semantic decisions and adapters.
+A generic cross-cutting framework would centralize unrelated meaning and weaken
+responsibility ownership. Runtime hooks cannot assign Pass, and accepted decisions
+cannot imply realization. Representative composition sequences complement local
+contract variations; an exhaustive narrative catalogue adds duplication.
 
-Inferring inventory closure from repository paths or the generated
-verification-assignment CSV was rejected because neither proves canonical
-ownership, applicability, artifact coverage, or dependency completeness.
-
-Treating an accepted decision as implementation or evidence was rejected
-because it creates unsupported acceptance claims. Allowing runtime hooks to
-assign `Pass` was rejected because product execution cannot approve its own
-verification result.
-
-An exhaustive narrative sequence catalogue was rejected because contract
-variations cover local failures with less duplication. The selected sequences
-exist only where composition, ownership, ordering, or failure scope is the
-architectural concern.
-
-Production security mechanisms and platform-operations design were rejected
-from this decision because their named future baselines have different owners,
-inputs, risks, and acceptance evidence. Preserving their stable seams now
-avoids a future architectural reversal without pretending those adapters
-exist.
-
-The result is a smaller interface surface and an honest closure state, at the
-cost of explicit claim maintenance, conservative reverification, native
-closure runs, and three substantial inventory efforts before baseline
-approval. Those costs buy locality, traceability, and change-impact safety for
-a team of no more than two concurrent human generalists.
+ADR-0014 changes the administrative trade-off: indexes are generated, and uncertain
+impact requires conservative reruns instead of claiming a complete manually
+approved graph. This preserves locality and traceability while reducing solo
+maintenance. The original inventory rationale remains in Git history.
 
 ## Trace
 
-This decision traces principally to `PROCESS-TRACEABILITY-001` through
-`PROCESS-TRACEABILITY-INVENTORY-003`, `PROCESS-ARCHITECTURE-CLAIM-001` through
-`PROCESS-ARCHITECTURE-UPDATE-001`, `PROCESS-DOCUMENTATION-INVENTORY-001`
-through `PROCESS-DOCUMENTATION-INVENTORY-006`,
-`PROCESS-EVIDENCE-DEPENDENCY-001` through
-`PROCESS-EVIDENCE-DEPENDENCY-009`, `PROCESS-EVIDENCE-CHANGE-001` through
-`PROCESS-EVIDENCE-CHANGE-006`, `NFR-OBSERVABILITY-BUILD-PARITY-001`,
-`NFR-OBSERVABILITY-CORE-001`, `CONSTRAINT-NFR-TEAM-001`, and the runtime,
-content, persistence, and deployment requirements traced by ADR-0003 through
-ADR-0009.
+Product contracts retain the Architecture Claim traces above. Current documentary
+controls are `DOC-MAINTENANCE-001` and `VERIFY-CHANGE-001`; replaced process
+identifiers have explicit dispositions in the migration map. Runtime, content,
+persistence, deployment and Observability requirements are unchanged.

@@ -7,8 +7,8 @@ language, requirements, architecture, or verification obligations.
 
 1. Search for every affected term and stable identifier. Prefer the defining
    Markdown section over a CSV occurrence or cross-reference.
-2. Read the document control block and the defining section for each affected
-   branch. Expand to the whole document when the task spans the whole baseline.
+2. Read the source's status and the defining section for each affected branch.
+   Do not make full-corpus reading a prerequisite to a scoped change.
 
    | Branch | Canonical source |
    | --- | --- |
@@ -25,9 +25,10 @@ language, requirements, architecture, or verification obligations.
    | Architectural decision | The relevant concise file under `docs/adr/` |
    | Detailed architectural contract or trace | The ADR-linked file under `docs/architecture/` |
 
-3. Limit reading to the branches involved. For architecture, read the ADR first
-   and disclose its detailed specification when the task reaches its contracts,
-   consequences, traces, or unresolved evidence.
+3. Limit reading to the branches involved. For architecture, start with
+   `docs/architecture/software-architecture-description.md`; open only the relevant
+   ADR or exact contract. For a requirement use
+   `python3 scripts/documentation.py requirement <identifier>` to find its criteria.
 4. Treat `docs/research/` as historical input. Resolve conflicts in favor of
    the canonical source identified by the Documentation Inventory.
 
@@ -39,9 +40,10 @@ language, requirements, architecture, or verification obligations.
   requirement, profile, decision, or claim.
 - Preserve each source's status: the approved baseline remains authoritative
   until its candidate successor is approved.
-- Use the verification-assignment CSV as an index into its source requirements
-  and plan. Interpret the applicability CSV together with its Markdown control
-  document.
+- The acceptance catalogue owns requirement-specific method/evidence assignments;
+  tests own executable examples, not duplicate prose. Interpret applicability with
+  its short control page. Retired process IDs resolve through
+  `docs/project/documentation-migration.csv`, never through obsolete instructions.
 - Treat an absent concept as a possible model gap. Name the gap instead of
   introducing an unreviewed synonym.
 - Surface a conflict with an accepted ADR before proposing a successor; keep

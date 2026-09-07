@@ -9,13 +9,7 @@ from runtime lifecycle scope, project owner, 2026-09-04
 
 Purpose: Record the runtime deployment boundary.
 
-Scope: Deployable units, launch, readiness, compatibility, handoffs, and shutdown.
-
-Intended readers: Architects, implementers, operators, and infrastructure owners.
-
-Prerequisites: ADR-0003 through ADR-0008.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 

@@ -2,25 +2,16 @@
 
 Status: Candidate successor design; project-owner approval pending
 
-Last meaningful change: 2026-09-04
+Last meaningful change: 2026-09-05
 
 Purpose: Define the exact process-control, bootstrap, Runtime Launch
 Specification, startup, failure, and acceptance contracts shared by Session
 Authority and Trainee Client executables.
 
-Scope: Framing, schemas, states, commands, startup order, ownership,
-cancellation, shutdown, exit projection, and acceptance. Training Session
-behavior, Observability payloads, and offline tools are excluded.
+Review focus: Changed runtime semantics and verification criteria under ADR-0014;
+no fixed reviewer count or full-package reread is required for a routine edit.
 
-Intended readers: Runtime designers, implementers, verification authors,
-operators, and infrastructure owners.
-
-Required reviewers: Runtime-design reviewer and verification-design reviewer.
-
-Prerequisites: SDB-002, SAD-003, ARCHSPEC-0006, ARCHSPEC-0009, ARCHSPEC-0010,
-and the requirements traced by `DC-PROCESS-*` in `SDB-002-DC`.
-
-Canonical information owner: Runtime composition.
+Owner: Runtime composition.
 
 ## Boundary and ownership
 
@@ -46,7 +37,7 @@ SDD.
 | `uint` | RFC 8949 unsigned integer in shortest encoding. |
 | `null` | Exact byte `f6`. |
 | `Identity` | NFC UTF-8 text, 1–128 bytes, with no control, slash, backslash, or NUL. |
-| `Path` | NFC UTF-8 text, 1–4,096 bytes, with no NUL; relative to the owning specification's directory. |
+| `Path` | Portable relative path encoded as NFC UTF-8 text, 1–4,096 bytes. `/` is the only separator; the first byte is not `/`; each segment is nonempty and is neither `.` nor `..`; no segment contains NUL, `\`, or a control character. Resolution is lexical concatenation to the canonical directory containing the owning specification followed by a containment check; escape and symlink traversal are rejected. The resolved host path is never re-encoded into a governed identity. |
 | `Endpoint` | NFC UTF-8 text, 1–512 bytes, with no control or whitespace. |
 | `Digest` | Exactly 32 SHA-256 bytes. |
 | `IdentityList` | Definite array of 1–64 unique identities sorted by encoded bytes. |
@@ -68,14 +59,19 @@ session_authority --bootstrap <bootstrap-path>
 trainee_client --bootstrap <bootstrap-path>
 ```
 
-No other argument, environment variable, or current-directory state affects
-selection. The immutable Runtime Bootstrap is this closed map:
+`<bootstrap-path>` is one absolute host path. Relative paths, an empty path,
+more or fewer arguments, and option aliases are rejected before file access.
+The executable opens that exact path without search; therefore environment and
+current-directory state cannot affect selection. The canonical bootstrap
+directory is the parent of the opened file after the host has resolved the
+absolute path without following a final symlink. The immutable Runtime
+Bootstrap is this closed map:
 
 | Key | Field | Type and rule |
 | --- | --- | --- |
 | `0` | contract version | `uint`, exactly `1` |
 | `1` | Process Execution Identity | `Identity` |
-| `2` | Runtime Launch Specification path | `Path`, relative to bootstrap |
+| `2` | Runtime Launch Specification path | `Path`, relative to the canonical bootstrap directory |
 | `3` | expected specification identity | `Identity`, equal to launch key `1` |
 | `4` | expected specification digest | `Digest`, equal to SHA-256 of launch bytes |
 
@@ -118,7 +114,7 @@ Training Session identity, expected Session Authority Identity, required-device
 IdentityList, required-output IdentityList, retry map, and departure-confirmation
 bound `1..600000` ms. Retry keys are maximum attempts `1..16`, initial delay
 `0..60000` ms, backoff numerator and denominator `1..16`, and total bound
-`1..600000` ms. No delay exceeds the remaining total bound.
+`1..600000` ms. SDD-0003 defines the sole interpretation of these values.
 
 Development AUTH requires a closed Synthetic Identity map: Authority key `0`
 is its Session Authority Synthetic Identity; Client keys `0` and `1` are
@@ -184,10 +180,15 @@ Terminal codes are, in order, `WorkCompleted`, `ShutdownRequested`,
 
 Starting requires capacity `0` and null conditional fields. Ready requires
 capacity `1`, no failure or terminal fields, and role-applicable session and
-endpoint. NotReady requires capacity `0` or `2`, one readiness failure, and no
-endpoint or terminal fields. Stopping requires capacity `1`, one terminal
-reason, and null exit. Terminated requires a terminal reason and its exact exit;
-Authority also supplies its applicable settlement identity.
+endpoint. NotReady permits capacity `0`, `1`, or `2`, requires one readiness
+failure, and has no endpoint, terminal reason, settlement, or exit. Stopping
+requires capacity `1`, null readiness failure, one terminal reason, and null
+exit. Terminated has exactly one of two forms: readiness termination preserves
+the NotReady failure and capacity, has null terminal reason and settlement, and
+uses exit `20`; runtime termination has null readiness failure, one terminal
+reason and its exact exit, and preserves capacity `1`. Authority supplies a
+settlement identity only when Preparation committed and settlement produced an
+identity; all other cases use null.
 
 ## Normative golden vectors
 
@@ -227,12 +228,43 @@ Both runtimes execute one staging transaction:
 7. publish the complete Ready frame; and
 8. begin role work, enabling Authority accept or initiating Client connection.
 
+`DC-PROCESS-006` and `DC-PROCESS-011` incorporate the following cancellation
+contract. The only pre-commit cancellable adapter operations are complete
+immutable-file read-and-hash, role-pack materialization, trust-reference materialization,
+private-resource materialization, and nonaccepting endpoint bind. A Client
+connection attempt and Authority settlement are cancellable only after Ready
+under their role-specific contracts. Each cancellable call either returns one
+complete owned result or `Cancelled` with no result or externally visible
+partial effect. Owner `prepare` may observe cancellation only while awaiting
+one of those injected calls. No cancellation is sampled from the start of step
+5 through completion of step 7; an I/O failure is still handled as failure.
+
 Before step 5, failure releases handles and effects in exact reverse order. A
 failure in a supposedly infallible commit is `InternalFailure` and a design-
 conformance failure; committed state is not rolled back. Cancellation is
-sampled only between numbered phases and at declared cancellable adapter
-operations. Process bounds use a monotonic clock. Only Authority uses the
-Operational Clock for Training Session deadlines.
+sampled only between phases 1–4 and at the listed cancellable operations.
+Process bounds use a monotonic clock. Only Authority uses the Operational Clock
+for Training Session deadlines.
+
+`DC-PROCESS-014` incorporates the following closed readiness population. A row
+naming a list means every identity selected by that finite launch list; an
+empty destination list contributes no destination.
+
+| Role | Required population before Ready |
+| --- | --- |
+| Authority | Process Control and Observability adapters; Runtime Package, Content Admission, Simulation, Scenario, AUTH & Admission, Protocol & Replication, and Session Lifecycle owners; bootstrap and Authority launch views; Application Release, Runtime Content Release, Authority Pack, Deployment Compatibility Matrix, Approved Profile, configuration, Content Signing Trust Reference, Observability Contract, Scenario, Training Session, required-capability-policy, external-custody-destination, and terminal-settlement-destination views; all eight capacity reservations; role-private materialization; nonaccepting endpoint bind; all owner commits; one canonical Preparation commit; complete Ready publication. |
+| Client | Process Control and Observability adapters; Runtime Package, Content Admission, Prediction, Presentation/output, Input & Interaction, Protocol & Replication, and AUTH & Admission owners; bootstrap and Client launch views; Application Release, Runtime Content Release, Client Pack, Deployment Compatibility Matrix, Approved Profile, configuration, Content Signing Trust Reference, Observability Contract, target Training Session, expected Session Authority, required-device, required-output, retry, departure-confirmation, and external-custody-destination views; all eight capacity reservations; role-private materialization; all owner commits; one Local Client Preparation commit; complete Ready publication. |
+
+`DC-PROCESS-015` incorporates the following shared-module constraint. Shared
+implementation is limited to Process Control framing and payload types,
+bootstrap and launch decoding, lifecycle-handle primitives, bounded channel
+primitives, and monotonic deadline arithmetic. Its production dependency graph
+MUST NOT contain Authority, Client, Content Cooker, Simulation, Scenario, AUTH &
+Admission, Prediction, Presentation, or Input & Interaction owner interfaces or
+implementations. Apart from decoding the closed role-tagged launch union, it
+MUST NOT branch to select, construct, order, start, stop, or mutate a role
+owner. A registry or factory indexed by role, owner name, or runtime type is a
+service locator and is prohibited.
 
 Primary readiness failure precedence is the code order above. Secondary facts
 are bounded diagnostics. Pre-ready control failure cleans up and uses NotReady;
@@ -258,8 +290,9 @@ reopened or replaced.
   byte-for-byte to the codecs and bounds in this SDD.
 - `DC-PROCESS-009`: the codec MUST reserve specification-selected inbound,
   outbound, and terminal capacity before readiness without unbounded writes.
-- `DC-PROCESS-010`: standard output MUST contain only complete Process Control
-  frames.
+- `DC-PROCESS-010`: standard-output publication MUST either complete one whole
+  Process Control frame or, after a terminal native write error, invalidate and
+  close the channel without publishing its strict prefix as a message.
 - `DC-PROCESS-011`: cancellation MUST be observed only at declared boundaries
   using a monotonic timeout source.
 - `DC-PROCESS-012`: the composition root MUST inject native adapters without a
@@ -303,16 +336,16 @@ monotonic timestamps where relevant, process exit, and test-binary identity.
 | --- | --- | --- |
 | `DAC-PROCESS-001` | Valid v1 launch; inspect every lifecycle surface. | Only framed inherited control is reachable; no native type or alternate channel. |
 | `DAC-PROCESS-002` | Mutate bootstrap path, identity, and digest separately. | Failure 1, NotReady, cleanup, exit 20; no owner prepare or Ready. |
-| `DAC-PROCESS-003` | Drive every valid and invalid state edge. | Three paths emit once; every other edge and duplicate is rejected. |
-| `DAC-PROCESS-004` | Inject EOF, corruption, version mismatch, and short write immediately before/after Ready. | Pre-ready rejection or post-ready shutdown as applicable; no reopen or committed-result revision. |
+| `DAC-PROCESS-003` | Drive every valid and invalid state edge and both Terminated forms. | Three paths emit once; readiness termination preserves its failure with null terminal reason and exit 20; runtime termination preserves its terminal reason; every other edge, field combination, and duplicate is rejected. |
+| `DAC-PROCESS-004` | Inject EOF, corruption, version mismatch, partial positive-progress writes, and a terminal write error after a strict frame prefix immediately before/after Ready. | Partial progress is assembled to one complete frame; terminal error closes and invalidates the stream, the reader discards its strict prefix, and containment is pre-ready rejection or post-ready shutdown as applicable; no prefix is published as a message, no channel reopens, and no committed result is revised. |
 | `DAC-PROCESS-005` | Send correlation 42 twice after filling ordinary output. | First is PCV-002; duplicate disposition is 2; reserved output remains available. |
-| `DAC-PROCESS-006` | Fail, cancel, or throw at each startup phase. | Reverse cleanup before commit; no early Ready; one deterministic primary failure. |
+| `DAC-PROCESS-006` | Fail each phase; cancel at every permitted phase boundary and listed cancellable call; inject a conformance-violating throw at each commit. | Reverse cleanup before commit; cancellation is deferred from phase 5 through Ready; conformance violations become InternalFailure without rollback of committed state; no early Ready; one deterministic primary failure. |
 | `DAC-PROCESS-007` | Terminate once for every failure and terminal reason. | Every process exit equals the declared projection; no alternate code. |
 | `DAC-PROCESS-008` | Round-trip RBV-001, RLV-001..002, PCV-001..006, and payload sizes 0, 4,072, 4,073. | Positive bytes are identical; negative inputs fail before excess allocation. |
 | `DAC-PROCESS-009` | Use min/max capacities, fill ordinary queues, request shutdown. | Reservation precedes Ready; overflow is stable; terminal output remains available; no growth. |
-| `DAC-PROCESS-010` | Emit diagnostics and Observability in every state. | Stdout parses entirely as v1 frames with no text or trailing byte. |
-| `DAC-PROCESS-011` | Cancel inside/between phases with fake monotonic and changed wall clock. | Cancellation occurs only at declared boundary and bound; wall clock has no effect. |
+| `DAC-PROCESS-010` | In executions without terminal native write failure, emit diagnostics and Observability in every state and force every positive partial-write pattern. Separately reuse the terminal-prefix cases from criterion 4. | Successful stdout parses entirely as v1 frames with no text or trailing byte; partial progress completes its frame; terminal-prefix executions close an invalid stream and expose no prefix to the message consumer. |
+| `DAC-PROCESS-011` | Request cancellation at every phase boundary, during every listed cancellable adapter call, and during each noncancellable commit/Ready operation with fake monotonic and changed wall clock. | Cancellation occurs only at a declared point, each cancelled call leaves no partial owned result, phase 5–7 defers it until Ready, and wall clock has no effect. |
 | `DAC-PROCESS-012` | Inspect dependencies and substitute each real adapter. | All adapters enter at root; no registry, global owner, or native seam leakage. |
 | `DAC-PROCESS-013` | Mutate maps with every prohibited encoding or value. | Rejection occurs before prepare with deterministic classification. |
-| `DAC-PROCESS-014` | Remove each required module, view, capacity, adapter, effect, destination. | No Ready; each case produces NotReady, cleanup, and nonzero exit. |
-| `DAC-PROCESS-015` | Inspect production target and symbol graph. | Shared targets own process types/codec only and never select or mutate role owners. |
+| `DAC-PROCESS-014` | For each row of the closed readiness table, omit each scalar entry and each member of every selected finite list in turn; fail each listed effect or commit. | No Ready; each case produces NotReady followed by readiness Terminated exit 20, cleanup where reversible, and no role work. Empty optional destination lists add no case. |
+| `DAC-PROCESS-015` | Inspect production dependency/symbol graphs and exercise both closed launch variants. | Shared targets contain only the enumerated shared population, no prohibited owner dependency or indexed registry/factory, and no role-policy branch other than decoding the role-tagged launch union. |

@@ -1,0 +1,33 @@
+@startuml
+title Canonical Tick — candidate / commit / publication
+hide footbox
+autonumber
+participant "Protocol & Replication" as Protocol
+participant "Simulation\n(authoritative coordinator)" as Sim
+participant "Scenario / Session Lifecycle" as Owners
+participant "Reconstruction evidence" as Evidence
+participant "Committed-view consumers" as Views
+Protocol -> Sim : eligible Intentions
+Sim -> Sim : seal intake; stable ordering
+Sim -> Owners : derive candidate effects
+Owners --> Sim : candidate effects (not published)
+Sim -> Evidence : reserve mandatory reconstruction capacity
+alt candidate rejected before commit
+  Sim -> Sim : discard candidate; no Tick/time/state advance
+  note over Sim,Evidence : Mandatory reconstruction-capacity failure\nterminates the session; it is not silent data loss.
+else candidate can commit
+  group one authoritative commit point
+    Sim -> Sim : commit state + Tick + Simulated Time\n+ events + reconstruction record atomically
+  end
+  alt publication succeeds
+    Sim -> Views : publish immutable committed version
+  else failure after commit
+    Sim -> Sim : complete publication OR terminate technical failure
+    note over Sim,Views : Never roll back the committed Tick\nor expose a partially authoritative Tick.
+  end
+end
+note over Protocol,Views
+  The Tick never waits for clients, Observability or external export.
+  Prediction and Presentation run independently and cannot author outcomes.
+end note
+@enduml

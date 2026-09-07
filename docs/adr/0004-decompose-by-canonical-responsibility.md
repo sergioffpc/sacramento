@@ -12,13 +12,7 @@ ownership explicit. The detailed specification records their exact effects.
 
 Purpose: Record the module-decomposition decision.
 
-Scope: Architecture-level responsibility, dependency direction, and runtime composition.
-
-Intended readers: Architects, designers, and implementers.
-
-Prerequisites: ADR-0003.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 

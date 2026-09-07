@@ -106,6 +106,13 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 ## Goal traceability
 
+Document administration now follows
+[DOC-MAINTENANCE-001](../project/documentation-policy.md); incremental acceptance
+follows the [acceptance workflow](training-simulation-verification-plan.md).
+Retired process identifiers have explicit dispositions in the
+[migration map](../project/documentation-migration.csv). Product requirements,
+scope and specialist acceptance meanings are unchanged by ADR-0014.
+
 | Goal or boundary | Requirement coverage | Concrete validation anchor |
 | --- | --- | --- |
 | `GOAL-TRAINING-001` | Session lifecycle; Scenario and Map model; access modes and input; canonical state; weapons, ballistics, physical effects, injury, and environment behavior | The Reference Personnel Recovery Scenario and its versioned approved content profiles |
@@ -115,21 +122,9 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 
 **PROCESS-TRACEABILITY-001** — Every architecture, design, implementation, and verification artifact registered in the Baseline Artifact Inventory MUST cite the stable identifiers it satisfies or intentionally defers; section names alone are not sufficient traceability.
 
-**PROCESS-TRACEABILITY-INVENTORY-001** — The Baseline Artifact Inventory MUST record a stable artifact identifier, artifact class, exact version, canonical location, baseline status, and responsible owner for every governed architecture, design, implementation, and verification artifact.
-
-**PROCESS-TRACEABILITY-INVENTORY-002** — Before a candidate baseline is approved, the implementation team MUST reconcile the Baseline Artifact Inventory against the complete current authoritative repositories or registries for all four artifact classes, and the project owner MUST approve the exact inventory version.
-
-**PROCESS-TRACEABILITY-INVENTORY-003** — Every registered artifact MUST have complete stable-identifier traces or an explicit non-applicability or intentional-deferral record; a missing artifact, missing trace, stale inventory entry, or unclassified artifact MUST block baseline approval.
-
-**PROCESS-SOFTWARE-DESIGN-BASELINE-001** — Each Software Design Baseline MUST identify one exact versioned package containing its control document and Design Commitment register, and that register MUST bind every included Software Design Document to its exact version.
-
 **PROCESS-SOFTWARE-DESIGN-COMMITMENT-001** — Every normative software-design obligation MUST have one stable `DC-*` key, one responsible owner, one principal `MUST` or `MUST NOT` obligation, separate rationale, and an objective verification approach.
 
 **PROCESS-SOFTWARE-DESIGN-STATE-001** — Every Design Commitment MUST record independent decision, baseline-applicability, realization, and evidence states, and no state MUST imply another.
-
-**PROCESS-SOFTWARE-DESIGN-TRACE-001** — Every Design Commitment MUST trace to exact governing requirement identifiers, Architecture Claims, Software Architecture Description views, its Software Design Document, responsible owner, and planned verification approach; a missing requirement MUST remain a visible gap resolved at the canonical requirement source rather than becoming an untraced derived requirement.
-
-**PROCESS-SOFTWARE-DESIGN-APPROVAL-001** — A Software Design Document MUST NOT be approved while an included internal design decision is open, an interface omits ownership, lifetime, ordering, blocking or failure semantics, a normative statement lacks objective verification, or two independent reviewers can derive materially different behavior from the same commitment; external realization and evidence blockers MAY remain explicit without implying implementation or verification.
 
 **PROCESS-ARCHITECTURE-CLAIM-001** — Every normative architecture claim MUST have one stable Architecture Claim key that remains unchanged while that claim's meaning remains unchanged and MUST remain distinct from requirement identifiers and verification-obligation keys.
 
@@ -144,10 +139,6 @@ Intended readers are the project owner, requirements reviewers, architects, desi
 **PROCESS-ARCHITECTURE-CONTRACT-001** — Every production, development, and test adapter for one architecture seam MUST satisfy the same Sacramento interface contract suite, and a test adapter or test control MUST NOT expose an implementation bypass to a product caller.
 
 **PROCESS-ARCHITECTURE-EXECUTABLE-001** — Executable-closure verification MUST run every applicable runtime on its native target platform using only its exact Application Release, declared immutable artifacts, and approved dependencies, and MUST reject a missing, unexpected, incompatible, or undeclared runtime dependency before claiming closure.
-
-**PROCESS-ARCHITECTURE-DESCRIPTION-001** — The Software Architecture Description MUST identify every view's purpose, scope, notation, stakeholders, prerequisites, authoritative inputs, Architecture Claim mappings, relationships to other views, owner, and update triggers while linking rather than duplicating canonical requirements and ADR content.
-
-**PROCESS-ARCHITECTURE-UPDATE-001** — A change to a governing requirement, ADR, Architecture Claim, module interface, inventory disposition, or evidence dependency MUST trigger review of every reachable Software Architecture Description view and retained architecture-verification result under `PROCESS-EVIDENCE-CHANGE-001` through `PROCESS-EVIDENCE-CHANGE-006`.
 
 ## Product boundary
 
@@ -441,7 +432,6 @@ Production Security Baseline applies.
 **REQ-AUTH-VALIDATION-DEPENDENCY-RETENTION-001** — Every non-secret package, catalogue, issuer, profile, rule, policy, integrity-reference validation input, and other dependency needed to interpret or validate a retained AUTH Audit Record or AUTH Audit Checkpoint MUST remain versioned and available until that record and checkpoint complete their approved expiry disposition.
 
 **REQ-AUTH-VALIDATION-PACKAGE-IMPACT-001** — Candidate-package admission MUST prove that replacement preserves every dependency required by retained records and checkpoints or supplies an approved exact successor mapping without changing their historical interpretation or validation result.
-
 
 **REQ-AUTH-REVALIDATION-001** — Identity-evidence validity, authorization, and Offline Revocation Status MUST be evaluated as conditions of initial admission and MUST NOT be re-evaluated as conditions for retaining that admission, entering `TraineeReady`, starting active simulation, or continuing active simulation.
 
@@ -793,11 +783,11 @@ Production Security Baseline applies.
 
 **REQ-ACCESS-BASELINE-SCOPE-002** — A `Future` or `Not Applicable` requirement MUST receive no `Pass` claim in that baseline; a `Future` requirement MUST become `Included` and mandatory when its named applicability milestone is submitted for approval.
 
-**REQ-ACCESS-BASELINE-SCOPE-003** — The implementation team MUST reconcile the Baseline Applicability Inventory against the complete current requirement-identifier registry, and the project owner MUST approve the exact inventory version and every `Not Applicable` justification before verification begins.
+**REQ-ACCESS-BASELINE-SCOPE-003** — The implementation team MUST reconcile baseline applicability against the complete current requirement-identifier registry, and the project owner MUST approve changes to scope dispositions and every `Not Applicable` justification before they are used for baseline acceptance. Mechanical source revisions and ordinary test executions MUST NOT require a separate inventory approval.
 
 **REQ-ACCESS-BASELINE-SCOPE-004** — Adding, removing, or changing a requirement identifier, dependency, classification, or named milestone MUST create a new Baseline Applicability Inventory version and trigger assignment and evidence impact analysis.
 
-**REQ-VR-BASELINE-SCOPE-001** — In the first Desktop Mode baseline, every requirement identifier reachable from the Virtual-Reality Mode or Mode Equivalence nodes in the current approved Evidence Dependency Inventory MUST be classified `Future` with the first Virtual-Reality Mode baseline as its named milestone.
+**REQ-VR-BASELINE-SCOPE-001** — In the first Desktop Mode baseline, every requirement whose acceptance depends on Virtual-Reality Mode or Mode Equivalence, including transitive dependencies, MUST be classified `Future` with the first Virtual-Reality Mode baseline as its named milestone. Applicability MUST be determined from canonical requirements and actual dependencies under `VERIFY-CHANGE-001`, without requiring an approved global dependency graph.
 
 **REQ-VR-BASELINE-SCOPE-002** — The first Virtual-Reality Mode baseline MUST classify every identifier in that complete dependency-derived set as `Included` and mandatory; no member of the set MAY remain omitted, `Future`, or `Not Applicable` at that milestone.
 
@@ -2104,22 +2094,6 @@ Production Security Baseline applies.
 **CONSTRAINT-DOCUMENTATION-001** — Each persistent document MUST have one stated purpose and one canonical owner for its information.
 
 **CONSTRAINT-DOCUMENTATION-002** — Documents MUST reference canonical terms, requirements, and decisions rather than duplicate them.
-
-**PROCESS-DOCUMENTATION-INVENTORY-001** — A versioned Documentation Inventory MUST enumerate every retained project document from the complete authoritative document repositories and classify it as `Persistent` or `Non-persistent`, Markdown or another format, generated or manually maintained, and canonical or non-canonical for each mapped information item.
-
-**PROCESS-DOCUMENTATION-INVENTORY-002** — The project owner MUST approve the exact reconciled Documentation Inventory version; a missing, stale, uncertain, multiply owned, or unclassified persistent document or canonical information item MUST block documentation acceptance.
-
-**PROCESS-DOCUMENTATION-INVENTORY-003** — The Documentation Inventory MUST assign every persistent document one control tier: `Controlled` for normative or canonical project information, `Routed` for operational navigation and agent instructions, `Reference` for non-canonical research, or `Generated` for reproducible views. Controlled Markdown MUST embed title, purpose, scope, intended readers, status, prerequisites, and exactly one canonical information owner. The inventory MAY hold fields for other tiers and formats when their compact form remains unambiguous. Every persistent document MUST map each normative information item to one canonical stable identifier and owning document.
-
-**PROCESS-DOCUMENTATION-INVENTORY-004** — A non-canonical document MAY quote canonical information only when the quotation is explicitly marked non-authoritative and links to the exact canonical stable identifier and document version; an unmarked restatement that can independently change normative meaning is prohibited duplication.
-
-**PROCESS-DOCUMENTATION-INVENTORY-005** — For every generated Markdown document, each second-level heading other than `Table of contents` is a principal section and MUST have exactly one working Table-of-Contents link; headings below second level MAY be included but are not required by this rule.
-
-**PROCESS-DOCUMENTATION-INVENTORY-006** — Adding, removing, renaming, reclassifying, or changing ownership of a document or canonical information item MUST create a new Documentation Inventory version and trigger documentation and evidence-impact analysis.
-
-**CONSTRAINT-DOCUMENTATION-TOC-001** — Every generated Markdown document MUST contain a Table of Contents with links to its principal sections.
-
-**CONSTRAINT-DOCUMENT-CONTROL-001** — Each document MUST expose its purpose, scope, intended readers, status, and prerequisites either in the document or in its exact Documentation Inventory row according to its control tier.
 
 Ambiguity review, verification responsibility, and acceptance are governed by the canonical [Training Simulation Verification Plan](training-simulation-verification-plan.md).
 

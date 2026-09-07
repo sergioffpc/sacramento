@@ -9,16 +9,7 @@ Purpose: Correct the Content Cooker classification and define its
 architecture-level offline job, identity, publication, and runtime-separation
 contracts.
 
-Scope: Content Cooker Tool input and output boundaries, authoring closure,
-Tool Release identity, failure containment, publication, and platform deferral.
-
-Intended readers: Architects, content-pipeline designers, implementers,
-verification authors, and release operators.
-
-Prerequisites: ADR-0013, ARCHSPEC-0004, ARCHSPEC-0007, ARCHSPEC-0009,
-ARCHSPEC-0012, and the approved functional-baseline correction.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Classification and boundary
 

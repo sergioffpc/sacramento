@@ -7,13 +7,7 @@ tool job, project owner, 2026-09-04
 
 Purpose: Record the runtime-content identity and activation decision.
 
-Scope: Cooking, signing, pairing, compatibility, activation, and process lifetime.
-
-Intended readers: Architects, content-pipeline designers, implementers, and security reviewers.
-
-Prerequisites: ADR-0003 through ADR-0006.
-
-Canonical information owner: Project owner.
+Owner: Project owner.
 
 ## Decision
 
