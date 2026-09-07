@@ -4,7 +4,7 @@ Status: Candidate; project-owner approval pending
 
 Inventory version: `EDI-007`
 
-Package SHA-256: `071a30be9e35896625046b2af80f39cdffe8bea555f5acf371baf7b7a4d822b0`
+Package SHA-256: `d50bb46b9ffbb2e46588a9532c110fca2d1a90a6e6090b61abf1cb87486172d4`
 
 Approved predecessor: `EDI-006@sha256:eb8ee482822dc5a1d1b930de0f53b191b75e20eb30bc16314b07ad2a34119358`, project owner, 2026-09-04
 
@@ -74,7 +74,7 @@ inventory.
 | Imported inventory | Exact identity |
 | --- | --- |
 | Baseline Applicability Inventory | Candidate `BAI-006`; project-owner approval pending |
-| Baseline Artifact Inventory | Candidate `BARTINV-009@sha256:c2afc4ba1342d34e204f8db094c0eeea9e7f24329e2b93a7c597f9862ede6b0e` |
+| Baseline Artifact Inventory | Candidate `BARTINV-009@sha256:35840f9e37cb854b74e75c98cf61cc92400956f8fdef5b954b331d42132d162c` |
 | Documentation Inventory | Candidate `DOCINV-012` repository tree |
 
 Repository discovery and graph traversal prove structural population and
@@ -147,7 +147,7 @@ renumbered.
 | `Architecture Claim` | `BARTINV-009` Architecture Claim trace register | Every `AC-*` row imported exactly once with its governing artifact mapping. |
 | `Software Architecture Description View` | ARCHSPEC-0010 view-set table and `SAD-003` | Every selected view registered under its surviving `EDI-VIEW-*` identity with the exact current SAD file version and section location. |
 | `Software Design Document` | `BARTINV-009` numbered files under `docs/design/` | Every `SDD-0001` through `SDD-0004` artifact imported exactly once with its exact hash. |
-| `Design Commitment` | Candidate `SDB-002-DC` | All 48 `DC-*` rows are imported exactly once; requirement, Architecture Claim, SAD view, and governing-SDD relations are derived from their exact traces. `DAC-*` entries remain SDD-local acceptance criteria rather than approved product-evidence Obligation Keys. |
+| `Design Commitment` | Candidate `SDB-002-DC` | All 57 `DC-*` rows are imported exactly once; requirement, Architecture Claim, SAD view, and governing-SDD relations are derived from their exact traces. `DAC-*` entries remain SDD-local acceptance criteria rather than approved product-evidence Obligation Keys. |
 | `Governed Artifact` | Remaining `BARTINV-009` rows | Every remaining architecture, design, and verification artifact imported exactly once. |
 
 A zero population is a closed current result, not permission to omit a newly
@@ -259,16 +259,16 @@ This successor preserves the approved `EDI-006` non-design node and relation
 population, imports candidate `BARTINV-009` and `DOCINV-012`, updates exact
 versions for the documentation-audit corrections, and imports candidate
 `SDB-002`. The design successor retains 26 predecessor Design Commitment keys,
-adds 22 proposed keys, and derives their exact requirement, Architecture Claim,
+adds 31 proposed keys, and derives their exact requirement, Architecture Claim,
 SAD-view, and SDD relations. No Scenario, Map, Content Item, Runtime Resource
 Type, Approved Profile, or approved obligation key is admitted.
 
-`BART-ARC-024`, `BART-DES-014` through `BART-DES-019`, all 48 candidate Design
+`BART-ARC-024`, `BART-DES-014` through `BART-DES-019`, all 57 candidate Design
 Commitments, all nine SAD views, the recursively affected inventory and
 validator artifacts, the fixed review input, and every predecessor-bound
 validation and review result are `Affected`. No accepted product or Architecture
 Claim evidence exists to retain as `Unaffected`. Every retained analysis bound
-to `EDI-006` requires re-evaluation; coverage validation, the two independent
+to `EDI-006` requires re-evaluation; coverage validation, the three independent
 SDB reviews, and exact-version project-owner approval remain pending.
 
 Candidate `EDI-007` traversal starts at `BART-ARC-004` through `BART-ARC-006`,

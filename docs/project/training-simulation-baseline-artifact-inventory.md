@@ -4,7 +4,7 @@ Status: Candidate; project-owner approval pending
 
 Inventory version: `BARTINV-009`
 
-Package SHA-256: `c2afc4ba1342d34e204f8db094c0eeea9e7f24329e2b93a7c597f9862ede6b0e`
+Package SHA-256: `35840f9e37cb854b74e75c98cf61cc92400956f8fdef5b954b331d42132d162c`
 
 Approved predecessor: `BARTINV-008@sha256:313ab54da9b421b3f1d8846e63b7914ccad95c1e0c1b47df4e6fa8205f54637e`, project owner, 2026-09-04
 
@@ -187,7 +187,7 @@ Candidate `BARTINV-009` reconciles 86 artifacts: 26 Architecture, 19 Design,
 18 Implementation, and 23 Verification. Every one of the 90 Architecture
 Claims resolves to its governing artifact and exact primary requirement
 identifiers. The six existing design-artifact identities now bind candidate
-`SDB-002`, its 48 proposed Design Commitments, exact codecs, acceptance
+`SDB-002`, its 57 proposed Design Commitments, exact codecs, acceptance
 criteria, visible risks, rationale, and inverse input traceability.
 
 The inventory records artifacts and trace relations; it does not claim product
